@@ -1,0 +1,127 @@
+a {
+	color:#383838;
+}
+.header_menu  > ul > li > a:hover, .header_menu  > ul > li.sfHover > a, .header_menu  > ul > li > a.active{
+    color:#383838;
+}
+.header_menu > ul > li:hover > ul > li > a:hover, .header_menu > ul > li:hover > ul > li > a.active {
+    color: #383838;
+}
+.infobox .link a:hover{
+    background: #383838;
+}
+.agent-block:hover .title{
+    color: #383838;
+}
+.button:hover{
+    background: #383838;
+}
+.button-with-plus:hover{
+    background-color: #383838;
+}
+.slider-button:hover{
+    background: #383838;
+}
+.button1:hover, .button1.location-bt:hover{
+    background-color: #383838;
+}
+.submit-form{
+	background-color: #383838;
+}
+.blog-post-title a:hover{
+    color: #383838;
+}
+.pager li a:hover, .pager li a.active{
+	background: #383838;
+}
+.reply-link{
+	color: #383838;
+}
+#filter option:hover{
+     background: #383838;
+}
+.submit-comment {
+    background: #383838;
+}
+.recent-comments-sidebar li a.comment-link:hover{
+    color: #383838;
+}
+.categories>li>a:hover{
+    color: #383838;
+}
+.categories>li>a:hover strong{
+    color: #383838;
+}
+.tags li a:hover{
+    background: #383838;
+}
+#blog-search-form input[type="submit"]:hover, #blog-subscribe-form input[type="submit"]:hover{
+    background-color: #383838;
+}
+.pricing-table .first-row{
+    color: #383838;
+}
+.pricing-table .first-row{
+    color: #383838;
+}
+.pricing-table .second-row strong{
+    color: #383838;
+}
+.pricing-table:hover .head{
+    background: #383838;
+}
+.pricing-table:hover .second-row{
+    border-color: #383838;
+}
+ul.tabs li a:hover, ul.tabs li a.active {
+	color:#383838;
+}
+ul.tabs li a:hover, ul.tabs li a.active {
+    color:#383838;
+}
+.toggle-title:hover{
+    color: #383838;
+}
+.settings-bt:hover{
+    background: #383838;
+}
+.custom-select li:hover{
+    background: #383838;
+}
+.custom-select span.custom-text:hover,
+.active span.custom-text{
+	background-color: #383838;
+}
+.select-list .selected,
+.select-list li:hover{
+    background: #383838;
+}
+.formError .formErrorContent {
+	background: #383838
+}
+.formError .formErrorContent {
+	border: 2px solid #383838;
+}
+.formError .formErrorArrow div {
+	border-left: 2px solid #383838;
+	border-right: 2px solid #383838;
+	background: #383838;
+}
+.formError .formErrorArrow .line3 {
+	border-left: 2px solid #383838;
+	border-right: 2px solid #383838;
+	border-bottom: 0 solid #383838;
+}
+.formError .formErrorArrow .line2 {
+	background: #383838;
+}
+
+.formError .formErrorArrow .line1 {
+	background: #383838;
+}
+.submit-form:hover {
+    background-color: #2F2F2F;
+}
+.header_menu > ul > li:hover > ul {
+    border-top: #383838 3px solid;
+}

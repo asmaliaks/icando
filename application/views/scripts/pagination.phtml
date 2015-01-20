@@ -1,0 +1,26 @@
+<?php
+//if(isset($this->previous)){
+//    echo '<a href="'.$this->url(array('page' => $this->first)).'">Начало</a> | ';
+//}else{
+//    echo 'Начало | ';
+//}
+//
+
+?>
+<ul class="pager top46">
+ <?php
+ foreach($this->pagesInRange as $page){
+    if($this->current != $page){
+       echo '<li><a href="'.$this->url(array('page' => $page)).'" >'.$page.'</a></li>';
+    }else{
+        echo '<li><a href="#" class="active">'.$page.'</a></li>';
+    }     
+ }
+if(isset($this->next)){
+    echo ' <li><a href="'.$this->url(array('page' => $this->last)).'" class="last-page" >Конец</a></li>';
+}else{
+    echo '<li><a href="#" class="last-page" >Конец</a></li>';
+}
+ ?>
+
+</ul>

@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Portfolio page</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/reset.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="css/style.css" type="text/css" media="screen">
+        <!-- REVOLUTION BANNER CSS SETTINGS -->
+        <link rel="stylesheet" type="text/css" href="css/responsive.css" media="screen" />
+        <link rel="stylesheet" href="css/prettyPhoto.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="css/selectik.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="css/touchTouch.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="css/skeleton.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="css/carousel.css" type="text/css" media="screen">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,600italic,700,700italic,400italic,800,800italic,300italic,300' rel='stylesheet' type='text/css'>         <link rel="stylesheet" title="color shemes" href="css/color_themes/f04f00.css" class="theme" id="theme" type="text/css" media="screen">
+
+        <!--[if lt IE 8]>
+            <div style=' clear: both; text-align:center; position: relative;'>
+                <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+                 <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." />
+                </a>
+            </div>
+        <![endif]-->
+
+        <!--[if lt IE 9]>
+            <script type="text/javascript" src="js/html5.js"></script>
+            <link rel="stylesheet" href="css/ie.css" type="text/css" media="screen">
+            <link href='http://fonts.googleapis.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+            <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic' rel='stylesheet' type='text/css'>
+            <link href='http://fonts.googleapis.com/css?family=Open+Sans:700' rel='stylesheet' type='text/css'>
+        <![endif]-->
+    </head>
+
+    <body id="portfolio">
+        <!--======================== Settins Panel ================================-->
+
+        <div class="settings-panel">
+            <div class="settings-panel-top">
+                Theme Settings
+            </div>
+            <div class="settings-panel-main">
+                <form id="settings-form" action="mail.php">
+                    <ul class="colors-list">
+                        <li data-color="#f04f00" class="active"><a href="#"></a></li>
+                        <li data-color="#169fe6"><a href="#"></a></li>
+                        <li data-color="#ffb709"><a href="#"></a></li>
+                        <li data-color="#bda77d"><a href="#"></a></li>
+                        <li data-color="#7ab300"><a href="#"></a></li>
+                        <li data-color="#445a80"><a href="#"></a></li>
+                        <li data-color="#f1a452"><a href="#"></a></li>
+                        <li data-color="#6854b3"><a href="#"></a></li>
+                        <li data-color="#ce2222"><a href="#"></a></li>
+                        <li data-color="#7ab4a7"><a href="#"></a></li>
+                        <li data-color="#7c5241"><a href="#"></a></li>
+                        <li data-color="#981b3c"><a href="#"></a></li>
+                        <li data-color="#767676"><a href="#"></a></li>
+                        <li data-color="#383838"><a href="#"></a></li>
+                        <li data-color="#acba0f"><a href="#"></a></li>
+                        <li class="clearfix"></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                    <div class="wrapper hidden">
+                        <input id="color" name="color" value="" type="text"/>
+                        <a href="#" class="settings-bt">Apply</a>
+                    </div>
+                    <div class="wrapper">
+                        Background Pattern:
+                    </div>
+                    <ul class="backgrounds-list">
+                        <li data-background="background1-parent.png" class="active"><a href="#"><img src="images/backgrounds/background1.gif" alt=""/></a></li>
+                        <li data-background="background2-parent.png"><a href="#"><img src="images/backgrounds/background2.gif" alt=""/></a></li>
+                        <li data-background="background3-parent.png"><a href="#"><img src="images/backgrounds/background3.gif" alt=""/></a></li>
+                        <li data-background="background4-parent.png"><a href="#"><img src="images/backgrounds/background4.gif" alt=""/></a></li>
+                        <li data-background="background5-parent.png"><a href="#"><img src="images/backgrounds/background5.gif" alt=""/></a></li>
+                        <li class="clearfix"></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                    <div>
+                        <label for="big_image">
+                            Background Image
+                        </label>
+                        <input type="checkbox" name="big_image" id="big_image" checked="checked"/>
+                    </div>
+                    <a href="#" class="settings-bt reset">Reset</a>
+
+                </form>
+            </div>
+        </div>
+        <!-- ======================================================================== -->
+        <div class="bg">
+            <div class="main">
+                <!--==============================header=================================-->
+                <header>
+                    <div class="container">
+                        <div class="three columns">
+                            <h1 class="logo">
+                                <a href="index.html">
+                                    <img src="images/logo.png" alt="logo-text" />
+                                    Shophouse
+                                </a>
+                            </h1>
+                        </div>
+                        <div class="nine columns">
+                            <nav class="header_menu">
+                                <ul class="sf-menu">
+                                    <li>
+                                        <a href="index.html">Home</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="index.html">Home with Revolution Slider</a></li>
+                                            <li><a href="home-1.html">Home with Image Grid</a></li>
+                                            <li><a href="home-2.html">Home with Map</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="about.html">About Us</a></li>
+                                    <li>
+                                        <a href="shortcodes.html">Pages</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="shortcodes.html">Elements</a></li>
+                                            <li><a href="layouts.html">Layouts</a></li>
+                                            <li><a href="typography.html">Typography</a></li>
+                                            <li><a href="details.html">House Description</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="blog.html">Blog</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="left-sidebar.html">Left Sidebar</a></li>
+                                            <li><a href="blog.html">Right Sidebar</a></li>
+                                            <li><a href="full-size-blog.html">Full Width Sidebar</a></li>
+                                            <li><a href="single-post.html">Single Post</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="portfolio.html" class="active">Portfolio</a></li>
+                                    <li><a href="contacts.html">Contacts</a></li>
+                                </ul>
+                                <select id="mobile_menu"></select>
+                            </nav>
+                        </div>
+                        <div class="four columns header-buttons-group">
+                            <a href="#" class="button-with-plus">join</a>
+                            <a href="#" class="button">log in</a>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </header>
+
+                <!--==============================content================================-->
+                <section id="content">
+                    <div class="page-splash">
+                        <div class="inner">
+                            <div class="container">
+                                <div class="sixteen columns">
+                                    <h2 class="title">
+                                        See Below Our Amazing Stuff.
+                                    </h2>
+                                    Sed ut perspiciatis, unde omnis iste natus error sit volup tatem accu santium dolore mque laudantium, totsa, quae to beatae vitae dicta sunt
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row-indent">
+                            <div class="portfolio-page-container">
+                                <div class="container">
+                                    <div class="sixteen columns marg-bott-cont">
+                                        <div class="portfolio-controls">
+                                            <select id="filter"  class="sort" data-option-key="filter">
+                                                <option value="*">All Properties</option>
+                                                <option value=".fashion">Fashion</option>
+                                                <option value=".photography">Photography</option>
+                                                <option value=".design">Design</option>
+                                            </select>
+                                            <div class="view-mode">
+                                                <a href="#" class="view-mode-grid active"></a>
+                                                <a href="#" class="view-mode-list"></a>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="portfolio-container">
+                                    <div class="container">
+                                        <div class="one-third column photography element" data-category="photography">
+                                            <div class="portfolio-item">
+                                                <a href="images/filter-portfolio/filter-img1.jpg" class="portfolio-link"><img src="images/filter-portfolio/filter-img1.jpg"  alt=""/><div class="hoverDir"><span></span></div></a>
+                                                <div class="inner">
+                                                    <div>123 Astasia Ave Coral, NY 10000</div>
+                                                    <div class="car-slide-title">4 Baths • 3 Beds • 3200 sqft</div>
+                                                    <div class="portfolio-item-description">
+                                                        Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+                                                    </div>
+                                                    <div class="car-slide-row">
+                                                        <span class="car-slide-price">$500,000</span>
+                                                        <a href="#" class="button1">More Details</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="one-third column design element" data-category="design">
+                                            <div class="portfolio-item">
+                                                <a href="images/filter-portfolio/filter-img2.jpg" class="portfolio-link"><img src="images/filter-portfolio/filter-img2.jpg"  alt=""/><div class="hoverDir"><span></span></div></a>
+                                                <div class="inner">
+                                                    <div>
+                                                        123 Astasia Ave Coral, NY 10000
+                                                    </div>
+                                                    <div class="car-slide-title">
+                                                        4 Baths • 3 Beds • 3200 sqft
+                                                    </div>
+                                                    <div class="portfolio-item-description">
+                                                        Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+                                                    </div>
+                                                    <div class="car-slide-row">
+                                                        <span class="car-slide-price">$500,000</span>
+                                                        <a href="#" class="button1">More Details</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="one-third column fashion element" data-category="fashion">
+                                            <div class="portfolio-item">
+                                                <a href="images/filter-portfolio/filter-img3.jpg" class="portfolio-link"><img src="images/filter-portfolio/filter-img3.jpg"  alt=""/><div class="hoverDir"><span></span></div></a>
+                                                <div class="inner">
+                                                    <div>
+                                                        123 Astasia Ave Coral, NY 10000
+                                                    </div>
+                                                    <div class="car-slide-title">
+                                                        4 Baths • 3 Beds • 3200 sqft
+                                                    </div>
+                                                    <div class="portfolio-item-description">
+                                                        Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+                                                    </div>
+                                                    <div class="car-slide-row">
+                                                        <span class="car-slide-price">$500,000</span>
+                                                        <a href="#" class="button1">More Details</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="one-third column design element" data-category="design">
+                                            <div class="portfolio-item">
+                                                <a href="images/filter-portfolio/filter-img4.jpg" class="portfolio-link"><img src="images/filter-portfolio/filter-img4.jpg"  alt=""/><div class="hoverDir"><span></span></div></a>
+                                                <div class="inner">
+                                                    <div>
+                                                        123 Astasia Ave Coral, NY 10000
+                                                    </div>
+                                                    <div class="car-slide-title">
+                                                        4 Baths • 3 Beds • 3200 sqft
+                                                    </div>
+                                                    <div class="portfolio-item-description">
+                                                        Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+                                                    </div>
+                                                    <div class="car-slide-row">
+                                                        <span class="car-slide-price">$250,000</span>
+                                                        <a href="#" class="button1">More Details</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="one-third column fashion element" data-category="fashion">
+                                            <div class="portfolio-item">
+                                                <a href="images/filter-portfolio/filter-img5.jpg" class="portfolio-link"><img src="images/filter-portfolio/filter-img5.jpg"  alt=""/><div class="hoverDir"><span></span></div></a>
+                                                <div class="inner">
+                                                    <div>
+                                                        123 Astasia Ave Coral, NY 10000
+                                                    </div>
+                                                    <div class="car-slide-title">
+                                                        4 Baths • 3 Beds • 3200 sqft
+                                                    </div>
+                                                    <div class="portfolio-item-description">
+                                                        Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+                                                    </div>
+                                                    <div class="car-slide-row">
+                                                        <span class="car-slide-price">$250,000</span>
+                                                        <a href="#" class="button1">More Details</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="one-third column design element" data-category="design">
+                                            <div class="portfolio-item">
+                                                <a href="images/filter-portfolio/filter-img6.jpg" class="portfolio-link"><img src="images/filter-portfolio/filter-img6.jpg"  alt=""/><div class="hoverDir"><span></span></div></a>
+                                                <div class="inner">
+                                                    <div>
+                                                        123 Astasia Ave Coral, NY 10000
+                                                    </div>
+                                                    <div class="car-slide-title">
+                                                        4 Baths • 3 Beds • 3200 sqft
+                                                    </div>
+                                                    <div class="portfolio-item-description">
+                                                        Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+                                                    </div>
+                                                    <div class="car-slide-row">
+                                                        <span class="car-slide-price">$250,000</span>
+                                                        <a href="#" class="button1">More Details</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="pager top46">
+                                <li><a href="#" class="active">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li class="ect">...</li>
+                                <li><a href="#">10</a></li>
+                                <li><a href="#">20</a></li>
+                                <li><a href="#" class="last-page">Last Page</a></li>
+                                <li class="page-count">Page 1 of 32</li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </section>
+                <!--==============================Aside=================================-->
+                <aside>
+                    <div class="container">
+                        <div class="four columns">
+                            <h2>Most Recent</h2>
+                            <ul class="recent-posts">
+                                <li>
+                                    <a href="#"><img src="images/recent-thumb-1.jpg" alt=""/></a>
+                                    <div>123 Astasia Ave Coral</div>
+                                    <div>4 Baths • 3 Beds</div>
+                                    <strong>$550,000</strong>
+                                </li>
+                                <li>
+                                    <a href="#"><img src="images/recent-thumb-2.jpg" alt=""/></a>
+                                    <div>123 Astasia Ave Coral</div>
+                                    <div>4 Baths • 3 Beds</div>
+                                    <strong>$550,000</strong>
+                                </li>
+                                <li>
+                                    <a href="#"><img src="images/recent-thumb-3.jpg" alt=""/></a>
+                                    <div>123 Astasia Ave Coral</div>
+                                    <div>4 Baths • 3 Beds</div>
+                                    <strong>$550,000</strong>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="four columns">
+                            <h2>Contact Us</h2>
+                            <ul class="address">
+                                <li class="addr">
+                                    192 Streetname, 
+                                    New York, NY 12212
+                                    United States
+                                </li>
+                                <li class="phone">
+                                    +38 123 567 890
+                                </li>
+                                <li class="mail">
+                                    office@shophouse.com
+                                </li>
+                                <li class="skype">
+                                    shophouse.skype
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="four columns">
+                            <h2>Useful Links</h2>
+                            <ul class="aside-link">
+                                <li><a href="#">About Us</a></li>
+                                <li><a href="#">Portfolio Page</a></li>
+                                <li><a href="#">404 Page</a></li>
+                                <li><a href="#">Contact Us</a></li>
+                                <li><a href="#">FAQ</a></li>
+                                <li><a href="#">Our Agents</a></li>
+                                <li><a href="#">Typography</a></li>
+                            </ul>
+                        </div>
+                        <div class="four columns">
+                            <h2>Contact Form</h2>
+                            <form id="aside-form" action="mail.php" method="post">
+                                <input type="text" name="name" placeholder="Name: *" id="name" class="validate[required,maxSize[30]]"/>
+                                <input type="text" name="email" placeholder="Email: *" id="email" class="validate[required,custom[email]]"/>
+                                <textarea name="message" placeholder="Message:" id="message" class="validate[length[6,3000]]"></textarea>                                 <div class="request">Your message has been sent</div>
+                                <a href="javascript:void(0)" onClick="send('#aside-form')" class="button1 submit-form">Submit Form</a>
+                                <script>
+                                    function send(form) {
+                                        var valid = jQuery(form).validationEngine('validate');
+                                        if(valid == true){
+                                            var options = {
+                                                clearForm:true,
+                                                success: function() {
+                                                    var req = $('.request');
+                                                    req.fadeIn();
+                                                    setTimeout(function(){req.fadeOut()}, 7000)
+                                                }};
+                                            jQuery('form#aside-form').ajaxSubmit(options);
+                                        }
+                                    }
+                                </script>
+                            </form>
+                        </div>
+                    </div>
+                </aside>
+                <!--==============================footer=================================-->
+                <footer>
+                    <div class="container">
+                        <div class="sixteen columns">
+                            <div class="fleft">
+                                &COPY; Copyright 2013 by Shmitass. All right reserved
+                            </div>
+                            <div class="fright">
+                                <ul class="social-links">
+                                    <li><a href="#" class="dribbble"></a></li>
+                                    <li><a href="#" class="facebook"></a></li>
+                                    <li><a href="#" class="twitter"></a></li>
+                                    <li><a href="#" class="rss"></a></li>
+                                    <li><a href="#" class="pinterest"></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </footer>
+
+            </div>
+        </div>
+        <script src="js/jquery-2.0.0.min.js"></script>
+        <script src="js/jquery-migrate-1.1.1.min.js"></script>
+        <script src="js/jquery.easing.1.3.js"></script>
+        <script type="text/javascript" src="js/raphael-min.js"></script>
+        <script type="text/javascript" src="js/jquery.validationEngine.js"></script>
+        <script type="text/javascript" src="js/jquery.validationEngine-en.js"></script>
+        <script type="text/javascript" src="js/jquery.form.js"></script>
+        <script type="text/javascript" src="js/jquery.hoverdir.js"></script>
+        <script type="text/javascript" src="js/jquery.selectik.js"></script>
+        <script src="js/jquery.isotope.min.js"></script>
+        <script src="js/touchTouch.jquery.js"></script>
+        <script src="http://twitterjs.googlecode.com/svn/trunk/src/twitter.min.js"></script>
+        <script src="js/jquery.carouFredSel-6.2.1.js"></script>
+        <script src="js/tabs.js"></script>
+        <script src="js/toggles.js"></script>
+        <script src="js/boxes.js"></script>
+        <script src="js/settings-panel.js"></script>
+        <script src="js/jquery.cookie.js"></script>
+        <script src="js/script.js"></script>
+        <script>
+            $(document).ready(function(){
+                "use strict";
+                $('.header_menu a').each(function(i){
+                    var link = $(this).attr('href');
+                    var text;
+                    if($(this).parents('ul.sub-menu').length!=0){
+                        text = '--'+$(this).text();
+                    } else {
+                        text = $(this).text();
+                    }
+                    if(window.location.href.indexOf(link)!=-1){
+                        $('#mobile_menu').append('<option value="'+link+'" selected="selected">'+text+'</option>');
+                    } else{
+                        $('#mobile_menu').append('<option value="'+link+'">'+text+'</option>'); 
+                    }
+                });
+                $('#mobile_menu').live('change', function(){
+                    if($(this).val()!=''){
+                        window.location = $(this).val();
+                    }
+                });
+                $(' .portfolio-link ').each( function() { 
+                    $(this).hoverdir({
+                        hoverDelay : 75
+                    });
+                });
+                
+                $('.slide-container>a, .portfolio-link').touchTouch();
+                if(navigator.platform.indexOf("iPhone") != -1 || navigator.platform.indexOf("iPad") != -1 || navigator.platform.indexOf("iPod") != -1){
+                    jQuery('#filter').addClass('iphone_select');
+                }
+                $('#filter').selectik({maxItems: 8},
+                {
+                    _generateHtml: function(){
+                        this.$collection = this.$cselect.children();
+                        var html = '';
+                        for (var i = 0; i < this.$collection.length; i++){
+                            var $this = $(this.$collection[i]);
+                            var textOption = $this[0].text;
+                            var valueOption = $this[0].value;
+                            html += '<li class="'+ ($this.attr('disabled') === 'disabled' ? 'disabled' : '') +' new" data-value="'+valueOption+'">'+textOption+'</li>';
+                        };
+                        return html;
+                    }
+                }
+            ); 
+            
+                $('.view-mode a').click(function(e){
+                    e.preventDefault();
+                    $('.view-mode a').removeClass('active');
+                    $(this).addClass('active');
+                    if($(this).hasClass('view-mode-list')){
+                        console.log('add');
+                        $('.portfolio-container .column').addClass('list-view');
+                    } else {
+                        console.log('remove');
+                        $('.portfolio-container .column').removeClass('list-view');
+                    }
+                    $('.portfolio-container').isotope( 'reLayout');
+
+                });
+            });
+            $(window).load(function(){
+                setTimeout(showPageSplash, 500);
+                "use strict";
+                $('#twitter-widget>ul').carouFredSel({
+                    responsive: true,
+                    width: '100%',
+                    auto: true,
+                    next:'#next-twitt',
+                    prev:'#prev-twitt',
+                    scroll: 1,
+                    items: {
+                        width: 786,
+                        //	height: '30%',	//	optionally resize item-height
+                        visible: {
+                            min: 1,
+                            max: 10
+                        }
+                    }
+                });
+                
+                $(function(){
+                    var $container = $('.portfolio-container');
+                    $container.isotope({itemSelector : '.element'});
+                    var $optionSets = $('#filter'),$optionLinks = $optionSets.find('option');
+                    $optionSets.change(function(){
+                        var $this = $(this).find('option:selected');
+                        
+                        //don't proceed if already selected
+                        
+                        var $optionSet = $this.parents('#filter');
+                        $optionSet.find('option[selected="selected"]').removeAttr('selected');
+                        $this.attr('selected','selected');
+                        // make option object dynamically, i.e. { filter: '.my-filter-class' }
+                        var options = {},
+                        key = $optionSet.attr('data-option-key'),
+                        value = $this.val();
+                        console.log(value);
+                        // parse 'false' as false boolean
+                        value = value === 'false' ? false : value;
+                        options[ key ] = value;
+                        if ( key === 'layoutMode' && typeof changeLayoutMode === 'function' ) {
+                            // changes in layout modes need extra logic
+                            changeLayoutMode( $this, options );
+                        } else {
+                            // otherwise, apply new options
+                            $container.isotope( options );
+                        }
+                        return false;
+                    });
+                });
+            });
+            
+            function showPageSplash(){
+                $('.page-splash').stop().animate({'height':'436px'},1500, 'easeOutBounce', portfolioUp);
+            }
+            function portfolioUp(){
+                $('.portfolio-page-container').addClass('portfolio-page-up');
+            }
+        </script>
+    </body>
+
+</html>

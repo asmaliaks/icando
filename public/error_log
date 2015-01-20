@@ -1,0 +1,104 @@
+[08-Aug-2013 23:13:02 Europe/Minsk] PHP Fatal error:  Uncaught exception 'Zend_Db_Adapter_Mysqli_Exception' with message 'Access denied for user 'root'@'localhost' (using password: YES)' in /home/creoofby/public_html/viktor/library/Zend/Db/Adapter/Mysqli.php:340
+Stack trace:
+#0 /home/creoofby/public_html/viktor/library/Zend/Db/Adapter/Abstract.php(316): Zend_Db_Adapter_Mysqli->_connect()
+#1 /home/creoofby/public_html/viktor/library/Zend/Db/Adapter/Mysqli.php(194): Zend_Db_Adapter_Abstract->getConnection()
+#2 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Abstract.php(836): Zend_Db_Adapter_Mysqli->describeTable('categories', NULL)
+#3 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Abstract.php(875): Zend_Db_Table_Abstract->_setupMetadata()
+#4 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Abstract.php(983): Zend_Db_Table_Abstract->_setupPrimaryKey()
+#5 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Select.php(100): Zend_Db_Table_Abstract->info()
+#6 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Select.php(78): Zend_Db_T in /home/creoofby/public_html/viktor/library/Zend/Controller/Plugin/Broker.php on line 312
+[08-Aug-2013 23:13:05 Europe/Minsk] PHP Fatal error:  Uncaught exception 'Zend_Db_Adapter_Mysqli_Exception' with message 'Access denied for user 'root'@'localhost' (using password: YES)' in /home/creoofby/public_html/viktor/library/Zend/Db/Adapter/Mysqli.php:340
+Stack trace:
+#0 /home/creoofby/public_html/viktor/library/Zend/Db/Adapter/Abstract.php(316): Zend_Db_Adapter_Mysqli->_connect()
+#1 /home/creoofby/public_html/viktor/library/Zend/Db/Adapter/Mysqli.php(194): Zend_Db_Adapter_Abstract->getConnection()
+#2 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Abstract.php(836): Zend_Db_Adapter_Mysqli->describeTable('categories', NULL)
+#3 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Abstract.php(875): Zend_Db_Table_Abstract->_setupMetadata()
+#4 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Abstract.php(983): Zend_Db_Table_Abstract->_setupPrimaryKey()
+#5 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Select.php(100): Zend_Db_Table_Abstract->info()
+#6 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Select.php(78): Zend_Db_T in /home/creoofby/public_html/viktor/library/Zend/Controller/Plugin/Broker.php on line 312
+[09-Aug-2013 11:21:23 Europe/Minsk] PHP Fatal error:  Uncaught exception 'Zend_Db_Adapter_Mysqli_Exception' with message 'Can't connect to MySQL server on 'vh60.hoster.by' (111)' in /home/creoofby/public_html/viktor/library/Zend/Db/Adapter/Mysqli.php:340
+Stack trace:
+#0 /home/creoofby/public_html/viktor/library/Zend/Db/Adapter/Abstract.php(316): Zend_Db_Adapter_Mysqli->_connect()
+#1 /home/creoofby/public_html/viktor/library/Zend/Db/Adapter/Mysqli.php(194): Zend_Db_Adapter_Abstract->getConnection()
+#2 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Abstract.php(836): Zend_Db_Adapter_Mysqli->describeTable('categories', NULL)
+#3 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Abstract.php(875): Zend_Db_Table_Abstract->_setupMetadata()
+#4 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Abstract.php(983): Zend_Db_Table_Abstract->_setupPrimaryKey()
+#5 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Select.php(100): Zend_Db_Table_Abstract->info()
+#6 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Select.php(78): Zend_Db_Table_Sel in /home/creoofby/public_html/viktor/library/Zend/Controller/Plugin/Broker.php on line 312
+[09-Aug-2013 11:23:00 Europe/Minsk] PHP Warning:  include_once(Zend/Db/Adapter/Mysql.php) [<a href='function.include-once'>function.include-once</a>]: failed to open stream: No such file or directory in /home/creoofby/public_html/viktor/library/Zend/Loader.php on line 134
+[09-Aug-2013 11:23:00 Europe/Minsk] PHP Warning:  include_once() [<a href='function.include'>function.include</a>]: Failed opening 'Zend/Db/Adapter/Mysql.php' for inclusion (include_path='/home/creoofby/public_html/viktor/application/../library:/home/creoofby/public_html/viktor/library:.:/usr/lib/php:/usr/local/lib/php') in /home/creoofby/public_html/viktor/library/Zend/Loader.php on line 134
+[09-Aug-2013 11:23:00 Europe/Minsk] PHP Warning:  include_once(Zend/Db/Adapter/Mysql.php) [<a href='function.include-once'>function.include-once</a>]: failed to open stream: No such file or directory in /home/creoofby/public_html/viktor/library/Zend/Loader.php on line 134
+[09-Aug-2013 11:23:00 Europe/Minsk] PHP Warning:  include_once() [<a href='function.include'>function.include</a>]: Failed opening 'Zend/Db/Adapter/Mysql.php' for inclusion (include_path='/home/creoofby/public_html/viktor/application/../library:/home/creoofby/public_html/viktor/library:.:/usr/lib/php:/usr/local/lib/php') in /home/creoofby/public_html/viktor/library/Zend/Loader.php on line 134
+[09-Aug-2013 11:23:00 Europe/Minsk] PHP Fatal error:  Uncaught exception 'Zend_Exception' with message 'File "Zend/Db/Adapter/Mysql.php" does not exist or class "Zend_Db_Adapter_Mysql" was not found in the file' in /home/creoofby/public_html/viktor/library/Zend/Loader.php:87
+Stack trace:
+#0 /home/creoofby/public_html/viktor/library/Zend/Db.php(263): Zend_Loader::loadClass('Zend_Db_Adapter...')
+#1 /home/creoofby/public_html/viktor/library/Zend/Application/Resource/Db.php(142): Zend_Db::factory('mysql', Array)
+#2 /home/creoofby/public_html/viktor/library/Zend/Application/Resource/Db.php(160): Zend_Application_Resource_Db->getDbAdapter()
+#3 /home/creoofby/public_html/viktor/library/Zend/Application/Bootstrap/BootstrapAbstract.php(683): Zend_Application_Resource_Db->init()
+#4 /home/creoofby/public_html/viktor/library/Zend/Application/Bootstrap/BootstrapAbstract.php(626): Zend_Application_Bootstrap_BootstrapAbstract->_executeResource('db')
+#5 /home/creoofby/public_html/viktor/library/Zend/Application/Bootstrap/BootstrapAbstract.php(586): Zend_Application_Bootstrap_Bo in /home/creoofby/public_html/viktor/library/Zend/Loader.php on line 87
+[09-Aug-2013 11:23:34 Europe/Minsk] PHP Fatal error:  Uncaught exception 'Zend_Db_Adapter_Mysqli_Exception' with message 'Can't connect to MySQL server on 'vh60.hoster.by' (111)' in /home/creoofby/public_html/viktor/library/Zend/Db/Adapter/Mysqli.php:340
+Stack trace:
+#0 /home/creoofby/public_html/viktor/library/Zend/Db/Adapter/Abstract.php(316): Zend_Db_Adapter_Mysqli->_connect()
+#1 /home/creoofby/public_html/viktor/library/Zend/Db/Adapter/Mysqli.php(194): Zend_Db_Adapter_Abstract->getConnection()
+#2 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Abstract.php(836): Zend_Db_Adapter_Mysqli->describeTable('categories', NULL)
+#3 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Abstract.php(875): Zend_Db_Table_Abstract->_setupMetadata()
+#4 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Abstract.php(983): Zend_Db_Table_Abstract->_setupPrimaryKey()
+#5 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Select.php(100): Zend_Db_Table_Abstract->info()
+#6 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Select.php(78): Zend_Db_Table_Sel in /home/creoofby/public_html/viktor/library/Zend/Controller/Plugin/Broker.php on line 312
+[09-Aug-2013 11:24:39 Europe/Minsk] PHP Fatal error:  Uncaught exception 'Zend_Db_Adapter_Mysqli_Exception' with message 'Can't connect to MySQL server on 'creo.of.by' (111)' in /home/creoofby/public_html/viktor/library/Zend/Db/Adapter/Mysqli.php:340
+Stack trace:
+#0 /home/creoofby/public_html/viktor/library/Zend/Db/Adapter/Abstract.php(316): Zend_Db_Adapter_Mysqli->_connect()
+#1 /home/creoofby/public_html/viktor/library/Zend/Db/Adapter/Mysqli.php(194): Zend_Db_Adapter_Abstract->getConnection()
+#2 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Abstract.php(836): Zend_Db_Adapter_Mysqli->describeTable('categories', NULL)
+#3 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Abstract.php(875): Zend_Db_Table_Abstract->_setupMetadata()
+#4 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Abstract.php(983): Zend_Db_Table_Abstract->_setupPrimaryKey()
+#5 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Select.php(100): Zend_Db_Table_Abstract->info()
+#6 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Select.php(78): Zend_Db_Table_Select- in /home/creoofby/public_html/viktor/library/Zend/Controller/Plugin/Broker.php on line 312
+[09-Aug-2013 11:24:42 Europe/Minsk] PHP Fatal error:  Uncaught exception 'Zend_Db_Adapter_Mysqli_Exception' with message 'Can't connect to MySQL server on 'creo.of.by' (111)' in /home/creoofby/public_html/viktor/library/Zend/Db/Adapter/Mysqli.php:340
+Stack trace:
+#0 /home/creoofby/public_html/viktor/library/Zend/Db/Adapter/Abstract.php(316): Zend_Db_Adapter_Mysqli->_connect()
+#1 /home/creoofby/public_html/viktor/library/Zend/Db/Adapter/Mysqli.php(194): Zend_Db_Adapter_Abstract->getConnection()
+#2 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Abstract.php(836): Zend_Db_Adapter_Mysqli->describeTable('categories', NULL)
+#3 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Abstract.php(875): Zend_Db_Table_Abstract->_setupMetadata()
+#4 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Abstract.php(983): Zend_Db_Table_Abstract->_setupPrimaryKey()
+#5 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Select.php(100): Zend_Db_Table_Abstract->info()
+#6 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Select.php(78): Zend_Db_Table_Select- in /home/creoofby/public_html/viktor/library/Zend/Controller/Plugin/Broker.php on line 312
+[09-Aug-2013 11:26:11 Europe/Minsk] PHP Fatal error:  Uncaught exception 'Zend_Config_Exception' with message 'parse_ini_file(/home/creoofby/public_html/viktor/application/configs/application.ini) [<a href='function.parse-ini-file'>function.parse-ini-file</a>]: failed to open stream: No such file or directory' in /home/creoofby/public_html/viktor/library/Zend/Config/Ini.php:182
+Stack trace:
+#0 /home/creoofby/public_html/viktor/library/Zend/Config/Ini.php(202): Zend_Config_Ini->_parseIniFile('/home/creoofby/...')
+#1 /home/creoofby/public_html/viktor/library/Zend/Config/Ini.php(126): Zend_Config_Ini->_loadIniFile('/home/creoofby/...')
+#2 /home/creoofby/public_html/viktor/library/Zend/Application.php(386): Zend_Config_Ini->__construct('/home/creoofby/...', 'production')
+#3 /home/creoofby/public_html/viktor/library/Zend/Application.php(85): Zend_Application->_loadConfig('/home/creoofby/...')
+#4 /home/creoofby/public_html/viktor/public/index.php(24): Zend_Application->__construct('production', '/home/creoofby/...')
+#5 {main}
+  thrown in /home/creoofby/public_html/viktor/library/Zend/Config/Ini.php on line 182
+[09-Aug-2013 11:44:36 Europe/Minsk] PHP Fatal error:  Uncaught exception 'Zend_Db_Adapter_Mysqli_Exception' with message 'Can't connect to MySQL server on 'vh60.hoster.by' (111)' in /home/creoofby/public_html/viktor/library/Zend/Db/Adapter/Mysqli.php:340
+Stack trace:
+#0 /home/creoofby/public_html/viktor/library/Zend/Db/Adapter/Abstract.php(316): Zend_Db_Adapter_Mysqli->_connect()
+#1 /home/creoofby/public_html/viktor/library/Zend/Db/Adapter/Mysqli.php(194): Zend_Db_Adapter_Abstract->getConnection()
+#2 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Abstract.php(836): Zend_Db_Adapter_Mysqli->describeTable('categories', NULL)
+#3 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Abstract.php(875): Zend_Db_Table_Abstract->_setupMetadata()
+#4 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Abstract.php(983): Zend_Db_Table_Abstract->_setupPrimaryKey()
+#5 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Select.php(100): Zend_Db_Table_Abstract->info()
+#6 /home/creoofby/public_html/viktor/library/Zend/Db/Table/Select.php(78): Zend_Db_Table_Sel in /home/creoofby/public_html/viktor/library/Zend/Controller/Plugin/Broker.php on line 312
+[09-Aug-2013 12:09:54 Europe/Minsk] PHP Warning:  imageftbbox() [<a href='function.imageftbbox'>function.imageftbbox</a>]: Could not find/open font in /home/creoofby/public_html/viktor/library/Zend/Captcha/Image.php on line 489
+[09-Aug-2013 12:09:54 Europe/Minsk] PHP Warning:  imagefttext() [<a href='function.imagefttext'>function.imagefttext</a>]: Could not find/open font in /home/creoofby/public_html/viktor/library/Zend/Captcha/Image.php on line 492
+[09-Aug-2013 14:57:42 Europe/Minsk] PHP Warning:  imageftbbox() [<a href='function.imageftbbox'>function.imageftbbox</a>]: Could not find/open font in /home/creoofby/public_html/viktor/library/Zend/Captcha/Image.php on line 489
+[09-Aug-2013 14:57:42 Europe/Minsk] PHP Warning:  imagefttext() [<a href='function.imagefttext'>function.imagefttext</a>]: Could not find/open font in /home/creoofby/public_html/viktor/library/Zend/Captcha/Image.php on line 492
+[09-Aug-2013 15:07:24 Europe/Minsk] PHP Warning:  imageftbbox() [<a href='function.imageftbbox'>function.imageftbbox</a>]: Could not find/open font in /home/creoofby/public_html/viktor/library/Zend/Captcha/Image.php on line 489
+[09-Aug-2013 15:07:24 Europe/Minsk] PHP Warning:  imagefttext() [<a href='function.imagefttext'>function.imagefttext</a>]: Could not find/open font in /home/creoofby/public_html/viktor/library/Zend/Captcha/Image.php on line 492
+[09-Aug-2013 15:08:34 Europe/Minsk] PHP Warning:  imageftbbox() [<a href='function.imageftbbox'>function.imageftbbox</a>]: Could not find/open font in /home/creoofby/public_html/viktor/library/Zend/Captcha/Image.php on line 489
+[09-Aug-2013 15:08:34 Europe/Minsk] PHP Warning:  imagefttext() [<a href='function.imagefttext'>function.imagefttext</a>]: Could not find/open font in /home/creoofby/public_html/viktor/library/Zend/Captcha/Image.php on line 492
+[09-Aug-2013 15:48:57 Europe/Minsk] PHP Warning:  Missing argument 1 for Zend_Form_Element_File::setDestination(), called in /home/creoofby/public_html/viktor/application/forms/GalleryForm.php on line 16 and defined in /home/creoofby/public_html/viktor/library/Zend/Form/Element/File.php on line 504
+[09-Aug-2013 19:52:17 Europe/Minsk] PHP Warning:  Missing argument 7 for Model_DbTable_Service::editService(), called in /home/creoofby/public_html/viktor/application/controllers/ServiceController.php on line 62 and defined in /home/creoofby/public_html/viktor/application/models/DbTable/Service.php on line 6
+[09-Aug-2013 19:56:43 Europe/Minsk] PHP Warning:  imageftbbox() [<a href='function.imageftbbox'>function.imageftbbox</a>]: Could not find/open font in /home/creoofby/public_html/viktor/library/Zend/Captcha/Image.php on line 489
+[09-Aug-2013 19:56:43 Europe/Minsk] PHP Warning:  imagefttext() [<a href='function.imagefttext'>function.imagefttext</a>]: Could not find/open font in /home/creoofby/public_html/viktor/library/Zend/Captcha/Image.php on line 492
+[10-Aug-2013 11:31:08 Europe/Minsk] PHP Warning:  imageftbbox() [<a href='function.imageftbbox'>function.imageftbbox</a>]: Could not find/open font in /home/creoofby/public_html/library/Zend/Captcha/Image.php on line 489
+[10-Aug-2013 11:31:08 Europe/Minsk] PHP Warning:  imagefttext() [<a href='function.imagefttext'>function.imagefttext</a>]: Could not find/open font in /home/creoofby/public_html/library/Zend/Captcha/Image.php on line 492
+[10-Aug-2013 11:42:55 Europe/Minsk] PHP Warning:  imageftbbox() [<a href='function.imageftbbox'>function.imageftbbox</a>]: Could not find/open font in /home/creoofby/public_html/library/Zend/Captcha/Image.php on line 489
+[10-Aug-2013 11:42:55 Europe/Minsk] PHP Warning:  imagefttext() [<a href='function.imagefttext'>function.imagefttext</a>]: Could not find/open font in /home/creoofby/public_html/library/Zend/Captcha/Image.php on line 492
+[10-Aug-2013 11:42:59 Europe/Minsk] PHP Warning:  imageftbbox() [<a href='function.imageftbbox'>function.imageftbbox</a>]: Could not find/open font in /home/creoofby/public_html/library/Zend/Captcha/Image.php on line 489
+[10-Aug-2013 11:42:59 Europe/Minsk] PHP Warning:  imagefttext() [<a href='function.imagefttext'>function.imagefttext</a>]: Could not find/open font in /home/creoofby/public_html/library/Zend/Captcha/Image.php on line 492
+[12-Aug-2013 22:04:30 Europe/Minsk] PHP Fatal error:  Call to undefined function setAttrib() in /home/creoofby/public_html/application/forms/FeedbackForm.php on line 20
+[12-Aug-2013 22:04:46 Europe/Minsk] PHP Fatal error:  Call to undefined function setAttribs() in /home/creoofby/public_html/application/forms/FeedbackForm.php on line 20

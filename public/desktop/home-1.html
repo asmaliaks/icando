@@ -1,0 +1,565 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Home page with grid slider</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/reset.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="css/style.css" type="text/css" media="screen">
+        <!-- REVOLUTION BANNER CSS SETTINGS -->
+        <link rel="stylesheet" type="text/css" href="css/responsive.css" media="screen" />
+        <link rel="stylesheet" href="css/prettyPhoto.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="css/touchTouch.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="css/skeleton.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="css/carousel.css" type="text/css" media="screen">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,600italic,700,700italic,400italic,800,800italic,300italic,300' rel='stylesheet' type='text/css'>         <link rel="stylesheet" title="color shemes" href="css/color_themes/f04f00.css" class="theme" id="theme" type="text/css" media="screen">
+
+        <!--[if lt IE 8]>
+            <div style=' clear: both; text-align:center; position: relative;'>
+                <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+                 <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." />
+                </a>
+            </div>
+        <![endif]-->
+
+        <!--[if lt IE 9]>
+            <script type="text/javascript" src="js/html5.js"></script>
+            <link rel="stylesheet" href="css/ie.css" type="text/css" media="screen">
+            <link href='http://fonts.googleapis.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+            <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic' rel='stylesheet' type='text/css'>
+            <link href='http://fonts.googleapis.com/css?family=Open+Sans:700' rel='stylesheet' type='text/css'>
+        <![endif]-->
+    </head>
+
+    <body id="home-1">
+        <!--======================== Settins Panel ================================-->
+
+        <div class="settings-panel">
+            <div class="settings-panel-top">
+                Theme Settings
+            </div>
+            <div class="settings-panel-main">
+                <form id="settings-form" action="mail.php">
+                    <ul class="colors-list">
+                        <li data-color="#f04f00" class="active"><a href="#"></a></li>
+                        <li data-color="#169fe6"><a href="#"></a></li>
+                        <li data-color="#ffb709"><a href="#"></a></li>
+                        <li data-color="#bda77d"><a href="#"></a></li>
+                        <li data-color="#7ab300"><a href="#"></a></li>
+                        <li data-color="#445a80"><a href="#"></a></li>
+                        <li data-color="#f1a452"><a href="#"></a></li>
+                        <li data-color="#6854b3"><a href="#"></a></li>
+                        <li data-color="#ce2222"><a href="#"></a></li>
+                        <li data-color="#7ab4a7"><a href="#"></a></li>
+                        <li data-color="#7c5241"><a href="#"></a></li>
+                        <li data-color="#981b3c"><a href="#"></a></li>
+                        <li data-color="#767676"><a href="#"></a></li>
+                        <li data-color="#383838"><a href="#"></a></li>
+                        <li data-color="#acba0f"><a href="#"></a></li>
+                        <li class="clearfix"></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                    <div class="wrapper hidden">
+                        <input id="color" name="color" value="" type="text"/>
+                        <a href="#" class="settings-bt">Apply</a>
+                    </div>
+                    <div class="wrapper">
+                        Background Pattern:
+                    </div>
+                    <ul class="backgrounds-list">
+                        <li data-background="background1-parent.png" class="active"><a href="#"><img src="images/backgrounds/background1.gif" alt=""/></a></li>
+                        <li data-background="background2-parent.png"><a href="#"><img src="images/backgrounds/background2.gif" alt=""/></a></li>
+                        <li data-background="background3-parent.png"><a href="#"><img src="images/backgrounds/background3.gif" alt=""/></a></li>
+                        <li data-background="background4-parent.png"><a href="#"><img src="images/backgrounds/background4.gif" alt=""/></a></li>
+                        <li data-background="background5-parent.png"><a href="#"><img src="images/backgrounds/background5.gif" alt=""/></a></li>
+                        <li class="clearfix"></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                    <div>
+                        <label for="big_image">
+                            Background Image
+                        </label>
+                        <input type="checkbox" name="big_image" id="big_image" checked="checked"/>
+                    </div>
+                    <a href="#" class="settings-bt reset">Reset</a>
+
+                </form>
+            </div>
+        </div>
+        <!-- ======================================================================== -->
+        <div class="bg">
+            <div class="main">
+                <!--==============================header=================================-->
+                <header>
+                    <div class="container">
+                        <div class="three columns">
+                            <h1 class="logo">
+                                <a href="index.html">
+                                    <img src="images/logo.png" alt="logo-text" />
+                                    Shophouse
+                                </a>
+                            </h1>
+                        </div>
+                        <div class="nine columns">
+                            <nav class="header_menu">
+                                <ul class="sf-menu">
+                                    <li>
+                                        <a href="index.html" class="active">Home</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="index.html">Home with Revolution Slider</a></li>
+                                            <li><a href="home-1.html" class="active">Home with Image Grid</a></li>
+                                            <li><a href="home-2.html">Home with Map</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="about.html">About Us</a></li>
+                                    <li>
+                                        <a href="shortcodes.html">Pages</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="shortcodes.html">Elements</a></li>
+                                            <li><a href="layouts.html">Layouts</a></li>
+                                            <li><a href="typography.html">Typography</a></li>
+                                            <li><a href="details.html">House Description</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="blog.html">Blog</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="left-sidebar.html">Left Sidebar</a></li>
+                                            <li><a href="blog.html">Right Sidebar</a></li>
+                                            <li><a href="full-size-blog.html">Full Width Sidebar</a></li>
+                                            <li><a href="single-post.html">Single Post</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="portfolio.html">Portfolio</a></li>
+                                    <li><a href="contacts.html">Contacts</a></li>
+                                </ul>
+                                <select id="mobile_menu"></select>
+                            </nav>
+                        </div>
+                        <div class="four columns header-buttons-group">
+                            <a href="#" class="button-with-plus">join</a>
+                            <a href="#" class="button">log in</a>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </header>
+
+                <!--==============================content================================-->
+                <section id="content">
+                    <div id="ri-grid" class="ri-grid ri-grid-size-1 ri-shadow">
+                        <img class="ri-loading-image" src="images/loading.gif" alt=""/>
+                        <ul>
+                            <li><a href="#"><img src="images/gridslider/1.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/2.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/3.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/4.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/5.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/6.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/7.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/8.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/9.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/10.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/11.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/12.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/13.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/14.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/15.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/16.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/17.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/18.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/19.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/20.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/21.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/22.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/23.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/24.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/25.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/26.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/27.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/28.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/29.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/30.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/31.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/32.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/33.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/34.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/35.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/36.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/37.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/38.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/39.jpg" alt=""/></a></li>
+                            <li><a href="#"><img src="images/gridslider/40.jpg" alt=""/></a></li>
+                        </ul>
+                    </div>
+                    <div class="container">
+                        <div class="sixteen columns top43">
+                            <h2 class="big-title">shophouse modern &amp; clean theme</h2>
+                            <h3 class="small-title">Lorem ipsum dolns ec tetu or sit amet, consec tetuer adipis cing elpis cing</h3>
+                            <div class="aligncenter top43">
+                                <a href="#" class="button1 buy-bt">
+                                    buy the theme
+                                </a>
+                                <a href="#" class="button1">
+                                    check the features
+                                </a>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="one-third column">
+                            <div class="agent-block  first-agent-block">
+                                <div class="agent-icon agent-icon1"></div>
+                                <h2 class="title">
+                                    Choose Agent
+                                </h2>
+                                <div class="agent-descr">
+                                    Lorem ipsum dolor sit amet, consec tetuer adipis cing elpis cing eld
+                                </div>
+                                <a href="#" class="button1">More Details</a>
+                            </div>
+                        </div>
+                        <div class="one-third column">
+                            <div class="agent-block">
+                                <div class="agent-icon agent-icon2"></div>
+                                <h2 class="title">
+                                    Choose Agent
+                                </h2>
+                                <div class="agent-descr">
+                                    Lorem ipsum dolor sit amet, consec tetuer adipis cing elpis cing eld
+                                </div>
+                                <a href="#" class="button1">More Details</a>
+                            </div>
+                        </div>
+                        <div class="one-third column">
+                            <div class="agent-block">
+                                <div class="agent-icon agent-icon3"></div>
+                                <h2 class="title">
+                                    Choose Agent
+                                </h2>
+                                <div class="agent-descr">
+                                    Lorem ipsum dolor sit amet, consec tetuer adipis cing elpis cing eld
+                                </div>
+                                <a href="#" class="button1">More Details</a>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="eight columns">
+                            <a href="images/home2-img1.jpg" class="img-container img-width-hover popup-img">
+                                <img src="images/home2-img1.jpg" alt=""/>
+                                <div class="hoverDir"><span></span></div>
+                            </a>
+                            <div class="aligncenter">
+                                <h2 class="title">Discount On the Furniture</h2>
+                                Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque liam eaque ipsa
+                                <div class="top20">
+                                    <a href="#" class="button1">More Details</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="eight columns">
+                            <a href="images/home2-img2.jpg" class="img-container img-width-hover popup-img">
+                                <img src="images/home2-img2.jpg" alt=""/>
+                                <div class="hoverDir"><span></span></div>
+                            </a>
+                            <div class="aligncenter">
+                                <h2 class="title">Interior design</h2>
+                                Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totamv.
+                                <div class="top20">
+                                    <a href="#" class="button1">More Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!--==============================Aside=================================-->
+                <aside class="with-twitter">
+                    <div class="testimonials-row">
+                        <div class="container">
+                            <div class="eight columns">
+                                <h2 class="title">What People Say<span class="fright"><a  id="prev-testimonial" href="#"> </a><a id="next-testimonial" href="#"> </a></span></h2>
+                                <ul class="testimonials">
+                                    <li>
+                                        <div class="testimonial-left">
+                                            <a class="author-thumb">
+                                                <img src="images/testimonial-author.jpg" alt=""/>
+                                            </a>
+                                            <h3 class="testimonial-title">Sarah Doe</h3>
+                                        </div>
+                                        <div class="testimonial-text">
+                                            <div class="testimonials-corner"></div>
+                                            Sed ut perspiciatis, unde omnis iste natus error sit volupt atem accusa ntium dolore mque liam eaque ipsanv.
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="testimonial-left">
+                                            <a class="author-thumb">
+                                                <img src="images/testimonial-author.jpg" alt=""/>
+                                            </a>
+                                            <h3 class="testimonial-title">John Doe</h3>
+                                        </div>
+                                        <div class="testimonial-text">
+                                            <div class="testimonials-corner"></div>
+                                            Sed ut perspiciatis, unde omnis iste natus error sit volupt atem accusa ntium dolore mque liam eaque ipsanv.
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="eight columns">
+                                <h2 class="title">Agent of the Week</h2>
+                                <div class="agent-of-week">
+                                    <div class="agent-of-week-left">
+                                        <a class="author-thumb">
+                                            <img src="images/agent-of-mounth.jpg" alt=""/>
+                                        </a>
+                                    </div>
+                                    <div class="agent-of-week-right">
+                                        <div class="wrap bottom10">
+                                            <h4>John Doe</h4>
+                                            <ul class="author-social-list">
+                                                <li><a href="#" class="dribbble"></a></li>
+                                                <li><a href="#" class="facebook"></a></li>
+                                                <li><a href="#" class="twitter"></a></li>
+                                                <li><a href="#" class="rss"></a></li>
+                                                <li><a href="#" class="pinterest"></a></li>
+                                            </ul>
+                                        </div>
+                                        Sed ut perspiciatis, unde omnis iste natus it re mque liam eaque ipsanv.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="twitter-container">
+                        <div class="container">
+                            <div class="sixteen columns">
+                                <div class="twitter-cont">
+                                    <div id="twitter-widget">
+
+                                    </div>
+                                    <a  id="prev-twitt" href="#"> </a>
+                                    <a id="next-twitt" href="#"> </a>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="four columns">
+                            <h2>Most Recent</h2>
+                            <ul class="recent-posts">
+                                <li>
+                                    <a href="#"><img src="images/recent-thumb-1.jpg" alt=""/></a>
+                                    <div>123 Astasia Ave Coral</div>
+                                    <div>4 Baths • 3 Beds</div>
+                                    <strong>$550,000</strong>
+                                </li>
+                                <li>
+                                    <a href="#"><img src="images/recent-thumb-2.jpg" alt=""/></a>
+                                    <div>123 Astasia Ave Coral</div>
+                                    <div>4 Baths • 3 Beds</div>
+                                    <strong>$550,000</strong>
+                                </li>
+                                <li>
+                                    <a href="#"><img src="images/recent-thumb-3.jpg" alt=""/></a>
+                                    <div>123 Astasia Ave Coral</div>
+                                    <div>4 Baths • 3 Beds</div>
+                                    <strong>$550,000</strong>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="four columns">
+                            <h2>Contact Us</h2>
+                            <ul class="address">
+                                <li class="addr">
+                                    192 Streetname, 
+                                    New York, NY 12212
+                                    United States
+                                </li>
+                                <li class="phone">
+                                    +38 123 567 890
+                                </li>
+                                <li class="mail">
+                                    office@shophouse.com
+                                </li>
+                                <li class="skype">
+                                    shophouse.skype
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="four columns">
+                            <h2>Useful Links</h2>
+                            <ul class="aside-link">
+                                <li><a href="#">About Us</a></li>
+                                <li><a href="#">Portfolio Page</a></li>
+                                <li><a href="#">404 Page</a></li>
+                                <li><a href="#">Contact Us</a></li>
+                                <li><a href="#">FAQ</a></li>
+                                <li><a href="#">Our Agents</a></li>
+                                <li><a href="#">Typography</a></li>
+                            </ul>
+                        </div>
+                        <div class="four columns">
+                            <h2>Contact Form</h2>
+                            <form id="aside-form" action="mail.php" method="post">
+                                <input type="text" name="name" placeholder="Name: *" id="name" class="validate[required,maxSize[30]]"/>
+                                <input type="text" name="email" placeholder="Email: *" id="email" class="validate[required,custom[email]]"/>
+                                <textarea name="message" placeholder="Message:" id="message" class="validate[length[6,3000]]"></textarea>                                 <div class="request">Your message has been sent</div>
+                                <a href="javascript:void(0)" onClick="send('#aside-form')" class="button1 submit-form">Submit Form</a>
+                                <script>
+                                    function send(form) {
+                                        var valid = jQuery(form).validationEngine('validate');
+                                        if(valid == true){
+                                            var options = {
+                                                clearForm:true,
+                                                success: function() {
+                                                    var req = $('.request');
+                                                    req.fadeIn();
+                                                    setTimeout(function(){req.fadeOut()}, 7000)
+                                                }};
+                                            jQuery('form#aside-form').ajaxSubmit(options);
+                                        }
+                                    }
+                                </script>
+                            </form>
+                        </div>
+                    </div>
+                </aside>
+                <!--==============================footer=================================-->
+                <footer>
+                    <div class="container">
+                        <div class="sixteen columns">
+                            <div class="fleft">
+                                &COPY; Copyright 2013 by Shmitass. All right reserved
+                            </div>
+                            <div class="fright">
+                                <ul class="social-links">
+                                    <li><a href="#" class="dribbble"></a></li>
+                                    <li><a href="#" class="facebook"></a></li>
+                                    <li><a href="#" class="twitter"></a></li>
+                                    <li><a href="#" class="rss"></a></li>
+                                    <li><a href="#" class="pinterest"></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </footer>
+
+            </div>
+        </div>
+        <script src="js/jquery-2.0.0.min.js"></script>
+        <script src="js/jquery-migrate-1.1.1.min.js"></script>
+        <script src="js/jquery.easing.1.3.js"></script>
+        <script type="text/javascript" src="js/raphael-min.js"></script>
+        <script type="text/javascript" src="js/jquery.validationEngine.js"></script>
+        <script type="text/javascript" src="js/jquery.validationEngine-en.js"></script>
+        <script type="text/javascript" src="js/jquery.form.js"></script>
+        <script type="text/javascript" src="js/jquery.hoverdir.js"></script>
+        <script type="text/javascript" src="js/jquery.selectik.js"></script>
+        <script src="js/jquery.isotope.min.js"></script>
+        <script src="js/touchTouch.jquery.js"></script>
+        <script src="http://twitterjs.googlecode.com/svn/trunk/src/twitter.min.js"></script>
+        <script src="js/jquery.carouFredSel-6.2.1.js"></script>
+        <script type="text/javascript" src="js/modernizr.custom.26633.js"></script>
+        <script type="text/javascript" src="js/jquery.gridrotator.js"></script>
+        <script src="js/tabs.js"></script>
+        <script src="js/toggles.js"></script>
+        <script src="js/boxes.js"></script>
+        <script src="js/settings-panel.js"></script>
+        <script src="js/jquery.cookie.js"></script>
+        <script src="js/script.js"></script>
+        <script>
+            $(document).ready(function(){
+                "use strict";
+                $('.header_menu a').each(function(i){
+                    var link = $(this).attr('href');
+                    var text;
+                    if($(this).parents('ul.sub-menu').length!=0){
+                        text = '--'+$(this).text();
+                    } else {
+                        text = $(this).text();
+                    }
+                    if(window.location.href.indexOf(link)!=-1){
+                        $('#mobile_menu').append('<option value="'+link+'" selected="selected">'+text+'</option>');
+                    } else{
+                        $('#mobile_menu').append('<option value="'+link+'">'+text+'</option>'); 
+                    }
+                });
+                $('#mobile_menu').live('change', function(){
+                    if($(this).val()!=''){
+                        window.location = $(this).val();
+                    }
+                });
+                $( '#ri-grid' ).gridrotator( {
+                    animSpeed : 300,
+                    animType : 'rotateBottom',
+                    w320 : {
+                        rows : 3,
+                        columns : 4
+                    },
+                    w240 : {
+                        rows : 3,
+                        columns : 3
+                    },
+                    slideshow : false,
+                    onhover : true
+                } );
+                $('.img-width-hover').each( function() { 
+                    $(this).hoverdir({
+                        hoverDelay : 75
+                    });
+                });
+                $('.popup-img').touchTouch();
+                getTwitters('twitter-widget', { 
+                    id: 'crazy_pixels', 
+                    count: 3, 
+                    enableLinks: true, 
+                    ignoreReplies: false, 
+                    clearContents: true,
+                    template: '<div class="tweet-body"><a href="http://twitter.com/%user_screen_name%/statuses/%id_str%/">%user_name%</a> %text%" <div class="data">%time%</div></div>'
+                });
+                
+            });
+            $(window).load(function(){
+                "use strict";
+                $('#twitter-widget>ul').carouFredSel({
+                    responsive: true,
+                    width: '100%',
+                    auto: true,
+                    next:'#next-twitt',
+                    prev:'#prev-twitt',
+                    scroll: 1,
+                    items: {
+                        width: 786,
+                        //	height: '30%',	//	optionally resize item-height
+                        visible: {
+                            min: 1,
+                            max: 10
+                        }
+                    }
+                });
+                
+                $('ul.testimonials').carouFredSel({
+                    responsive: true,
+                    width: '100%',
+                    auto: false,
+                    next:'#next-testimonial',
+                    prev:'#prev-testimonial',
+                    scroll: 1,
+                    items: {
+                        width: 700,
+                        //	height: '30%',	//	optionally resize item-height
+                        visible: {
+                            min: 1,
+                            max: 10
+                        }
+                    }
+                });
+                
+            });
+            
+        </script>
+    </body>
+
+</html>

@@ -1,0 +1,260 @@
+
+                <section id="content">
+                 <?php if(!Zend_Auth::getInstance()->hasIdentity()){ ?>  
+                    <div class="page-splash" id="serviceList" style="height : 299px;">
+                        <div class="inner" >
+                    <div class="container">
+                                <div class="sixteen columns">
+                                    <h2 class="title">
+                                        Услуги
+                                    </h2>
+                                  
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php } ?>
+                    <div class="container">
+                        <div class="row-indent">
+                          <div class="row-indent">
+                            <?php if(Zend_Auth::getInstance()->hasIdentity()){ ?>
+                            <div style="margin-top: -10px" id="category-list">
+                            <?php }else{ ?>
+                            <div style="margin-top: -150px" id="category-list">   
+                            <?php } ?>
+                                <div class="container">
+                                    <div class="sixteen columns marg-bott-cont">
+                                        <div class="portfolio-controls">
+                                       <?php if(Zend_Auth::getInstance()->hasIdentity()){  ?> 
+                                                <a href="<?= $this->url(array('controller'=>'service', 'action'=>'add-service'))?>" class="button1">Пополнить список услуг</a>
+                                       <?php } ?>     
+                                            <div class="view-mode">
+                                                <a href="#" class="view-mode-grid"></a>
+                                                <a href="#" class="view-mode-list active"></a>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="portfolio-container">
+                                   </br> <a id="back1" href="<?=$this->url(array('controller'=>'service', 'action'=>'category-list'))?>">Назад</a></br>
+                                    <div class="container">
+                                      
+        <?php
+        if(Zend_Auth::getInstance()->hasIdentity()){
+          foreach($this->paginator as $service){
+            echo '<div class="one-third column photography element" data-category="photography">
+                                    <div class="portfolio-item">
+                                        <a href="'.$this->url(array('controller' => 'service', 'action' => 'edit-service')).'?id='.$service['id'].'" ><img src="'.$this->baseUrl().'/desktop/images/filter-portfolio/'.$service['image_icon'].'" alt=""/></a>
+                                        <div class="inner">
+                                            <div>'.$service['title'].'</div>
+
+                                            <div class="car-slide-row">
+                                                
+                                                <a href="'.$this->url(array('controller' => 'service', 'action' => 'edit-service')).'?id='.$service['id'].'" class="button1">Редактировать</a>
+                                            </div>
+                                            <div class="car-slide-row">
+                                                
+                                                <a href="'.$this->url(array('controller' => 'service', 'action' => 'remove-service')).'?id='.$service['id'].'" class="button1">Удалить</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> ';
+                ////$service['title'].'</br>'.$service['price'].' рублей</br><a href="'. $this->url(array('controller'=>'service', 'action'=>'edit-service')).'?id='.$service['id'].'">Редактировать</a></br><a href="'.$this->url(array('controller'=>'service', 'action'=>'remove-service')).'?id='.$service['id'].'">Удалить</a></br></br>';
+        }
+        }else{
+        
+        foreach($this->paginator as $service){
+         
+        
+            echo '<div class="one-third column photography element" data-category="photography">
+                                    <div class="portfolio-item">
+                                        <a href="'.$this->url(array('controller' => 'service', 'action' => 'description')).'?id='.$service['id'].'" ><img src="'.$this->baseUrl().'/desktop/images/filter-portfolio/'.$service['image_icon'].'" alt=""/></a>
+                                        <div class="inner">
+                                            <div>'.$service['title'].'</div>
+                                            
+                                            <div class="portfolio-item-description">
+                                            
+                                            </div>
+                                            <div class="car-slide-row">
+                                                
+                                                <a id="details" href="'.$this->url(array('controller' => 'service', 'action' => 'description')).'?id='.$service['id'].'" class="button1">Подробнее...</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> ';
+//echo '<div id=\'service\'><h2>'.$service['title'].'</h2>'.$service['price'].' рублей<br><a id="description" href="'.$this->url(array('controller'=>'service', 'action'=>'description')).'?id='.$service['id'].'">Подробнее...</a></br></br></div>';
+
+          
+          }
+
+        }
+        ?>  
+                                        <div class="clearfix"></div>
+
+                                    </div>
+                                </div>
+                            </div></br>
+<?= $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml') ?>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+
+                </section>      
+        
+
+        <script src="<?= $this->baseUrl() ?>/desktop/js/jquery-2.0.0.min.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/jquery-migrate-1.1.1.min.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/jquery.easing.1.3.js"></script>
+        <script type="text/javascript" src="<?= $this->baseUrl() ?>/desktop/js/raphael-min.js"></script>
+        <script type="text/javascript" src="<?= $this->baseUrl() ?>/desktop/js/jquery.validationEngine.js"></script>
+        <script type="text/javascript" src="<?= $this->baseUrl() ?>/desktop/js/jquery.validationEngine-en.js"></script>
+        <script type="text/javascript" src="<?= $this->baseUrl() ?>/desktop/js/jquery.form.js"></script>
+        <script type="text/javascript" src="<?= $this->baseUrl() ?>/desktop/js/jquery.hoverdir.js"></script>
+        <script type="text/javascript" src="<?= $this->baseUrl() ?>/desktop/js/jquery.selectik.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/jquery.isotope.min.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/touchTouch.jquery.js"></script>
+        <script src="http://twitterjs.googlecode.com/svn/trunk/src/twitter.min.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/jquery.carouFredSel-6.2.1.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/tabs.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/toggles.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/boxes.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/settings-panel.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/jquery.cookie.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/script.js"></script>
+        <script>
+            $(document).ready(function(){
+                   //remove class
+   $('#index').removeClass('active');
+   $('#gallery').removeClass('active');
+   $('#contacts').removeClass('active');
+   $('#feedback').removeClass('active');
+   //add
+   $('#services').addClass('active');
+                
+                //set as default view of the list as a list
+                $('.portfolio-container .column').addClass('list-view');
+                
+                "use strict";
+                $('.header_menu a').each(function(i){
+                    var link = $(this).attr('href');
+                    var text;
+                    if($(this).parents('ul.sub-menu').length!=0){
+                        text = '--'+$(this).text();
+                    } else {
+                        text = $(this).text();
+                    }
+                    if(window.location.href.indexOf(link)!=-1){
+                        $('#mobile_menu').append('<option value="'+link+'" selected="selected">'+text+'</option>');
+                    } else{
+                        $('#mobile_menu').append('<option value="'+link+'">'+text+'</option>'); 
+                    }
+                });
+                $('#mobile_menu').live('change', function(){
+                    if($(this).val()!=''){
+                        window.location = $(this).val();
+                    }
+                });
+                $(' .portfolio-link ').each( function() { 
+                    $(this).hoverdir({
+                        hoverDelay : 75
+                    });
+                });
+                
+                $('.slide-container>a, .portfolio-link').touchTouch();
+                if(navigator.platform.indexOf("iPhone") != -1 || navigator.platform.indexOf("iPad") != -1 || navigator.platform.indexOf("iPod") != -1){
+                    jQuery('#filter').addClass('iphone_select');
+                }
+                $('#filter').selectik({maxItems: 8},
+                {
+                    _generateHtml: function(){
+                        this.$collection = this.$cselect.children();
+                        var html = '';
+                        for (var i = 0; i < this.$collection.length; i++){
+                            var $this = $(this.$collection[i]);
+                            var textOption = $this[0].text;
+                            var valueOption = $this[0].value;
+                            html += '<li class="'+ ($this.attr('disabled') === 'disabled' ? 'disabled' : '') +' new" data-value="'+valueOption+'">'+textOption+'</li>';
+                        };
+                        return html;
+                    }
+                }
+            ); 
+            
+                $('.view-mode a').click(function(e){
+                    e.preventDefault();
+                    $('.view-mode a').addClass('active');
+                    $(this).removeClass('active');
+                    if($(this).hasClass('view-mode-list')){
+                        console.log('add');
+                        $('.portfolio-container .column').removeClass('list-view');
+                    } else {
+                        console.log('remove');
+                        $('.portfolio-container .column').addClass('list-view');
+                    }
+                    $('.portfolio-container').isotope( 'reLayout');
+
+                });
+            });
+            $(window).load(function(){
+                setTimeout(showPageSplash, 500);
+                "use strict";
+                $('#twitter-widget>ul').carouFredSel({
+                    responsive: true,
+                    width: '100%',
+                    auto: true,
+                    next:'#next-twitt',
+                    prev:'#prev-twitt',
+                    scroll: 1,
+                    items: {
+                        width: 786,
+                        //	height: '30%',	//	optionally resize item-height
+                        visible: {
+                            min: 1,
+                            max: 10
+                        }
+                    }
+                });
+                
+                $(function(){
+                    var $container = $('.portfolio-container');
+                    $container.isotope({itemSelector : '.element'});
+                    var $optionSets = $('#filter'),$optionLinks = $optionSets.find('option');
+                    $optionSets.change(function(){
+                        var $this = $(this).find('option:selected');
+                        
+                        //don't proceed if already selected
+                        
+                        var $optionSet = $this.parents('#filter');
+                        $optionSet.find('option[selected="selected"]').removeAttr('selected');
+                        $this.attr('selected','selected');
+                        // make option object dynamically, i.e. { filter: '.my-filter-class' }
+                        var options = {},
+                        key = $optionSet.attr('data-option-key'),
+                        value = $this.val();
+                        console.log(value);
+                        // parse 'false' as false boolean
+                        value = value === 'false' ? false : value;
+                        options[ key ] = value;
+                        if ( key === 'layoutMode' && typeof changeLayoutMode === 'function' ) {
+                            // changes in layout modes need extra logic
+                            changeLayoutMode( $this, options );
+                        } else {
+                            // otherwise, apply new options
+                            $container.isotope( options );
+                        }
+                        return false;
+                    });
+                });
+            });
+            
+            function showPageSplash(){
+                $('.page-splash').stop().animate({'height':'299px'},1500, 'easeOutBounce', portfolioUp);
+            }
+            function portfolioUp(){
+                $('.portfolio-page-container').addClass('portfolio-page-up');
+            }
+        </script>
+        

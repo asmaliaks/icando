@@ -1,0 +1,27 @@
+
+<section id="content">
+    <div class="content-row1 content-row-indent">
+        
+        <div class="container">
+             <a id="back" href="<?=$this->url(array('controller'=>'service', 'action'=>'service-list-by-category'))?>?id=<?= $this->serviceCategory ?>">Назад</a></br></br>
+          <div class="sixteen columns">
+              <img class="desc_image" src="<?php $this->baseUrl()?>/public/desktop/images/filter-portfolio/<?= $this->service['image'] ?>" id="description-image" />
+            <h2 class="title"><?= $this->service['title']; ?></h2>
+           <div class="container"> <?= $this->service['description']; ?></div>
+          </div>
+        </div>
+    </div>
+   
+</section>
+
+         <script type="text/javascript">
+$(document).ready(function(){
+   //remove class
+   $('#index').removeClass('active');
+   $('#gallery').removeClass('active');
+   $('#contacts').removeClass('active');
+   $('#feedback').removeClass('active');
+   //add
+   $('#services').addClass('active');
+});
+</script>

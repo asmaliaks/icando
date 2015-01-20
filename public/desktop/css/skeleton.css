@@ -1,0 +1,838 @@
+/*
+* Skeleton V1.1
+* Copyright 2011, Dave Gamache
+* www.getskeleton.com
+* Free to use under the MIT license.
+* http://www.opensource.org/licenses/mit-license.php
+* 8/17/2011
+*/
+
+
+/* Table of Contents
+==================================================
+    #Base 960 Grid
+    #Tablet (Portrait)
+    #Mobile (Portrait)
+    #Mobile (Landscape)
+    #Clearing */
+
+
+/* #Base 960 Grid
+================================================== */
+
+.container                                  { position: relative; width: 960px; margin: 0 auto; padding: 0; font-size:16px;line-height:26px;color:#000000;font-family: 'Open Sans'; margin-top: -10px;}
+.container .column,
+.container .columns                         { float: left; display: inline; margin-left: 10px; margin-right: 10px; }
+.row                                        { margin-bottom: 20px; }
+
+img.scale-with-grid {
+    max-width: 100%;
+    height: auto; 
+}
+
+/* Nested Column Classes */
+.column.alpha, .columns.alpha               { margin-left: 0; }
+.column.omega, .columns.omega               { margin-right: 0; }
+
+/* Base Grid */
+.container .one.column,
+.container .one.columns                     { width: 40px;  }
+.container .two.columns                     { width: 100px; }
+.container .three.columns                   { width: 160px; }
+.container .four.columns                    { width: 220px; }
+.container .five.columns                    { width: 280px; }
+.container .six.columns                     { width: 340px; }
+.container .seven.columns                   { width: 400px; }
+.container .eight.columns                   { width: 460px; }
+.container .nine.columns                    { width: 520px; }
+.container .ten.columns                     { width: 580px; }
+.container .eleven.columns                  { width: 640px; }
+.container .twelve.columns                  { width: 700px; }
+.container .thirteen.columns                { width: 760px; }
+.container .fourteen.columns                { width: 820px; }
+.container .fifteen.columns                 { width: 880px; }
+.container .sixteen.columns                 { width: 940px; }
+
+.container .one-third.column                { width: 300px; }
+.container .two-thirds.column               { width: 620px; }
+
+/* Offsets */
+.container .offset-by-one                   { padding-left: 60px;  }
+.container .offset-by-two                   { padding-left: 120px; }
+.container .offset-by-three                 { padding-left: 180px; }
+.container .offset-by-four                  { padding-left: 240px; }
+.container .offset-by-five                  { padding-left: 300px; }
+.container .offset-by-six                   { padding-left: 360px; }
+.container .offset-by-seven                 { padding-left: 420px; }
+.container .offset-by-eight                 { padding-left: 480px; }
+.container .offset-by-nine                  { padding-left: 540px; }
+.container .offset-by-ten                   { padding-left: 600px; }
+.container .offset-by-eleven                { padding-left: 660px; }
+.container .offset-by-twelve                { padding-left: 720px; }
+.container .offset-by-thirteen              { padding-left: 780px; }
+.container .offset-by-fourteen              { padding-left: 840px; }
+.container .offset-by-fifteen               { padding-left: 900px; }
+
+/* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
+
+.clearfix:before,
+.clearfix:after {
+    content: '\0020';
+    display: block;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+/*
+  The following zoom:1 rule is specifically for IE6 + IE7.
+  Move to separate stylesheet if invalid CSS is a problem.
+*/
+
+.clearfix {
+    zoom: 1;
+}
+@media only screen and (min-width: 959px) and (max-width: 1399px) {
+    .main, .bannercontainer, .banner{
+        width: 100%;
+       
+    }
+}
+
+@media only screen and (min-width: 959px) and (max-width: 1024px) {
+    .portfolio-container{
+        width: 100%;
+    }
+    #car-prev {
+        top: auto;
+        bottom: -40px;
+        left: 400px;
+        z-index: 999;
+    }
+    #car-next {
+        top: auto;
+        bottom: -40px;
+        right: 420px;
+        z-index: 999;
+    }
+    .car-arrows-cont{
+        padding-bottom: 15px;
+    }
+
+}
+/* #Tablet (Portrait)
+================================================== */
+
+/* Note: Design for a width of 768px */
+
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+    .container                                  { width: 768px;}
+    .container .column,
+    .container .columns                         { margin-left: 10px; margin-right: 10px;  }
+    .column.alpha, .columns.alpha               { margin-left: 0; margin-right: 10px; }
+    .column.omega, .columns.omega               { margin-right: 0; margin-left: 10px; }
+    .alpha.omega                                { margin-left: 0; margin-right: 0; }
+
+    .container .one.column,
+    .container .one.columns                     { width: 28px; }
+    .container .two.columns                     { width: 76px; }
+    .container .three.columns                   { width: 124px; }
+    .container .four.columns                    { width: 172px; }
+    .container .five.columns                    { width: 220px; }
+    .container .six.columns                     { width: 268px; }
+    .container .seven.columns                   { width: 316px; }
+    .container .eight.columns                   { width: 364px; }
+    .container .nine.columns                    { width: 412px; }
+    .container .ten.columns                     { width: 460px; }
+    .container .eleven.columns                  { width: 508px; }
+    .container .twelve.columns                  { width: 556px; }
+    .container .thirteen.columns                { width: 604px; }
+    .container .fourteen.columns                { width: 652px; }
+    .container .fifteen.columns                 { width: 700px; }
+    .container .sixteen.columns                 { width: 748px; }
+
+    .container .one-third.column                { width: 236px; }
+    .container .two-thirds.column               { width: 492px; }
+
+    /* Offsets */
+    .container .offset-by-one                   { padding-left: 48px; }
+    .container .offset-by-two                   { padding-left: 96px; }
+    .container .offset-by-three                 { padding-left: 144px; }
+    .container .offset-by-four                  { padding-left: 192px; }
+    .container .offset-by-five                  { padding-left: 240px; }
+    .container .offset-by-six                   { padding-left: 288px; }
+    .container .offset-by-seven                 { padding-left: 336px; }
+    .container .offset-by-eight                 { padding-left: 384px; }
+    .container .offset-by-nine                  { padding-left: 432px; }
+    .container .offset-by-ten                   { padding-left: 480px; }
+    .container .offset-by-eleven                { padding-left: 528px; }
+    .container .offset-by-twelve                { padding-left: 576px; }
+    .container .offset-by-thirteen              { padding-left: 624px; }
+    .container .offset-by-fourteen              { padding-left: 672px; }
+    .container .offset-by-fifteen               { padding-left: 720px; }
+
+    .main{
+        width: auto;
+    }
+    .header_menu > ul > li > a{
+        font-size: 13px;
+        padding:10px 10px 30px 10px;
+    }
+    .header-buttons-group a{
+        margin-top: 0;
+    }
+    .header-buttons-group a.button-with-plus{
+        font-size: 13px;
+        padding: 8px 10px 9px 37px;
+    }
+    .header-buttons-group a.button{
+        font-size: 13px;
+        padding: 8px 10px 9px 10px;
+    }
+
+    .tp-leftarrow.navbar									{	
+        z-index:100;
+        cursor:pointer;
+        background:url(../images/prev-slide-small.png) 0 0 no-repeat;
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        z-index: 999;
+        margin-top: -20px;   
+        opacity: 1;
+    }
+    .tp-rightarrow.navbar									{	
+        z-index:100;
+        cursor:pointer;
+        background:url(../images/next-slide-small.png) 0 0 no-repeat;
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        z-index: 999;
+        margin-top: -20px;   
+        opacity: 1;
+    }
+    .tp-leftarrow:hover,
+    .tp-rightarrow:hover 									{	background-position:bottom left; }
+    .button1, #contact-form .submit-form{
+        font-size: 13px;
+        padding: 13px 10px 14px 10px;
+    }
+    .search-form-buttons{
+        margin-left: 5px;
+    }
+    .search-form .button1{
+        width: 94px;
+        text-align: center;
+        margin-left: 5px;
+    }
+    .search-form .button1.location-bt{
+        padding: 13px 36px 14px 20px;
+        width: auto;
+    }
+    .search-field input[type="text"]{
+        width: 400px;
+    }
+
+    .car-slide-row{
+        padding-top: 10px;
+    }
+    .portfolio-item .car-slide-row{
+        padding-top: 25px;
+    }
+    .list_carousel .slide-container .inner .button1, .portfolio-item .inner .button1{
+        margin-top: 10px;
+    }
+    .car-arrows-cont{
+        padding-bottom: 40px;
+    }
+    #car-prev {
+        top: auto;
+        bottom: -10px;
+        left: 232px;
+    }
+    #car-next {
+        top: auto;
+        bottom: -10px;
+        right: 420px;
+    }
+    .portfolio-container{
+        width: auto;
+    }
+    .bg{
+        padding-top: 0px;
+    }
+    .map_row .notice{
+        padding-top: 15px;
+    }
+    aside .address li{
+        font-size: 12px;
+    }
+    #aside-form input[type="text"], #aside-form textArea{
+        width: 124px;
+    }
+    #blog-search-form input[type="text"], #blog-subscribe-form input[type="text"]{
+        width: 66%;
+    }
+    .iphone_select{
+        height: auto;
+        width: 748px !important;
+    }
+    .bg{
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+    .logo{
+        line-height: normal;
+    }
+    h1.logo img{
+        width: 100%;
+        height: auto;
+        display: block;
+        margin-top: 5px;
+    }
+    .header_menu{
+        margin-top: 0;
+    }
+    .sidebar-title img{
+        float: none;
+        display: block;
+    }
+    #comment-form input[type="text"], #comment-form textarea{
+        width: 446px;
+    }
+    .testimonial-left img, .agent-of-week-left img{
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+    .testimonial-text{
+        width: 59%;
+    }
+    .agent-block{
+        margin: 100px 0;
+    }
+    #contact-form input[type="text"], #contact-form textarea{
+        width: 422px;
+    }
+    .splash-title-big{
+        font-size: 6em;
+        margin-top: 0;
+    }
+    .splash-title-medium{
+        font-size: 3em;
+        margin-top: -20px;
+    }
+    .spash-content{
+        font-size: 26px;
+    }
+}
+
+
+/*  #Mobile (Portrait)
+================================================== */
+
+/* Note: Design for a width of 320px */
+
+@media only screen and (max-width: 767px) {
+    .container { width: 300px; }
+    .container .columns,
+    .container .column { margin: 0;margin-bottom:20px; }
+
+    .container .one.column,
+    .container .one.columns,
+    .container .two.columns,
+    .container .three.columns,
+    .container .four.columns,
+    .container .five.columns,
+    .container .six.columns,
+    .container .seven.columns,
+    .container .eight.columns,
+    .container .nine.columns,
+    .container .ten.columns,
+    .container .eleven.columns,
+    .container .twelve.columns,
+    .container .thirteen.columns,
+    .container .fourteen.columns,
+    .container .fifteen.columns,
+    .container .sixteen.columns,
+    .container .one-third.column,
+    .container .two-thirds.column  { width: 300px; }
+
+    /* Offsets */
+    .container .offset-by-one,
+    .container .offset-by-two,
+    .container .offset-by-three,
+    .container .offset-by-four,
+    .container .offset-by-five,
+    .container .offset-by-six,
+    .container .offset-by-seven,
+    .container .offset-by-eight,
+    .container .offset-by-nine,
+    .container .offset-by-ten,
+    .container .offset-by-eleven,
+    .container .offset-by-twelve,
+    .container .offset-by-thirteen,
+    .container .offset-by-fourteen,
+    .container .offset-by-fifteen { padding-left: 0; }
+
+    .main{
+        width: auto;
+    }
+    .tp-leftarrow.navbar									{	
+        z-index:100;
+        cursor:pointer;
+        background:url(../images/prev-slide-small.png) 0 0 no-repeat;
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        z-index: 999;
+        margin-top: -20px;   
+        opacity: 1;
+    }
+    .tp-rightarrow.navbar									{	
+        z-index:100;
+        cursor:pointer;
+        background:url(../images/next-slide-small.png) 0 0 no-repeat;
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        z-index: 999;
+        margin-top: -20px;   
+        opacity: 1;
+    }
+    .tp-leftarrow:hover,
+    .tp-rightarrow:hover 									{	background-position:bottom left; }
+    #mobile_menu {
+        display: block;
+    }
+    .header_menu ul.sf-menu{
+        display: none;
+    }
+    .header-buttons-group{
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: auto !important;
+
+    }
+    .header-buttons-group a.button-with-plus{
+        font-size: 10px;
+        padding: 4px 10px 5px 10px;
+        background-image: none;
+    }
+    .header-buttons-group a.button{
+        font-size: 10px;
+        padding: 4px 10px 5px 10px;
+    }
+
+    .search-field input[type="text"]{
+        width: 220px;
+    }
+    .search-form-buttons{
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    .car-slide-row{
+        padding-top: 10px;
+    }
+    .portfolio-item .car-slide-row{
+        padding-top: 25px;
+    }
+    .car-slide-price{
+        display: block;
+    }
+    .list_carousel .slide-container .inner .button1, .portfolio-item .inner .button1{
+        margin-top: 10px;
+    }
+    .car-arrows-cont{
+        padding-bottom: 40px;
+    }
+    #car-prev {
+        top: auto;
+        bottom: 0;
+        left: 87px;
+    }
+    #car-next {
+        top: auto;
+        bottom: 0;
+        right: 87px;
+    }
+
+    .portfolio-container{
+        width: auto;
+    }
+    .list-view .list_carousel .slide-container, .portfolio-item img{
+        float: none;
+    }
+
+    .map_row .inner{
+        padding: 20px;
+    }
+    .subscribe-form-title{
+        font-size: 16px;
+        padding-bottom: 0px;
+    }
+    .map_row{
+        font-size: 13px;
+        line-height: 15px;
+    }
+    form#subscribe-form a{
+        height: 32px;
+        padding-top: 16px;
+    }
+    form#subscribe-form input[type="text"]{
+        width: 168px;
+    }
+
+    .map_row .descr{
+        display: none;
+    }
+    form#subscribe-form{
+        padding-top:0px;
+    }
+    form#subscribe-form input[type="text"]{
+        padding-right: 5px;
+        padding-left: 5px;
+        width: 97px;
+        font-size: 13px;
+    }
+    .map_row .notice{
+        padding-top: 5px;
+    }
+    footer .fleft, footer .fright{
+        float: none;
+    }
+    footer .fleft{
+        margin-bottom: 10px;
+    }
+    .custom-select {
+        float: none;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    #filter{
+        margin-bottom: 20px;
+        float: none;
+    }
+    .iphone_select{
+        height: auto;
+        width: 300px !important;
+    }
+    .view-mode{
+        float: none;
+        margin-left: 93px;
+    }
+    .page-splash .inner{
+        padding-top: 30px;
+    }
+    .page-splash .title{
+        font-size: 34px;
+    }
+    .page-splash .container{
+        font-size: 20px;
+        line-height: 28px;
+    }
+    #blog-search-form input[type="text"], #blog-subscribe-form input[type="text"]{
+        width: 74%;
+    }
+    .bg{
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+    .container .blog{
+        margin-bottom: 50px;
+    }
+    .row-indent{
+        padding-bottom: 50px;
+    }
+    .blog-image-cont{
+        padding-right: 0;
+    }
+    #comment-form input[type="text"], #comment-form textarea{
+        width: 260px;
+    }
+    .comment-list .wrap{
+        overflow: visible;
+    }
+    
+    .tab_content .wrap{
+        width: 100%;
+    }
+    .header_menu{
+        margin-left: 0;
+    }
+    
+    .testimonial-left img, .agent-of-week-left img{
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+    .testimonial-text{
+        width: 54%;
+    }
+    .agent-block{
+        margin: 40px 0;
+    }
+    .agent-block.first-agent-block{
+        margin-top: 100px;
+    }
+    #ri-grid{
+        margin-bottom: 30px;
+    }
+    .buy-bt{
+        margin-bottom: 20px;
+    }
+    
+    #contact-form input[type="text"], #contact-form textarea{
+        width: 230px;
+    }
+    .splash-title-big{
+        font-size: 3em;
+        margin-top: 0;
+    }
+    .splash-title-medium{
+        font-size: 2em;
+        margin-top: -20px;
+    }
+    .spash-content{
+        font-size: 16px;
+    }
+    .get_started-bt{
+        font-size: 26px;
+    }
+}
+
+
+/* #Mobile (Landscape)
+================================================== */
+
+/* Note: Design for a width of 480px */
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+    .container { width: 420px; }
+    .container .columns,
+    .container .column { margin: 0; margin-bottom:20px;}
+
+    .container .one.column,
+    .container .one.columns,
+    .container .two.columns,
+    .container .three.columns,
+    .container .four.columns,
+    .container .five.columns,
+    .container .six.columns,
+    .container .seven.columns,
+    .container .eight.columns,
+    .container .nine.columns,
+    .container .ten.columns,
+    .container .eleven.columns,
+    .container .twelve.columns,
+    .container .thirteen.columns,
+    .container .fourteen.columns,
+    .container .fifteen.columns,
+    .container .sixteen.columns,
+    .container .one-third.column,
+    .container .two-thirds.column { width: 420px; }
+
+    .spacer, .footer-spacer1, .footer-spacer2{
+        background:none;
+    }
+    .main{
+        width: auto;
+    }
+    .tp-leftarrow.navbar									{	
+        z-index:100;
+        cursor:pointer;
+        background:url(../images/prev-slide-small.png) 0 0 no-repeat;
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        z-index: 999;
+        margin-top: -20px;   
+        opacity: 1;
+    }
+    .tp-rightarrow.navbar									{	
+        z-index:100;
+        cursor:pointer;
+        background:url(../images/next-slide-small.png) 0 0 no-repeat;
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        z-index: 999;
+        margin-top: -20px;
+        opacity: 1;
+
+    }
+    .tp-leftarrow:hover,
+    .tp-rightarrow:hover 									{	background-position:bottom left; }
+    .search-field input[type="text"]{
+        width: 347px;
+    }
+    .search-form-buttons{
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    .car-slide-row{
+        padding-top: 10px;
+    }
+    .portfolio-item .car-slide-row{
+        padding-top: 25px;
+    }
+    .list_carousel .slide-container .inner .button1, .portfolio-item .inner .button1{
+        margin-top: 10px;
+    }
+    #car-prev {
+        top: auto;
+        bottom: 0;
+        left: 147px;
+    }
+    #car-next {
+        top: auto;
+        bottom: 0;
+        right: 147px;
+    }
+    .list-view .list_carousel .slide-container, .portfolio-item img{
+        float: none;
+    }
+    .portfolio-controls{
+    }
+    .list_carousel .slide-container, .portfolio-item{
+    }
+    form#subscribe-form input[type="text"]{
+        width: 168px;
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+    .map_row .notice{
+        padding-top: 5px;
+    }
+    .portfolio-container .list_carousel .slide-container .inner, .portfolio-item .inner{
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .list-view .list_carousel .slide-container, .portfolio-link{
+        float: none;
+    }
+    .custom-select {
+        float: none;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    #filter{
+        float: none;
+        margin-bottom: 20px;
+    }
+    .iphone_select{
+        height: auto;
+        width: 373px !important;
+    }
+    .view-mode{
+        float: none;
+        margin-left: 146px;
+    }
+    .page-splash .inner{
+        padding-top: 40px;
+    }
+    .page-splash .title{
+        font-size: 38px;
+    }
+    .page-splash .container{
+        font-size: 22px;
+        line-height: 30px;
+    }
+    #blog-search-form input[type="text"], #blog-subscribe-form input[type="text"]{
+        width: 81%;
+    }
+    .bg{
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+    .container .blog{
+        margin-bottom: 50px;
+    }
+    #comment-form input[type="text"], #comment-form textarea{
+        width: 373px;
+    }
+    .comment-list .wrap{
+        overflow: visible;
+    }
+    .testimonial-left img, .agent-of-week-left img{
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+    .testimonial-text{
+        width: 59%;
+    }
+    .agent-block{
+        margin: 40px 0;
+    }
+    .agent-block.first-agent-block{
+        margin-top: 100px;
+    }
+    #ri-grid{
+        margin-bottom: 30px;
+    }
+    .buy-bt{
+        margin-bottom: 20px;
+    }
+    #contact-form input[type="text"], #contact-form textarea{
+        width: 350px;
+    }
+}
+
+@media only screen and (min-width: 240px) and (max-width: 320px) {
+
+}
+
+/* #Clearing
+================================================== */
+
+/* Self Clearing Goodness */
+.container:after { content: "\0020"; display: block; height: 0; clear: both; visibility: hidden; }
+
+/* Use clearfix class on parent to clear nested columns,
+or wrap each row of columns in a <div class="row"> */
+.clearfix:before,
+.clearfix:after,
+.row:before,
+.row:after {
+    content: '\0020';
+    display: block;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0; }
+.row:after,
+.clearfix:after {
+    clear: both; }
+.row,
+.clearfix {
+    zoom: 1; }
+
+/* You can also use a <br class="clear" /> to clear columns */
+.clear {
+    clear: both;
+    display: block;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}

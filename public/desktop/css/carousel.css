@@ -1,0 +1,151 @@
+.list_carousel {
+    
+}
+.list_carousel ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: block;
+}
+.list_carousel li {
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin: 0 6px;
+    display: block;
+    float: left;
+    overflow: hidden;
+    padding-bottom: 6px;
+    
+}
+.list_carousel li img{
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+.portfolio-item img{
+    width: 274px;
+    height: 206px;
+}
+.list_carousel .slide-container, .portfolio-item{
+    border: #ebebeb 3px solid;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #fdfdfd;
+    
+    font-family: 'Open Sans';
+    font-weight: 600;
+    font-style: normal;
+    color: #707070;
+    font-size: 16px;
+    line-height: normal;
+    margin-bottom: 6px;
+}
+.list-view .list_carousel .slide-container, .portfolio-item{
+    border: none;
+}
+.list-view .list_carousel .slide-container, .portfolio-link{
+    border: #ebebeb 3px solid;
+    border-radius: 4px;
+    overflow: hidden;
+    float: left;
+    margin-right: 20px;
+}
+.list-view .list_carousel .slide-container .inner, .portfolio-item .inner{
+    padding: 10px 0 0 0;
+}
+.portfolio-item-description{
+    display: none;
+}
+.list-view .portfolio-item-description{
+    color: #717171;
+    font-weight: 400;
+    line-height: 26px;
+    display: block;
+}
+.list_carousel .slide-container .inner, .portfolio-item .inner{
+    padding: 0 10px 10px 18px;
+    overflow: hidden;
+}
+.list_carousel.responsive {
+    width: auto;
+    margin-left: 0;
+}
+
+#car-prev {
+    position: absolute;
+    width: 55px;
+    height: 55px;
+    display: block;
+    background: url(../images/carousel-prev.png) no-repeat;
+    top: 50%;
+    left: -95px;
+    margin-top: -26px;
+    
+    -o-transition: background-position 0.2s ease;
+    -ms-transition: background-position 0.2s ease;
+    -moz-transition: background-position 0.2s ease;
+    -webkit-transition: background-position 0.2s ease;
+}
+#car-next {
+    position: absolute;
+    width: 55px;
+    height: 55px;
+    display: block;
+    background: url(../images/carousel-next.png) no-repeat;
+    top: 50%;
+    right: -95px;
+    margin-top: -26px;
+    
+    -o-transition: background-position 0.2s ease;
+    -ms-transition: background-position 0.2s ease;
+    -moz-transition: background-position 0.2s ease;
+    -webkit-transition: background-position 0.2s ease;
+}
+#car-next:hover, #car-prev:hover{
+    background-position: 0 bottom;
+}
+
+.carousel-title{
+    color: #474747;
+    font-family: 'Conv_Chunkfive';
+    font-size: 27px;
+    line-height: 1.2em;
+    background: url(../images/carousel-title-bg.gif) 0 bottom no-repeat;
+    padding-bottom: 27px;
+    margin-bottom: 25px;
+}
+.car-slide-title{
+    font-family: 'OpenSans';
+    font-weight: 400;
+    font-style: normal;
+    color: #bbb;
+    font-size: 16px;
+    line-height: normal;
+    text-transform: uppercase;
+}
+.car-slide-price{
+    display: inline-block;
+    margin-right: 15px;
+}
+.car-slide-row{
+    padding-top: 25px;
+    overflow: hidden;
+}
+.list_carousel .slide-container .inner .button1{
+    padding-right: 18px;
+    padding-left: 18px;
+    margin-top: -15px;
+}
+.portfolio-item .inner .button1{
+    padding-right: 18px;
+    padding-left: 18px;
+    margin-top: -15px;
+    margin-bottom: 5px;
+}
+
+.portfolio-container .list-view {
+    width: 100% !important;
+    float: none !important;
+    display: block !important;
+}

@@ -1,0 +1,135 @@
+		<style type="text/css">
+			body {
+				font-family: Helvetica, Arial, sans-serif;
+				font-size:10px;
+				margin:0;
+			}
+
+			#content {
+
+			}
+		</style>
+
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+		<script type="text/javascript">
+			function initialize() {
+				var latlng = new google.maps.LatLng(53.602862,24.742678);
+				var settings = {
+					zoom: 17,
+					center: latlng,
+					mapTypeControl: true,
+					mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},
+					navigationControl: true,
+					navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
+					mapTypeId: google.maps.MapTypeId.ROADMAP};
+				var map = new google.maps.Map(document.getElementById("map_canvas"), settings);
+				var contentString = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">CreoOFby</h1>'+
+					'<div id="bodyContent">'+
+					
+					'</div>'+
+					'</div>';
+				var infowindow = new google.maps.InfoWindow({
+					content: contentString
+				});
+				
+				var companyImage = new google.maps.MarkerImage('<?= $this->baseUrl() ?>/desktop/images/map/logo.png',
+					new google.maps.Size(100,50),
+					new google.maps.Point(0,0),
+					new google.maps.Point(50,50)
+				);
+
+				var companyShadow = new google.maps.MarkerImage('<?= $this->baseUrl() ?>/desktop/images/map/logo_shadow.png',
+					new google.maps.Size(130,50),
+					new google.maps.Point(0,0),
+					new google.maps.Point(65, 50));
+
+				var companyPos = new google.maps.LatLng(53.602862,24.742678);
+
+				var companyMarker = new google.maps.Marker({
+					position: companyPos,
+					map: map,
+					icon: companyImage,
+					shadow: companyShadow,
+					title:"CreoOFby",
+					zIndex: 3});
+				
+
+
+				
+				google.maps.event.addListener(companyMarker, 'click', function() {
+					infowindow.open(map,companyMarker);
+				});
+			}
+		</script>
+                <body onload="initialize()">
+<div class="content-row1 bottom50">
+        <div class="container">
+             <?php 
+             if(Zend_Auth::getInstance()->hasIdentity()){ 
+             echo $this->form;
+             }else{
+                 echo '<div id="map_canvas" style="width:700px; height:300px"></div>';
+                 if($this->contacts['home_phone'] == null){
+                     echo '<div class="text-block"><b class="title">Вы можете найти нас по адресу : </b></br><p>'.$this->contacts['address'].'</br><b class="title">Связаться с нами : </b></br><img src="'.$this->baseUrl().'/images/mts.png">&nbsp&nbsp&nbsp'.$this->contacts['phone_mts'].'</br><img src="'.$this->baseUrl().'/images/velc.png">&nbsp&nbsp&nbsp'.$this->contacts['phone_velc'].'</br><img src="'.$this->baseUrl().'/images/skype.png">&nbsp&nbsp&nbsp'.$this->contacts['skype'].'</br><b class="title">Email : </b>'.$this->contacts['email'].'</br>'.html_entity_decode($this->conacts['additional_info']).'<b class="title">Время работы : </b></br>'.html_entity_decode($this->contacts['working_time']).'</p></div>';
+                 }else{
+                     echo '<div class="text-block"><b class="title">Вы можете найти нас по адресу : </b></br><p>'.$this->contacts['address'].'</p></br><b class="title">Связаться с нами : </b></br><img src="'.$this->baseUrl().'/images/home_phone.jpg">&nbsp&nbsp&nbsp'.$this->contacts['home_phone'].'</br><img src="'.$this->baseUrl().'/images/mts.png">&nbsp&nbsp&nbsp'.$this->contacts['phone_mts'].'</br><img src="'.$this->baseUrl().'/images/velc.png">&nbsp&nbsp&nbsp'.$this->contacts['phone_velc'].'</br><img src="'.$this->baseUrl().'/images/skype.png">&nbsp&nbsp&nbsp'.$this->contacts['skype'].'</br><b class="title">Email : </b>'.$this->contacts['email'].'</br>'.html_entity_decode($this->conacts['additional_info']).'<b class="title">Время работы : </b></br>'.html_entity_decode($this->contacts['working_time']).'</p></div>';
+                 }
+             }?>
+          
+        </div>
+    <?php if(!Zend_Auth::getInstance()->hasIdentity()){?>
+       <div class="container">
+          <div class="sixteen columns">
+             <div class="map_row">
+                <img src="<?= $this->baseUrl() ?>/desktop/images/map.png" alt=""/>
+             <div class="inner">
+           <h2 class="subscribe-form-title">Оставайтесь с нами</h2>
+
+           <div class="notice">* Мы ценим ваше время</div>
+               </div>
+             </div>
+          </div>
+       </div>
+    <?php }?>
+</div> 
+                    </body>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/jquery-2.0.0.min.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/jquery-migrate-1.1.1.min.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/jquery.easing.1.3.js"></script>
+        <script type="text/javascript" src="<?= $this->baseUrl() ?>/desktop/js/raphael-min.js"></script>
+        <script type="text/javascript" src="<?= $this->baseUrl() ?>/desktop/js/jquery.validationEngine.js"></script>
+        <script type="text/javascript" src="<?= $this->baseUrl() ?>/desktop/js/jquery.validationEngine-en.js"></script>
+        <script type="text/javascript" src="<?= $this->baseUrl() ?>/desktop/js/jquery.form.js"></script>
+        <script type="text/javascript" src="<?= $this->baseUrl() ?>/desktop/js/jquery.hoverdir.js"></script>
+        <script type="text/javascript" src="<?= $this->baseUrl() ?>/desktop/js/jquery.selectik.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/jquery.isotope.min.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/touchTouch.jquery.js"></script>
+        <script src="http://twitterjs.googlecode.com/svn/trunk/src/twitter.min.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/jquery.carouFredSel-6.2.1.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/tabs.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/toggles.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/boxes.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/settings-panel.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/jquery.cookie.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/script.js"></script>
+        <script type="text/javascript">
+             CKEDITOR.replace( 'working_time' );
+             CKEDITOR.replace( 'additional_info' );
+             
+        </script>
+<script type="text/javascript">
+$(document).ready(function(){
+   //remove class
+   $('#index').removeClass('active');
+   $('#services').removeClass('active');
+   $('#gallery').removeClass('active');
+   $('#feedback').removeClass('active');
+   //add
+   $('#contacts').addClass('active');
+});
+</script>
+
+

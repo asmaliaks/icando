@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <nav> 
+        <index>
+            <label>Главная</label>
+            <controller>index</controller>
+            <action>index</action>
+        </index>        
+        <service>
+            <label>Услуги</label>
+            <controller>service</controller>
+            <action>list-of-services</action>
+        </service>
+        <gallery>
+            <label>Галерея</label>
+            <controller>items</controller>
+            <action>gallery-items</action>
+        </gallery>
+        <contacts>
+            <label>Контакты</label>
+            <controller>index</controller>
+            <action>contacts</action>
+        </contacts>        
+        <feedback>
+            <label>Отзывы</label>
+            <controller>feedback</controller>
+            <action>feedback-list</action>
+        </feedback>        
+    </nav>    
+</config>

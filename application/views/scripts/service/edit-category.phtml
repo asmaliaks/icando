@@ -1,0 +1,17 @@
+<div class="container">
+    <?= $this->form?>
+    
+</div>
+<script src="<?= $this->baseUrl() ?>/desktop/js/jquery-2.0.0.min.js"></script>
+ <script type="text/javascript">
+$(document).ready(function(){
+   //remove class
+   $('#contacts').removeClass('active');
+   $('#index').removeClass('active');
+   $('#gallery').removeClass('active');
+   $('#feedback').removeClass('active');
+   //add
+   $('#services').addClass('active');
+   
+});
+</script>   

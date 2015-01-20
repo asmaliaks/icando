@@ -1,0 +1,24 @@
+
+     <div class="portfolio-container" >
+         <div class="container">          
+   <?= $this->form;?>          
+                                        
+                                       
+                                      
+         <div class="clearfix"></div>
+
+    </div>
+    </div></br>
+    <script src="<?= $this->baseUrl() ?>/desktop/js/jquery-2.0.0.min.js"></script>
+    <script type="text/javascript">
+$(document).ready(function(){
+   //remove class
+   $('#index').removeClass('active');
+   $('#services').removeClass('active');
+   $('#contacts').removeClass('active');
+   $('#feedback').removeClass('active');
+   //add
+   $('#gallery').addClass('active');
+
+});
+</script>

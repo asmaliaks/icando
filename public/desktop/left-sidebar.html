@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Blog with left sidebar</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/reset.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="css/style.css" type="text/css" media="screen">
+        <!-- REVOLUTION BANNER CSS SETTINGS -->
+        <link rel="stylesheet" type="text/css" href="css/responsive.css" media="screen" />
+        <link rel="stylesheet" href="css/prettyPhoto.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="css/touchTouch.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="css/skeleton.css" type="text/css" media="screen">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,600italic,700,700italic,400italic,800,800italic,300italic,300' rel='stylesheet' type='text/css'>         <link rel="stylesheet" title="color shemes" href="css/color_themes/f04f00.css" class="theme" id="theme" type="text/css" media="screen">
+
+        <!--[if lt IE 8]>
+            <div style=' clear: both; text-align:center; position: relative;'>
+                <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+                 <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." />
+                </a>
+            </div>
+        <![endif]-->
+
+        <!--[if lt IE 9]>
+            <script type="text/javascript" src="js/html5.js"></script>
+            <link rel="stylesheet" href="css/ie.css" type="text/css" media="screen">
+            <link href='http://fonts.googleapis.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+            <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic' rel='stylesheet' type='text/css'>
+            <link href='http://fonts.googleapis.com/css?family=Open+Sans:700' rel='stylesheet' type='text/css'>
+        <![endif]-->
+    </head>
+
+    <body id="blog">
+        <!--======================== Settins Panel ================================-->
+
+        <div class="settings-panel">
+            <div class="settings-panel-top">
+                Theme Settings
+            </div>
+            <div class="settings-panel-main">
+                <form id="settings-form" action="mail.php">
+                    <ul class="colors-list">
+                        <li data-color="#f04f00" class="active"><a href="#"></a></li>
+                        <li data-color="#169fe6"><a href="#"></a></li>
+                        <li data-color="#ffb709"><a href="#"></a></li>
+                        <li data-color="#bda77d"><a href="#"></a></li>
+                        <li data-color="#7ab300"><a href="#"></a></li>
+                        <li data-color="#445a80"><a href="#"></a></li>
+                        <li data-color="#f1a452"><a href="#"></a></li>
+                        <li data-color="#6854b3"><a href="#"></a></li>
+                        <li data-color="#ce2222"><a href="#"></a></li>
+                        <li data-color="#7ab4a7"><a href="#"></a></li>
+                        <li data-color="#7c5241"><a href="#"></a></li>
+                        <li data-color="#981b3c"><a href="#"></a></li>
+                        <li data-color="#767676"><a href="#"></a></li>
+                        <li data-color="#383838"><a href="#"></a></li>
+                        <li data-color="#acba0f"><a href="#"></a></li>
+                        <li class="clearfix"></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                    <div class="wrapper hidden">
+                        <input id="color" name="color" value="" type="text"/>
+                        <a href="#" class="settings-bt">Apply</a>
+                    </div>
+                    <div class="wrapper">
+                        Background Pattern:
+                    </div>
+                    <ul class="backgrounds-list">
+                        <li data-background="background1-parent.png" class="active"><a href="#"><img src="images/backgrounds/background1.gif" alt=""/></a></li>
+                        <li data-background="background2-parent.png"><a href="#"><img src="images/backgrounds/background2.gif" alt=""/></a></li>
+                        <li data-background="background3-parent.png"><a href="#"><img src="images/backgrounds/background3.gif" alt=""/></a></li>
+                        <li data-background="background4-parent.png"><a href="#"><img src="images/backgrounds/background4.gif" alt=""/></a></li>
+                        <li data-background="background5-parent.png"><a href="#"><img src="images/backgrounds/background5.gif" alt=""/></a></li>
+                        <li class="clearfix"></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                    <div>
+                        <label for="big_image">
+                            Background Image
+                        </label>
+                        <input type="checkbox" name="big_image" id="big_image" checked="checked"/>
+                    </div>
+                    <a href="#" class="settings-bt reset">Reset</a>
+
+                </form>
+            </div>
+        </div>
+        <!-- ======================================================================== -->
+        <div class="bg">
+            <div class="main">
+                <!--==============================header=================================-->
+                <header>
+                    <div class="container">
+                        <div class="three columns">
+                            <h1 class="logo">
+                                <a href="index.html">
+                                    <img src="images/logo.png" alt="logo-text" />
+                                    Shophouse
+                                </a>
+                            </h1>
+                        </div>
+                        <div class="nine columns">
+                            <nav class="header_menu">
+                                <ul class="sf-menu">
+                                    <li>
+                                        <a href="index.html">Home</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="index.html">Home with Revolution Slider</a></li>
+                                            <li><a href="home-1.html">Home with Image Grid</a></li>
+                                            <li><a href="home-2.html">Home with Map</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="about.html">About Us</a></li>
+                                    <li>
+                                        <a href="shortcodes.html">Pages</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="shortcodes.html">Elements</a></li>
+                                            <li><a href="layouts.html">Layouts</a></li>
+                                            <li><a href="typography.html">Typography</a></li>
+                                            <li><a href="details.html">House Description</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="blog.html" class="active">Blog</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="left-sidebar.html" class="active">Left Sidebar</a></li>
+                                            <li><a href="blog.html">Right Sidebar</a></li>
+                                            <li><a href="full-size-blog.html">Full Width Sidebar</a></li>
+                                            <li><a href="single-post.html">Single Post</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="portfolio.html">Portfolio</a></li>
+                                    <li><a href="contacts.html">Contacts</a></li>
+                                </ul>
+                                <select id="mobile_menu"></select>
+                            </nav>
+                        </div>
+                        <div class="four columns header-buttons-group">
+                            <a href="#" class="button-with-plus">join</a>
+                            <a href="#" class="button">log in</a>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </header>
+
+                <!--==============================content================================-->
+                <section id="content">
+                    <div class="page-splash">
+                        <div class="inner">
+                            <div class="container">
+                                <div class="sixteen columns">
+                                    <h2 class="title">
+                                        Welcome to Our Blog Page
+                                    </h2>
+                                    Sed ut perspiciatis, unde omnis iste natus error sit volup tatem accu santium dolore mque laudantium, totsa, quae to beatae vitae dicta sunt
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row-indent">
+                            <div class="one-third column sidebar right-sidebar">
+                                <div class="blog-search-widget sidebar-widget">
+                                    <form id="blog-search-form" action="somescript.php">
+                                        <input type="text" value="" name="s" placeholder="Search"/>
+                                        <input type="submit" />
+                                    </form>
+                                </div>
+                                <div class="sidebar-widget">
+                                    <ul class="social-links">
+                                        <li><a href="#" class="dribbble"></a></li>
+                                        <li><a href="#" class="facebook"></a></li>
+                                        <li><a href="#" class="twitter"></a></li>
+                                        <li><a href="#" class="rss"></a></li>
+                                        <li><a href="#" class="pinterest"></a></li>
+                                        <li class="clearfix"></li>
+                                    </ul>
+                                </div>
+                                <div class="popular-posts-sidebar-widget sidebar-widget">
+                                    <h3 class="sidebar-title">Popular Posts</h3>
+                                    <ul class="popular-posts-sidebar">
+                                        <li>
+                                            <a href="#" class="img-container">
+                                                <img src="images/thubm1.jpg" alt=""/>
+                                            </a>
+                                            Sed ut perspic iatis, undmne omnis iste natmnus
+                                            <ul class="blog-meta">
+                                                <li class="datatime"><a href="#">29</a></li>
+                                                <li class="comments-count"><a href="#">12/03/13</a></li>
+                                                <li class="clearfix"></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="img-container">
+                                                <img src="images/thubm2.jpg" alt=""/>
+                                            </a>
+                                            Sed ut perspic iatis, undmne omnis iste natmnus
+                                            <ul class="blog-meta">
+                                                <li class="datatime"><a href="#">29</a></li>
+                                                <li class="comments-count"><a href="#">12/03/13</a></li>
+                                                <li class="clearfix"></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="img-container">
+                                                <img src="images/thubm3.jpg" alt=""/>
+                                            </a>
+                                            Sed ut perspic iatis, undmne omnis iste natmnus
+                                            <ul class="blog-meta">
+                                                <li class="datatime"><a href="#">29</a></li>
+                                                <li class="comments-count"><a href="#">12/03/13</a></li>
+                                                <li class="clearfix"></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="recent-comments-sidebar-widget sidebar-widget">
+                                    <h3 class="sidebar-title">Recent Comments</h3>
+                                    <ul class="recent-comments-sidebar">
+                                        <li>
+                                            <a href="#" class="img-container">
+                                                <img src="images/comment-thumb1.jpg" alt=""/>
+                                            </a>
+                                            <a href="#" class="comment-link">
+                                                <strong>John Doe Said:</strong> Sed ut perspiciatis, unde omnis iste natus error sit vom dolore mque laudan.
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="img-container">
+                                                <img src="images/comment-thumb2.jpg" alt=""/>
+                                            </a>
+                                            <a href="#" class="comment-link">
+                                                <strong>Admin Said:</strong> Sed ut perspiciatis, unde omnis iste natus error sit vom dolore mque laudan.
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="img-container">
+                                                <img src="images/comment-thumb3.jpg" alt=""/>
+                                            </a>
+                                            <a href="#" class="comment-link">
+                                                <strong>John Doe Said:</strong> Sed ut perspiciatis, unde omnis iste natus error sit vom dolore mque laudan.
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="categories-widget sidebar-widget">
+                                    <h3 class="sidebar-title">Archive</h3>
+                                    <ul class="categories">
+                                        <li><a href="#">November 2012 <strong>(12)</strong></a></li>
+                                        <li><a href="#">December 2012 <strong>(53)</strong></a></li>
+                                        <li><a href="#">January 2013 <strong>(5)</strong></a></li>
+                                        <li><a href="#">February 2013 <strong>(22)</strong></a></li>
+                                        <li><a href="#">March 2013 <strong>(1)</strong></a></li>
+                                    </ul>
+                                </div>
+                                <div class="banner-widget sidebar-widget">
+                                    <a href="#"><img src="images/sidebar-banner.png" alt=""/></a>
+                                </div>
+                                <div class="tags-widget sidebar-widget">
+                                    <h3 class="sidebar-title">Popular Tags</h3>
+                                    <ul class="tags">
+                                        <li><a href="#">business</a></li>
+                                        <li><a href="#">technology</a></li>
+                                        <li><a href="#">sale</a></li>
+                                        <li><a href="#">html5</a></li>
+                                        <li><a href="#">responsive</a></li>
+                                        <li><a href="#">internet</a></li>
+                                        <li><a href="#">posts</a></li>
+                                        <li><a href="#">news</a></li>
+                                    </ul>
+                                </div>
+                                <div class="blog-subscribe-widget sidebar-widget">
+                                    <h3 class="sidebar-title">Subscribe!<img src="images/mail-chimp.png" alt=""/></h3>
+                                    <form id="blog-subscribe-form" action="somescript.php">
+                                        <input type="text" value="" name="s" placeholder="Type your email"/>
+                                        <input type="submit" />
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="two-thirds column blog">
+                                <div class="blog-post">
+                                    <div class="blog-image-cont">
+                                        <a href="images/blog-img1.jpg" class="blog-image-link"><img src="images/blog-img1.jpg"  alt=""/><div class="hoverDir"><span></span></div></a>
+                                    </div>
+                                    <h2 class="blog-post-title"><a href="single-post.html">A Really Nice Image Post Here</a></h2>
+                                    <ul class="blog-meta">
+                                        <li class="author"><a href="#">John Doe</a></li>
+                                        <li class="datatime"><a href="#">12/03/13</a></li>
+                                        <li class="comments-count"><a href="#">29</a></li>
+                                        <li class="tags"><a href="#">Business</a>, <a href="#">Premium</a>, <a href="#">Bestseller</a></li>
+                                    </ul>
+                                    Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accus antium dolor emque laud antium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicab nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugt.
+                                </div>
+                                <div class="blog-post">
+                                    <div class="blog-image-cont">
+                                        <a href="images/blog-img2.jpg" class="blog-image-link"><img src="images/blog-img2.jpg"  alt=""/><div class="hoverDir"><span></span></div></a>
+                                    </div>
+                                    <h2 class="blog-post-title"><a href="single-post.html">A Really Nice Image Post Here</a></h2>
+                                    <ul class="blog-meta">
+                                        <li class="author"><a href="#">John Doe</a></li>
+                                        <li class="datatime"><a href="#">12/03/13</a></li>
+                                        <li class="comments-count"><a href="#">29</a></li>
+                                        <li class="tags"><a href="#">Business</a>, <a href="#">Premium</a>, <a href="#">Bestseller</a></li>
+                                    </ul>
+                                    Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accus antium dolor emque laud antium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicab nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugt.
+                                </div>
+                                <div class="blog-post">
+                                    <div class="blog-image-cont">
+                                        <a href="images/blog-img3.jpg" class="blog-image-link"><img src="images/blog-img3.jpg"  alt=""/><div class="hoverDir"><span></span></div></a>
+                                    </div>
+                                    <h2 class="blog-post-title"><a href="single-post.html">A Really Nice Image Post Here</a></h2>
+                                    <ul class="blog-meta">
+                                        <li class="author"><a href="#">John Doe</a></li>
+                                        <li class="datatime"><a href="#">12/03/13</a></li>
+                                        <li class="comments-count"><a href="#">29</a></li>
+                                        <li class="tags"><a href="#">Business</a>, <a href="#">Premium</a>, <a href="#">Bestseller</a></li>
+                                    </ul>
+                                    Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accus antium dolor emque laud antium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicab nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugt.
+                                </div>
+                                <div class="blog-post">
+                                    <h2 class="blog-post-title"><a href="single-post.html">A Really Nice Post Here</a></h2>
+                                    <ul class="blog-meta">
+                                        <li class="author"><a href="#">John Doe</a></li>
+                                        <li class="datatime"><a href="#">12/03/13</a></li>
+                                        <li class="comments-count"><a href="#">29</a></li>
+                                        <li class="tags"><a href="#">Business</a>, <a href="#">Premium</a>, <a href="#">Bestseller</a></li>
+                                    </ul>
+                                    Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium dolore mque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dictis, <a href="#">unde omnis iste natus</a> error sit voluptatem accusantium dolore mque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicab nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugt.
+                                </div>
+                                <ul class="pager">
+                                    <li><a href="#" class="active">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li class="ect">...</li>
+                                    <li><a href="#">10</a></li>
+                                    <li><a href="#">20</a></li>
+                                    <li><a href="#" class="last-page">Last Page</a></li>
+                                    <li class="page-count">Page 1 of 32</li>
+                                </ul>
+                            </div>
+
+
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </section>
+                <!--==============================Aside=================================-->
+                <aside>
+                    <div class="container">
+                        <div class="four columns">
+                            <h2>Most Recent</h2>
+                            <ul class="recent-posts">
+                                <li>
+                                    <a href="#"><img src="images/recent-thumb-1.jpg" alt=""/></a>
+                                    <div>123 Astasia Ave Coral</div>
+                                    <div>4 Baths • 3 Beds</div>
+                                    <strong>$550,000</strong>
+                                </li>
+                                <li>
+                                    <a href="#"><img src="images/recent-thumb-2.jpg" alt=""/></a>
+                                    <div>123 Astasia Ave Coral</div>
+                                    <div>4 Baths • 3 Beds</div>
+                                    <strong>$550,000</strong>
+                                </li>
+                                <li>
+                                    <a href="#"><img src="images/recent-thumb-3.jpg" alt=""/></a>
+                                    <div>123 Astasia Ave Coral</div>
+                                    <div>4 Baths • 3 Beds</div>
+                                    <strong>$550,000</strong>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="four columns">
+                            <h2>Contact Us</h2>
+                            <ul class="address">
+                                <li class="addr">
+                                    192 Streetname, 
+                                    New York, NY 12212
+                                    United States
+                                </li>
+                                <li class="phone">
+                                    +38 123 567 890
+                                </li>
+                                <li class="mail">
+                                    office@shophouse.com
+                                </li>
+                                <li class="skype">
+                                    shophouse.skype
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="four columns">
+                            <h2>Useful Links</h2>
+                            <ul class="aside-link">
+                                <li><a href="#">About Us</a></li>
+                                <li><a href="#">Portfolio Page</a></li>
+                                <li><a href="#">404 Page</a></li>
+                                <li><a href="#">Contact Us</a></li>
+                                <li><a href="#">FAQ</a></li>
+                                <li><a href="#">Our Agents</a></li>
+                                <li><a href="#">Typography</a></li>
+                            </ul>
+                        </div>
+                        <div class="four columns">
+                            <h2>Contact Form</h2>
+                            <form id="aside-form" action="mail.php" method="post">
+                                <input type="text" name="name" placeholder="Name: *" id="name" class="validate[required,maxSize[30]]"/>
+                                <input type="text" name="email" placeholder="Email: *" id="email" class="validate[required,custom[email]]"/>
+                                <textarea name="message" placeholder="Message:" id="message" class="validate[length[6,3000]]"></textarea>                                 <div class="request">Your message has been sent</div>
+                                <a href="javascript:void(0)" onClick="send('#aside-form')" class="button1 submit-form">Submit Form</a>
+                                <script>
+                                    function send(form) {
+                                        var valid = jQuery(form).validationEngine('validate');
+                                        if(valid == true){
+                                            var options = {
+                                                clearForm:true,
+                                                success: function() {
+                                                    var req = $('.request');
+                                                    req.fadeIn();
+                                                    setTimeout(function(){req.fadeOut()}, 7000)
+                                                }};
+                                            jQuery('form#aside-form').ajaxSubmit(options);
+                                        }
+                                    }
+                                </script>
+                            </form>
+                        </div>
+                    </div>
+                </aside>
+                <!--==============================footer=================================-->
+                <footer>
+                    <div class="container">
+                        <div class="sixteen columns">
+                            <div class="fleft">
+                                &COPY; Copyright 2013 by Shmitass. All right reserved
+                            </div>
+                            <div class="fright">
+                                <ul class="social-links">
+                                    <li><a href="#" class="dribbble"></a></li>
+                                    <li><a href="#" class="facebook"></a></li>
+                                    <li><a href="#" class="twitter"></a></li>
+                                    <li><a href="#" class="rss"></a></li>
+                                    <li><a href="#" class="pinterest"></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </footer>
+
+            </div>
+        </div>
+        <script src="js/jquery-2.0.0.min.js"></script>
+        <script src="js/jquery-migrate-1.1.1.min.js"></script>
+        <script src="js/jquery.easing.1.3.js"></script>
+        <script type="text/javascript" src="js/raphael-min.js"></script>
+        <script type="text/javascript" src="js/jquery.validationEngine.js"></script>
+        <script type="text/javascript" src="js/jquery.validationEngine-en.js"></script>
+        <script type="text/javascript" src="js/jquery.form.js"></script>
+        <script type="text/javascript" src="js/jquery.hoverdir.js"></script>
+        <script type="text/javascript" src="js/jquery.selectik.js"></script>
+        <script src="js/jquery.isotope.min.js"></script>
+        <script src="js/touchTouch.jquery.js"></script>
+        <script src="js/settings-panel.js"></script>
+        <script src="js/jquery.cookie.js"></script>
+        <script src="js/script.js"></script>
+        <script>
+            $(document).ready(function(){
+                "use strict";
+                $('.header_menu a').each(function(i){
+                    var link = $(this).attr('href');
+                    var text;
+                    if($(this).parents('ul.sub-menu').length!=0){
+                        text = '--'+$(this).text();
+                    } else {
+                        text = $(this).text();
+                    }
+                    if(window.location.href.indexOf(link)!=-1){
+                        $('#mobile_menu').append('<option value="'+link+'" selected="selected">'+text+'</option>');
+                    } else{
+                        $('#mobile_menu').append('<option value="'+link+'">'+text+'</option>'); 
+                    }
+                });
+                $('#mobile_menu').live('change', function(){
+                    if($(this).val()!=''){
+                        window.location = $(this).val();
+                    }
+                });
+                $('.blog-image-link').each( function() { 
+                    $(this).hoverdir({
+                        hoverDelay : 75
+                    });
+                });
+                $('.blog-image-link').touchTouch();
+            });
+            $(window).load(function(){
+                setTimeout(showPageSplash, 500);
+            });
+            function showPageSplash(){
+                $('.page-splash').stop().animate({'height':'299px'},1500, 'easeOutBounce');
+            }
+        </script>
+    </body>
+
+</html>

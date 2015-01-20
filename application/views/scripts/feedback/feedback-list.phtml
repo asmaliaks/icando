@@ -1,0 +1,75 @@
+       <?php if(!Zend_Auth::getInstance()->hasIdentity()){?>            
+                  <div class="page-splash" id="serviceList" style="height : 299px;">
+                        <div class="inner" >
+                           <div class="container">
+                                <div class="sixteen columns">
+                                    <h2 class="title">
+                                        Отзывы
+                                    </h2>
+                                    
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </div>
+       <?php }?>
+<section id="content">
+    <div class="content-row1 content-row-indent">
+        <div class="container">
+          <div class="sixteen columns">
+              <?php if(!Zend_Auth::getInstance()->hasIdentity()){ ?>
+              <h2 class="title"><a href="<?= $this->url(array('controller'=>'feedback', 'action'=>'new-feedback'))?>">Оставить отзыв</a></h2>
+               <?php }?>
+               <div class="sixteen columns">
+                <div class="divider"></div>
+               </div>             
+               <div class="two-thirds column">               
+                  <?php 
+        if(Zend_Auth::getInstance()->hasIdentity()){
+            foreach($this->paginator as $feedback){
+               echo '<h3>'.$feedback['name'].'</h3><p id="date"> Дата : '.$feedback['date'].'</p><p id="feedback">'.html_entity_decode($feedback['title']).'</p></br><a href="'.$this->url(array('controller'=>'feedback', 'action'=>'remove-feedback')).'?id='.$feedback['id'].'">Удалить комментарий</a><div class="sixteen columns"><div class="divider"></div></div>';
+            }
+        }else{
+            foreach($this->paginator as $feedback){
+               echo '<h3>'.$feedback['name'].'</h3><p id="date">  Дата : '.$feedback['date'].'</p><p id="feedback">'.html_entity_decode($feedback['title']).'</p><div class="sixteen columns"><div class="divider"></div></div>';   
+           }
+        }        ?>
+        <?= $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml') ?></br>           
+               </div>
+          </div>
+        </div>
+    </div>
+   
+</section>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/jquery-2.0.0.min.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/jquery-migrate-1.1.1.min.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/jquery.easing.1.3.js"></script>
+        <script type="text/javascript" src="<?= $this->baseUrl() ?>/desktop/js/raphael-min.js"></script>
+        <script type="text/javascript" src="<?= $this->baseUrl() ?>/desktop/js/jquery.validationEngine.js"></script>
+        <script type="text/javascript" src="<?= $this->baseUrl() ?>/desktop/js/jquery.validationEngine-en.js"></script>
+        <script type="text/javascript" src="<?= $this->baseUrl() ?>/desktop/js/jquery.form.js"></script>
+        <script type="text/javascript" src="<?= $this->baseUrl() ?>/desktop/js/jquery.hoverdir.js"></script>
+        <script type="text/javascript" src="<?= $this->baseUrl() ?>/desktop/js/jquery.selectik.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/jquery.isotope.min.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/touchTouch.jquery.js"></script>
+        <script src="http://twitterjs.googlecode.com/svn/trunk/src/twitter.min.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/jquery.carouFredSel-6.2.1.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/tabs.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/toggles.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/boxes.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/settings-panel.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/jquery.cookie.js"></script>
+        <script src="<?= $this->baseUrl() ?>/desktop/js/script.js"></script>
+
+
+<script>
+$(document).ready(function(){
+   //remove class
+   $('#index').removeClass('active');
+   $('#services').removeClass('active');
+   $('#gallery').removeClass('active');
+   $('#contacts').removeClass('active');
+   //add
+   $('#feedback').addClass('active');
+});
+</script>
