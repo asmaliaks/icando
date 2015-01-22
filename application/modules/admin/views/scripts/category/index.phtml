@@ -1,0 +1,31 @@
+
+<?php foreach($this->categoryList as $category){?>
+     <div id="div<?= $category['id'] ?>">
+       <div class="col-lg-8">
+        <?= $category['title']?>
+       </div>
+       <div class="col-lg-2">
+           <a id="removeBut<?= $category['id'] ?>" onclick="removeCategory(<?= $category['id'] ?>)">Удалить</a>
+           <img style="display: none" id="preloader<?= $category['id'] ?>" src="<?= $this->baseUrl()?>/images/blue_preloader.gif" width="40">
+       </div>
+       <div class="col-lg-2">
+           <a href="<?= $this->baseUrl().'/admin/category/edit-category/id/'.$category['id']?>">Редактировать</a>
+       </div>
+     </div>   
+<?php } ?>
+
+<script>
+function removeCategory(id){
+    $('#removeBut'+id).remove();
+    $('#preloader'+id).show();
+$.ajax({
+  type: 'POST',
+  url: '<?= $this->baseUrl.'/admin/category/remove-category/'; ?>',
+  data: {id: id},
+  success: function(data){
+    $('#preloader'+id).remove();
+    $('#div'+id).remove();
+  }
+});
+}
+</script>

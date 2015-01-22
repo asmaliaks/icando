@@ -1,0 +1,56 @@
+<?php if(!$this->performers){?>
+<h2>Не найдено ниодного исполнителя</h2>
+<?php }else {?>
+
+    <?php foreach($this->performers as $performer){?>
+<div class="row" id="div<?= $performer['id'] ?>">
+      <div class="col-lg-2">
+          <?=  $performer['username'].' '.$performer['surname'] ?>
+      </div>    
+      <div class="col-lg-2">
+          <?=  $performer['phonenumber'] ?>
+      </div>    
+      <div class="col-lg-2">
+          <?=  $performer['city'] ?>
+      </div>    
+      <div class="col-lg-2">
+          balans
+      </div>    
+    
+      <div class="col-lg-2">
+          <button id="bann<?= $performer['id'] ?>" onclick="bann(<?= $performer['id'] ?>)">Забанить</button>
+          <img style="display: none" id="banPrel<?= $performer['id'] ?>" src="<?= $this->baseUrl()?>/images/blue_preloader.gif" width="40">    
+      </div>    
+      <div class="col-lg-2">
+          <button id="remove<?= $performer['id'] ?>" onclick="remove(<?= $performer['id'] ?>)">Удалить</button>
+          <img style="display: none" id="remPrel<?= $performer['id'] ?>" src="<?= $this->baseUrl()?>/images/blue_preloader.gif" width="40">    
+      </div>   
+    </div>
+    <?php } ?>
+
+<?php } ?>
+<script>
+    function remove(id){
+        $('#remove'+id).hide();
+        $('#banPrel'+id).show();
+$.ajax({
+  type: 'POST',
+  url: '<?= $this->baseUrl.'/admin/performers/remove/'; ?>',
+  data: {id: id},
+  success: function(data){
+     $('#div'+id).remove();
+  }
+});        
+    }
+    
+    function bann(id){
+$.ajax({
+  type: 'POST',
+  url: '<?= $this->baseUrl.'/admin/performers/bann/'; ?>',
+  data: {id: id},
+  success: function(data){
+
+  }
+});       
+    }
+</script>    

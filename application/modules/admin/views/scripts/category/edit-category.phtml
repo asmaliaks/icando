@@ -1,0 +1,9 @@
+<?php $message = new Zend_Session_Namespace('result'); ?>
+<?php if($message->fail){?>
+  <p class="text-danger"><?= $message->fail ?></p>
+<?php } ?>
+<?php if($message->success){?>
+  <p class="text-success"><?= $message->success ?></p>
+  <a href="<?= $this->baseUrl().'/admin/category' ?>">Список категорий</a>
+<?php } ?>
+<?= $this->form; ?>
