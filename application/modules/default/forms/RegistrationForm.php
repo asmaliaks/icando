@@ -7,7 +7,7 @@ class Form_RegistrationForm extends Zend_Form{
  
    $this->setName('registration_form');
 
-   $email = new Zend_Form_Element_Text('email');
+     $email = new Zend_Form_Element_Text('email');
    $email->setLabel('Email')
          ->setRequired()
          ->addErrorMessage('Поле обязательно для заполнения');
@@ -32,48 +32,68 @@ class Form_RegistrationForm extends Zend_Form{
       'male' => 'М',
       'female' => 'Ж'
    ));
+   
+   $dayBirth = new Zend_Form_Element_Select('day_birth');
+   $dayBirth->setLabel('День рождения');
+   $k=1;
+   while($k<32){
+       if($k<10){
+           $k = "0".$k;
+       }
+       $dayBirth->addMultiOption($k, $k);
+       $k++;
+   }
+   $monthBirth = new Zend_Form_Element_Select('month_birth');
+   $monthBirth->setLabel('Месяц')
+           ->addMultiOptions(array(
+               '01' => 'январь',
+               '02' => 'февраль',
+               '03' => 'март',
+               '04' => 'апрель',
+               '05' => 'май',
+               '06' => 'июнь',
+               '07' => 'июль',
+               '08' => 'август',
+               '09' => 'сентябрь',
+               '10' => 'октябрь',
+               '11' => 'ноябрь',
+               '12' => 'декабрь',
+           ));
+   
+   $currentYear = date("Y");
+   $birthYear = new Zend_Form_Element_Select('year_birth');
+   $birthYear->setLabel('Год');
+   $y = 0;
+   while($y<110){
+       $year = $currentYear-$y;
+       $birthYear->addMultiOption($year, $year);
+       $y++;
+   }
            
    $phoneNumber = new Zend_Form_Element_Text('phonenumber');
-   $phoneNumber->setLabel('Номер телефона')
-           ->setRequired()
-           ->addErrorMessage('Поле обязательно для заполнения');
+   $phoneNumber->setLabel('Номер телефона');
    
    $city = new Zend_Form_Element_Text('city');
-   $city->setLabel('Город')
-           ->setRequired()
-           ->addErrorMessage('Поле обязательно для заполнения');
+   $city->setLabel('Город');
    
-
+   $image = new Zend_Form_Element_File('image');
+   $image->setLabel('Изображение')
+//         ->setDestination(DOCUMENT_ROOT.'/images/users_images/');  
+         ->setDestination($_SERVER['DOCUMENT_ROOT'].'/images/users_images/');  
    
    
    $pass = new Zend_Form_Element_Password('pass');
-   $pass->setLabel('Пароль')
-           ->setRequired();
+   $pass->setLabel('Пароль');
    
    $passConfirm = new Zend_Form_Element_Password('pass_conf');
-   $passConfirm->setRequired()
-           ->setLabel('Подтвердите пароль');
-           
-   
-   $captcha = new Zend_Form_Element_Captcha('captcha', array(
-                    'captcha' => array(
-                        'captcha' => 'image', // Тип CAPTCHA
-                        'wordLen' => 4,
-                        'width' => 150,
-                        'height' => 60,
-                        'timeout' => 320,
-                        'fontSize' => 30,
-                        'font' => $_SERVER['DOCUMENT_ROOT'].'/fonts/Vin\'s Dojo.ttf',
-                        'imgDir' => APPLICATION_PATH . '/../public/captcha/images',
-                        'imgUrl' => Zend_Controller_Front::getInstance()->getBaseUrl() .
-                        '/captcha/images')));
-        $captcha->setAttrib('placeholder', 'Введите код');
+   $passConfirm->setLabel('Подтвердите пароль');
+
 
    $submit = new Zend_Form_Element_Submit('submit');
    $submit->setLabel('Сохранить')
           ->setAttrib('class', 'button2');
    
-   $this->addElements(array($email, $name, $surname, $sex,  $phoneNumber, $city, $pass, $passConfirm, $captcha, $submit));
+   $this->addElements(array($email, $name, $surname, $sex,  $phoneNumber, $city, $dayBirth, $monthBirth, $birthYear, $image, $pass, $passConfirm, $submit));
    $this->setMethod('post');
    
    

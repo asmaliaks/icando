@@ -17,4 +17,45 @@ class Admin_Model_DbTable_Users extends Zend_Db_Table_Abstract{
             return false;
         }
     }
+    public function getCustomers(){
+        $select = $this->select('*')->where('role = ?', 'customer');
+        $result = $this->fetchAll($select);
+        if($result){
+            return $result->toArray();
+        }else{
+            return false;
+        }
+    }
+    public function getUserById($id){
+        $select = $this->select('*')->where('id = ?', $id);
+        $result = $this->fetchRow($select);
+        return $result->toArray();
+        
+    }
+    
+    public function removeUser($id){
+        $where = $this->getAdapter()->quoteInto('id = ?', $id);
+        $this->delete($where);
+        return true;
+    }
+    
+    public function bannUser($id){
+        $data = array('banned' => 1,);
+       
+        $where = $this->getAdapter()->quoteInto('id = ?', $id);
+        $this->update($data, $where);
+    }
+    
+    public function unbannUser($id){
+        $data = array('banned' => 0,);
+       
+        $where = $this->getAdapter()->quoteInto('id = ?', $id);
+        $this->update($data, $where);
+    }
+    public function changeCustomerToPerformer($userId){
+        $data = array('role' => 'performer',);
+       
+        $where = $this->getAdapter()->quoteInto('id = ?', $userId);
+        $this->update($data, $where);
+    }
 }

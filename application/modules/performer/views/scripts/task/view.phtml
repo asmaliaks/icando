@@ -1,0 +1,51 @@
+    
+        <div class="col-lg-8">
+            <h3><?= $this->task['title'] ?></h3><small><?= date("d.m.Y",$this->task['created_at']) ?></small>
+        </div>
+        <div class="col-lg-2">
+            <?php switch ($this->task['status']){
+                case 'non_taken': ?>
+                <button class="btn btn-primary btn-sm" onclick="acceptTask(<?= $this->task['id'] ?>)" >Принять</button>
+            <?php    break;
+            }?>
+            <img id="prel<?= $this->task['id'] ?>" style="display:none" src="<?= $this->baseUrl() ?>/images/blue_preloader.gif" width="45">
+        </div>
+        <div class="col-lg-2">
+           
+        </div>
+        <?php if($this->task['task_image']){?>
+        <div class="col-lg-12">
+            <img src="<?= $this->baseUrl().'/images/task_images/'.$this->task['task_image'] ?>" class="img-thumbnail" width="200px">
+        </div>
+        <?php } ?>
+        <div class="col-lg-12">
+           <label>Пользователь : </label>
+           <a href="<?= $this->baseUrl().'/performer/customer/view/id/'.$this->task['customer_id'] ?>"><?= $this->task['u_username'].' '.$this->task['u_surname'] ?></a>
+        </div>
+        <div class="col-lg-12">
+           <label>Описание</label>
+        </div>   
+        <div class="col-lg-12">
+           <?= $this->task['description'] ?>
+        </div>
+        <div class="col-lg-12">
+           <label>Дата исполнения : </label>
+           <?= date("d.m.Y",$this->task['final_date']) ?>
+        </div>
+
+        <div class="col-lg-12">
+           <label>Стоимость предложенная заказчиком : </label>
+           <?= $this->task['customers_price'] ?> рублей
+        </div>
+ <script>
+ function acceptTask(taskId){
+$.ajax({
+    type: 'POST',
+    url: '<?= $this->baseUrl.'/performer/settings/add-user-category'; ?>',
+    data: {taskId: taskId},
+    success: function(){
+        $('#prel'+catId).hide();
+    }
+});
+ }
+ </script>

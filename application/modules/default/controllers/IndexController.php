@@ -19,7 +19,7 @@ protected $user;
                 $this->_redirect('admin');
                 break;
             case 'customer': 
-                $this->_redirect('customer');
+                $this->_redirect('customer/office');
                 break;
             case 'performer':
                 $this->_redirect('performer');

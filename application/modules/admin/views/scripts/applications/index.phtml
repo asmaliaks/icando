@@ -1,0 +1,92 @@
+<?php if(!$this->appList){?>
+<h2>Заявок нет</h2>
+<?php }else {?>
+<table id="appTable" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ФИО</th>
+                <th>Номер телефона</th>
+                <th>Город</th>
+                <th>Возраст</th>
+                <th>Банн</th>
+                <th>Принять</th>
+                <th>Отклоннить</th>
+            </tr>
+        </thead>    
+ 
+        <tfoot>
+            <tr>
+                <th>ID</th>
+                <th>ФИО</th>
+                <th>Номер телефона</th>
+                <th>Город</th>
+                <th>Возраст</th>
+                <th>Банн</th>
+                <th>Принять</th>
+                <th>Отклоннить</th>
+            </tr>
+        </tfoot>
+        <tbody>
+    <?php foreach($this->appList as $app){?>
+            <tr id="div<?= $app['id'] ?>">
+                <td><?= $app['id'] ?></td>
+                <td><a href="<?= $this->baseUrl().'/admin/customers/view/id/'.$app['id'] ?>"><?=  $app['username'].' '.$app['surname'] ?></a></td>
+                <td><?=  $app['phonenumber'] ?></td>
+                <td><?=  $app['city'] ?></td>
+                <td>28</td>
+                <td>
+                     <?php if($app['banned'] == 0){?>
+                           Нет
+                     <?php }else{ ?>
+                           Да
+                     <?php } ?>
+                </td>
+                <td>
+                    <button onclick="accept(<?= $app['id'] ?>, <?= $app['customer_id']?>)" id="acceptBut<?= $app['id'] ?>" <?php if($app['banned'] == 1):?>disabled<?php endif;?>>Принять</button>
+                    <img style="display: none" id="acceptPrel<?= $app['id'] ?>" src="<?= $this->baseUrl()?>/images/blue_preloader.gif" width="50"> 
+                </td>
+                <td>
+                    <button id="declineBut<?= $app['id'] ?>" onclick="decline(<?= $app['id'] ?>)">
+                        Отколонить
+                    </button>
+                    <img style="display: none" id="declPrel<?= $app['id'] ?>" src="<?= $this->baseUrl()?>/images/blue_preloader.gif" width="50"> 
+                </td>
+            </tr>
+
+    <?php } ?>
+ </tbody>
+</table>
+<?php } ?>
+<script>
+    $(document).ready(function(){
+        $('#appTable').DataTable();
+    });
+
+    
+    function decline(id){
+        $('#declineBut'+id).hide(100);
+        $('#declPrel'+id).show();
+$.ajax({
+  type: 'POST',
+  url: '<?= $this->baseUrl.'/admin/applications/decline/'; ?>',
+  data: {id: id},
+  success: function(data){
+      $('#div'+id).remove();
+  }
+});       
+    }
+    function accept(appId, customerId){ 
+   
+    $('#acceptBut'+appId).hide(100);
+    $('#acceptPrel'+appId).show();
+$.ajax({
+  type: 'POST',
+  url: '<?= $this->baseUrl.'/admin/applications/accept/'; ?>',
+  data: {appId: appId, customerId: customerId},
+  success: function(data){
+    $('#div'+appId).hide();
+  }
+});       
+    }
+</script>    

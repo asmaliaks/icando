@@ -1,5 +1,5 @@
 <?php
-class Form_GalleryForm extends Zend_Form{
+class Performer_Form_GalleryForm extends Zend_Form{
     
         public function __construct($option = null) {
         parent::__construct($option);

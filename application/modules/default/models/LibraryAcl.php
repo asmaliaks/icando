@@ -8,20 +8,31 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->add(new Zend_Acl_Resource('default:index'), 'default'); 
        $this->add(new Zend_Acl_Resource('default:error'), 'default'); 
        $this->add(new Zend_Acl_Resource('default:authentication'), 'default'); 
+       $this->add(new Zend_Acl_Resource('default:registration'), 'default'); 
+       $this->add(new Zend_Acl_Resource('default:s-auth'), 'default'); 
        
        $this->add(new Zend_Acl_Resource('admin'));
        $this->add(new Zend_Acl_Resource('admin:index'), 'admin');
        $this->add(new Zend_Acl_Resource('admin:category'), 'admin');
        $this->add(new Zend_Acl_Resource('admin:performers'), 'admin');
        $this->add(new Zend_Acl_Resource('admin:customers'), 'admin');
+       $this->add(new Zend_Acl_Resource('admin:applications'), 'admin');
        
        $this->add(new Zend_Acl_Resource('customer'));
        $this->add(new Zend_Acl_Resource('customer:index'), 'customer');
        $this->add(new Zend_Acl_Resource('customer:messages'), 'customer');
+       $this->add(new Zend_Acl_Resource('customer:performers'), 'customer');
+       $this->add(new Zend_Acl_Resource('customer:settings'), 'customer');
+       $this->add(new Zend_Acl_Resource('customer:office'), 'customer');
+       $this->add(new Zend_Acl_Resource('customer:task'), 'customer');
        
        $this->add(new Zend_Acl_Resource('performer'));
        $this->add(new Zend_Acl_Resource('performer:index'), 'performer');
        $this->add(new Zend_Acl_Resource('performer:messages'), 'performer');
+       $this->add(new Zend_Acl_Resource('performer:user'), 'performer');
+       $this->add(new Zend_Acl_Resource('performer:settings'), 'performer');
+       $this->add(new Zend_Acl_Resource('performer:customer'), 'performer');
+       $this->add(new Zend_Acl_Resource('performer:task'), 'performer');
        
 
        
@@ -31,7 +42,8 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->addRole(new Zend_Acl_Role('performer'));
        $this->addRole(new Zend_Acl_Role('admin'));
        
-       // allowing
+       // admin
+       $this->allow('admin', 'default:error');
        $this->allow('admin', 'admin:index', 'index');
        $this->allow('admin', 'admin:category', 'index');
        $this->allow('admin', 'admin:category', 'add-category');
@@ -46,9 +58,44 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('admin', 'admin:performers', 'bann');
        $this->allow('admin', 'admin:performers', 'view');
        
+       $this->allow('admin', 'admin:customers', 'index');
+       $this->allow('admin', 'admin:customers', 'remove');
+       $this->allow('admin', 'admin:customers', 'bann');
+       $this->allow('admin', 'admin:customers', 'unbann');
+       $this->allow('admin', 'admin:customers', 'view');
+       
+       $this->allow('admin', 'admin:applications', 'index');
+       $this->allow('admin', 'admin:applications', 'decline');
+       $this->allow('admin', 'admin:applications', 'accept');
+       
        // customer
-      $this->allow('customer', 'default:authentication', 'log-out');
-
-       $this->deny('admin', 'customer:index', 'index');
+       $this->allow('customer', 'default:authentication', 'log-out');
+       $this->allow('customer', 'default:error');
+       $this->allow('customer', 'customer:performers', 'request-to-be-performer');
+       $this->allow('customer', 'customer:settings', 'personal-data-edit');
+       $this->allow('customer', 'customer:settings', 'index');
+       $this->allow('customer', 'customer:settings', 'social');
+       $this->allow('customer', 'customer:office', 'index');
+       $this->allow('customer', 'customer:task', 'new-task');
+       $this->allow('customer', 'customer:task', 'select-category');
+       $this->allow('customer', 'customer:task', 'add-task');
+       $this->allow('customer', 'customer:task', 'task-add-complete');
+       $this->allow('customer', 'customer:task', 'customers-tasks');
+       $this->allow('customer', 'customer:task', 'customers-task-view');
+       $this->allow('customer', 'customer:task', 'remove-task');
+      
+       // performer
+       $this->allow('performer', 'default:authentication', 'log-out');
+       $this->allow('performer', 'default:error');
+       $this->allow('performer', 'performer:user', 'index');
+       $this->allow('performer', 'performer:settings', 'add-user-category');
+       $this->allow('performer', 'performer:settings', 'remove-users-category');
+       $this->allow('performer', 'performer:customer', 'view');
+       $this->allow('performer', 'performer:task', 'view');
+       
+       //guest
+       $this->allow('guest', 'default:s-auth', 'index');
+       $this->allow('guest', 'default:registration', 'index');
+       $this->allow('guest', 'default:error');
     }
 }

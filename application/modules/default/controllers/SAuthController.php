@@ -18,6 +18,7 @@ class SAuthController extends Zend_Controller_Action{
     public function vkAction(){
         if (isset($_GET['code'])) {
             $params = array(
+             'salt' => SALT,   
              'client_id' => VK_CLIENT_ID,
              'client_secret' => VK_CLIENT_SECRET,
              'code' => $_GET['code'],

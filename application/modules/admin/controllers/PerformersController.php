@@ -20,19 +20,59 @@ class Admin_PerformersController extends Zend_Controller_Action{
     }
     
     public function viewAction(){
+        // getting id from url
+        $request = $this->getRequest();
+        $id = $request->getParam('id');
+        // call users model
+        $usersObj = new Admin_Model_DbTable_Users();
         
+        $user = $usersObj->getUserById($id);
+        // age counting
+        
+        $currentTime = time();
+        $unixAge = $currentTime-$user['birth_date'];
+        $realAge = $unixAge/31556926;
+        $realAge = floor($realAge);
+        
+        $birthDate = date('d.m.Y',$user['birth_date']);
+        // send $user to the view
+        $this->view->birthDate = $birthDate;
+        $this->view->age = $realAge;
+        $this->view->user = $user;
     }
     
     public function bannAction(){
-        
-        
+       $request = $this->getRequest();
+       if($request->isPost()){
+           $id = $request->getParam('id');
+           $usersObj = new Admin_Model_DbTable_Users();
+           $result = $usersObj->bannUser($id);
+           if($result){
+               echo 'true';
+           } 
+       } 
+    }
+    public function unbannAction(){
+       $request = $this->getRequest();
+       if($request->isPost()){
+           $id = $request->getParam('id');
+           $usersObj = new Admin_Model_DbTable_Users();
+           $result = $usersObj->bannUser($id);
+           if($result){
+               echo 'true';
+           } 
+       } 
     }
     public function removeAction(){
        $request = $this->getRequest();
        if($request->isPost()){
            $id = $request->getParam('id');
            $usersObj = new Admin_Model_DbTable_Users();
-           $usersObj->removeUser($id);
+           $result = $usersObj->removeUser($id);
+           if($result){
+               echo 'true';
+           }
+           
        }
         
     }

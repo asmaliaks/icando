@@ -1,8 +1,22 @@
 <?php
 
-class Model_DbTable_Categories extends Zend_Db_Table_Abstract{
+class Customer_Model_DbTable_Categories extends Zend_Db_Table_Abstract{
   
     protected $_name = 'categories';
+    
+    public function getCategoryList(){
+        $row = $this->fetchAll($this->select('*')->where('parent_id=?', 0));
+        return $row->toArray();
+    }
+    
+    public function getSubCats($parentId){
+        $row = $this->fetchAll($this->select('*')->where('parent_id=?', $parentId));
+        if($row){
+            return $row->toArray();
+        }else{
+            return false;
+        }
+    }
     
     public function addCategory($title, $image){
         $data = array('title' => $title,

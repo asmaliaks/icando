@@ -12,7 +12,7 @@ class AuthenticationController extends Zend_Controller_Action
     }
     public function logInAction(){
 
-        
+           
         $request = $this->getRequest();
         $form = new Form_LoginForm();
         if($request->isPost()){
@@ -21,8 +21,10 @@ class AuthenticationController extends Zend_Controller_Action
         
                 $username = $form->getValue('username');
                 $pass = $form->getValue('pass');
+                $passHashed = base64_encode($pass);
+                $passHashed = $passHashed.SALT;
                 $authAdapter->setIdentity($username)
-                    ->setCredential($pass);
+                    ->setCredential($passHashed);
         
                 $auth = Zend_Auth::getInstance();
                 $result = $auth->authenticate($authAdapter);
@@ -37,8 +39,8 @@ class AuthenticationController extends Zend_Controller_Action
                         $this->_redirect('admin/index');
                     }else if($identity->role == 'customer'){
                         $this->_redirect('customer/index');
-                    }else if($identity->role == 'perfomer'){
-                        $this->_redirect('perfomer/index');
+                    }else if($identity->role == 'performer'){
+                        $this->_redirect('performer/index');
                     }
                     
                     

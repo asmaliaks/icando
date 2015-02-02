@@ -7,16 +7,17 @@
     <link rel="icon" href="../../favicon.ico">
 
    <?php echo $this->headTitle(); ?>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="<?= $this->baseUrl() ?>/datatable/js/datatable.js"></script>
 
     <!-- Bootstrap core CSS -->
     <link href="<?= $this->baseUrl() ?>/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="<?= $this->baseUrl() ?>/datatable/css/datatable.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="<?= $this->baseUrl() ?>/bootstrap/css/blog.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -30,8 +31,12 @@
     <div class="blog-masthead">
       <div class="container">
         <nav class="blog-nav">
-          <a class="blog-nav-item active" href="#">Задачи</a>
+            <a class="blog-nav-item active" href="<?= $this->baseUrl()?>/performer/">Задачи</a>
           <a class="blog-nav-item" href="#">Сообщения</a>
+          <a class="blog-nav-item" href="<?= $this->baseUrl().'/performer/user/'.$this->userId ?>">Кабинет</a>
+          <div class="btn-group">
+                 <a class="btn dropdown-toggle blog-nav-item" href="<?= $this->baseUrl().'/default/authentication/log-out'?>">Выход</a>
+          </div>
         </nav>
       </div>
     </div>
@@ -53,7 +58,13 @@
 
         <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
             <ol class="list-unstyled">
-                Right menu
+                <li>1</li>
+                <li>1</li>
+                <li>1</li>
+                <li>1</li>
+                <li>1</li>
+                <li>1</li>
+                <li>1</li>
             </ol>
         </div><!-- /.blog-sidebar -->
 
@@ -72,7 +83,7 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    
     <script src="<?= $this->baseUrl() ?>/bootstrap/js/bootstrap.min.js"></script>
     <script src="<?= $this->baseUrl() ?>/bootstrap/js/docs.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

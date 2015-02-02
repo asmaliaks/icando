@@ -1,6 +1,6 @@
 <?php
 
-class Model_DbTable_Categories extends Zend_Db_Table_Abstract{
+class Default_Model_DbTable_Categories extends Zend_Db_Table_Abstract{
   
     protected $_name = 'categories';
     
@@ -21,6 +21,15 @@ class Model_DbTable_Categories extends Zend_Db_Table_Abstract{
         $row->toArray();
         return $row;
         }        
+    }
+
+    
+    public function getCategoryList(){
+        
+        $result = $this->fetchAll($this->select('*'));
+        $result->toArray();
+        return $result;
+              
     }
     public function editCategory($categoryId, $title, $image){
         

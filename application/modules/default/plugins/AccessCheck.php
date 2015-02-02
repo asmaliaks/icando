@@ -22,6 +22,7 @@ class Plugin_AccessCheck extends Zend_Controller_Plugin_Abstract {
             $role = 'guest';
         }
         if(!$this->_acl->isAllowed($role, $module.':'.$resource, $action)){
+//            print_r($module.':'.$resource);exit;
             if(!Zend_Auth::getInstance()->hasIdentity()){
                $request->setControllerName('authentication')
                        ->setActionName('log-in');

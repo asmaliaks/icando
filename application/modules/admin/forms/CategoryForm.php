@@ -19,7 +19,9 @@ class Admin_Form_CategoryForm extends Zend_Form{
    $parentCategory->setLabel('Родительская категория')
            ->addMultiOption('0', 'Не выбрано');
    foreach($categoryList as $category){
-       $parentCategory->addMultiOption($category['id'], $category['title']);
+       if($category['parent_id'] == 0){
+          $parentCategory->addMultiOption($category['id'], $category['title']);
+       }
    }
    
    $submit = new Zend_Form_Element_Submit('submit');

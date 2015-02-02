@@ -1,0 +1,127 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h3><?= $this->user['username'].' '.$this->user['surname'] ?></h3>
+        </div>
+        <div class="col-lg-3">
+            <img src="<?= $this->baseUrl() ?>/images/users_images/<?= $this->user['image'] ?>" width="150px" >
+        </div>
+        <div class="col-lg-9">
+            <div class="col-lg-12">
+                wozrast
+            </div>
+            <div class="col-lg-12">
+                выпоолнил / создал
+            </div>
+            <div class="col-lg-12">
+                рейтинг
+            </div>
+        </div>
+        <div class="col-lg-12"></div>
+        <div class="col-lg-12">
+<div role="tabpanel">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#orders" aria-controls="orders" role="tab" data-toggle="tab">Заказы</a></li>
+    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Сообщения</a></li>
+    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Настройки</a></li>
+   
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="orders">
+        <div class="row">
+            <table id="tasksTable" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th>Дата создания</th>
+                <th>Дата выполнения</th>
+                <th>Статус</th>
+                <th>Удалить</th>
+            </tr>
+        </thead>    
+
+        <tbody>
+            <?php foreach($this->customersTasks as $task){?>
+            <tr id="tr<?= $task['id'] ?>">
+                <td><?= $task['title'] ?></td>
+                <td><?=  date('H:i d-m-Y', $task['created_at'])?></td>
+                <td><?= date('H:i d-m-Y', $task['final_date']) ?></td>
+                <td>
+                  <?php switch($task['status']){
+                         case "non_taken":
+                             echo 'ожидание';
+                             break;
+                         case "closed":
+                             echo "закрыта";
+                             break;
+                  }
+                  ?>
+                </td>
+                <td>
+                    <?php if($task['status'] == 'non_taken' || $task['status'] == 'closed'){?>
+                    <button onclick="removeTask(<?= $task['id'] ?>)">Удалить</button>
+                    <img style="display: none" id="remPrel<?= $task['id'] ?>" src="<?= $this->baseUrl()?>/images/blue_preloader.gif" width="50">
+                     <?php } ?>
+                </td>
+            </tr>
+            <?php } ?>
+         </tbody>
+        </table>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="messages">
+      Сообщения
+    </div>
+    <div role="tabpanel" class="tab-pane" id="settings">
+      <div role="tabpanel2">
+              
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                  
+                  
+                  <li role="presentation" class="active" ><a href="#info" aria-controls="info" role="tab" data-toggle="tab">Инфо</a></li>
+                  <li role="presentation"><a href="#data" aria-controls="data" role="tab" data-toggle="tab">Настройки</a></li>
+   
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                  <div role="tabpanel2" class="tab-pane active" id="info">
+                      Заказы
+                  </div>
+                  
+                  <div role="tabpanel2" class="tab-pane" id="data">
+                    <?= $this->form ?>
+                  </div>
+                </div>
+
+       </div>
+    </div>
+  </div>
+
+</div>
+        </div>    
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        $('#tasksTable').DataTable({
+        });
+    });
+    
+function removeTask(id){
+$('#remPrel'+id).show();
+$.ajax({
+  type: 'POST',
+  url: '<?= $this->baseUrl.'/customer/task/remove-task/'; ?>',
+  data: {id: id},
+  success: function(response){
+      $('#remPrel'+id).show();
+  }
+});   
+}
+</script>

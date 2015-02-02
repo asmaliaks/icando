@@ -1,0 +1,99 @@
+<?php if(!$this->customers){?>
+<h2>Не найдено ниодного заказчика</h2>
+<?php }else {?>
+<table id="customersTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>ФИО</th>
+                <th>Номер телефона</th>
+                <th>Город</th>
+                <th>Возраст</th>
+                <th>Балланс</th>
+                <th>Банн</th>
+                <th>Удаление</th>
+            </tr>
+        </thead>    
+ 
+        <tfoot>
+            <tr>
+                <th>ФИО</th>
+                <th>Номер телефона</th>
+                <th>Город</th>
+                <th>Возраст</th>
+                <th>Балланс</th>
+                <th>Банн</th>
+                <th>Удаление</th>
+            </tr>
+        </tfoot>
+        <tbody>
+    <?php foreach($this->customers as $customer){?>
+            <tr id="div<?= $customer['id'] ?>" <?php if($customer['banned'] == 1 ){?> class="danger" <?php } ?>>
+                <td><a href="<?= $this->baseUrl().'/admin/customers/view/id/'.$customer['id'] ?>"><?=  $customer['username'].' '.$customer['surname'] ?></a></td>
+                <td><?=  $customer['phonenumber'] ?></td>
+                <td><?=  $customer['city'] ?></td>
+                <td>28</td>
+                <td>balans</td>
+                <td>
+                     <?php if($customer['banned'] == 0){?>
+                           <button id="bann<?= $customer['id'] ?>" onclick="bann(<?= $customer['id'] ?>)">Забанить</button>
+                           <button id="unbann<?= $customer['id'] ?>" style="display: none" onclick="unBann(<?= $customer['id'] ?>)">Разбанить</button>
+                     <?php }else{ ?>
+                           <button id="unbann<?= $customer['id'] ?>" onclick="unBann(<?= $customer['id'] ?>)">Разбанить</button>
+                           <button id="bann<?= $customer['id'] ?>" style="display: none" onclick="bann(<?= $customer['id'] ?>)">Забанить</button>
+                     <?php } ?>
+                </td>
+                <td>
+                     <button id="remove<?= $customer['id'] ?>" onclick="removeUser(<?= $customer['id'] ?>)">Удалить</button>
+                     <img style="display: none" id="remPrel<?= $customer['id'] ?>" src="<?= $this->baseUrl()?>/images/blue_preloader.gif" width="50"> 
+                </td>
+            </tr>
+
+    <?php } ?>
+ </tbody>
+</table>
+<?php } ?>
+<script>
+    $(document).ready(function(){
+        $('#customersTable').DataTable();
+    });
+    function removeUser(id){
+       
+    if(confirm('Вы готовы безвозвратно удалить этого пользователя?')){
+        $('#remove'+id).hide();
+        $('#remPrel'+id).show();
+        $.ajax({
+        type: 'POST',
+        url: '<?= $this->baseUrl.'/admin/customers/remove/'; ?>',
+        data: {id: id},
+        success: function(data){
+           $('#div'+id).remove();
+  }
+}); 
+}
+    }
+    
+    function bann(id){
+$.ajax({
+  type: 'POST',
+  url: '<?= $this->baseUrl.'/admin/customers/bann/'; ?>',
+  data: {id: id},
+  success: function(data){
+      $('#bann'+id).hide();
+      $('#unbann'+id).show();
+      $('#div'+id).addClass('danger');
+  }
+});       
+    }
+    function unBann(id){
+$.ajax({
+  type: 'POST',
+  url: '<?= $this->baseUrl.'/admin/customers/unbann/'; ?>',
+  data: {id: id},
+  success: function(data){
+      $('#bann'+id).show();
+      $('#unbann'+id).hide();
+      $('#div'+id).removeClass('danger');
+  }
+});       
+    }
+</script>    

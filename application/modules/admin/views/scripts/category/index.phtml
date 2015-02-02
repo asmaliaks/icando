@@ -1,20 +1,40 @@
-
+<table id="categoryTable" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th>Правка</th>
+                <th>Удаление</th>
+            </tr>
+        </thead>    
+ 
+        <tfoot>
+            <tr>
+                <th>Название</th>
+                <th>Правка</th>
+                <th>Удаление</th>
+            </tr>
+        </tfoot>
+        <tbody>
 <?php foreach($this->categoryList as $category){?>
-     <div id="div<?= $category['id'] ?>">
-       <div class="col-lg-8">
+     <tr id="div<?= $category['id'] ?>">
+       <td>
         <?= $category['title']?>
-       </div>
-       <div class="col-lg-2">
+       </td>
+       <td>
            <a id="removeBut<?= $category['id'] ?>" onclick="removeCategory(<?= $category['id'] ?>)">Удалить</a>
            <img style="display: none" id="preloader<?= $category['id'] ?>" src="<?= $this->baseUrl()?>/images/blue_preloader.gif" width="40">
-       </div>
-       <div class="col-lg-2">
+       </td>
+       <td>
            <a href="<?= $this->baseUrl().'/admin/category/edit-category/id/'.$category['id']?>">Редактировать</a>
-       </div>
-     </div>   
+       </td>
+     </tr>   
 <?php } ?>
-
+ </tbody>
+</table>
 <script>
+        $(document).ready(function(){
+        $('#categoryTable').DataTable();
+    });
 function removeCategory(id){
     $('#removeBut'+id).remove();
     $('#preloader'+id).show();
