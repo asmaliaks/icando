@@ -5,9 +5,22 @@
         <div class="col-lg-2">
             <?php switch ($this->task['status']){
                 case 'non_taken': ?>
-                <button class="btn btn-primary btn-sm" onclick="acceptTask(<?= $this->task['id'] ?>)" >Принять</button>
-            <?php    break;
-            }?>
+                <?php if(!$this->sentPrep){?>
+                    <button class="btn btn-primary btn-sm" id="propose<?= $this->task['id'] ?>" onclick="proposeTask(<?= $this->task['id'] ?>)" >Предложить свою кандидатуру</button>
+                    <p id="propMessage<?= $this->task['id'] ?>" style="display:none" class="text-success">Заявка отправлена</p>
+                <?php }else{ ?>
+                    <p   class="text-success">Заявка отправлена</p>
+                <?php } ?>
+                <?php break; 
+                case 'taken': ?>
+                    <?php if($this->task['performer'] == $this->userId){?>
+                       <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#taskModal"  >Отметить как выполненную</button>
+                    <?php }else{?>
+                       <p class="text-warning">Заявка отклонена</p>
+                    <?php }
+                    break;
+                    ?>
+           <?php }?>
             <img id="prel<?= $this->task['id'] ?>" style="display:none" src="<?= $this->baseUrl() ?>/images/blue_preloader.gif" width="45">
         </div>
         <div class="col-lg-2">
@@ -37,15 +50,37 @@
            <label>Стоимость предложенная заказчиком : </label>
            <?= $this->task['customers_price'] ?> рублей
         </div>
+        <!-- modal block   -->
+        <div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="taskModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Проголосовать</h4>
+              </div>
+              <div class="modal-body">
+                <p>Content</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary">Сохранить</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
  <script>
- function acceptTask(taskId){
+ function proposeTask(taskId){
+     $('#prel'+taskId).show();
+     $('#propose'+taskId).hide();
 $.ajax({
     type: 'POST',
-    url: '<?= $this->baseUrl.'/performer/settings/add-user-category'; ?>',
+    url: '<?= $this->baseUrl.'/performer/task/propose-task'; ?>',
     data: {taskId: taskId},
     success: function(){
-        $('#prel'+catId).hide();
+        $('#prel'+taskId).hide();
+        $('#propMessage'+taskId).show();
     }
 });
  }
+
  </script>

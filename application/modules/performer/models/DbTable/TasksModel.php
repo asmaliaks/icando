@@ -17,6 +17,8 @@ class Performer_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
         }
     }
     
+
+    
     public function removeTask($taskId){
         $where = $this->getAdapter()->quoteInto('id = ?', $taskId);
         $this->delete($where);
@@ -51,6 +53,7 @@ class Performer_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
                         't.customer_id = u.id',
                         array('u.username as u_username',
                               'u.surname as u_surname',
+                              'u.id as u_id',
                             'u.sex as u_sex',
                             'u.city as u_city',
                             'u.birth_date as u_birth_date',

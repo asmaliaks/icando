@@ -22,5 +22,26 @@ class Customer_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
         $this->delete($where);
         return true;
     }
+    
+    public function getTaskById($taskId){
+        $select = $this->select()
+                ->from(array('t'=>'tasks'))
+                ->where('t.id=?', $taskId);
+        $result = $this->fetchRow($select);
+        if($result){
+            return $result->toArray();
+        }else{
+            return false;
+        }
+    }
+    
+    public function acceptPreposition($performerId, $taskId){
+        $data = array(
+            'performer_id'=>$performerId,
+            'status'=>'taken',
+        );
+        $where = $this->getAdapter()->quoteInto('id = ?', $taskId);
+        $this->update($data, $where);
+    }
 }
  

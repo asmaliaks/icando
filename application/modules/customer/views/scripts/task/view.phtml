@@ -1,0 +1,127 @@
+<div class="col-lg-8">
+    <h3><?= $this->task['title'] ?></h3><small><?= date("d.m.Y",$this->task['created_at']) ?></small>
+</div>
+<div class="col-lg-2">
+
+    <img id="prel<?= $this->task['id'] ?>" style="display:none" src="<?= $this->baseUrl() ?>/images/blue_preloader.gif" width="45">
+</div>
+<div class="col-lg-2">
+
+</div>
+<?php if($this->task['task_image']){?>
+<div class="col-lg-12">
+    <img src="<?= $this->baseUrl().'/images/task_images/'.$this->task['task_image'] ?>" class="img-thumbnail" width="200px">
+</div>
+<?php } ?>
+<div role="tabpanel">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Детали</a></li>
+    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Сообщения</a></li>
+    <?php if($this->prepositions){
+        $count = count($this->prepositions);
+        ?>
+       <li role="presentation"><a href="#apps" aria-controls="apps" role="tab" data-toggle="tab">Заявки (<?= $count ?>)</a></li>
+    <?php } ?>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="home">
+        <div class="col-lg-12">
+           <label>Описание</label>
+        </div>   
+        <div class="col-lg-12">
+           <?= $this->task['description'] ?>
+        </div>
+        <div class="col-lg-12">
+           <label>Дата исполнения : </label>
+           <?= date("d.m.Y",$this->task['final_date']) ?>
+        </div>
+
+        <div class="col-lg-12">
+           <label>Предложенная стоимость : </label>
+           <?= $this->task['customers_price'] ?> рублей
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="messages">
+       Сообщения
+    </div>
+    <div role="tabpanel" class="tab-pane" id="apps">
+        <?php if($this->prepositions){?>
+
+        <div class="row">
+      
+       <table id="prepTable" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Исполнитель</th>
+                <th>Рейтинг</th>
+                <th>Принять</th>
+            </tr>
+        </thead>    
+
+        <tbody>
+            <?php foreach($this->prepositions as $preposition){?>
+            <tr id="tr<?= $preposition['u_id'] ?>">
+                <td>
+                    <a href="<?= $this->baseUrl()."/customer/performers/view/id/".$preposition['u_id'] ?>"><?= $preposition['u_surname'].' '.$preposition['u_username'] ?></a>
+                </td>
+                <td>
+                    ****
+                </td>
+                <td>
+                    <button id="acceptBut<?= $preposition['performer_id'] ?>" class="btn btn-primary btn-sm" onclick="acceptPreposition(<?= $preposition['performer_id'] ?>, <?= $preposition['task_id'] ?>)">Принять</button>
+                    <img style="display: none" id="prepPrel<?= $preposition['performer_id'] ?>" src="<?= $this->baseUrl()?>/images/blue_preloader.gif" width="50">
+                </td>
+            </tr>
+            <?php } ?>
+         </tbody>
+        </table>
+    
+    </div>
+
+        <?php } ?>
+         </div>  
+      </div>
+  </div>
+    <!-- modal block   -->
+    <div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="taskModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Проголосовать</h4>
+          </div>
+          <div class="modal-body">
+            <p>Content</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+            <button type="button" class="btn btn-primary">Сохранить</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+<script>
+$(document).ready(function(){
+    $('#prepTable').DataTable({
+    });
+});
+
+function acceptPreposition(performerId, taskId){
+$('#acceptBut'+performerId).hide();
+$('#prepPrel'+performerId).show();
+$.ajax({
+  type: 'POST',
+  url: '<?= $this->baseUrl.'/customer/task/accept-proposition/'; ?>',
+  data: {performerId: performerId,
+         taskId: taskId
+    },
+  success: function(response){
+      $('#prepTable').remove();
+  }
+});    
+}
+</script>

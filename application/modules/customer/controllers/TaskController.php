@@ -101,5 +101,39 @@ class Customer_TaskController extends Zend_Controller_Action{
             }
         }
     }
+    
+    public function viewAction(){
+        $request = $this->getRequest();
+        $taskId = $request->getParam('id');
+        
+        $taskObj = new Customer_Model_DbTable_TasksModel();
+        $task = $taskObj->getTaskById($taskId);
+        // get task's prepositions
+        $taskPrepObj = new Customer_Model_DbTable_TaskPrepositionModel();
+        $prepositions = $taskPrepObj->getTasksPrepositionis($taskId);
+        
+        
+        
+        if($prepositions){
+            $this->view->prepositions = $prepositions;
+        }
+        $this->view->task = $task;
+    }
+    
+    public function acceptPropositionAction(){
+        $request = $this->getRequest();
+        if($request->isPost()){
+            $performerId = $request->getParam('performerId');
+            $taskId = $request->getParam('taskId');
+            // delete all preposition with 'performer_id' == $performerId
+            $prepObj = new Customer_Model_DbTable_TaskPrepositionModel();
+            $prepObj->takePreposition($taskId);
+            // change task status
+            $taskObj = new Customer_Model_DbTable_TasksModel();
+            $taskObj->acceptPreposition($performerId, $taskId);
+            // send mail notification
+            echo 'true';
+        }
+    }
 }
 

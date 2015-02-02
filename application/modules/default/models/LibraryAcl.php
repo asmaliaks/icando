@@ -83,6 +83,8 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('customer', 'customer:task', 'customers-tasks');
        $this->allow('customer', 'customer:task', 'customers-task-view');
        $this->allow('customer', 'customer:task', 'remove-task');
+       $this->allow('customer', 'customer:task', 'view');
+       $this->allow('customer', 'customer:task', 'accept-proposition');
       
        // performer
        $this->allow('performer', 'default:authentication', 'log-out');
@@ -92,6 +94,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('performer', 'performer:settings', 'remove-users-category');
        $this->allow('performer', 'performer:customer', 'view');
        $this->allow('performer', 'performer:task', 'view');
+       $this->allow('performer', 'performer:task', 'propose-task');
        
        //guest
        $this->allow('guest', 'default:s-auth', 'index');
