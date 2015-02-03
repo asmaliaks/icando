@@ -33,6 +33,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->add(new Zend_Acl_Resource('performer:settings'), 'performer');
        $this->add(new Zend_Acl_Resource('performer:customer'), 'performer');
        $this->add(new Zend_Acl_Resource('performer:task'), 'performer');
+       $this->add(new Zend_Acl_Resource('performer:feedback'), 'performer');
        
 
        
@@ -90,11 +91,13 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('performer', 'default:authentication', 'log-out');
        $this->allow('performer', 'default:error');
        $this->allow('performer', 'performer:user', 'index');
+       $this->allow('performer', 'performer:index', 'tasks');
        $this->allow('performer', 'performer:settings', 'add-user-category');
        $this->allow('performer', 'performer:settings', 'remove-users-category');
        $this->allow('performer', 'performer:customer', 'view');
        $this->allow('performer', 'performer:task', 'view');
        $this->allow('performer', 'performer:task', 'propose-task');
+       $this->allow('performer', 'performer:feedback', 'leave-feedback');
        
        //guest
        $this->allow('guest', 'default:s-auth', 'index');

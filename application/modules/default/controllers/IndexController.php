@@ -22,7 +22,7 @@ protected $user;
                 $this->_redirect('customer/office');
                 break;
             case 'performer':
-                $this->_redirect('performer');
+                $this->_redirect('performer/user');
                 break;
         }
 //       $layout = Zend_Layout::getMvcInstance();

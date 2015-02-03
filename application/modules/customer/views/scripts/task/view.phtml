@@ -8,11 +8,31 @@
 <div class="col-lg-2">
 
 </div>
-<?php if($this->task['task_image']){?>
-<div class="col-lg-12">
-    <img src="<?= $this->baseUrl().'/images/task_images/'.$this->task['task_image'] ?>" class="img-thumbnail" width="200px">
+<div class="col-sm-12">
+    <?php if($this->task['task_image']){?>
+        <div class="col-lg-4">
+            <img src="<?= $this->baseUrl().'/images/task_images/'.$this->task['task_image'] ?>" class="img-thumbnail" width="200px">
+        </div>
+    <?php } ?>
+    <div cloass="col-lg-8">
+        <label>Статус : </label>
+        <?php switch($this->task['status']){
+            case 'non_taken':
+                echo 'В ожидании';
+                break;
+            case 'taken':
+                echo 'В работе';
+                break;
+            case 'closed':
+                echo 'Закрыта';
+                break;
+            case 'done':
+                echo 'Выполнена';
+                break;
+        }
+?>
+    </div>
 </div>
-<?php } ?>
 <div role="tabpanel">
 
   <!-- Nav tabs -->
@@ -58,6 +78,7 @@
             <tr>
                 <th>Исполнитель</th>
                 <th>Рейтинг</th>
+                <th>Цена</th>
                 <th>Принять</th>
             </tr>
         </thead>    
@@ -70,6 +91,13 @@
                 </td>
                 <td>
                     ****
+                </td>
+                <td>
+                    <?php if($preposition['performers_price']){?>
+                        <?= $preposition['performers_price'] ?>
+                    <?php }else{?>
+                        Цена заказчика
+                    <?php }?>
                 </td>
                 <td>
                     <button id="acceptBut<?= $preposition['performer_id'] ?>" class="btn btn-primary btn-sm" onclick="acceptPreposition(<?= $preposition['performer_id'] ?>, <?= $preposition['task_id'] ?>)">Принять</button>

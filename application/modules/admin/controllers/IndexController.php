@@ -4,8 +4,7 @@ class Admin_IndexController extends Zend_Controller_Action{
     
     protected $user;
     
-    public function _init(){
-        $this->_helper->layout->setLayout('layout_admin');
+    public function init(){
        $auth = Zend_Auth::getInstance();
        if($auth->hasIdentity()){
           $this->user = $auth->getIdentity();
@@ -13,8 +12,18 @@ class Admin_IndexController extends Zend_Controller_Action{
        }        
     }
     public function indexAction(){
-      $this->view->title = 'Админ панель';  
-      $this->view->headTitle('Администрирование', 'APPEND');
+        $role = $this->user->role;
+        switch ($role) {
+            case 'admin':
+                $this->_redirect('admin');
+                break;
+            case 'customer': 
+                $this->_redirect('customer/office');
+                break;
+            case 'performer':
+                $this->_redirect('performer/user');
+                break;
+        }
     }
  
     

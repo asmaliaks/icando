@@ -1,26 +1,33 @@
     
-        <div class="col-lg-8">
+        <div class="col-lg-6">
             <h3><?= $this->task['title'] ?></h3><small><?= date("d.m.Y",$this->task['created_at']) ?></small>
         </div>
-        <div class="col-lg-2">
+        <div class="col-lg-4">
             <?php switch ($this->task['status']){
                 case 'non_taken': ?>
                 <?php if(!$this->sentPrep){?>
-                    <button class="btn btn-primary btn-sm" id="propose<?= $this->task['id'] ?>" onclick="proposeTask(<?= $this->task['id'] ?>)" >Предложить свою кандидатуру</button>
+                    <button class="btn btn-primary btn-sm" id="propose<?= $this->task['id'] ?>" data-toggle="modal" data-target="#prepositionModal" >Предложить свою кандидатуру</button>
                     <p id="propMessage<?= $this->task['id'] ?>" style="display:none" class="text-success">Заявка отправлена</p>
                 <?php }else{ ?>
                     <p   class="text-success">Заявка отправлена</p>
                 <?php } ?>
                 <?php break; 
                 case 'taken': ?>
-                    <?php if($this->task['performer'] == $this->userId){?>
-                       <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#taskModal"  >Отметить как выполненную</button>
+                    <?php if($this->task['performer_id'] == $this->userId){?>
+                      <?php if(!$this->feedback){?>
+                        <button class="btn btn-primary btn-sm" id="markDoneBut" data-toggle="modal" data-target="#feedbackModal"  >Оставить отзыв</button>
+                        <p id="markedDone" style="display: none" class="text-success">Оставлен отзыв</p> 
+                      <?php }else{?>
+                        <p  class="text-success">Оставлен отзыв</p>
+                      <?php }?> 
                     <?php }else{?>
                        <p class="text-warning">Заявка отклонена</p>
                     <?php }
                     break;
-                    ?>
+                case 'done':?>    
+                    <p   class="text-success">Задача отмечена как выполненная</p>
            <?php }?>
+            
             <img id="prel<?= $this->task['id'] ?>" style="display:none" src="<?= $this->baseUrl() ?>/images/blue_preloader.gif" width="45">
         </div>
         <div class="col-lg-2">
@@ -51,24 +58,204 @@
            <?= $this->task['customers_price'] ?> рублей
         </div>
         <!-- modal block   -->
-        <div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="taskModalLabel" aria-hidden="true">
+        <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="taskModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Проголосовать</h4>
+                <h4 class="modal-title">Оставить отзыв</h4>
               </div>
               <div class="modal-body">
-                <p>Content</p>
+                  <form id="feedbackForm" class="form-horizontal" action="<?= $this->baseUrl().'/performer/feedback/leave-feedback/' ?>">
+                      <div class="container">
+                          <div class="row">
+                      <div class="col-lg-12 radio">
+                        <label>
+                            <input type="radio" id="positive" name="feedb[]" value="1" checked>
+                            Положительный
+                        </label>
+                      </div> 
+                      
+                      <div class="col-lg-12 radio">   
+                        <label>
+                            <input type="radio" id="negative" name="feedb[]" value="0">
+                            Отрицательный
+                        </label>
+                      </div>
+                      <div id="ratingDiv">    
+                            <div class="col-lg-12 form-group">
+                                <label >Пунктуальность : </label>
+                                <select id="punctuality" name="punctuality">
+                                    <option value="0">0</option>
+                                    <option value="1">+1</option>
+                                    <option value="2">+2</option>
+                                    <option value="3">+3</option>
+                                    <option value="4">+4</option>
+                                    <option value="5">+5</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-12 form-group">
+                                <label >Вежливость : </label>
+                                <select id="politeness" name="politeness">
+                                    <option value="0">0</option>
+                                    <option value="1">+1</option>
+                                    <option value="2">+2</option>
+                                    <option value="3">+3</option>
+                                    <option value="4">+4</option>
+                                    <option value="5">+5</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-12 form-group">
+                                <label >Качество : </label>
+                                <select name="quality" id="quality">
+                                    <option value="0">0</option>
+                                    <option value="1">+1</option>
+                                    <option value="2">+2</option>
+                                    <option value="3">+3</option>
+                                    <option value="4">+4</option>
+                                    <option value="5">+5</option>
+                                </select>
+                            </div>
+                      </div>
+                      <div class="col-lg-6 form-group">
+                        <label class="control-label">Отзыв</label>
+                        <textarea id="feedbackText" class="form-control" name="feedback"  rows="5"></textarea>
+                      </div>
+                   </div>
+                  </form>
+                  </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                <button type="button" class="btn btn-primary">Сохранить</button>
+                <button type="button" id="feedBut" onclick="feedback(<?= $this->task['customer_id'] ?>,<?= $this->task['id'] ?>)" class="btn btn-primary" >Оставить отзыв</button>
+                <img style="display: none" id="prelFeedb" src="<?= $this->baseUrl()?>/images/blue_preloader.gif" width="70">              
               </div>
             </div><!-- /.modal-content -->
           </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
+        <!-- Preposition Modal -->
+        <div class="modal fade" id="prepositionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Предложить стоимость</h4>
+              </div>
+              <div class="modal-body">
+                  <form>
+                      
+                      <input type="hidden" id="customers_price" name="customers_price" value="<?= $this->task['customers_price'] ?>">
+                      <div>
+                            <input type="hidden" name="customers_check" value="0">
+                            <label>Согласиться с ценой заказчика</label>
+                            <input type="checkbox" id="check_price" name="customers_check" value="1">
+                      </div>
+                      <div id="priceDiv" >
+                            <label>Предложить свою цену</label>
+                            <input type="text" id="per_price"  name="performers_price" >
+                      </div>
+                  </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                <button type="button" onclick="propose()" id="propBut" class="btn btn-primary">Предложить</button>
+                <img style="display: none" id="prel" src="<?= $this->baseUrl()?>/images/blue_preloader.gif" width="70">
+              </div>
+            </div>
+          </div>
+        </div>        
  <script>
+ $(document).ready(function(){
+     $('#check_price').change(function(){
+         if($(this).is(':checked')){
+             $('#priceDiv').hide();
+         }else{
+             $('#priceDiv').show();
+         }
+     });
+     $('#positive').change(function(){ 
+         if($(this).is(':checked')){
+             $('#ratingDiv').show();
+         }
+     });
+     $('#negative').change(function(){ 
+         if($(this).is(':checked')){
+             $('#ratingDiv').hide();
+         }
+     });
+ });   
+ 
+ function feedback(taskId, custId){
+    var feedbackText = $('#feedbackText').val();
+    if($('#positive').is(':checked')){
+        $('#feedBut').hide();
+        $('#prelFeedb').show();
+        var punctuality = $('#punctuality').val();
+        var quality = $('#quality').val();
+        var politeness = $('#politeness').val();
+        var kind = 'positive';
+        $.ajax({
+          type: 'POST',
+          url: '<?= $this->baseUrl.'/performer/feedback/leave-feedback'; ?>',
+          data: {kind: kind, feedbackText: feedbackText, punctuality: punctuality, quality: quality, politeness: politeness, taskId: taskId, custId: custId},
+          success: function(){
+              $('#markDoneBut').hide();
+              $('#markedDone').show();
+              $('#feedbackModal').modal('hide');
+        }
+        }); 
+    }else if($('#negative').is(':checked')){ 
+        $('#feedBut').hide();
+        $('#prelFeedb').show();
+        var kind = 'negative';
+        $.ajax({
+          type: 'POST',
+          url: '<?= $this->baseUrl.'/performer/feedback/leave-feedback'; ?>',
+          data: {kind: kind, feedbackText: feedbackText, taskId: taskId, custId: custId},
+          success: function(){
+              $('#markDoneBut').hide();
+              $('#markedDone').show();
+              $('#feedbackModal').modal('hide');
+        }
+        });        
+    }
+    
+ }
+ 
+ function propose(){
+     var taskId = '<?= $this->task['id'] ?>'; 
+// if performer agrees with customer's price
+     if($('#check_price').is(':checked')){ 
+        var customersPrice = '<?= $this->task['customers_price'] ?>'; 
+        $('#propBut').hide();
+        $('#prel').show();
+        $.ajax({
+          type: 'POST',
+          url: '<?= $this->baseUrl.'/performer/task/propose-task'; ?>',
+          data: {customersPrice: customersPrice, taskId: taskId},
+          success: function(){
+              $('#prepositionModal').modal('hide');
+              $('#propose'+taskId).hide();
+              $('#propMessage'+taskId).show();
+        }
+        });       
+     }else{
+        var perfPrice = $('#per_price').val();console.log(perfPrice);
+        $('#propBut').hide();
+        $('#prel').show();
+        $.ajax({
+          type: 'POST',
+          url: '<?= $this->baseUrl.'/performer/task/propose-task'; ?>',
+          data: {perfPrice: perfPrice, taskId: taskId},
+          success: function(){
+              $('#prepositionModal').modal('hide');
+              $('#propose'+taskId).hide();
+              $('#propMessage'+taskId).show();
+        }
+        }); 
+     }
+ }
+ 
  function proposeTask(taskId){
      $('#prel'+taskId).show();
      $('#propose'+taskId).hide();

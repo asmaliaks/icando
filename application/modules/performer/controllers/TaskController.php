@@ -18,12 +18,19 @@ class Performer_TaskController extends Zend_Controller_Action{
         // call task model
         $taskObj = new Performer_Model_DbTable_TasksModel();
         $task = $taskObj->getTaskById($taskId);
+        // get task's feedback from the performer
+        $feedbackObj = new Performer_Model_DbTable_FeedbackModel();
+        $feedback = $feedbackObj->getPerformersFeedbackByTaskId($taskId, $this->user->id);
+        
         // check if the performer sent preposition
         $taskPrepObj = new Performer_Model_DbTable_TaskPrepositionModel();
         $sentPrep = $taskPrepObj->ifPerformerSentPrep($this->user->id, $taskId);
         // put to the view
         if($sentPrep){
             $this->view->sentPrep = $sentPrep;
+        }
+        if($feedback){
+            $this->view->feedback = $feedback;
         }
         $this->view->task = $task;
         $this->view->userId = $this->user->id;
@@ -32,10 +39,16 @@ class Performer_TaskController extends Zend_Controller_Action{
     public function proposeTaskAction(){
         $request = $this->getRequest();
         if($request->isPost()){
-            $taskId = $request->getParam('taskId');
+            $post = $request->getPost();
             $taskPrepObj = new Performer_Model_DbTable_TaskPrepositionModel();
-            $taskPrepObj->addPreposition($taskId, $this->user->id);
-            echo 'true';
+            if(!$post['perfPrice']){
+                $taskPrepObj->addPreposition($post['taskId'], $this->user->id, null);
+                echo 'true';
+            }else{
+                $taskPrepObj->addPreposition($post['taskId'], $this->user->id, $post['perfPrice']);
+                echo 'true';
+            }
+            
         }
     }
 }

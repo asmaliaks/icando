@@ -14,11 +14,14 @@ class Performer_UserController extends Zend_Controller_Action{
       $this->view->title = 'Личный кабинет';  
       $this->view->headTitle('Личный кабинет', 'APPEND');
 
-      $usersModel = new Performer_Model_DbTable_Users();
       $form = new Performer_Form_RegistrationForm();
       // call users model
       $usersObj = new Performer_Model_DbTable_Users();
       $user = $usersObj->getUserById($this->user->id);
+      
+      // get accepted tasks
+      $taskObj = new Performer_Model_DbTable_TasksModel();
+      $acceptedTasks = $taskObj->getAcceptedTasks($this->user->id);
       
       // get category list
       $categoryObj = new Performer_Model_DbTable_Categories();
@@ -98,6 +101,8 @@ class Performer_UserController extends Zend_Controller_Action{
         $form->getElement('city')->setValue($user['city']);
         $this->view->form = $form;
     }      
+    
+      $this->view->acceptedTasks = $acceptedTasks;
       $this->view->categories = $categories;
       $this->view->form = $form;
       $this->view->user = $user;

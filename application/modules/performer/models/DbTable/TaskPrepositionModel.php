@@ -3,10 +3,11 @@ class Performer_Model_DbTable_TaskPrepositionModel extends Zend_Db_Table_Abstrac
     
     protected $_name = 'task_preposition';
 
-    public function addPreposition($taskId, $performerId){
+    public function addPreposition($taskId, $performerId, $price){
         $data = array(
              'task_id' => $taskId,
              'performer_id' => $performerId,
+             'performers_price' => $price,
             );
         $this->insert($data);
         return true;

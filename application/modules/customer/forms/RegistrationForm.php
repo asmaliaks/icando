@@ -1,12 +1,13 @@
 <?php
+
 class Customer_Form_RegistrationForm extends Zend_Form{
     
    public function __construct($option = null) {
    parent::__construct($option);
  
-   $this->setName('personal_data_form');
+   $this->setName('registration_form');
 
-   $email = new Zend_Form_Element_Text('email');
+     $email = new Zend_Form_Element_Text('email');
    $email->setLabel('Email')
          ->setRequired()
          ->addErrorMessage('Поле обязательно для заполнения');
@@ -23,7 +24,8 @@ class Customer_Form_RegistrationForm extends Zend_Form{
    $sex->setLabel('Пол')
            ->setRequired()
            ->addErrorMessage('Выберите пол');
-
+   
+//   $birthday = new ZendX_JQuery_Form_Element_DatePicker('birthday');
 
    
    $sex->addMultiOptions(array(
@@ -67,7 +69,10 @@ class Customer_Form_RegistrationForm extends Zend_Form{
        $birthYear->addMultiOption($year, $year);
        $y++;
    }
-     
+           
+   $phoneNumber = new Zend_Form_Element_Text('phonenumber');
+   $phoneNumber->setLabel('Номер телефона');
+   
    $city = new Zend_Form_Element_Text('city');
    $city->setLabel('Город');
    
@@ -86,31 +91,9 @@ class Customer_Form_RegistrationForm extends Zend_Form{
 
    $submit = new Zend_Form_Element_Submit('submit');
    $submit->setLabel('Сохранить')
-          ->setAttrib('class', 'button2');      
-   $phoneNumber = new Zend_Form_Element_Text('phonenumber');
-   $phoneNumber->setLabel('Номер телефона');
-   
-   $city = new Zend_Form_Element_Text('city');
-   $city->setLabel('Город');
-   
-   $image = new Zend_Form_Element_File('image');
-   $image->setLabel('Изображение')
-         ->setDestination($_SERVER['DOCUMENT_ROOT'].'/images/users_images/');  
-   
-   
-   $pass = new Zend_Form_Element_Password('pass');
-   $pass->setLabel('Пароль');
-   
-   $passConfirm = new Zend_Form_Element_Password('pass_conf');
-   $passConfirm->setLabel('Подтвердите пароль');
-
-
-   $submit = new Zend_Form_Element_Submit('submit');
-   $submit->setLabel('Сохранить')
           ->setAttrib('class', 'button2');
    
    $this->addElements(array($email, $name, $surname, $sex,  $phoneNumber, $city, $dayBirth, $monthBirth, $birthYear, $image, $pass, $passConfirm, $submit));
-
    $this->setMethod('post');
    
    
@@ -118,3 +101,5 @@ class Customer_Form_RegistrationForm extends Zend_Form{
         
     }
 }
+
+

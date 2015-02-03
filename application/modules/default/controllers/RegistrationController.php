@@ -48,12 +48,13 @@ class RegistrationController extends Zend_Controller_Action{
                 $result = $auth->authenticate($authAdapter);
         
                 if($result->isValid()){
+                    
                     $identity = $authAdapter->getResultRowObject();
             
                     $authStorage = $auth->getStorage();
                     $authStorage->write($identity);
             
-                    $this->_redirect('index/index');
+                    $this->_redirect('/');
                 }
                 
             }else{

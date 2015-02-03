@@ -120,7 +120,8 @@ $.ajax({
   url: '<?= $this->baseUrl.'/customer/task/remove-task/'; ?>',
   data: {id: id},
   success: function(response){
-      $('#remPrel'+id).show();
+      $('#remPrel'+id).hide();
+      $('#tr'+id).remove();
   }
 });   
 }

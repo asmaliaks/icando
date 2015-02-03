@@ -31,7 +31,39 @@
   <!-- Tab panes -->
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="orders">
-        Заказы
+       <!--datatable-->
+       
+<table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Задача</th>
+                <th>Заказчик</th>
+                <th>Стоимость заказчика</th>
+                <th>Дата окончания</th>
+                <th>Статус</th>
+            </tr>
+        </thead>    
+        <tbody>
+    <?php foreach($this->acceptedTasks as $task){?>
+            <tr>
+                <td><a href="<?= $this->baseUrl().'/performer/task/view/id/'.$task['id'] ?>"><?= $task['title'] ?></a></td>
+                <td><a href="<?= $this->baseUrl().'/performer/customer/view/id/'.$task['customer_id'] ?>"><?= $task['u_username'].' '.$task['u_surname'] ?></a></td>
+                <td><?= $task['customers_price'] ?></td>
+                <td><?= date('d.m.Y', $task['final_date']) ?></td>
+                <td>
+                    <?php switch ($task['status']){ 
+                         case 'taken': 
+                        echo 'В работе';
+                        break;
+                        ?>
+                    <?php } ?>
+                </td>
+            </tr>
+
+    <?php } ?>
+ </tbody>
+</table>       
+       
     </div>
     <div role="tabpanel" class="tab-pane" id="messages">
       Сообщения
@@ -88,28 +120,31 @@
         </div>    
 
 <script>
-    function changeCategory(catId){ 
-        if($('#check'+catId).is(':checked')){
-            $('#prel'+catId).show();
-            $.ajax({
-              type: 'POST',
-              url: '<?= $this->baseUrl.'/performer/settings/add-user-category'; ?>',
-              data: {catId: catId},
-              success: function(){
-                  $('#prel'+catId).hide();
-              }
-            });  
-        }else{
+$(document).ready(function(){
+    $('#table').DataTable();
+});    
+function changeCategory(catId){ 
+    if($('#check'+catId).is(':checked')){
         $('#prel'+catId).show();
-            $.ajax({
-              type: 'POST',
-              url: '<?= $this->baseUrl.'/performer/settings/remove-users-category'; ?>',
-              data: {catId: catId},
-              success: function(data){
-                  $('#prel'+catId).hide();
-              }
-            });
-        }
-       
+        $.ajax({
+          type: 'POST',
+          url: '<?= $this->baseUrl.'/performer/settings/add-user-category'; ?>',
+          data: {catId: catId},
+          success: function(){
+              $('#prel'+catId).hide();
+          }
+        });  
+    }else{
+    $('#prel'+catId).show();
+        $.ajax({
+          type: 'POST',
+          url: '<?= $this->baseUrl.'/performer/settings/remove-users-category'; ?>',
+          data: {catId: catId},
+          success: function(data){
+              $('#prel'+catId).hide();
+          }
+        });
     }
+
+}
 </script>    

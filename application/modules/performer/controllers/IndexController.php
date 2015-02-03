@@ -12,17 +12,30 @@ class Performer_IndexController extends Zend_Controller_Action {
     }
     
     public function indexAction(){
+       $role = $this->user->role;
+        switch ($role) {
+            case 'admin':
+                $this->_redirect('admin');
+                break;
+            case 'customer': 
+                $this->_redirect('customer/office');
+                break;
+            case 'performer':
+                $this->_redirect('performer/user');
+                break;
+        }
         
-        // get users categories 
+    }
+    
+    public function tasksAction(){
+         // get users categories 
         $usersCatObj = new Performer_Model_DbTable_UserCategory();
         $usersCats = $usersCatObj->getUsersCategories($this->user->id);
         //  get list of the tasks which fit to the performer
         $taskObj = new Performer_Model_DbTable_TasksModel();
         $performersTasks =  $taskObj->getTasksForPerformer($this->user->id, $usersCats);
-        $performersTasks['created_at'] = date("h:i d.m.Y", $performersTasks['created_at']);
         // put tasks to the view
-        $this->view->tasks = $performersTasks;
-        
+        $this->view->tasks = $performersTasks;       
     }
 }
 
