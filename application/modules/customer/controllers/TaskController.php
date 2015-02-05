@@ -34,6 +34,7 @@ class Customer_TaskController extends Zend_Controller_Action{
         }
             $n++;
         }
+       
         // sending data to the view
         $this->view->categories = $categories;
     }
@@ -111,11 +112,16 @@ class Customer_TaskController extends Zend_Controller_Action{
         // get task's prepositions
         $taskPrepObj = new Customer_Model_DbTable_TaskPrepositionModel();
         $prepositions = $taskPrepObj->getTasksPrepositionis($taskId);
-        
+         // get task's feedback from the performer
+        $feedbackObj = new Customer_Model_DbTable_FeedbackModel();
+        $feedback = $feedbackObj->getCustomersFeedbackByTaskId($taskId, $this->user->id);
         
         
         if($prepositions){
             $this->view->prepositions = $prepositions;
+        }
+        if($feedback){
+            $this->view->feedback = $feedback;  
         }
         $this->view->task = $task;
     }

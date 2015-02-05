@@ -120,7 +120,14 @@ class Performer_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
         }
     }
 
-
+   public function changeStatus($taskId, $status){
+        $data = array(
+            'status'=> $status,
+        );
+        $where = $this->getAdapter()->quoteInto('id = ?', $taskId);
+        $this->update($data, $where);
+        return true;
+    }
 }
  
 

@@ -14,13 +14,13 @@
             <img src="<?= $this->baseUrl().'/images/task_images/'.$this->task['task_image'] ?>" class="img-thumbnail" width="200px">
         </div>
     <?php } ?>
-    <div cloass="col-lg-8">
+    <div cloass="col-lg-4">
         <label>Статус : </label>
         <?php switch($this->task['status']){
             case 'non_taken':
                 echo 'В ожидании';
                 break;
-            case 'taken':
+            case 'taken': 
                 echo 'В работе';
                 break;
             case 'closed':
@@ -31,6 +31,18 @@
                 break;
         }
 ?>
+    </div>
+    <div class="col-lg-4">
+        <?php switch($this->task['status']){ 
+            case 'taken': ?>
+                <?php if(!$this->feedback){?>
+                    <button class="btn btn-primary btn-sm" id="markDoneBut" data-toggle="modal" data-target="#feedbackModal"  >Оставить отзыв</button>
+                    <p id="markedDone" style="display: none" class="text-success">Оставлен отзыв</p> 
+                <?php }else{?>
+                    <p  class="text-success">Оставлен отзыв</p>
+                <?php }?>
+        <?php break; ?>
+        <?php }?>
     </div>
 </div>
 <div role="tabpanel">
@@ -114,28 +126,98 @@
          </div>  
       </div>
   </div>
-    <!-- modal block   -->
-    <div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="taskModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Проголосовать</h4>
-          </div>
-          <div class="modal-body">
-            <p>Content</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-            <button type="button" class="btn btn-primary">Сохранить</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+        <!-- modal block   -->
+        <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="taskModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Оставить отзыв</h4>
+              </div>
+              <div class="modal-body">
+                  <form id="feedbackForm" class="form-horizontal" action="<?= $this->baseUrl().'/performer/feedback/leave-feedback/' ?>">
+                      <div class="container">
+                          <div class="row">
+                      <div class="col-lg-12 radio">
+                        <label>
+                            <input type="radio" id="positive" name="feedb[]" value="1" checked>
+                            Положительный
+                        </label>
+                      </div> 
+                      
+                      <div class="col-lg-12 radio">   
+                        <label>
+                            <input type="radio" id="negative" name="feedb[]" value="0">
+                            Отрицательный
+                        </label>
+                      </div>
+                      <div id="ratingDiv">    
+                            <div class="col-lg-12 form-group">
+                                <label >Пунктуальность : </label>
+                                <select id="punctuality" name="punctuality">
+                                    <option value="0">0</option>
+                                    <option value="1">+1</option>
+                                    <option value="2">+2</option>
+                                    <option value="3">+3</option>
+                                    <option value="4">+4</option>
+                                    <option value="5">+5</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-12 form-group">
+                                <label >Вежливость : </label>
+                                <select id="politeness" name="politeness">
+                                    <option value="0">0</option>
+                                    <option value="1">+1</option>
+                                    <option value="2">+2</option>
+                                    <option value="3">+3</option>
+                                    <option value="4">+4</option>
+                                    <option value="5">+5</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-12 form-group">
+                                <label >Качество : </label>
+                                <select name="quality" id="quality">
+                                    <option value="0">0</option>
+                                    <option value="1">+1</option>
+                                    <option value="2">+2</option>
+                                    <option value="3">+3</option>
+                                    <option value="4">+4</option>
+                                    <option value="5">+5</option>
+                                </select>
+                            </div>
+                      </div>
+                      <div class="col-lg-6 form-group">
+                        <label class="control-label">Отзыв</label>
+                        <textarea id="feedbackText" class="form-control" name="feedback"  rows="5"></textarea>
+                      </div>
+                   </div>
+                  </form>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                <button type="button" id="feedBut" onclick="feedback(<?= $this->task['performer_id'] ?>,<?= $this->task['id'] ?>)" class="btn btn-primary" >Оставить отзыв</button>
+                <img style="display: none" id="prelFeedb" src="<?= $this->baseUrl()?>/images/blue_preloader.gif" width="70">              
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 <script>
 $(document).ready(function(){
     $('#prepTable').DataTable({
     });
+    
+    
+      $('#positive').change(function(){ 
+         if($(this).is(':checked')){
+             $('#ratingDiv').show();
+         }
+     });
+     $('#negative').change(function(){ 
+         if($(this).is(':checked')){
+             $('#ratingDiv').hide();
+         }
+     });   
 });
 
 function acceptPreposition(performerId, taskId){
@@ -152,4 +234,41 @@ $.ajax({
   }
 });    
 }
+
+ function feedback( perfId, taskId){
+    var feedbackText = $('#feedbackText').val();
+    if($('#positive').is(':checked')){
+        $('#feedBut').hide();
+        $('#prelFeedb').show();
+        var punctuality = $('#punctuality').val();
+        var quality = $('#quality').val();
+        var politeness = $('#politeness').val();
+        var kind = 'positive';
+        $.ajax({
+          type: 'POST',
+          url: '<?= $this->baseUrl.'/customer/feedback/leave-feedback'; ?>',
+          data: {kind: kind, feedbackText: feedbackText, punctuality: punctuality, quality: quality, politeness: politeness, taskId: taskId, perfId: perfId},
+          success: function(){
+              $('#markDoneBut').hide();
+              $('#markedDone').show();
+              $('#feedbackModal').modal('hide');
+        }
+        }); 
+    }else if($('#negative').is(':checked')){ 
+        $('#feedBut').hide();
+        $('#prelFeedb').show();
+        var kind = 'negative';
+        $.ajax({
+          type: 'POST',
+          url: '<?= $this->baseUrl.'/customer/feedback/leave-feedback'; ?>',
+          data: {kind: kind, feedbackText: feedbackText, taskId: taskId, perfId: perfId},
+          success: function(){
+              $('#markDoneBut').hide();
+              $('#markedDone').show();
+              $('#feedbackModal').modal('hide');
+        }
+        });        
+    }
+    
+ }
 </script>

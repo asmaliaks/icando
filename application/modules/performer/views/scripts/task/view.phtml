@@ -26,6 +26,10 @@
                     break;
                 case 'done':?>    
                     <p   class="text-success">Задача отмечена как выполненная</p>
+                <?php break;
+                case 'closed': ?>
+                    <p   class="text-success">Задача закрыта</p>
+                <?php break; ?>
            <?php }?>
             
             <img id="prel<?= $this->task['id'] ?>" style="display:none" src="<?= $this->baseUrl() ?>/images/blue_preloader.gif" width="45">

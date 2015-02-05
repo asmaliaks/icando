@@ -25,6 +25,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->add(new Zend_Acl_Resource('customer:settings'), 'customer');
        $this->add(new Zend_Acl_Resource('customer:office'), 'customer');
        $this->add(new Zend_Acl_Resource('customer:task'), 'customer');
+       $this->add(new Zend_Acl_Resource('customer:feedback'), 'customer');
        
        $this->add(new Zend_Acl_Resource('performer'));
        $this->add(new Zend_Acl_Resource('performer:index'), 'performer');
@@ -86,6 +87,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('customer', 'customer:task', 'remove-task');
        $this->allow('customer', 'customer:task', 'view');
        $this->allow('customer', 'customer:task', 'accept-proposition');
+       $this->allow('customer', 'customer:feedback', 'leave-feedback');
       
        // performer
        $this->allow('performer', 'default:authentication', 'log-out');

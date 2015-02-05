@@ -1,5 +1,5 @@
 <?php
-class Performer_Model_DbTable_FeedbackModel extends Zend_Db_Table_Abstract{
+class Customer_Model_DbTable_FeedbackModel extends Zend_Db_Table_Abstract{
     protected $_name = 'feedback';
     
     public function addFeedback($data){
@@ -16,7 +16,7 @@ class Performer_Model_DbTable_FeedbackModel extends Zend_Db_Table_Abstract{
         return $feedback;
     }
     
-    public function getPerformersFeedbackByTaskId($taskId, $performerId){
+    public function getCustomersFeedbackByTaskId($taskId, $performerId){
         $select = $this->select('*')
                 ->where('task_id=?', $taskId)
                 ->where('user_from=?', $performerId);
@@ -27,11 +27,10 @@ class Performer_Model_DbTable_FeedbackModel extends Zend_Db_Table_Abstract{
             return false;
         }
     }
-    
-    public function checkIfCustomerLeftFeedback($taskId, $customerId){
+    public function checkIfPerformerLeftFeedback($taskId, $performerId){
         $select = $this->select('*')
                 ->where('task_id=?', $taskId)
-                ->where('user_from=?', $customerId);
+                ->where('user_from=?', $performerId);
         $row = $this->fetchRow($select);
         if($row){
             if($row->kind == 'positive'){
@@ -42,5 +41,5 @@ class Performer_Model_DbTable_FeedbackModel extends Zend_Db_Table_Abstract{
         }else{
             return false;
         }
-    }    
+    }
 }
