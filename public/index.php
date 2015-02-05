@@ -22,6 +22,31 @@ $application = new Zend_Application(
     APPLICATION_ENV,
     APPLICATION_PATH . '/configs/application.ini'
 );
+
+// SMTP constants definding
+define('ADMIN_MAIL','lastpagan87@gmail.com');
+
+
+define('SMTP_USERNAME','asmaliaks@gmail.com');
+define('SMTP_HOST','ssl://smtp.gmail.com');
+
+define('SMTP_PORT','465');
+define('SMTP_DEBUG','true');
+
+define('SMTP_PASS','asmalouski5233');
+define('SMTP_CHARSET','UTF-8');
+define('SMTP_FROM','asmaliaks@gmail.com');
+
+//define('SMTP_USERNAME','no_reply@eatpbank.ru');
+//define('SMTP_HOST','ssl://mail.nic.ru');
+//
+//define('SMTP_PORT','465');
+//define('SMTP_DEBUG','true');
+//
+//define('SMTP_PASS','M5yEdA73JZDQY');
+//define('SMTP_CHARSET','UTF-8');
+//define('SMTP_FROM','no_reply@eatpbank.ru');
+
 define("SALT", "3Y7r0A6c");
 define("DOCUMENT_ROOT", "/var/www/skilus/data/www/dev.skilus.biz/icando/public/");
         // definding social networks constants

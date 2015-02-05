@@ -104,6 +104,8 @@ class Customer_TaskController extends Zend_Controller_Action{
     }
     
     public function viewAction(){
+
+        
         $request = $this->getRequest();
         $taskId = $request->getParam('id');
         

@@ -31,6 +31,9 @@ class Customer_FeedbackController extends Zend_Controller_Action{
                 // make a notification to ADMIN
                 
                 $notificationObj->addNotification($post['taskId'], $this->user->id, 'unhappy');
+                $smtpObj = new Default_Model_Smtp();
+                $message = 'Пользователь ostawil ';
+                $smtpObj->send(ADMIN_MAIL, 'negative feedback', $message, 'From: no_reply@icando.by');
                 
                 echo 'true';
             }else if($post['kind']=='positive'){
