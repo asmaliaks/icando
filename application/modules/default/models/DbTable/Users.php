@@ -38,6 +38,15 @@ class Model_DbTable_Users extends Zend_Db_Table_Abstract{
             return false;
         }
     }
+    public function checkFbUser($userId){
+        $row = $this->fetchRow($this->select()->where('fb = ?', $userId));
+        
+        if($row){
+            return $row->toArray();
+        }else{
+            return false;
+        }
+    }
     
     private function getImgById($userId){
         $row = $this->fetchRow($this->select()->where('id = ?', $userId));

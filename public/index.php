@@ -58,7 +58,7 @@ define("DOCUMENT_ROOT", "/var/www/skilus/data/www/dev.skilus.biz/icando/public/"
             // facebook
         define("FB_CLIENT_ID", '783021221773947');
         define('FB_CLIENT_SECRET', 'd6fc08faf3ca501b6d94bd3b9202f8d7');
-        define("FB_REDIRECT_URI",'http://ican.loc/s-auth/fb/');
+        define("FB_REDIRECT_URI",'http://icando.dev.skilus.biz/s-auth/fb-complete/');
 
 $application->bootstrap()
             ->run();

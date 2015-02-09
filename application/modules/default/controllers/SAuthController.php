@@ -83,9 +83,11 @@ class SAuthController extends Zend_Controller_Action{
                     $userInfo['sex'] = 'female';
                 }
                 $pass = base64_encode($userInfo['id']);
-                $pass = $pass.SALT;
+                $passHashed = $pass.SALT;
                 if(empty($userInfo['bdate'])){
-                    $userInfo['bdate'] = 0;
+                    $userInfo['bdate'] = null;
+                }else{
+                    $userInfo['bdate'] = strtotime($userInfo['bdate']);
                 }
                 if(empty($userInfo['city'])){
                     $userInfo['city'] = null;
@@ -106,7 +108,6 @@ class SAuthController extends Zend_Controller_Action{
                 $authAdapter = $this->getAuthAdapter();
         
                 $username = $userInfo['domain'].'@vkmessenger.com';
-                $pass = $pass;
                 $authAdapter->setIdentity($username)
                     ->setCredential($pass);
         
@@ -158,21 +159,130 @@ class SAuthController extends Zend_Controller_Action{
     
     
     public function fbAction(){
-if (isset($_GET['code'])) {
-    $result = false;
+        if (isset($_GET['code'])) {
+            $result = false;
+            $params = array(
+                'client_id'     => FB_CLIENT_ID,
+                'redirect_uri'  => FB_REDIRECT_URI,
+                'client_secret' => FB_CLIENT_SECRET,
+                'code'          => $_GET['code']
+            );
 
-    $params = array(
-        'client_id'     => $client_id,
-        'redirect_uri'  => $redirect_uri,
-        'client_secret' => $client_secret,
-        'code'          => $_GET['code']
-    );
+            $url = 'https://graph.facebook.com/oauth/access_token'. '?' . http_build_query($params);
+            $tokenInfo = null;
+            $this->_redirect($url);
+        //    $response = parse_str(file_get_contents($url . '?' . http_build_query($params)), $tokenInfo);
 
-    $url = 'https://graph.facebook.com/oauth/access_token';
-    $tokenInfo = null;
-    $response = parse_str(file_get_contents($url . '?' . http_build_query($params)), $tokenInfo);
-    
-}        
+
+        }        
+    }
+   
+    public function fbCompleteAction(){
+       if (isset($_GET['code'])) {
+            $result = false;
+
+            $params = array(
+                'client_id'     => FB_CLIENT_ID,
+                'redirect_uri'  => FB_REDIRECT_URI, 
+                'client_secret' => FB_CLIENT_SECRET,
+                'code'          => $_GET['code']
+            );
+
+            $url = 'https://graph.facebook.com/oauth/access_token';
+            
+            $tokenInfo = null;
+            parse_str(file_get_contents($url . '?' . http_build_query($params)), $tokenInfo);
+
+            if (count($tokenInfo) > 0 && isset($tokenInfo['access_token'])) {
+                $params = array('access_token' => $tokenInfo['access_token']);
+
+                //$userInfo = json_decode(file_get_contents('https://graph.facebook.com/me' . '?' . urldecode(http_build_query($params))), true);
+                
+                $url = 'https://graph.facebook.com/me' . '?' . urldecode(http_build_query($params));
+                $curl = curl_init();
+                curl_setopt($curl, CURLOPT_URL, $url);
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($curl, CURLOPT_HEADER, false);
+                $userInfo = json_decode(curl_exec($curl),true);
+                curl_close($curl);
+                           // check id user exists with that user_id 
+                $userModel = new Model_DbTable_Users();
+                $user = $userModel->checkFbUser($userInfo['id']);
+                // if user is not registred
+                if(!$user){
+                    $pass = base64_encode($userInfo['id']);
+                    $pass = $pass.SALT;
+                    if(empty($userInfo['birthday'])){
+                        $userInfo['birthday'] = null;
+                    }else{
+                        $userInfo['birthday'] = strtotime($userInfo['birthday']);
+                    }
+                    if(empty($userInfo['city'])){
+                        $userInfo['city'] = null;
+                    }
+                    $data = array(
+                        'username'=> $userInfo['first_name'],
+                        'surname' => $userInfo['last_name'],
+                        'sex' => $userInfo['gender'],
+                        'role' => 'customer',
+                        'birth_date'=> $userInfo['birthday'],
+                        'email' => $userInfo['email'],
+                        'fb' => $userInfo['id'],
+                        'pass' => $pass,
+                    );
+                    $userModel->addNewUser($data);
+                    // authorizate new user
+                    $authAdapter = $this->getAuthAdapter();
+
+                    $username = $userInfo['email'];
+                    $authAdapter->setIdentity($username)
+                        ->setCredential($pass);
+
+                    $auth = Zend_Auth::getInstance();
+                    $result = $auth->authenticate($authAdapter);
+
+                    if($result->isValid()){
+                        $identity = $authAdapter->getResultRowObject();
+
+                        $authStorage = $auth->getStorage();
+                        $authStorage->write($identity);
+                        // redirect user according to his role
+                        $this->_redirect('customer/index');
+
+                    }   
+                }else{
+                    // if user registred
+                    // authorizate new user
+                    $authAdapter = $this->getAuthAdapter();
+
+                    $username = $userInfo['email'];
+                    $pass = base64_encode($userInfo['id']);
+                    $pass = $pass.SALT;
+                    $authAdapter->setIdentity($username)
+                        ->setCredential($pass);
+
+                    $auth = Zend_Auth::getInstance();
+                    $result = $auth->authenticate($authAdapter);
+
+                    if($result->isValid()){
+                        $identity = $authAdapter->getResultRowObject();
+
+                        $authStorage = $auth->getStorage();
+                        $authStorage->write($identity);
+                        // redirect user according to his role
+                        if($identity->role == 'admin'){
+                            $this->_redirect('admin/index');
+                        }else if($identity->role == 'customer'){
+                            $this->_redirect('customer/index');
+                        }else if($identity->role == 'performer'){
+                            $this->_redirect('performer/index');
+                        }
+
+                    } 
+                }
+                 
+        }
+  }
     }
     
     private function vkLink(){
