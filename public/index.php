@@ -53,7 +53,7 @@ define("DOCUMENT_ROOT", "/var/www/skilus/data/www/dev.skilus.biz/icando/public/"
             // vk.com
         define("VK_CLIENT_ID", '4741291');
         define("VK_CLIENT_SECRET", 'uirEdl2WgSbr6fw8VKt7');
-        define("VK_REDIRECT_URI", $_SERVER['SERVER_NAME'].'/s-auth/vk/');
+        define("VK_REDIRECT_URI", 'http://icando.dev.skilus.biz/s-auth/vk-complete/');
         
             // facebook
         define("FB_CLIENT_ID", '783021221773947');

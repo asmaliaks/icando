@@ -27,8 +27,8 @@ class Customer_Form_TaskForm extends Zend_Form{
         
         $taskFile = new Zend_Form_Element_File('task_image');
         $taskFile->setLabel('Прикепите изображение (не обязательно)')
-                ->setDestination($_SERVER['DOCUMENT_ROOT'].'/images/task_images/');
-//                ->setDestination(DOCUMENT_ROOT.'/images/task_images/');
+//                ->setDestination($_SERVER['DOCUMENT_ROOT'].'/images/task_images/');
+                ->setDestination(DOCUMENT_ROOT.'/images/task_images/');
         
         // get category_id from session namespace
         $catNms = new Zend_Session_Namespace('category');

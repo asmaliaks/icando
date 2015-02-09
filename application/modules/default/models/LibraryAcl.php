@@ -103,6 +103,9 @@ class Model_LibraryAcl extends Zend_Acl{
        
        //guest
        $this->allow('guest', 'default:s-auth', 'index');
+       $this->allow('guest', 'default:s-auth', 'vk');
+       $this->allow('guest', 'default:s-auth', 'vk-complete');
+       $this->allow('guest', 'default:s-auth', 'fb');
        $this->allow('guest', 'default:registration', 'index');
        $this->allow('guest', 'default:error');
     }

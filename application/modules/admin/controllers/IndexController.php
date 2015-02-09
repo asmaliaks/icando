@@ -15,7 +15,7 @@ class Admin_IndexController extends Zend_Controller_Action{
         $role = $this->user->role;
         switch ($role) {
             case 'admin':
-                $this->_redirect('admin');
+                $this->_redirect('admin/applications');
                 break;
             case 'customer': 
                 $this->_redirect('customer/office');

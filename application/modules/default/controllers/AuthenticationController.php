@@ -56,6 +56,11 @@ class AuthenticationController extends Zend_Controller_Action
         
         
     }
+    
+    public function sLoginAction($login, $pass){
+        
+    }
+    
     public function logOutAction(){
 
         Zend_Auth::getInstance()->clearIdentity();

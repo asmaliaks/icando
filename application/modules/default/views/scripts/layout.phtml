@@ -1,5 +1,8 @@
+
 <html lang="en"><head>
-    <meta charset="utf-8">
+<!--    <meta charset="utf-8">-->
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -33,7 +36,7 @@
             
         <?php if(Zend_Auth::getInstance()->hasIdentity()){?>
                           
-            <a class="blog-nav-item" href="<?php echo $this->url(array('controller'=>'authentication', 'action'=>'log-out'))?>" >Выйти</a>
+            <a class="blog-nav-item" href="http://icando.dev.skilus.biz/authentication/log-out" >Выйти</a>
                            
          <?php }else{ ?>
             <a class="blog-nav-item" href="<?php echo $this->url(array('controller'=>'registration', 'action'=>'index'))?>" >Регистрация</a> 
