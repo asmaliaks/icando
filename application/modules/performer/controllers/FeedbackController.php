@@ -29,6 +29,23 @@ class Performer_FeedbackController extends Zend_Controller_Action{
                 );
                 $feedbackObj->addFeedback($data);
                 $notificationObj->addNotification($post['taskId'], $this->user->id, 'unhappy');
+                $taskObj = new Customer_Model_DbTable_TasksModel();
+                $task = $taskObj->getTaskById($data['task_id']);
+                
+                $usersObj = new Admin_Model_DbTable_Users();
+                $customer = $usersObj->getUserById($post['custId']);
+                // mail for admin
+                $smtpObj = new Default_Model_Smtp();
+                $message = "Исполнитель ".$this->user->username." ".$this->user->surname." "
+                        . "оставил отрицательный отзыв по задаче ".$task['title']." "
+                        . " исполнителю ".$customer['username']." ".$customer['surname'];
+                $headers = 'From: no_reply@icando.by';
+                $smtpObj->send(ADMIN_EMAIL, 'Отрицательный отзыв', $message, $headers);
+                // mail for the customer
+                $message = "Исполнитель ".$this->user->username." ".$this->user->surname." "
+                        . "оставил отрицательный отзыв по задаче ".$task['title'];
+                $headers = 'From: no_reply@icando.by';
+                $smtpObj->send($customer['email'], 'Отрицательный отзыв', $message, $headers);
                 echo 'true';
             }else if($post['kind']=='positive'){
                 $sum = $post['quality']+$post['punctuality']+$post['politeness'];
@@ -46,13 +63,29 @@ class Performer_FeedbackController extends Zend_Controller_Action{
                 $notificationObj->addNotification($post['taskId'], $this->user->id, 'satisfied');
                 // if both feedbacks are positive change feedback status...
                 // check if there is second feedback and and if it's positive
-                $customarsFeedback = $feedbackObj->checkIfCustomerLeftFeedback($post['taskId'], $post['custId']);
-                if($customarsFeedback){
+                $customersFeedback = $feedbackObj->checkIfCustomerLeftFeedback($post['taskId'], $post['custId']);
+                
+                $taskObj = new Customer_Model_DbTable_TasksModel();
+                $task = $taskObj->getTaskById($data['task_id']);
+                
+                $usersObj = new Admin_Model_DbTable_Users();
+                $performer = $usersObj->getUserById($post['custId']);
+                $smtpObj = new Default_Model_Smtp();
+                $message = "Заказчик ".$this->user->username." ".$this->user->surname." "
+                        . "оставил Положительный отзыв по задаче ".$task['title'];
+                $headers = 'From: no_reply@icando.by';
+                $smtpObj->send($customer['email'], 'Положительный отзыв', $message, $headers);
+                
+                if($customersFeedback){
                     // if performer left feedback
-                    if($customarsFeedback == 'positive'){
+                    if($customersFeedback == 'positive'){
                         // if feedback is positive change task's status to closed
                         $taskObj = new Customer_Model_DbTable_TasksModel();
                         $taskObj->changeStatus($post['taskId'], 'closed');
+                        
+                        $message = "Статус задачи ".$task['title']." на \"Закрыта\"";
+                        $headers = 'From: no_reply@icando.by';
+                        $smtpObj->send($customer['email'], 'Статус задачи', $message, $headers);
                         echo 'true';
                     }
                 echo 'true';

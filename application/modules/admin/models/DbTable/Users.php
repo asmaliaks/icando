@@ -29,7 +29,11 @@ class Admin_Model_DbTable_Users extends Zend_Db_Table_Abstract{
     public function getUserById($id){
         $select = $this->select('*')->where('id = ?', $id);
         $result = $this->fetchRow($select);
-        return $result->toArray();
+        if($result){
+            return $result->toArray();
+        }else{
+            return false;
+        }
         
     }
     

@@ -5,6 +5,7 @@ class Performer_Model_DbTable_FeedbackModel extends Zend_Db_Table_Abstract{
     public function addFeedback($data){
 
         $this->insert($data);
+        return true;
     }
     public function removeFeedback($id){
         $where = $this->getAdapter()->quoteInto('id = ?', $id);
