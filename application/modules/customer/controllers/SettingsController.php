@@ -17,7 +17,7 @@ class Customer_SettingsController extends Zend_Controller_Action{
     
     public function personalDataEditAction(){
         $form = new Customer_Form_RegistrationForm();
-        $this->view->form = $userForm;
+        $this->view->form = $form;
         $request = $this->getRequest();
         if($request->isPost()){
             if($form->isValid($this->_request->getPost())){
@@ -42,7 +42,7 @@ class Customer_SettingsController extends Zend_Controller_Action{
                 );
                 $usersModel = new Model_DbTable_Users();
                 $usersModel->editUser($data, $this->user->id);
-                $this->_redirect("/customer/settings/personal-data-edit");
+                $this->_redirect("/customer/office/index");
             }else{
                 $this->view->form = $form;
             }

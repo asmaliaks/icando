@@ -84,16 +84,14 @@ class Customer_Form_RegistrationForm extends Zend_Form{
    
    $pass = new Zend_Form_Element_Password('pass');
    $pass->setLabel('Пароль');
-   
-   $passConfirm = new Zend_Form_Element_Password('pass_conf');
-   $passConfirm->setLabel('Подтвердите пароль');
+
 
 
    $submit = new Zend_Form_Element_Submit('submit');
    $submit->setLabel('Сохранить')
           ->setAttrib('class', 'button2');
    
-   $this->addElements(array($email, $name, $surname, $sex,  $phoneNumber, $city, $dayBirth, $monthBirth, $birthYear, $image, $pass, $passConfirm, $submit));
+   $this->addElements(array($email, $name, $surname, $sex,  $phoneNumber, $city, $dayBirth, $monthBirth, $birthYear, $image, $pass,  $submit));
    $this->setMethod('post');
    
    

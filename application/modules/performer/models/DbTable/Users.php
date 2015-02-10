@@ -7,7 +7,10 @@ class Performer_Model_DbTable_Users extends Zend_Db_Table_Abstract{
         $this->insert($data);
         return true;
     }
-    
+    public function editUser($data, $userId){
+        $where = $this->getAdapter()->quoteInto('id = ?', $userId);
+        $this->update($data, $where);
+    }
 //    public function getCustomerById($userId){
 //      
 ////        $row = $this->fetchRow($this->select()->where('id = ?', $userId));

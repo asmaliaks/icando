@@ -7,7 +7,17 @@ class Model_DbTable_Users extends Zend_Db_Table_Abstract{
         $this->insert($data);
         return true;
     }
-    
+      public function getUserById($userId){
+       $select = $this->select()
+               ->where('id=?',$userId);
+       $result = $this->fetchRow($select);
+       if($result){
+           return $result->toArray();
+       }else{
+           return false;
+       }
+       
+   } 
     public function editUser($data, $userId){
 
         if($data['image'] == null){$image = $this->getImgById($userId);

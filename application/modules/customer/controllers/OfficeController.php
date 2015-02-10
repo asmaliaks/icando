@@ -30,6 +30,9 @@ class Customer_OfficeController extends Zend_Controller_Action{
                 $birthYear = $request->getParam('year_birth');
                 $birthDate = $birthDay.'.'.$birthMonth.'.'.$birthYear;
                 $birthDate = strtotime($birthDate);
+                $passStr = $form->getValue('pass');
+                $passHash = base64_encode($passStr);
+                $passHash = $passHash.SALT;
                 $data = array(
                     'email' => $form->getValue('email'),
                     'username'  => $form->getValue('username'),
@@ -38,12 +41,12 @@ class Customer_OfficeController extends Zend_Controller_Action{
                     'image' => $form->getValue('image'),
                     'phonenumber' => $form->getValue('phonenumber'),
                     'city' => $form->getValue('city'),
-                    'pass' => $form->getValue('pass'),
+                    'pass' => $passHash,
                     'birth_date' => $birthDate,
                 );
                 $usersModel = new Model_DbTable_Users();
                 $usersModel->editUser($data, $this->user->id);
-                $this->_redirect("/customer/settings/personal-data-edit");
+                $this->_redirect("/customer/office/index");
             }else{
                 $this->view->form = $form;
             }
