@@ -37,7 +37,7 @@
 
           <a class="blog-nav-item" href="<?= $this->baseUrl().'/customer/performers/'?>">Исполнители</a>
           <a class="blog-nav-item" href="<?= $this->baseUrl().'/customer/office/index/'?>">Кабинет</a>
-          <?php if(!$this->application || $this->application != 0){?>
+          <?php if($this->application['customer_id'] != $this->user['id']){?>
           <a class="blog-nav-item" id="sendApp" href="javascript:applyPerformer()"  >Стать исполнителем</a>
           <?php }?>
           <a class="blog-nav-item" href="<?= $this->baseUrl().'/default/authentication/log-out'?>">Выход</a>
@@ -63,11 +63,7 @@
         <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
             <ol class="list-unstyled">
                 Меню
-                <?php foreach($this->menu as $menu){?>
-                <li>
-                    <a href="<?= $this->baseUrl().$menu['url'] ?>"><?= $menu['title'] ?></a>
-                </li>
-                <?php }?>
+                
                 <li>
                    <a href="#">Подать заявку на исполнителя</a>
                 </li>

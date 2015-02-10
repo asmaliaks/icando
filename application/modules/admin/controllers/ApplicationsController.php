@@ -17,9 +17,17 @@ class Admin_ApplicationsController extends Zend_Controller_Action{
         $request = $this->getRequest();
         if($request->isPost()){
             $id = $request->getParam('id');
+            $customerId = $request->getParam('customerId');
             $appObj = new Admin_Model_DbTable_PerformerApplication();
             $result = $appObj->removeApp($id);
             // if app removed then send mail
+            $smtpObj = new Default_Model_Smtp();
+            $usersObj = new Admin_Model_DbTable_Users();
+            $user = $usersObj->getUserById($customerId);
+            $message = "Администратор отклонил вашу заявку";
+            $message = wordwrap($message, 70);
+            $headers = 'From: no_reply@icando.by';
+            $smtpObj->send($user['email'], 'Заявка отклонена', $message, $headers);
             echo 'true';
         }
     }
@@ -38,6 +46,14 @@ class Admin_ApplicationsController extends Zend_Controller_Action{
             // change users's status to performer
             $usersObj->changeCustomerToPerformer($customerId);
             // send email to the consumer
+            // get uyser by id
+            $user = $usersObj->getUserById($customerId);
+            $smtpObj = new Default_Model_Smtp();
+            $message = "Администратор подтвердил изменение статуса вашей учетной записи на \"Исполнитель\".";
+            $message = wordwrap($message, 70);
+            $headers = 'From: no_reply@icando.by';
+            $smtpObj->send($user['email'], 'Статус изменен', $message, $headers);
+            echo 'true';
         }
     }
 }

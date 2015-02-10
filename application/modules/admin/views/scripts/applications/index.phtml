@@ -31,7 +31,7 @@
     <?php foreach($this->appList as $app){?>
             <tr id="div<?= $app['id'] ?>">
                 <td><?= $app['id'] ?></td>
-                <td><a href="<?= $this->baseUrl().'/admin/customers/view/id/'.$app['id'] ?>"><?=  $app['username'].' '.$app['surname'] ?></a></td>
+                <td><a href="<?= $this->baseUrl().'/admin/customers/view/id/'.$app['customer_id'] ?>"><?=  $app['username'].' '.$app['surname'] ?></a></td>
                 <td><?=  $app['phonenumber'] ?></td>
                 <td><?=  $app['city'] ?></td>
                 <td>28</td>
@@ -47,7 +47,7 @@
                     <img style="display: none" id="acceptPrel<?= $app['id'] ?>" src="<?= $this->baseUrl()?>/images/blue_preloader.gif" width="50"> 
                 </td>
                 <td>
-                    <button id="declineBut<?= $app['id'] ?>" onclick="decline(<?= $app['id'] ?>)">
+                    <button id="declineBut<?= $app['id'] ?>" onclick="decline(<?= $app['id'] ?>, <?= $app['customer_id']?>)">
                         Отколонить
                     </button>
                     <img style="display: none" id="declPrel<?= $app['id'] ?>" src="<?= $this->baseUrl()?>/images/blue_preloader.gif" width="50"> 
@@ -64,13 +64,13 @@
     });
 
     
-    function decline(id){
+    function decline(id, customerId){
         $('#declineBut'+id).hide(100);
         $('#declPrel'+id).show();
 $.ajax({
   type: 'POST',
   url: '<?= $this->baseUrl.'/admin/applications/decline/'; ?>',
-  data: {id: id},
+  data: {id: id, customerId: customerId},
   success: function(data){
       $('#div'+id).remove();
   }

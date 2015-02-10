@@ -24,7 +24,7 @@ $application = new Zend_Application(
 );
 
 // SMTP constants definding
-define('ADMIN_MAIL','lastpagan87@gmail.com');
+define('ADMIN_MAIL','asmaliaks@gmail.com');
 
 
 define('SMTP_USERNAME','asmaliaks@gmail.com');
@@ -35,7 +35,7 @@ define('SMTP_DEBUG','true');
 
 define('SMTP_PASS','asmalouski5233');
 define('SMTP_CHARSET','UTF-8');
-define('SMTP_FROM','asmaliaks@gmail.com');
+define('SMTP_FROM','no_reply@icando.by');
 
 //define('SMTP_USERNAME','no_reply@eatpbank.ru');
 //define('SMTP_HOST','ssl://mail.nic.ru');

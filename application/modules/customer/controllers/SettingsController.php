@@ -27,8 +27,11 @@ class Customer_SettingsController extends Zend_Controller_Action{
                 $birthDate = $birthDay.'.'.$birthMonth.'.'.$birthYear;
                 $birthDate = strtotime($birthDate);
                 $passStr = $form->getValue('pass');
-                $passHash = base64_encode($passStr);
-                $passHash = $passHash.SALT;
+                if($passStr != ''){
+                    $passHash = base64_encode($passStr);
+                    $passHash = $passHash.SALT;
+                    $data['pass'] = $passHash;
+                }
                 $data = array(
                     'email' => $form->getValue('email'),
                     'username'  => $form->getValue('username'),
@@ -37,7 +40,6 @@ class Customer_SettingsController extends Zend_Controller_Action{
                     'image' => $form->getValue('image'),
                     'phonenumber' => $form->getValue('phonenumber'),
                     'city' => $form->getValue('city'),
-                    'pass' => $passHash,
                     'birth_date' => $birthDate,
                 );
                 $usersModel = new Model_DbTable_Users();

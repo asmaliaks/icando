@@ -46,7 +46,13 @@ class RegistrationController extends Zend_Controller_Action{
         
                 $auth = Zend_Auth::getInstance();
                 $result = $auth->authenticate($authAdapter);
-        
+              
+                $mailObj = new Default_Model_Smtp();
+                $message = "Уважаемый ".$data['username']." Вы зарегестрировались на нашем сайте. "
+                        ."Используйте свой email в качестве логина";
+                $message = wordwrap($message, 70);
+                $headers = 'From: no_reply@icando.by';
+                $mailObj->send($data['email'], 'Регистрация', $message, $headers);
                 if($result->isValid()){
                     
                     $identity = $authAdapter->getResultRowObject();

@@ -59,9 +59,21 @@ class Customer_TaskController extends Zend_Controller_Action{
                     'created_at' => time(),
                 );
 
-            $tasksObj = new Customer_Model_DbTable_TasksModel();
-            $id = $tasksObj->addTask($data);
-            $this->_redirect('/customer/office/index');
+                    $tasksObj = new Customer_Model_DbTable_TasksModel();
+                    $id = $tasksObj->addTask($data);
+                    // send mail to admin
+                    $smtpObj = new Default_Model_Smtp();
+                    $message = "Пользователь ".$this->user->username." ".$this->user->surmname." "
+                            . "создал задачу ".$data['title'];
+                    $message = wordwrap($message, 70);
+                    $headers = 'From: no_reply@icando.by';
+                    $smtpObj->send(ADMIN_MAIL, 'Создана задача', $message, $headers);
+                    // send mail to customer
+                    $message = "Вы успешно создали задачу ".$data['title'];
+                    $message = wordwrap($message, 70);
+                    $headers = 'From: no_reply@icando.by';
+                    $smtpObj->send($this->user->email, 'Создана задача', $message, $headers);
+                    $this->_redirect('/customer/office/index');
                 }else{
                     $catNms = new Zend_Session_Namespace('category');
                     
@@ -139,7 +151,17 @@ class Customer_TaskController extends Zend_Controller_Action{
             // change task status
             $taskObj = new Customer_Model_DbTable_TasksModel();
             $taskObj->acceptPreposition($performerId, $taskId);
-            // send mail notification
+            
+            // send mail notification to the performer
+            $taskObj = new Customer_Model_DbTable_TasksModel();
+            $task= $taskObj->getTaskById($taskId);
+            $usersObj = new Admin_Model_DbTable_Users();
+            $user = $usersObj->getUserById($performerId);
+            $smtpObj = new Default_Model_Smtp();
+            $message = "Заказчик ".$this->user->username." ".$this->user->surname." "
+                    . "принял вашу заявку на выполнение задачи ".$task['title'];
+            $headers = 'From: no_reply@icando.by';
+            $smtpObj->send($user['email'], 'Принятие вашей кандидатуры', $message, $headers);
             echo 'true';
         }
     }

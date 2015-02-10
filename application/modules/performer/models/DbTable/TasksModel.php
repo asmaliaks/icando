@@ -77,6 +77,7 @@ class Performer_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
                         't.customer_id = u.id',
                         array('u.username as u_username',
                               'u.surname as u_surname',
+                            'u.email as u_email',
                               'u.id as u_id',
                             'u.sex as u_sex',
                             'u.city as u_city',

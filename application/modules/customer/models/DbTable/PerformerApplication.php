@@ -5,6 +5,7 @@ class Customer_Model_DbTable_PerformerApplication extends Zend_Db_Table_Abstract
     
     public function makeApplication($userId){
         $data = array('customer_id' => $userId,
+            'about'=>'be_a_performer'
             );
         $this->insert($data);
         return true;
