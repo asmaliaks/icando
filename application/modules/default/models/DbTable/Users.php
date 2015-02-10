@@ -47,6 +47,15 @@ class Model_DbTable_Users extends Zend_Db_Table_Abstract{
             return false;
         }
     }
+    public function checkOkUser($userId){
+        $row = $this->fetchRow($this->select()->where('ok = ?', $userId));
+        
+        if($row){
+            return $row->toArray();
+        }else{
+            return false;
+        }
+    }
     
     private function getImgById($userId){
         $row = $this->fetchRow($this->select()->where('id = ?', $userId));

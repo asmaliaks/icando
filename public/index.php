@@ -59,6 +59,11 @@ define("DOCUMENT_ROOT", "/var/www/skilus/data/www/dev.skilus.biz/icando/public/"
         define("FB_CLIENT_ID", '783021221773947');
         define('FB_CLIENT_SECRET', 'd6fc08faf3ca501b6d94bd3b9202f8d7');
         define("FB_REDIRECT_URI",'http://icando.dev.skilus.biz/s-auth/fb-complete/');
+            // ok.com
+        define("OK_CLIENT_ID", '1123001088');
+        define('OK_PUBLIC_KEY', 'CBAEKQODEBABABABA');
+        define('OK_SECRET_KEY', '4156FCB4B32651F1C6FC0096');
+        define("OK_REDIRECT_URI",'http://icando.dev.skilus.biz/s-auth/ok/');
 
 $application->bootstrap()
             ->run();

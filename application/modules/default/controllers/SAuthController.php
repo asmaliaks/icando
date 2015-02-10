@@ -9,9 +9,11 @@ class SAuthController extends Zend_Controller_Action{
         //geting vk auuthorization link
         $vkLink = $this->vkLink();
         $fbLink = $this->fbLink();
+        $okLink = $this->okLink();
         
         
         $this->view->fbLink = $fbLink;
+        $this->view->okLink = $okLink;
         $this->view->vkLink = $vkLink;
     }
     
@@ -83,7 +85,7 @@ class SAuthController extends Zend_Controller_Action{
                     $userInfo['sex'] = 'female';
                 }
                 $pass = base64_encode($userInfo['id']);
-                $passHashed = $pass.SALT;
+                $pass = $pass.SALT;
                 if(empty($userInfo['bdate'])){
                     $userInfo['bdate'] = null;
                 }else{
@@ -105,10 +107,10 @@ class SAuthController extends Zend_Controller_Action{
                 );
                 $userModel->addNewUser($data);
                 // authorizate new user
-                $authAdapter = $this->getAuthAdapter();
+                $authAdapter = $this->getAuthAdapter('vk');
         
-                $username = $userInfo['domain'].'@vkmessenger.com';
-                $authAdapter->setIdentity($username)
+                $userId = $userInfo['id'];
+                $authAdapter->setIdentity($userId)
                     ->setCredential($pass);
         
                 $auth = Zend_Auth::getInstance();
@@ -127,12 +129,12 @@ class SAuthController extends Zend_Controller_Action{
                 // if user registred
                 // authorizate new user
                 $userInfo = $userInfo['response'][0];
-                $authAdapter = $this->getAuthAdapter();
+                $authAdapter = $this->getAuthAdapter('vk');
         
-                $username = $userInfo['domain'].'@vkmessenger.com';
+                $userId = $userInfo['id'];
                 $pass = base64_encode($userInfo['id']);
                 $pass = $pass.SALT;
-                $authAdapter->setIdentity($username)
+                $authAdapter->setIdentity($userId)
                     ->setCredential($pass);
         
                 $auth = Zend_Auth::getInstance();
@@ -232,10 +234,10 @@ class SAuthController extends Zend_Controller_Action{
                     );
                     $userModel->addNewUser($data);
                     // authorizate new user
-                    $authAdapter = $this->getAuthAdapter();
+                    $authAdapter = $this->getAuthAdapter('fb');
 
-                    $username = $userInfo['email'];
-                    $authAdapter->setIdentity($username)
+                    $userId = $userInfo['id'];
+                    $authAdapter->setIdentity($userId)
                         ->setCredential($pass);
 
                     $auth = Zend_Auth::getInstance();
@@ -253,12 +255,12 @@ class SAuthController extends Zend_Controller_Action{
                 }else{
                     // if user registred
                     // authorizate new user
-                    $authAdapter = $this->getAuthAdapter();
+                    $authAdapter = $this->getAuthAdapter('fb');
 
-                    $username = $userInfo['email'];
+                    $userId = $userInfo['id'];
                     $pass = base64_encode($userInfo['id']);
                     $pass = $pass.SALT;
-                    $authAdapter->setIdentity($username)
+                    $authAdapter->setIdentity($userId)
                         ->setCredential($pass);
 
                     $auth = Zend_Auth::getInstance();
@@ -283,6 +285,138 @@ class SAuthController extends Zend_Controller_Action{
                  
         }
   }
+    }
+    
+    public function okAction(){
+        if (isset($_GET['code'])) {
+            $params = array(
+                'code' => $_GET['code'],
+                'redirect_uri' => OK_REDIRECT_URI,
+                'grant_type' => 'authorization_code',
+                'client_id' => OK_CLIENT_ID,
+                'client_secret' => OK_SECRET_KEY
+        );
+
+        $url = 'http://api.odnoklassniki.ru/oauth/token.do';
+        
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url); // url, куда будет отправлен запрос
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, urldecode(http_build_query($params))); // передаём параметры
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        $result = curl_exec($curl);
+        curl_close($curl);
+
+        $tokenInfo = json_decode($result, true);
+        
+        $public_key = OK_PUBLIC_KEY;
+        if (isset($tokenInfo['access_token']) && isset($public_key)) { 
+            $sign = md5("application_key=".OK_PUBLIC_KEY."format=jsonmethod=users.getCurrentUser" . md5("{$tokenInfo['access_token']}".OK_SECRET_KEY));
+            //print_r($sign);exit;
+            $params = array(
+                'method'          => 'users.getCurrentUser',
+                'access_token'    => $tokenInfo['access_token'],
+                'application_key' => OK_PUBLIC_KEY,
+                'format'          => 'json',
+                'sig'             => $sign
+            );
+            
+            
+            $userInfo = json_decode(file_get_contents('http://api.odnoklassniki.ru/fb.do' . '?' . urldecode(http_build_query($params))), true);
+        
+            // check id user exists with that user_id 
+            $userModel = new Model_DbTable_Users();
+            $user = $userModel->checkOkUser($userInfo['uid']);
+
+
+            if(!$user){
+                // register and authenticate
+                $pass = base64_encode($userInfo['uid']);
+                $pass = $pass.SALT;
+                if($userInfo['birthday']){
+                   $birhtAr = explode("-",$userInfo['birthday']); 
+                   $birthAr = array($birhtAr['2'], $birhtAr['1'], $birhtAr['0']);
+                   $userInfo['birthday'] = implode(".", $birthAr);
+                   $userInfo['birthday'] = strtotime($userInfo['birthday']);
+                }
+                $data = array(
+                    'username'=> $userInfo['first_name'],
+                    'surname' => $userInfo['last_name'],
+                    'sex' => $userInfo['gender'],
+                    'role' => 'customer',
+                    'birth_date'=> $userInfo['birthday'],
+                    'email' =>null,
+                    'ok' => $userInfo['uid'],
+                    'city' => $userInfo['location']['city'],
+                    'pass' => $pass,
+                );
+                $userModel->addNewUser($data);
+                 // authorizate new user
+                $authAdapter = $this->getAuthAdapter('ok');
+        
+                $userId = $userInfo['uid'];
+                $authAdapter->setIdentity($userId)
+                    ->setCredential($pass);
+        
+                $auth = Zend_Auth::getInstance();
+                $result = $auth->authenticate($authAdapter);
+           
+                if($result->isValid()){
+                    $identity = $authAdapter->getResultRowObject();
+            
+                    $authStorage = $auth->getStorage();
+                    $authStorage->write($identity);
+                    // redirect user according to his role
+                    $this->_redirect('customer/index');
+                    
+                }
+            }else{
+                // if user registred
+                // authorizate new user
+                $authAdapter = $this->getAuthAdapter('ok');
+        
+                $userId = $userInfo['uid'];
+                $pass = base64_encode($userInfo['uid']);
+                $pass = $pass.SALT;
+                $authAdapter->setIdentity($userId)
+                    ->setCredential($pass);
+        
+                $auth = Zend_Auth::getInstance();
+                $result = $auth->authenticate($authAdapter);
+           
+                if($result->isValid()){
+                    $identity = $authAdapter->getResultRowObject();
+            
+                    $authStorage = $auth->getStorage();
+                    $authStorage->write($identity);
+                    // redirect user according to his role
+                    if($identity->role == 'admin'){
+                        $this->_redirect('admin/index');
+                    }else if($identity->role == 'customer'){
+                        $this->_redirect('customer/index');
+                    }else if($identity->role == 'performer'){
+                        $this->_redirect('performer/index');
+                    }
+                    
+                }
+            }
+            }
+        }
+    }
+    
+    public function okCompleteAction(){  print_r($tokenInfo);exit;
+        if (isset($tokenInfo['access_token'])) { 
+            $sign = md5("application_key={$public_key}format=jsonmethod=users.getCurrentUser" . md5("{$tokenInfo['access_token']}{$client_secret}"));
+
+            $params = array(
+                'method'          => 'users.getCurrentUser',
+                'access_token'    => $tokenInfo['access_token'],
+                'application_key' => $public_key,
+                'format'          => 'json',
+                'sig'             => $sign
+            );
+        }
     }
     
     private function vkLink(){
@@ -315,12 +449,20 @@ class SAuthController extends Zend_Controller_Action{
     }
     
     private function okLink(){
-        
+        $url = 'http://www.ok.ru/oauth/authorize';
+        $params = array(
+            'client_id'     => OK_CLIENT_ID,
+            'response_type' => 'code',
+            'redirect_uri'  => OK_REDIRECT_URI,
+            'scope' => 'VALUABLE_ACCESS;GET_EMAIL',
+        ); 
+        $link = $url.'?'. urldecode(http_build_query($params));
+        return $link;
     }
-    private function getAuthAdapter(){
+    private function getAuthAdapter($socialNetwork){
     $authAdapter = new Zend_Auth_Adapter_DbTable(Zend_Db_Table::getDefaultAdapter());
     $authAdapter->setTableName('users')
-                ->setIdentityColumn('email')
+                ->setIdentityColumn($socialNetwork)
                 ->setCredentialColumn('pass');
     return $authAdapter;
     }
