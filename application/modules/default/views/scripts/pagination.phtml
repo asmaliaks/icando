@@ -6,8 +6,9 @@
 //}
 //
 
-?>
-<ul class="pager top46">
+?> 
+<?php if($this->pageCount > 1){?>
+<ul class="pagination no-margin-top">
  <?php
  foreach($this->pagesInRange as $page){
     if($this->current != $page){
@@ -16,11 +17,10 @@
         echo '<li><a href="#" class="active">'.$page.'</a></li>';
     }     
  }
-if(isset($this->next)){
-    echo ' <li><a href="'.$this->url(array('page' => $this->last)).'" class="last-page" >Конец</a></li>';
-}else{
-    echo '<li><a href="#" class="last-page" >Конец</a></li>';
-}
+//if(isset($this->next)){
+//    echo ' <li><a href="'.$this->url(array('page' => $this->last)).'" class="last-page" >Конец</a></li>';
+//}else{
+//    //echo '<li><a href="#" class="last-page" >Конец</a></li>';
+//}
  ?>
-
-</ul>
+<?php } ?>

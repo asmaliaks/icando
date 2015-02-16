@@ -57,7 +57,7 @@ class Admin_PerformersController extends Zend_Controller_Action{
        if($request->isPost()){
            $id = $request->getParam('id');
            $usersObj = new Admin_Model_DbTable_Users();
-           $result = $usersObj->bannUser($id);
+           $result = $usersObj->unbannUser($id);
            if($result){
                echo 'true';
            } 

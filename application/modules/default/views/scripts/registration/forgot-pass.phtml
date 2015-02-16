@@ -1,0 +1,56 @@
+<div class="col-sm-12">
+    <form class="form-inline">
+        <div class="form-group">
+            <label for="email">Ваш email</label>
+            <input type="text" class="form-control" id="email" placeholder="Email">
+            <p id="error" style="display: none" class="text-danger">Пользователь с таким адресом не зарегестрирован</p>
+            <p id="success" style="display: none" class="text-success">Проверьте ваш почтовый ящик</p>
+        </div>
+        
+    </form>
+    <button id="submit"  onclick="checkEmail()" class="btn btn-default">Послать</button>
+    <img id="preloader" style="display:none" src="<?= $this->baseUrl() ?>/images/blue_preloader.gif" width="55">
+</div>  
+<script>
+function recoveryPass(e){
+   
+    var email = $('#email').val();
+    if(checkEmail(email)){
+       
+       console.log(response);
+    }else{
+//        console.log(checkEmail(email));
+    }
+}
+
+function checkEmail(email){
+    $('#error').hide();
+    $('#success').hide();
+    $('#submit').hide();
+    $('#preloader').show();
+    var email = $('#email').val();
+        $.ajax({
+          type: 'POST',
+          url: '<?= $this->baseUrl.'/registration/check-email'; ?>',
+          data: {email: email},
+          success: function(data){
+              if(data === 'false'){
+                  $('#submit').hide();
+                  $('#preloader').hide();
+                  $('#error').show();
+              }else{
+                  $.ajax({
+                      type: 'POST',
+                      url: '<?= $this->baseUrl.'/registration/send-pass-email'; ?>',
+                      data: {email: email},
+                      success: function(data){
+                         $('#submit').show();
+                         $('#preloader').hide();
+                         $('#success').show();
+                      }
+                   });
+              }    
+        }
+        }); 
+}
+</script>

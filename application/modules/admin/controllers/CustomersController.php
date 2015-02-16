@@ -35,7 +35,7 @@ class Admin_CustomersController extends Zend_Controller_Action{
            $usersObj = new Admin_Model_DbTable_Users();
            $result = $usersObj->bannUser($id);
            if($result){
-               echo 'true';
+               echo 'true';exit;
            } 
        }         
     }
@@ -46,7 +46,7 @@ class Admin_CustomersController extends Zend_Controller_Action{
            $usersObj = new Admin_Model_DbTable_Users();
            $result = $usersObj->unbannUser($id);
            if($result){
-               echo 'true';
+               echo 'true';exit;
            } 
        }         
     }

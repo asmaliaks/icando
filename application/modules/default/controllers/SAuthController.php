@@ -6,18 +6,19 @@ class SAuthController extends Zend_Controller_Action{
 
     public function indexAction(){
         
-        //geting vk auuthorization link
-        $vkLink = $this->vkLink();
-        $fbLink = $this->fbLink();
-        $okLink = $this->okLink();
-        
-        
-        $this->view->fbLink = $fbLink;
-        $this->view->okLink = $okLink;
-        $this->view->vkLink = $vkLink;
+//        //geting vk auuthorization link
+//        $vkLink = $this->vkLink();
+//        $fbLink = $this->fbLink();
+//        $okLink = $this->okLink();
+//        
+//        
+//        $this->view->fbLink = $fbLink;
+//        $this->view->okLink = $okLink;
+//        $this->view->vkLink = $vkLink;
     }
     
     public function vkAction(){
+       
         if (isset($_GET['code'])) {
             $params = array(
              'client_id' => VK_CLIENT_ID,
@@ -419,7 +420,7 @@ class SAuthController extends Zend_Controller_Action{
         }
     }
     
-    private function vkLink(){
+    public function vkLinkAction(){
         $url = 'http://oauth.vk.com/authorize?';
 
         $params = array(
@@ -430,10 +431,10 @@ class SAuthController extends Zend_Controller_Action{
 
         $urlToRedirect = $url.urldecode(http_build_query($params));
         $urlToRedirect = urldecode($urlToRedirect);
-        return $urlToRedirect;
+        $this->_redirect($urlToRedirect);
     }
 
-    private function fbLink(){
+    public function fbLinkAction(){
         $url = 'https://www.facebook.com/dialog/oauth';
 
         $params = array(
@@ -445,10 +446,10 @@ class SAuthController extends Zend_Controller_Action{
         
         $link = $url . '?' . urldecode(http_build_query($params));
  
-        return $link;
+        $this->_redirect($link);
     }
     
-    private function okLink(){
+    public function okLinkAction(){
         $url = 'http://www.ok.ru/oauth/authorize';
         $params = array(
             'client_id'     => OK_CLIENT_ID,
@@ -457,7 +458,7 @@ class SAuthController extends Zend_Controller_Action{
             'scope' => 'VALUABLE_ACCESS;GET_EMAIL',
         ); 
         $link = $url.'?'. urldecode(http_build_query($params));
-        return $link;
+        $this->_redirect($link);
     }
     private function getAuthAdapter($socialNetwork){
     $authAdapter = new Zend_Auth_Adapter_DbTable(Zend_Db_Table::getDefaultAdapter());

@@ -1,84 +1,48 @@
-                <section id="content">
+<div class="container main-container"> 
+  
+  <!-- Main component call to action -->
+  
+  <div class="morePost row featuredPostContainer style2 globalPaddingTop ">
+    <h3 class="section-title style2 text-center"><span>Последние задачи</span></h3>
+    <div class="container">
+      <div class="row xsResponse">
+       <?php foreach($this->lastTasks as $lastTask){?>
+        <!--/.item-->
+        <div class="item col-lg-3 col-md-3 col-sm-4 col-xs-6">
+          <div class="product">
+         
+            <div class="image">  
+             <div class="quickview">
+              
+             </div><a href="#" data-toggle="modal" data-target="#ModalLogin" ><img src="<?= $this->baseUrl().'/images/task_images/'.$lastTask['task_image'] ?>" alt="img" class="img-responsive"></a>
+<!--              <div class="promotion"> <span class="new-product"> NEW</span> </div>-->
+            </div>
+            <div class="description">
+              <h4><a href="#" data-toggle="modal" data-target="#ModalLogin" ><?= $lastTask['title'] ?></a></h4>
+              <p><?= $lastTask['description']?> </p>
+<!--              <span class="size">XL / XXL / S </span> -->
+            </div>
+            <div class="price"> <span><?= $lastTask['price'] ?> .руб</span> </div>
+            <div class="action-control"> <a class="btn btn-primary" data-toggle="modal" data-target="#ModalLogin" > <span class="add2cart"> Подробнее </span> </a> </div>
+          </div>
+        </div>
+       <?php }?>
+        <!--/.item--> 
+      </div>
+      <!-- /.row -->
+      
+      <div class="row">
+        <div class="load-more-block text-center">  </div>
+      </div>
+    </div>
+    <!--/.container--> 
+  </div>
+  <!--/.featuredPostContainer-->
+  
+  <hr class="no-margin-top">
 
-
-                    <div class="content-row">
-                        <div class="container">
-                            <form class="search-form">
-                                <div class="sixteen columns omega">
-                                    
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="content-row1">
-                        
-
-
-
-                        <div class="container">
-                            <div class="sixteen columns">
-                                <div class="divider"></div>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="container">
-                           
-                    <?php if(Zend_Auth::getInstance()->hasIdentity()){
-                            echo $this->form;
-                      }else{ 
-                            echo $this->content; 
-                    
-                    }      ?>
-                       </div></br>    
-         <?php if(!Zend_Auth::getInstance()->hasIdentity()){ ?>                       
-                    <div class="container">
-                        <div class="sixteen columns">
-                            <div class="map_row">
-                                <img src="<?= $this->baseUrl() ?>/desktop/images/map.png" alt=""/>
-                                <div class="inner">
-                                    <h2 class="subscribe-form-title">Оставайтесь с нами</h2>
-
-                                    <div class="notice">* Мы ценим ваше время</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-          <?php } ?>              
-                </section>
-
-            
-        <script src="<?= $this->baseUrl() ?>/desktop/js/jquery-2.0.0.min.js"></script>
-        <script src="<?= $this->baseUrl() ?>/desktop/js/jquery-migrate-1.1.1.min.js"></script>
-        <script src="<?= $this->baseUrl() ?>/desktop/js/jquery.easing.1.3.js"></script>
-        <script type="text/javascript" src="<?= $this->baseUrl() ?>/desktop/js/raphael-min.js"></script>
-        <script type="text/javascript" src="<?= $this->baseUrl() ?>/desktop/js/jquery.validationEngine.js"></script>
-        <script type="text/javascript" src="<?= $this->baseUrl() ?>/desktop/js/jquery.validationEngine-en.js"></script>
-        <script type="text/javascript" src="<?= $this->baseUrl() ?>/desktop/js/jquery.form.js"></script>
-        <script type="text/javascript" src="<?= $this->baseUrl() ?>/desktop/js/jquery.hoverdir.js"></script>
-        <script type="text/javascript" src="<?= $this->baseUrl() ?>/desktop/js/jquery.selectik.js"></script>
-        <script src="<?= $this->baseUrl() ?>/desktop/js/jquery.isotope.min.js"></script>
-        <script src="<?= $this->baseUrl() ?>/desktop/js/touchTouch.jquery.js"></script>
-        <script src="http://twitterjs.googlecode.com/svn/trunk/src/twitter.min.js"></script>
-        <script src="<?= $this->baseUrl() ?>/desktop/js/jquery.carouFredSel-6.2.1.js"></script>
-        <script src="<?= $this->baseUrl() ?>/desktop/js/tabs.js"></script>
-        <script src="<?= $this->baseUrl() ?>/desktop/js/toggles.js"></script>
-        <script src="<?= $this->baseUrl() ?>/desktop/js/boxes.js"></script>
-        <script src="<?= $this->baseUrl() ?>/desktop/js/settings-panel.js"></script>
-        <script src="<?= $this->baseUrl() ?>/desktop/js/jquery.cookie.js"></script>
-        <script src="<?= $this->baseUrl() ?>/desktop/js/script.js"></script>              
-                   
-        <script type="text/javascript">
-             CKEDITOR.replace( 'text_field' );
-        </script>
-
- <script type="text/javascript">
-$(document).ready(function(){
-   //remove class
-   $('#contacts').removeClass('active');
-   $('#services').removeClass('active');
-   $('#gallery').removeClass('active');
-   $('#feedback').removeClass('active');
-   //add
-   $('#index').addClass('active');
-});
-</script>   
+  <!--/.section-block-->
+  
+ 
+  
+</div>

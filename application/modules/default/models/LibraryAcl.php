@@ -10,6 +10,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->add(new Zend_Acl_Resource('default:authentication'), 'default'); 
        $this->add(new Zend_Acl_Resource('default:registration'), 'default'); 
        $this->add(new Zend_Acl_Resource('default:s-auth'), 'default'); 
+       $this->add(new Zend_Acl_Resource('default:tasks'), 'default'); 
        
        $this->add(new Zend_Acl_Resource('admin'));
        $this->add(new Zend_Acl_Resource('admin:index'), 'admin');
@@ -58,6 +59,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('admin', 'admin:performers', 'edit');
        $this->allow('admin', 'admin:performers', 'remove');
        $this->allow('admin', 'admin:performers', 'bann');
+       $this->allow('admin', 'admin:performers', 'unbann');
        $this->allow('admin', 'admin:performers', 'view');
        
        $this->allow('admin', 'admin:customers', 'index');
@@ -102,14 +104,24 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('performer', 'performer:feedback', 'leave-feedback');
        
        //guest
+       $this->allow('guest', 'default:index', 'index');
        $this->allow('guest', 'default:s-auth', 'index');
        $this->allow('guest', 'default:s-auth', 'vk');
+       $this->allow('guest', 'default:s-auth', 'vk-link');
        $this->allow('guest', 'default:s-auth', 'vk-complete');
        $this->allow('guest', 'default:s-auth', 'fb');
+       $this->allow('guest', 'default:s-auth', 'fb-link');
        $this->allow('guest', 'default:s-auth', 'fb-complete');
        $this->allow('guest', 'default:s-auth', 'ok');
+       $this->allow('guest', 'default:s-auth', 'ok-link');
        $this->allow('guest', 'default:s-auth', 'ok-complete');
        $this->allow('guest', 'default:registration', 'index');
+       $this->allow('guest', 'default:registration', 'forgot-pass');
+       $this->allow('guest', 'default:registration', 'check-email');
+       $this->allow('guest', 'default:registration', 'send-pass-email');
+       $this->allow('guest', 'default:registration', 'hash');
+       $this->allow('guest', 'default:registration', 'pass-change');
+       $this->allow('guest', 'default:tasks', 'index');
        $this->allow('guest', 'default:error');
     }
 }

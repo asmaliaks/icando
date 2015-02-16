@@ -36,6 +36,16 @@ class Admin_Model_DbTable_Users extends Zend_Db_Table_Abstract{
         }
         
     }
+    public function getUserByEmail($email){
+        $select = $this->select('*')->where('email = ?', $email);
+        $result = $this->fetchRow($select);
+        if($result){
+            return $result->toArray();
+        }else{
+            return false;
+        }
+        
+    }
     
     public function removeUser($id){
         $where = $this->getAdapter()->quoteInto('id = ?', $id);
@@ -48,6 +58,11 @@ class Admin_Model_DbTable_Users extends Zend_Db_Table_Abstract{
        
         $where = $this->getAdapter()->quoteInto('id = ?', $id);
         $this->update($data, $where);
+        return true;
+    }
+    public function editUser($data){
+        $where = $this->getAdapter()->quoteInto('id = ?', $data['user_id']);
+        $this->update($data, $where);
     }
     
     public function unbannUser($id){
@@ -55,11 +70,19 @@ class Admin_Model_DbTable_Users extends Zend_Db_Table_Abstract{
        
         $where = $this->getAdapter()->quoteInto('id = ?', $id);
         $this->update($data, $where);
+        return true;
     }
     public function changeCustomerToPerformer($userId){
         $data = array('role' => 'performer',);
        
         $where = $this->getAdapter()->quoteInto('id = ?', $userId);
+        $this->update($data, $where);
+    }
+    public function changePass($email, $pass){
+        
+        $data = array('pass' => $pass,);
+       
+        $where = $this->getAdapter()->quoteInto('email = ?', $email);
         $this->update($data, $where);
     }
 }

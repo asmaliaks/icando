@@ -11,8 +11,11 @@ protected $user;
        }
     }
 
-    public function indexAction()
-    {
+    public function indexAction(){
+      $this->view->title = 'Главная';  
+      $this->view->headTitle('Главная', 'APPEND');
+    $auth = Zend_Auth::getInstance();
+        if($auth->hasIdentity()){
         $role = $this->user->role;
         switch ($role) {
             case 'admin':
@@ -25,6 +28,14 @@ protected $user;
                 $this->_redirect('performer/user');
                 break;
         }
+        }
+        // get tasks for the list
+        $tasksObj = new Default_Model_DbTable_TasksModel();
+        $lastTasks = $tasksObj->getLastTasks(12);
+          //   pagination    
+
+        
+        $this->view->lastTasks = $lastTasks;
 //       $layout = Zend_Layout::getMvcInstance();
 //       $layout->action = $this->getRequest()->getActionName();
 //               $this->getRequest()->getActionName();
@@ -65,9 +76,7 @@ protected $user;
 
 
     }
-    public function hujAction(){
-    $this->_helper->layout->disableLayout();
-}
+
     public function contactsAction(){
       $this->view->title = 'Контакты';  
       $this->view->headTitle('Контакты', 'APPEND');

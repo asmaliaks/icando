@@ -14,13 +14,12 @@ class AuthenticationController extends Zend_Controller_Action
 
            
         $request = $this->getRequest();
-        $form = new Form_LoginForm();
         if($request->isPost()){
-            if($form->isValid($this->_request->getPost())){
+           
                 $authAdapter = $this->getAuthAdapter();
         
-                $username = $form->getValue('username');
-                $pass = $form->getValue('pass');
+                $username = $request->getParam('login');
+                $pass = $request->getParam('pass');
                 $passHashed = base64_encode($pass);
                 $passHashed = $passHashed.SALT;
                 $authAdapter->setIdentity($username)
@@ -36,25 +35,17 @@ class AuthenticationController extends Zend_Controller_Action
                     $authStorage->write($identity);
                     // redirect user according to his role
                     if($identity->role == 'admin'){
-                        $this->_redirect('admin/index');
+                        echo 'admin';exit;
                     }else if($identity->role == 'customer'){
-                        $this->_redirect('customer/index');
+                        echo 'customer';exit;
                     }else if($identity->role == 'performer'){
-                        $this->_redirect('performer/index');
+                        echo 'performer';exit;
                     }
-                    
-                    
-                }else{
-                  $this->view->errorMsg = 'Неправильный логин и/или пароль.';
+      
+        }else{
+            echo 'false';exit;
         }
-            }
-        }
-// form 
-        
-        $this->view->form = $form;
-        
-        
-        
+        }  
     }
     
     public function sLoginAction($login, $pass){

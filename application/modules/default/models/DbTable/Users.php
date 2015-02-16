@@ -39,6 +39,15 @@ class Model_DbTable_Users extends Zend_Db_Table_Abstract{
             return false;
         }
     }
+    public function checkMail($mail){
+ 
+        $row = $this->fetchRow($this->select()->where('email = ?', $mail));
+        if($row){
+            return true;
+        }else{
+            return false;
+        }
+    }
     public function checkVkUser($userId){
         $row = $this->fetchRow($this->select()->where('vk = ?', $userId));
         
