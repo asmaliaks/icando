@@ -40,7 +40,20 @@
   <!--/.featuredPostContainer-->
   
   <hr class="no-margin-top">
-
+<div class="row subCategoryList clearfix">
+    <?php foreach($this->mainCats as $cat){?>
+    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4  text-center">
+      <div class="thumbnail equalheight" style="height: 133px;">
+          <a class="subCategoryThumb" href="#" data-toggle="modal" data-target="#ModalLogin" >
+              <img src="<?= $this->baseUrl().'/images/category_images/'.$cat['image'] ?>" class="img-rounded " alt="img">
+          </a>
+          <a class="subCategoryTitle" data-toggle="modal" data-target="#ModalLogin" >
+              <span><?= $cat['title'] ?></span>
+          </a>
+      </div>
+    </div>
+    <?php } ?>
+</div>
   <!--/.section-block-->
   
  

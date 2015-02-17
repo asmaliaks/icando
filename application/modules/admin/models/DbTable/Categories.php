@@ -4,10 +4,12 @@ class Admin_Model_DbTable_Categories extends Zend_Db_Table_Abstract{
   
     protected $_name = 'categories';
     
-    public function addCategory($title, $parentId){
+    public function addCategory($title, $parentId, $image, $description){
         $data = array(
             'title' => $title,
             'parent_id' => $parentId,
+            'image' => $image,
+            'description' => $description,
             );
         
         $this->insert($data);
@@ -30,10 +32,15 @@ class Admin_Model_DbTable_Categories extends Zend_Db_Table_Abstract{
          
         }        
     }
-    public function editCategory($id, $title, $parentId){
+    public function editCategory($id, $title, $parentId, $image, $description){
   
         $data = array('title' => $title,
-                      'parent_id' => $parentId);
+                      'parent_id' => $parentId,
+                      'description' => $description,
+                      );
+        if($image){
+            $data['image'] = $image;
+        }
         $where = $this->getAdapter()->quoteInto('id = ?', $id);
         $this->update($data, $where);
         return true;

@@ -19,8 +19,11 @@ class Performer_CUstomerController extends Zend_Controller_Action{
         // get customer's tasks
         $tasksObj = new Performer_Model_DbTable_TasksModel();
         $customersTasks = $tasksObj->getCustomersTasks($customerId);
-        
+        // get customer's feedbacks
+        $feedbackObj = new Performer_Model_DbTable_FeedbackModel();
+        $feedbacks = $feedbackObj->getCustomersFeedbacks($customerId);
         // put data to the view
+        $this->view->feedbacks = $feedbacks;
         $this->view->tasks = $customersTasks;
         $this->view->user = $customer;
     }     

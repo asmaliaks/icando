@@ -17,6 +17,34 @@ class Performer_Model_DbTable_FeedbackModel extends Zend_Db_Table_Abstract{
         return $feedback;
     }
     
+    public function getCustomersFeedbacks($customerId){
+        $select = $this->select()
+                ->from(array('f' => 'feedback'),'*')
+                ->joinLeft(array('u'=>'users'),
+                        'f.user_from = u.id',
+                        array(
+                            'u.username as u_username',
+                            'u.surname as u_surname',
+                            'u.image as u_image',
+                            'u.sex as u_sex',
+                            'u.city as u_city',
+                            'u.birth_date as u_birth_date'
+                        ))
+                ->joinLeft(array('t'=>'tasks'),
+                        'f.task_id = t.id',
+                        array(
+                            't.title as t_title'
+                        ))
+                ->where('f.user_to=?', $customerId);
+        $select->setIntegrityCheck(false);
+        $result = $this->fetchAll($select);
+        if($result){
+            return $result->toArray();
+        }else{
+            return false;
+        } 
+    }
+    
     public function getPerformersFeedbackByTaskId($taskId, $performerId){
         $select = $this->select('*')
                 ->where('task_id=?', $taskId)

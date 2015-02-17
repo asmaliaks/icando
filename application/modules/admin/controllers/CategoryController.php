@@ -26,8 +26,10 @@ class Admin_CategoryController extends Zend_Controller_Action{
           if($form->isValid($this->_request->getPost())){
               $title = $form->getValue('title');
               $parentId = $form->getValue('parentId');
+              $image = $form->getValue('image');
+              $description = $form->getValue('description');
               
-              $categoryObj->addCategory($title, $parentId);
+              $categoryObj->addCategory($title, $parentId, $image, $description);
               
               $this->_redirect('/admin/category/index');
           }
@@ -51,7 +53,10 @@ class Admin_CategoryController extends Zend_Controller_Action{
           if ($form->isValid($this->_request->getPost())) {
              $title = $form->getValue('title');
              $parentId = $form->getValue('parentId');
-             $result = $categoryObj->editCategory($id, $title, $parentId);
+             $description = $form->getValue('description');
+             $image = $form->getValue('image');
+             
+             $result = $categoryObj->editCategory($id, $title, $parentId, $image, $description);
              if($result){
                 $resultNs = new Zend_Session_Namespace('result');
                 $resultNs->setExpirationHops(1);
@@ -64,6 +69,7 @@ class Admin_CategoryController extends Zend_Controller_Action{
                 $this->_redirect('/admin/category/edit-category/id/'.$id);
              }
           }else{
+             
              $this->view->form = $form; 
           }
       }else{
@@ -72,6 +78,8 @@ class Admin_CategoryController extends Zend_Controller_Action{
           $category = $categoryObj->getCategoryById($id);
           $form->getElement('title')->setValue($category['title']);
           $form->getElement('parentId')->setValue($category['parent_id']);
+          $form->getElement('description')->setValue($category['description']);
+          $this->view->category = $category; 
       }
       
     }

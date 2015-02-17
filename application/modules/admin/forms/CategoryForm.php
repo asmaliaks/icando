@@ -23,12 +23,21 @@ class Admin_Form_CategoryForm extends Zend_Form{
           $parentCategory->addMultiOption($category['id'], $category['title']);
        }
    }
+   $image = new Zend_Form_Element_File('image');
+   $image->setLabel('Изображение')
+        ->setDestination(DOCUMENT_ROOT.'/images/category_images/');  
+//         ->setDestination($_SERVER['DOCUMENT_ROOT'].'/images/users_images/'); 
+   
+   $description = new Zend_Form_Element_Textarea('description');
+   $description->setLabel('Краткое описание')
+           ->setAttribs(array('cols' => '40', 'class' => 'fdb', 'rows' => '5'));
+           
    
    $submit = new Zend_Form_Element_Submit('submit');
    $submit->setLabel('Сохранить')
           ->setAttrib('class', 'button2');
    
-   $this->addElements(array($title, $parentCategory, $submit));
+   $this->addElements(array($title, $parentCategory, $image, $description, $submit));
    $this->setMethod('post');
    
    

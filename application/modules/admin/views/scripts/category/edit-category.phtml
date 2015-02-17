@@ -3,7 +3,10 @@
   <p class="text-danger"><?= $message->fail ?></p>
 <?php } ?>
 <?php if($message->success){?>
+  
   <p class="text-success"><?= $message->success ?></p>
-  <a href="<?= $this->baseUrl().'/admin/category' ?>">Список категорий</a>
+  
 <?php } ?>
+  <a href="<?= $this->baseUrl().'/admin/category' ?>">Список категорий</a></br>
+  <img src="<?= $this->baseUrl().'/images/category_images/'.$this->category['image'] ?>" class="img-thumbnail">
 <?= $this->form; ?>

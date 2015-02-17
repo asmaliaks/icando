@@ -88,6 +88,7 @@
                   </div>
                   
                   <div role="tabpanel2" class="tab-pane" id="data">
+                   
                     <?= $this->form ?>
                   </div>
                   <div role="tabpanel2" class="tab-pane" id="category">
@@ -121,7 +122,15 @@
 
 <script>
 $(document).ready(function(){
+
     $('#table').DataTable();
+    
+
+    
+
+    $( "#bi" ).datepicker();
+ 
+
 });    
 function changeCategory(catId){ 
     if($('#check'+catId).is(':checked')){

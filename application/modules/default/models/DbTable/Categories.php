@@ -23,6 +23,16 @@ class Default_Model_DbTable_Categories extends Zend_Db_Table_Abstract{
         }        
     }
 
+    public function getMainCats(){
+       $result = $this->fetchAll($this->select()->where('parent_id = ?', 0));
+        if (!$result) {
+            return null;
+        }else{
+        //get array for fetching the data
+        $result->toArray();
+        return $result;
+        } 
+    }
     
     public function getCategoryList(){
         
