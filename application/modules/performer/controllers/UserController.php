@@ -68,7 +68,7 @@ class Performer_UserController extends Zend_Controller_Action{
                     'surname' => $form->getValue('surname'),
                     'sex' => $form->getValue('sex'),
                     'phonenumber' => $form->getValue('phonenumber'),
-                    'city' => $form->getValue('city'),'pass' => $passHash,
+                    'city' => $form->getValue('city'),
                     'birth_date' => $birthDate,
                 );
                 if($image){

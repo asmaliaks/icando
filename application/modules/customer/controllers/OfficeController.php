@@ -31,19 +31,25 @@ class Customer_OfficeController extends Zend_Controller_Action{
                 $birthDate = $birthDay.'.'.$birthMonth.'.'.$birthYear;
                 $birthDate = strtotime($birthDate);
                 $passStr = $form->getValue('pass');
-                $passHash = base64_encode($passStr);
-                $passHash = $passHash.SALT;
+                
                 $data = array(
                     'email' => $form->getValue('email'),
                     'username'  => $form->getValue('username'),
                     'surname' => $form->getValue('surname'),
                     'sex' => $form->getValue('sex'),
-                    'image' => $form->getValue('image'),
                     'phonenumber' => $form->getValue('phonenumber'),
                     'city' => $form->getValue('city'),
-                    'pass' => $passHash,
                     'birth_date' => $birthDate,
                 );
+                $image = $form->getValue('image');
+                if($image){
+                    $data['image'] = $image;
+                }
+                if($passStr != ''){
+                    $passHash = base64_encode($passStr);
+                    $passHash = $passHash.SALT;
+                    $data['pass'] = $passHash;
+                }
                 $usersModel = new Model_DbTable_Users();
                 $usersModel->editUser($data, $this->user->id);
                 $this->_redirect("/customer/office/index");
