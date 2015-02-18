@@ -99,10 +99,10 @@
             <?php foreach($this->prepositions as $preposition){?>
             <tr id="tr<?= $preposition['u_id'] ?>">
                 <td>
-                    <a href="<?= $this->baseUrl()."/customer/performers/view/id/".$preposition['u_id'] ?>"><?= $preposition['u_surname'].' '.$preposition['u_username'] ?></a>
+                    <a href="<?= $this->baseUrl()."/customer/performers/performer-view/id/".$preposition['u_id'] ?>"><?= $preposition['u_surname'].' '.$preposition['u_username'] ?></a>
                 </td>
                 <td>
-                    ****
+                    <?= $preposition['rating'] ?>
                 </td>
                 <td>
                     <?php if($preposition['performers_price']){?>

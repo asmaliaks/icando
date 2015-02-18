@@ -129,7 +129,14 @@ class Customer_TaskController extends Zend_Controller_Action{
          // get task's feedback from the performer
         $feedbackObj = new Customer_Model_DbTable_FeedbackModel();
         $feedback = $feedbackObj->getCustomersFeedbackByTaskId($taskId, $this->user->id);
-        
+        $n = 0;
+        foreach($prepositions as $prep){
+           
+            // count performer's rating using his id
+            $rating = $feedbackObj->countPerformersRating($prep['performer_id']);
+            $prepositions[$n]['rating'] = $rating;
+            $n++;
+        }
         
         if($prepositions){
             $this->view->prepositions = $prepositions;

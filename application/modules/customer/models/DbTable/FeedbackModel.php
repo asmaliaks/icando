@@ -10,6 +10,23 @@ class Customer_Model_DbTable_FeedbackModel extends Zend_Db_Table_Abstract{
         $where = $this->getAdapter()->quoteInto('id = ?', $id);
         $this->delete($where);
     }
+    
+    public function countPerformersRating($performerId){
+        $feedback = $this->fetchAll($this->select()->where('user_to=?',$performerId));
+        $feedback->toArray();
+        $n = 0;
+        foreach($feedback as $feed){
+            if($n == 0){
+                $rating = $feed['rating'];
+            }else{
+               $rating = $rating+$feed['rating'];
+            }
+            $n++;
+        }
+        $mark = $rating/$n;
+        return $mark;
+    }
+    
     public function getAllFeedback(){
         $feedback = $this->fetchAll($this->select()->order('date DESC'));
         $feedback->toArray();

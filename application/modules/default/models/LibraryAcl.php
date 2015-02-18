@@ -90,6 +90,8 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('customer', 'customer:task', 'view');
        $this->allow('customer', 'customer:task', 'accept-proposition');
        $this->allow('customer', 'customer:feedback', 'leave-feedback');
+       $this->allow('customer', 'customer:performers', 'performer-view');
+       $this->allow('customer', 'customer:performers', 'request-to-be-performer');
       
        // performer
        $this->allow('performer', 'default:authentication', 'log-out');

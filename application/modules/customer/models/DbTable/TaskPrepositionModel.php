@@ -6,10 +6,10 @@ class Customer_Model_DbTable_TaskPrepositionModel extends Zend_Db_Table_Abstract
     public function getTasksPrepositionis($taskId){
         $select = $this->select()
                 ->from(array('tp'=>'task_preposition'))
-                ->where('tp.task_id=?', $taskId)
-                ->join(array('u'=>'users'),
+                ->joinLeft(array('u'=>'users'),
                         'tp.performer_id = u.id',
                         array('u.username as u_username',
+                              'u.id as u_id',
                               'u.surname as u_surname',
                             'u.sex as u_sex',
                             'u.city as u_city',
@@ -19,7 +19,9 @@ class Customer_Model_DbTable_TaskPrepositionModel extends Zend_Db_Table_Abstract
                             'u.fb as u_fb',
                             'u.image as u_image'
                             )
-                        )->setIntegrityCheck(false);
+                        )
+                ->where('tp.task_id=?', $taskId);
+        $select->setIntegrityCheck(false);
         $result = $this->fetchAll($select);
         if($result){
             return $result->toArray();
