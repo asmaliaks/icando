@@ -44,6 +44,33 @@ class Customer_Model_DbTable_FeedbackModel extends Zend_Db_Table_Abstract{
             return false;
         }
     }
+    
+    public function getTasksFeedbackByPerformer($taskId, $customerId){
+        $select = $this->select()
+                ->from(array('f'=>'feedback'),
+                        array('f.id',
+                            'f.rating',
+                            'f.task_id',
+                            'f.kind',
+                            'f.text',
+                            'f.created'))
+                ->where('f.user_to=?', $customerId)
+                ->where('f.task_id=?', $taskId)
+                ->joinLeft(array('u' => 'users'),
+                'f.user_from = u.id',
+                        array(
+                            'u.username as u_username',
+                            'u.surname as u_surname',
+                            'u.image as u_image'))->setIntegrityCheck(false);
+
+        $result = $this->fetchRow($select);
+        if($result){
+            return $result->toArray();
+        }else{
+            return false;
+        }
+    }
+    
     public function checkIfPerformerLeftFeedback($taskId, $performerId){
         $select = $this->select('*')
                 ->where('task_id=?', $taskId)

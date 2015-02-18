@@ -21,13 +21,16 @@ class Performer_TaskController extends Zend_Controller_Action{
         // get task's feedback from the performer
         $feedbackObj = new Performer_Model_DbTable_FeedbackModel();
         $feedback = $feedbackObj->getPerformersFeedbackByTaskId($taskId, $this->user->id);
-        
+        $tasksFeedback = $feedbackObj->getTasksFeedbackByCustomer($taskId, $this->user->id);
         // check if the performer sent preposition
         $taskPrepObj = new Performer_Model_DbTable_TaskPrepositionModel();
         $sentPrep = $taskPrepObj->ifPerformerSentPrep($this->user->id, $taskId);
         // put to the view
         if($sentPrep){
             $this->view->sentPrep = $sentPrep;
+        }
+        if($tasksFeedback){
+            $this->view->tasksFeedback = $tasksFeedback;
         }
         if($feedback){
             $this->view->feedback = $feedback;

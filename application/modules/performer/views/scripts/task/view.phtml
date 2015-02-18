@@ -61,9 +61,82 @@
            <label>Стоимость предложенная заказчиком : </label>
            <?= $this->task['customers_price'] ?> рублей
         </div>
+        <?php if($this->tasksFeedback){?>
 
+        <div class="col-lg-12">
+            <h3 class="block-title-3">
+                Отзыв  
+            </h3>
+            <div class="col-lg-3"> 
+                <?php if($this->tasksFeedback['kind'] == 'negative'){ ?>
+                        <p class="text-danger">Отрицательный</p>
+                <?php }else{?>
+                        <p class="text-success">Положительный</p>
+                        <span class="selected-color"><strong>Оценка</strong></span>
+                        <ul class="swatches Color">
+                            <?php switch ($this->tasksFeedback['rating']){
+                                case 1:?>
+                              <li> <a style="background-color:#f1f40e"> </a> </li>
+                              <li > <a style="background-color:#adadad"> </a> </li>
+                              <li > <a style="background-color:#adadad"> </a> </li>
+                              <li > <a style="background-color:#adadad"> </a> </li>
+                              <li > <a style="background-color:#adadad"> </a> </li>
+                            <?php break;
+                                case 2:
+                        ?>
+                              <li> <a style="background-color:#f1f40e"> </a> </li>
+                              <li> <a style="background-color:#f1f40e"> </a> </li>
+                              <li > <a style="background-color:#adadad"> </a> </li>
+                              <li > <a style="background-color:#adadad"> </a> </li>
+                              <li > <a style="background-color:#adadad"> </a> </li>
+                          <?php
+                          break;
+                          case 3: ?>  
+                              <li> <a style="background-color:#f1f40e"> </a> </li>
+                              <li> <a style="background-color:#f1f40e"> </a> </li>
+                              <li> <a style="background-color:#f1f40e"> </a> </li>
+                              <li > <a style="background-color:#adadad"> </a> </li>
+                              <li > <a style="background-color:#adadad"> </a> </li>
+                          <?php break;
+                                case 4:
+                      ?>      <li> <a style="background-color:#f1f40e"> </a> </li>
+                              <li> <a style="background-color:#f1f40e"> </a> </li>
+                              <li> <a style="background-color:#f1f40e"> </a> </li>
+                              <li> <a style="background-color:#f1f40e"> </a> </li>
+                              <li > <a style="background-color:#adadad"> </a> </li>
+                            <?php break;
+                                case 5:
+                      ?>      <li> <a style="background-color:#f1f40e"> </a> </li>
+                              <li> <a style="background-color:#f1f40e"> </a> </li>
+                              <li> <a style="background-color:#f1f40e"> </a> </li>
+                              <li> <a style="background-color:#f1f40e"> </a> </li>
+                              <li> <a style="background-color:#f1f40e"> </a> </li>
+                            <?php 
+                            break;
+                            default: ?>
+                            <li > <a style="background-color:#adadad"> </a> </li>
+                            <li > <a style="background-color:#adadad"> </a> </li>
+                            <li > <a style="background-color:#adadad"> </a> </li>
+                            <li > <a style="background-color:#adadad"> </a> </li>
+                            <li > <a style="background-color:#adadad"> </a> </li>
+                            <?php }?>
+                                          </ul>
+                                  <?php } ?>
+
+            </div>
+            <div class="col-lg-2">
+                <img class="img-thumbnail" width="100%" src="<?= $this->baseUrl().'/images/users_images/'.$this->tasksFeedback['u_image'] ?>">
+            </div>
+            <div class="col-lg-7"> 
+                
+                    <p><?= $this->tasksFeedback['text'] ?></p>
+                    <h3 class="product-code"><?= date("d.m.Y",$this->tasksFeedback['created']); ?></h3>
+            </div>
+        </div>
+        <?php } ?>
   
 </div>
+        <!-- modal block   -->
         <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="taskModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -72,27 +145,26 @@
                 <h4 class="modal-title">Оставить отзыв</h4>
               </div>
               <div class="modal-body">
-<!--                  <form id="feedbackForm" class="form-horizontal" action="<?= $this->baseUrl().'/performer/feedback/leave-feedback/' ?>">-->
-                 
-                      <div class="form-group login-username">
-                        <div >
-                            <label>
-                                <input type="radio" id="positive" name="feedb[]" value="1" checked>
-                                Положительный
-                            </label>
-                        </div>
-                      </div> 
-                      
-                      <div class="col-lg-12 radio">   
-                        <div>
-                        <label>
-                            <input type="radio" id="negative" name="feedb[]" value="0">
-                            Отрицательный
-                        </label>
-                            </div>
+                  
+
+                          <div class="row">
+
+                    <label class="col-md-4 control-label" >Отзыв</label>
+                    <div class="col-md-4">
+                      <div >
+                        <label  >Положительный</label>
+                          <input name="feedb[]" id="positive" value="1" checked="checked" type="radio" >
+
                       </div>
+                      <div>
+                        <label >Отрицательный</label>
+                          <input type="radio" id="negative" name="feedb[]" value="0" >
+                         
+                      </div>
+                    </div>
+
                       <div id="ratingDiv">    
-                            <div class="col-lg-12 form-group">
+                            <div class="col-lg-12 form-group" width="20%">
                                 <label >Пунктуальность : </label>
                                 <select id="punctuality" name="punctuality">
                                     <option value="0">0</option>
@@ -126,13 +198,12 @@
                                 </select>
                             </div>
                       </div>
-                      <div class="col-lg-6 form-group">
+                      <div class="col-lg-12 form-group">
                         <label class="control-label">Отзыв</label>
-                        <textarea id="feedbackText" class="form-control" name="feedback"  rows="5"></textarea>
+                        <textarea id="feedbackText" class="form-control" name="feedback"  rows="5" ></textarea>
                       </div>
-                   
-<!--                  </form>-->
-                  
+                   </div>
+ 
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>

@@ -129,6 +129,7 @@ class Customer_TaskController extends Zend_Controller_Action{
          // get task's feedback from the performer
         $feedbackObj = new Customer_Model_DbTable_FeedbackModel();
         $feedback = $feedbackObj->getCustomersFeedbackByTaskId($taskId, $this->user->id);
+        $tasksFeedback = $feedbackObj->getTasksFeedbackByPerformer($taskId, $this->user->id);
         $n = 0;
         foreach($prepositions as $prep){
            
@@ -140,6 +141,9 @@ class Customer_TaskController extends Zend_Controller_Action{
         
         if($prepositions){
             $this->view->prepositions = $prepositions;
+        }
+        if($tasksFeedback){
+            $this->view->tasksFeedback = $tasksFeedback;
         }
         if($feedback){
             $this->view->feedback = $feedback;  
