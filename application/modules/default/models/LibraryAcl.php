@@ -18,6 +18,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->add(new Zend_Acl_Resource('admin:performers'), 'admin');
        $this->add(new Zend_Acl_Resource('admin:customers'), 'admin');
        $this->add(new Zend_Acl_Resource('admin:applications'), 'admin');
+       $this->add(new Zend_Acl_Resource('admin:tasks'), 'admin');
        
        $this->add(new Zend_Acl_Resource('customer'));
        $this->add(new Zend_Acl_Resource('customer:index'), 'customer');
@@ -61,6 +62,9 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('admin', 'admin:performers', 'bann');
        $this->allow('admin', 'admin:performers', 'unbann');
        $this->allow('admin', 'admin:performers', 'view');
+       
+       $this->allow('admin', 'admin:tasks', 'index');
+       $this->allow('admin', 'admin:tasks', 'view');
        
        $this->allow('admin', 'admin:customers', 'index');
        $this->allow('admin', 'admin:customers', 'remove');

@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h3><?= $this->task['title'] ?></h3>
+        </div>
+        <div class="col-lg-3">
+            <?php if( $this->task['task_image'] ){?>
+                <img src="<?= $this->baseUrl() ?>/images/task_images/<?= $this->task['task_image'] ?>" width="150px" >
+            <?php }else{?>
+                <img src="<?= $this->baseUrl() ?>/images/no-image.png" width="150px" >
+            <?php } ?>
+        </div>
+        <div class="col-lg-9">
+            <div class="col-lg-12">
+                <strong>Статус :</strong><?= $this->task['status'] ?>
+                
+            </div>
+            <div class="col-lg-12">
+                <strong>Создана:</strong> <?= date(" d.m.y",$this->task['created_at']) ?>
+                
+            </div>
+
+        </div>
+        <div class="col-lg-12"></div>
+        
+           <?php if($this->task['fp_kind'] || $this->task['fc_kind']){?>
+            <div class="col-lg-12">    
+                <h2>Отзывы</h2>
+            </div>
+            <?php if($this->task['fp_kind']){?>
+            <div class="col-lg-12">  
+                <h3>Исполнитель : </h3>
+                <p><?= $this->task['fp_kind'] ?></p>
+                <p><?= $this->task['fp_text'] ?></p>
+                <p>Оценка: <?= $this->task['fp_rating'] ?></p>
+                <p><small><?= date("h:i d.m.y",$this->task['fp_created']) ?></small></p>
+            </div>
+            <?php } if($this->task['fc_kind']){?>
+            <div class="col-lg-12">  
+                <h3>Заказчик : </h3>
+                <p><?= $this->task['fc_kind'] ?></p>
+                <p><?= $this->task['fc_text'] ?></p>
+                <p>Оценка: <?= $this->task['fc_rating'] ?></p>
+                <p><small><?= date("h:i d.m.y",$this->task['fc_created']) ?></small></p>
+            </div>
+            <?php }?>
+           <?php } ?>
+        
+
+
+        </div>    
+    </div>
+</div>
+
