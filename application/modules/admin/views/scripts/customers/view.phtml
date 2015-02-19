@@ -1,9 +1,108 @@
-<div class="row">
-    <div class="col-sm-12">
-        <?= $this->user['username'].' '.$this->user['surname']?>    
-    </div>    
-    <div class="col-sm-12">
-        Номер телефона: 
-        <?= $this->user['phonenumber']?>    
-    </div>    
-</div> 
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h3><?= $this->user['username'].' '.$this->user['surname'] ?></h3>
+        </div>
+        <div class="col-lg-3">
+            <img src="<?= $this->baseUrl() ?>/images/users_images/<?= $this->user['image'] ?>" width="150px" >
+        </div>
+        <div class="col-lg-9">
+            <div class="col-lg-12">
+                <strong>Возраст :</strong><?= $this->age ?>
+            </div>
+            <div class="col-lg-12">
+                выпоолнил / создал
+            </div>
+            <div class="col-lg-12">
+                рейтинг
+            </div>
+        </div>
+        <div class="col-lg-12"></div>
+        <div class="col-lg-12">
+            <div role="tabpanel">
+
+              <!-- Nav tabs -->
+              <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#orders" aria-controls="orders" role="tab" data-toggle="tab">Заказы</a></li>
+                <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Сообщения</a></li>
+                <li role="presentation"><a href="#private" aria-controls="private" role="tab" data-toggle="tab">Личные данные</a></li>
+
+              </ul>
+
+              <!-- Tab panes -->
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="orders">
+    <?php if(!$this->tasks){?>
+    <h2>Задач нет</h2>
+    <?php }else {?>
+<table id="perTable" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+               <th>Название</th>
+                <th>Создан</th>
+                <th>Статус</th>
+                <th>Исполнитель</th>
+            </tr>
+        </thead>    
+ 
+        <tfoot>
+            <tr>
+                <th>Название</th>
+                <th>Создан</th>
+                <th>Статус</th>
+                <th>Исполнитель</th>
+            </tr>
+        </tfoot>
+        <tbody>
+    <?php foreach($this->tasks as $task){?>
+            <tr>
+                <td><a href="<?= $this->baseUrl().'/admin/tasks/view/id/'.$task['id'] ?>"><?=  $task['title']?></a></td>
+                <td><?=  date("i:h d.m.y",$task['created_at']) ?></td>
+                <td><?=  $task['status'] ?></td>
+                <td>
+                    <?php if($task['performer_id']){?>
+                    <a href="<?= $this->baseUrl().'/admin/performers/view/id/'.$task['performer_id'] ?>"><?= $task['u_username'].' '.$task['u_surname'] ?>
+                    </a>
+                    <?php }else{?>
+                    Пока не назначен
+                    <?php } ?>
+                </td>
+                
+            </tr>
+
+    <?php } ?>
+ </tbody>
+</table>
+<?php } ?>
+<script>
+    $(document).ready(function(){
+        $('#perTable').DataTable();
+    });
+
+</script>    
+                </div>
+                <div role="tabpanel" class="tab-pane" id="messages">
+                  Сообщения
+                </div>
+                <div role="tabpanel" class="tab-pane" id="private">
+                    <div class="col-lg-12">
+                        <strong>Номер телефона:</strong> <?= $this->user['phonenumber'] ?>
+                    </div>
+                    <div class="col-lg-12">
+                        <strong>Email:</strong> <?= $this->user['email'] ?>
+                    </div>
+                    <div class="col-lg-12">
+                        <strong>Город:</strong> <?= $this->user['city'] ?>
+                    </div>
+                    <div class="col-lg-12">
+                        <strong>Дата рождения:</strong> <?= $this->birthDate ?>
+                    </div>
+                </div>
+
+              </div>
+
+            </div>
+        </div>    
+    </div>
+</div>
+

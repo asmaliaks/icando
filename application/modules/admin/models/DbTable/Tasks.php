@@ -29,6 +29,45 @@ class Admin_Model_DbTable_Tasks extends Zend_Db_Table_Abstract{
         }
     }
     
+    public function getPerformersTasks($performerId){
+        $select = $this->select()
+         ->from(array('t' => 'tasks'))
+         ->where('t.performer_id=?',$performerId)   
+                ->joinLeft(array('u' => 'users'),
+                't.customer_id = u.id',
+                        array(
+                            'u.username as u_username',
+                            'u.surname as u_surname',
+                            'u.image as u_image'))
+                
+         ->setIntegrityCheck(false);
+        $result = $this->fetchAll($select);
+        if($result){
+            return $result->toArray();
+        }else{
+            return false;
+        }
+    }
+    public function getCustomersTasks($customerId){
+        $select = $this->select()
+         ->from(array('t' => 'tasks'))
+         ->where('t.customer_id=?',$customerId)   
+                ->joinLeft(array('u' => 'users'),
+                't.performer_id = u.id',
+                        array(
+                            'u.username as u_username',
+                            'u.surname as u_surname',
+                            'u.image as u_image'))
+                
+         ->setIntegrityCheck(false);
+        $result = $this->fetchAll($select);
+        if($result){
+            return $result->toArray();
+        }else{
+            return false;
+        }
+    }
+    
     public function getTaskById($taskId){
         $select = $this->select()
          ->from(array('t' => 'tasks'))

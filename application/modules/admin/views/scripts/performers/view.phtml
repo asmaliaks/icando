@@ -32,7 +32,47 @@
               <!-- Tab panes -->
               <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="orders">
-                    Заказы
+    <?php if(!$this->tasks){?>
+    <h2>Задач нет</h2>
+    <?php }else {?>
+<table id="perTable" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+               <th>Название</th>
+                <th>Создан</th>
+                <th>Статус</th>
+                <th>Заказчик</th>
+            </tr>
+        </thead>    
+ 
+        <tfoot>
+            <tr>
+                <th>Название</th>
+                <th>Создан</th>
+                <th>Статус</th>
+                <th>Заказчик</th>
+            </tr>
+        </tfoot>
+        <tbody>
+    <?php foreach($this->tasks as $task){?>
+            <tr>
+                <td><a href="<?= $this->baseUrl().'/admin/tasks/view/id/'.$task['id'] ?>"><?=  $task['title']?></a></td>
+                <td><?=  date("i:h d.m.y",$task['created_at']) ?></td>
+                <td><?=  $task['status'] ?></td>
+                <td><a href="<?= $this->baseUrl().'/admin/customers/view/id/'.$task['customer_id'] ?>"><?= $task['u_username'].' '.$task['u_surname'] ?></a></td>
+                
+            </tr>
+
+    <?php } ?>
+ </tbody>
+</table>
+<?php } ?>
+<script>
+    $(document).ready(function(){
+        $('#perTable').DataTable();
+    });
+
+</script>    
                 </div>
                 <div role="tabpanel" class="tab-pane" id="messages">
                   Сообщения

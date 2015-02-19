@@ -25,7 +25,9 @@ class Admin_PerformersController extends Zend_Controller_Action{
         $id = $request->getParam('id');
         // call users model
         $usersObj = new Admin_Model_DbTable_Users();
-        
+        // get user's tasks
+        $tasksObj = new Admin_Model_DbTable_Tasks();
+        $tasks = $tasksObj->getPerformersTasks($id);
         $user = $usersObj->getUserById($id);
         // age counting
         
@@ -36,6 +38,7 @@ class Admin_PerformersController extends Zend_Controller_Action{
         
         $birthDate = date('d.m.Y',$user['birth_date']);
         // send $user to the view
+        $this->view->tasks = $tasks;
         $this->view->birthDate = $birthDate;
         $this->view->age = $realAge;
         $this->view->user = $user;
