@@ -93,13 +93,13 @@
               <tr class="CartProduct">
                 <td style="width:10%" class="CartProductThumb">
                     <div>
-                        <a href="product-details.html">
+                        <a href="<?=$this->baseUrl().'/performer/task/view/id/'.$feedback['task_id'] ?>">
                 <img src="<?= $this->baseUrl().'/images/users_images/'.$feedback['u_image'] ?>" alt="img">
                         </a>
                     </div>
                 </td>
                 <td style="width:20%"><div class="CartDescription">
-                    <h4> <a href="#"><?= $feedback['t_title'] ?></a> </h4>
+                    <h4> <a href="<?=$this->baseUrl().'/performer/task/view/id/'.$feedback['task_id'] ?>"><?= $feedback['t_title'] ?></a> </h4>
                     <span class="size">
                         <?php if($feedback['kind'] == 'positive'){?>
                         Положительный

@@ -22,18 +22,24 @@ class Performer_Model_DbTable_UserCategory extends Zend_Db_Table_Abstract{
     }
     
     public function getUsersCategories($userId){
-$select = $this->select()
-         ->from(array('uc' => 'user_category'))
-         ->join(array('c' => 'categories'),
-                'uc.category_id = c.id',
-                 array( 'c.id as category_id',
-                     'c.title as title', 'c.parent_id as parent_id'))->setIntegrityCheck(false);
-        $result = $this->fetchAll($select);
-        if($result){
-            return $result->toArray();
-        }else{
-            return false;
-        }
+                    $select = $this->select()
+                    ->from(array('uc'=>'user_category'),
+                            array('uc.id as uc_id',
+                                'uc.category_id as category_id'))
+                    ->where('uc.user_id=?', $userId)
+                    ->joinLeft(array('c' => 'categories'),
+                    'uc.category_id = c.id',
+                            array(
+                                'c.title as c_title',
+                                'c.parent_id as c_parent_id',
+                                'c.image as c_image'))->setIntegrityCheck(false);
+
+            $result = $this->fetchAll($select);
+            if($result){
+                return $result->toArray();
+            }else{
+                return false;
+            }
     }
 }
 

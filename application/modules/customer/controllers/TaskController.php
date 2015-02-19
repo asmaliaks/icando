@@ -12,6 +12,8 @@ class Customer_TaskController extends Zend_Controller_Action{
     }
     
     public function newTaskAction(){
+        $this->view->title = 'Выбор категории';  
+        $this->view->headTitle('Выбор категории', 'APPEND');        
         // get categories
         $categoryObj = new Customer_Model_DbTable_Categories();
         $mainCategories = $categoryObj->getCategoryList();
@@ -130,6 +132,7 @@ class Customer_TaskController extends Zend_Controller_Action{
         $feedbackObj = new Customer_Model_DbTable_FeedbackModel();
         $feedback = $feedbackObj->getCustomersFeedbackByTaskId($taskId, $this->user->id);
         $tasksFeedback = $feedbackObj->getTasksFeedbackByPerformer($taskId, $this->user->id);
+        if($prepositions){
         $n = 0;
         foreach($prepositions as $prep){
            
@@ -139,7 +142,7 @@ class Customer_TaskController extends Zend_Controller_Action{
             $n++;
         }
         
-        if($prepositions){
+        
             $this->view->prepositions = $prepositions;
         }
         if($tasksFeedback){
@@ -164,7 +167,6 @@ class Customer_TaskController extends Zend_Controller_Action{
             $taskObj->acceptPreposition($performerId, $taskId);
             
             // send mail notification to the performer
-            $taskObj = new Customer_Model_DbTable_TasksModel();
             $task= $taskObj->getTaskById($taskId);
             $usersObj = new Admin_Model_DbTable_Users();
             $user = $usersObj->getUserById($performerId);
@@ -173,7 +175,7 @@ class Customer_TaskController extends Zend_Controller_Action{
                     . "принял вашу заявку на выполнение задачи ".$task['title'];
             $headers = 'From: no_reply@icando.by';
             $smtpObj->send($user['email'], 'Принятие вашей кандидатуры', $message, $headers);
-            echo 'true';
+            echo 'true';exit;
         }
     }
 }

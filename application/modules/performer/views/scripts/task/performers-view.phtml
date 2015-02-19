@@ -174,7 +174,7 @@
             <?php foreach($this->prepositions as $preposition){?>
             <tr id="tr<?= $preposition['u_id'] ?>">
                 <td>
-                    <a href="<?= $this->baseUrl()."/customer/performers/performer-view/id/".$preposition['performer_id'] ?>"><?= $preposition['u_surname'].' '.$preposition['u_username'] ?></a>
+                    <a href="<?= $this->baseUrl()."/performer/performers/performer-view/id/".$preposition['performer_id'] ?>"><?= $preposition['u_surname'].' '.$preposition['u_username'] ?></a>
                 </td>
                 <td>
                     <?= $preposition['rating'] ?>
@@ -301,7 +301,7 @@ $('#acceptBut'+performerId).hide();
 $('#prepPrel'+performerId).show();
 $.ajax({
   type: 'POST',
-  url: '<?= $this->baseUrl.'/customer/task/accept-proposition/'; ?>',
+  url: '<?= $this->baseUrl.'/performer/task/accept-proposition/'; ?>',
   data: {performerId: performerId,
          taskId: taskId
     },
@@ -322,7 +322,7 @@ $.ajax({
         var kind = 'positive';
         $.ajax({
           type: 'POST',
-          url: '<?= $this->baseUrl.'/customer/feedback/leave-feedback'; ?>',
+          url: '<?= $this->baseUrl.'/performer/feedback/leave-feedback-as-customer'; ?>',
           data: {kind: kind, feedbackText: feedbackText, punctuality: punctuality, quality: quality, politeness: politeness, taskId: taskId, perfId: perfId},
           success: function(){
               $('#markDoneBut').hide();
@@ -336,7 +336,7 @@ $.ajax({
         var kind = 'negative';
         $.ajax({
           type: 'POST',
-          url: '<?= $this->baseUrl.'/customer/feedback/leave-feedback'; ?>',
+          url: '<?= $this->baseUrl.'/performer/feedback/leave-feedback-as-customer'; ?>',
           data: {kind: kind, feedbackText: feedbackText, taskId: taskId, perfId: perfId},
           success: function(){
               $('#markDoneBut').hide();

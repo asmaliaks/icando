@@ -1,6 +1,6 @@
 <?php
 
-class Customer_Form_TaskForm extends Zend_Form{
+class Performer_Form_TaskForm extends Zend_Form{
         public function __construct($option = null) {
         parent::__construct($option);
         
@@ -48,7 +48,7 @@ class Customer_Form_TaskForm extends Zend_Form{
         
         $this->addElements(array($taskName, $description, $finalDate, $customersPrice, $taskFile, $agree, $category, $submit));
         $this->setMethod('post');
-        $this->setAction(Zend_Controller_Front::getInstance()->getBaseUrl().'/customer/task/add-task');
+        $this->setAction(Zend_Controller_Front::getInstance()->getBaseUrl().'/performer/task/create-task/');
     }
 }
     

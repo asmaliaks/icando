@@ -16,6 +16,27 @@ class Performer_Model_DbTable_FeedbackModel extends Zend_Db_Table_Abstract{
         $feedback->toArray();
         return $feedback;
     }
+
+    public function countPerformersRating($performerId){
+        $feedback = $this->fetchAll($this->select()->where('user_to=?',$performerId));
+        $feedback = $feedback->toArray();
+        if(!empty($feedback)){
+            $n = 0;
+            foreach($feedback as $feed){
+                if($n == 0){
+                    $rating = $feed['rating'];
+                }else{
+                   $rating = $rating+$feed['rating'];
+                }
+            $n++;
+        }
+        $mark = $rating/$n;
+        return $mark;
+        }else{
+            return 0;
+        }
+        
+    }    
     
     public function getCustomersFeedbacks($customerId){
         $select = $this->select()
@@ -56,6 +77,46 @@ class Performer_Model_DbTable_FeedbackModel extends Zend_Db_Table_Abstract{
             return false;
         }
     }
+    
+    
+    public function getCustomersFeedbackByTaskId($taskId, $performerId){
+        $select = $this->select('*')
+                ->where('task_id=?', $taskId)
+                ->where('user_from=?', $performerId);
+        $row = $this->fetchRow($select);
+        if($row){
+            return $row->toArray();
+        }else{
+            return false;
+        }
+    } 
+    
+    public function getTasksFeedbackByPerformer($taskId, $customerId){
+        $select = $this->select()
+                ->from(array('f'=>'feedback'),
+                        array('f.id',
+                            'f.rating',
+                            'f.task_id',
+                            'f.kind',
+                            'f.text',
+                            'f.created'))
+                ->where('f.user_to=?', $customerId)
+                ->where('f.task_id=?', $taskId)
+                ->joinLeft(array('u' => 'users'),
+                'f.user_from = u.id',
+                        array(
+                            'u.username as u_username',
+                            'u.surname as u_surname',
+                            'u.image as u_image'))->setIntegrityCheck(false);
+
+        $result = $this->fetchRow($select);
+        if($result){
+            return $result->toArray();
+        }else{
+            return false;
+        }
+    }    
+    
     public function getTasksFeedbackByCustomer($taskId, $performerId){
         $select = $this->select()
                 ->from(array('f'=>'feedback'),

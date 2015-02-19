@@ -16,7 +16,14 @@ class Performer_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
             return false;
         }
     }
-    
+    public function acceptPreposition($performerId, $taskId){
+        $data = array(
+            'performer_id'=>$performerId,
+            'status'=>'taken',
+        );
+        $where = $this->getAdapter()->quoteInto('id = ?', $taskId);
+        $this->update($data, $where);
+    }
     public function getAcceptedTasks($performerId){
         $select = $this->select()
                 ->from(array('t'=>'tasks'))
@@ -68,7 +75,18 @@ class Performer_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
             return false;
         }
     }
-    
+    public function getPerformersTasksClosed($performerId){
+        $select = $this->select()
+                ->from(array('t'=>'tasks'))
+                ->where('t.performer_id=?', $performerId)
+                ->where('t.status=?','closed');
+        $result = $this->fetchAll($select);
+        if($result){
+            return $result->toArray();
+        }else{
+            return false;
+        }
+    }
     public function getTaskById($taskId){
         $select = $this->select()
                 ->from(array('t'=>'tasks'))
@@ -97,22 +115,29 @@ class Performer_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
     }
     
     public function getTasksForPerformer($performerId, $catArray){
-        
         $select = $this->select()
          ->from(array('t' => 'tasks'))
-         ->where('t.status=?', 'non_taken')
-         ->join(array('u' => 'users'),
-                't.customer_id = u.id',
-                 array('u.username as c_username', 'u.surname as c_surname'))->setIntegrityCheck(false);
-                $n=0;
+                ->where('t.status=?', 'non_taken')
+                ->where('t.customer_id NOT LIKE ?', $performerId);
+//        $select->where('t.category_id = 17 OR t.category_id = 18');
+                     
+        $n=0;
         foreach($catArray as $cat){
             if($n == 0){
-               $select->where('t.category_id=?', $cat['category_id']); 
+               $catStr = 't.category_id = '.$cat['category_id'].' '; 
             }else{
-               $select->orWhere('t.category_id=?', $cat['category_id']);  
+                $catStr = $catStr.'OR t.category_id = '.$cat['category_id'].' ';  
             }
             $n++;
         }
+        $select->where($catStr); 
+        $select->join(array('u' => 'users'),
+                't.customer_id = u.id',
+                 array('u.username as c_username', 'u.surname as c_surname'));
+
+
+ 
+        $select->setIntegrityCheck(false);        
         $result = $this->fetchAll($select);
         if($result){
             return $result->toArray();

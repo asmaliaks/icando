@@ -18,7 +18,9 @@ class Performer_UserController extends Zend_Controller_Action{
       // call users model
       $usersObj = new Performer_Model_DbTable_Users();
       $user = $usersObj->getUserById($this->user->id);
-      
+      // get perfofrmer's orders
+      $tasksObj = new Customer_Model_DbTable_TasksModel();
+      $orders = $tasksObj->getCustomersTasks($this->user->id);
       // get accepted tasks
       $taskObj = new Performer_Model_DbTable_TasksModel();
       $acceptedTasks = $taskObj->getAcceptedTasks($this->user->id);
@@ -109,6 +111,7 @@ class Performer_UserController extends Zend_Controller_Action{
         $this->view->form = $form;
     }      
     
+      $this->view->orders = $orders;
       $this->view->acceptedTasks = $acceptedTasks;
       $this->view->categories = $categories;
       $this->view->form = $form;

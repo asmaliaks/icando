@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h3>Выберите категорию</h3>
+        </div>
+        <div class="col-lg-12">
+            <form method="POST" action="<?= $this->baseUrl() ?>/performer/task/create-task/">
+            <?php foreach($this->categories as $category){?>
+                   <div class="col-lg-12">
+                      <strong><?= $category['title'] ?></strong>
+                   </div>
+                   <?php if(!empty($category['children'])){?>
+                      <div style="padding-left: 25px">
+                        <?php foreach($category['children'] as $kid){?>
+                          <div class="col-lg-12">
+                            <input type="radio" name="category" value="<?= $kid['id'] ?>" >
+                            <?= $kid['title'] ?>
+                          </div>
+                        <?php } ?>
+                   <?php } ?>
+                      </div>
+             
+            <?php } ?>
+            <div class="col-sm-12">
+                <input type="submit" value="Продолжить" name="submit">
+            </div>
+                </form>
+        </div>
+    </div>
+</div>  

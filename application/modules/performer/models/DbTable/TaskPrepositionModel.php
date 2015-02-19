@@ -43,11 +43,16 @@ class Performer_Model_DbTable_TaskPrepositionModel extends Zend_Db_Table_Abstrac
                             'u.image as u_image'
                             )
                         )->setIntegrityCheck(false);
-        $result = $this->fetchRow($select);
+        $result = $this->fetchAll($select);
         if($result){
             return $result->toArray();
         }else{
             return false;
         }
     }
+    public function takePreposition($taskId){
+        $where = $this->getAdapter()->quoteInto('task_id = ?', $taskId);
+        $this->delete($where);
+        return true;
+    }    
 }
