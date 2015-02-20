@@ -16,6 +16,14 @@ class Customer_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
             return false;
         }
     }
+    public function getPerformersTasks($customerId){
+        $row = $this->fetchAll($this->select()->where('performer_id = ?', $customerId));
+        if($row){
+            return $row->toArray();
+        }else{
+            return false;
+        }
+    }
     
     public function removeTask($taskId){
         $where = $this->getAdapter()->quoteInto('id = ?', $taskId);

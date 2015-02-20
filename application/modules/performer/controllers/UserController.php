@@ -111,6 +111,26 @@ class Performer_UserController extends Zend_Controller_Action{
         $this->view->form = $form;
     }      
     
+        $customersTasks = $tasksObj->getCustomersTasks($this->user->id);    
+        $performesTasks = $tasksObj->getPerformersTasks($this->user->id);    
+     
+        $closedCustomersTasks = $tasksObj->getCustomersTasksClosed($this->user->id);
+        $closedPeformersTasks = $tasksObj->getPerformersTasksClosed($this->user->id);
+        $feedbackObj = new Performer_Model_DbTable_FeedbackModel();
+        
+        if($closedCustomersTasks){
+                $customersRating = $feedbackObj->countCUstomersRating($this->user->id);
+                $this->view->customersRating = floor($customersRating);
+         }
+         if($closedPeformersTasks){
+             $performersRating = $feedbackObj->countPerformersRating($this->user->id);
+             
+             $this->view->performersRating = floor($performersRating);
+         }
+    
+
+      $this->view->customersTasks = $customersTasks;   
+      $this->view->performersTasks = $performesTasks;   
       $this->view->orders = $orders;
       $this->view->acceptedTasks = $acceptedTasks;
       $this->view->categories = $categories;
