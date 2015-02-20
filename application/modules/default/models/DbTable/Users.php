@@ -19,7 +19,10 @@ class Model_DbTable_Users extends Zend_Db_Table_Abstract{
        
    } 
 
-   
+   public function attachAccount($data, $userId){
+        $where = $this->getAdapter()->quoteInto('id = ?', $userId);
+        $this->update($data, $where);  
+   }
     public function editUser($data, $userId){
 
         if($data['image'] == null){$image = $this->getImgById($userId);

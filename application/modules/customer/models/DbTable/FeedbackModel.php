@@ -31,6 +31,26 @@ class Customer_Model_DbTable_FeedbackModel extends Zend_Db_Table_Abstract{
         }
         
     }
+    public function countCustomersRating($customerId){
+        $feedback = $this->fetchAll($this->select()->where('user_to=?',$customerId));
+        $feedback = $feedback->toArray();
+        if(!empty($feedback)){
+            $n = 0;
+            foreach($feedback as $feed){
+                if($n == 0){
+                    $rating = $feed['rating'];
+                }else{
+                   $rating = $rating+$feed['rating'];
+                }
+            $n++;
+        }
+        $mark = $rating/$n;
+        return $mark;
+        }else{
+            return 0;
+        }
+        
+    }
     
     public function getAllFeedback(){
         $feedback = $this->fetchAll($this->select()->order('date DESC'));

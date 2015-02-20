@@ -5,16 +5,7 @@ class SAuthController extends Zend_Controller_Action{
     }
 
     public function indexAction(){
-        
-//        //geting vk auuthorization link
-//        $vkLink = $this->vkLink();
-//        $fbLink = $this->fbLink();
-//        $okLink = $this->okLink();
-//        
-//        
-//        $this->view->fbLink = $fbLink;
-//        $this->view->okLink = $okLink;
-//        $this->view->vkLink = $vkLink;
+
     }
     
     public function vkAction(){
@@ -406,7 +397,7 @@ class SAuthController extends Zend_Controller_Action{
         }
     }
     
-    public function okCompleteAction(){  print_r($tokenInfo);exit;
+    public function okCompleteAction(){  
         if (isset($tokenInfo['access_token'])) { 
             $sign = md5("application_key={$public_key}format=jsonmethod=users.getCurrentUser" . md5("{$tokenInfo['access_token']}{$client_secret}"));
 

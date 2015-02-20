@@ -60,8 +60,7 @@ class Customer_OfficeController extends Zend_Controller_Action{
         // if request is not post
 
         $usersModel = new Model_DbTable_Users();
-        $user = $usersModel->getCustomerById($this->user->id);
-        
+        $user = $usersModel->getUserById($this->user->id);
         $birthStr = gmdate("d.m.Y", $user['birth_date']);
         $birthAr = explode(".", $birthStr);
         
@@ -77,6 +76,16 @@ class Customer_OfficeController extends Zend_Controller_Action{
         $form->getElement('city')->setValue($user['city']);
         $this->view->form = $form;
     }
+
+    $closedTasks = $tasksObj->getCustomersTasksClosed($this->user->id);
+    if($closedTasks){
+            // get user's rating
+            $feedbackObj = new Customer_Model_DbTable_FeedbackModel();
+            $rating = $feedbackObj->countCustomersRating($this->user->id);
+            $this->view->rating = $rating;
+            $this->view->closedTasks = $closedTasks;
+        }
+    
         $this->view->customersTasks = $customersTasks;
         $this->view->form = $form;
         $this->view->user = $user;

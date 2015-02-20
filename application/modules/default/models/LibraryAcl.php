@@ -10,6 +10,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->add(new Zend_Acl_Resource('default:authentication'), 'default'); 
        $this->add(new Zend_Acl_Resource('default:registration'), 'default'); 
        $this->add(new Zend_Acl_Resource('default:s-auth'), 'default'); 
+       $this->add(new Zend_Acl_Resource('default:social-attach'), 'default'); 
        $this->add(new Zend_Acl_Resource('default:tasks'), 'default'); 
        
        $this->add(new Zend_Acl_Resource('admin'));
@@ -97,6 +98,15 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('customer', 'customer:feedback', 'leave-feedback');
        $this->allow('customer', 'customer:performers', 'performer-view');
        $this->allow('customer', 'customer:performers', 'request-to-be-performer');
+       $this->allow('customer', 'default:social-attach', 'vk');
+       $this->allow('customer', 'default:social-attach', 'vk-link');
+       $this->allow('customer', 'default:social-attach', 'vk-complete');
+       $this->allow('customer', 'default:social-attach', 'ok');
+       $this->allow('customer', 'default:social-attach', 'ok-link');
+       $this->allow('customer', 'default:social-attach', 'ok-complete');
+       $this->allow('customer', 'default:social-attach', 'fb');
+       $this->allow('customer', 'default:social-attach', 'fb-link');
+       $this->allow('customer', 'default:social-attach', 'fb-complete');
       
        // performer
        $this->allow('performer', 'default:authentication', 'log-out');
@@ -116,6 +126,15 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('performer', 'performer:feedback', 'leave-feedback');
        $this->allow('performer', 'performer:feedback', 'leave-feedback-as-customer');
        $this->allow('performer', 'performer:performers', 'performer-view');
+       $this->allow('performer', 'default:social-attach', 'vk');
+       $this->allow('performer', 'default:social-attach', 'vk-link');
+       $this->allow('performer', 'default:social-attach', 'vk-complete');
+       $this->allow('performer', 'default:social-attach', 'ok');
+       $this->allow('performer', 'default:social-attach', 'ok-link');
+       $this->allow('performer', 'default:social-attach', 'ok-complete');
+       $this->allow('performer', 'default:social-attach', 'fb');
+       $this->allow('performer', 'default:social-attach', 'fb-link');
+       $this->allow('performer', 'default:social-attach', 'fb-complete');
        
        //guest
        $this->allow('guest', 'default:index', 'index');
