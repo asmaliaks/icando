@@ -23,6 +23,6 @@ class ZC_Controller_Plugin_ApplicationSent extends Zend_Controller_Plugin_Abstra
           }
       }
           
-       }
+  }
 
 }

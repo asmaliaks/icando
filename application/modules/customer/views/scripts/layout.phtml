@@ -290,7 +290,7 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
           <li class="active"> <a href="<?= $this->baseUrl().'/customer/task/new-task'?>">Создать задачу</a> </li>
           <li> <a href="<?= $this->baseUrl().'/customer/performers/'?>">Исполнители</a> </li>
 
-          <?php if($this->application['customer_id'] != $this->user['id']){?>
+          <?php if($this->application['customer_id'] != $this->user['id'] || $this->application == 0){?>
           <li><a class="blog-nav-item" id="sendApp" href="javascript:applyPerformer()"  >Стать исполнителем</a></ли>
           <?php }?>
         <!-- change width of megamenu = use class > megamenu-fullwidth, megamenu-60width, megamenu-40width -->
