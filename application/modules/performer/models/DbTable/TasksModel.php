@@ -87,6 +87,18 @@ class Performer_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
             return false;
         }
     }
+    public function getCustomersTasksClosed($customerId){
+        $select = $this->select()
+                ->from(array('t'=>'tasks'))
+                ->where('t.customer_id=?', $customerId)
+                ->where('t.status=?','closed');
+        $result = $this->fetchAll($select);
+        if($result){
+            return $result->toArray();
+        }else{
+            return false;
+        }
+    }    
     public function getTaskById($taskId){
         $select = $this->select()
                 ->from(array('t'=>'tasks'))

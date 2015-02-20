@@ -1,83 +1,143 @@
-<div class="col-lg-12">
-    <h3><?= $this->user['username'].' '.$this->user['surname'] ?></h3>
-</div>
-<div class="col-lg-12">
-    <div class="col-lg-6">
-       <img src="<?= $this->baseUrl().'/images/task_images/'.$this->user['image'] ?>" class="img-thumbnail" width="200px">
+                    
+    <div class="row">
+        <div class="breadcrumbDiv col-lg-12">
+              <ul class="breadcrumb">
+                  <li> <a href="<?= $this->baseUrl() ?>">Главная</a> </li>
+                 <li class="active" ><?= $this->user['username']." ".$this->user['surname']?></li>
+              </ul>
+        </div>
     </div>
-    <div class="col-lg-6">
-        <div class="col-lg-12">
-            <label>Пол: </label>
+    <div class="row transitionfx">
+  
+   <!-- left column -->
+    <div class="col-lg-6 col-md-6 col-sm-6">
+    	<!-- product Image and Zoom -->
+
+    <div class="main-image sp-wrap col-lg-12 no-padding style2 style2look2" style="display: inline-block;"> 
+         
+        
+         
+    <div class="sp-large" style="left: 0px; top: 0px;">
+            <img width="100%" src="<?= $this->baseUrl() ?>/images/users_images/<?= $this->user['image'] ?>" class="img-responsive" alt="img" />
+
+    </div>
+    </div>
+    </div><!--/ left column end -->
+    
+    
+    <!-- right column -->
+    <div class="col-lg-6 col-md-6 col-sm-5">
+    
+      <h1 class="product-title"><?= $this->user['username']." ".$this->user['surname']?></h1>
+      <h3 class="product-code">Возраст : <?php $unixAge = time() - $this->user['birth_date'];
+                $unixYears = $unixAge/31536000;
+                $age = floor($unixYears);
+                ?>
+                <?= $age;  ?> лет
+      </h3>
+      <h3 class="product-code">Пол :
             <?php if($this->user["sex"] == 'male'){?>
                    Ж
             <?php }else if($this->user['sex'] == 'female'){ ?>
                    М
             <?php } ?>
-        </div>
-        <div class="col-lg-12">
-            <label>Город : </label>
+      </h3>
+      <h3 class="product-code">Город :
             <?= $this->user['city'] ?>
+      </h3>
+      <div class="product-price"> 
+          <span class="price-sales">
+              Создано задач:  <?php $customersTasksAmount = count($this->tasks); ?>
+              <?= $customersTasksAmount; ?>
+          </span>  
+      </div>
+      <?php if($this->user['fb'] || $this->user['ok'] || $this->user['vk']){?>
+      <div class="product-share clearfix">
+        <p> Привязка к соцсетям </p>
+        <div class=""> 
+            <?php if($this->user['fb']){?>
+                <img data-toggle="tooltip" data-placement="left" title="Аккаунт привязан" width="40px" src="<?= $this->baseUrl().'/ico/fb.png' ?>" >
+            <?php } ?>
+            <?php if($this->user['ok']){?>
+                <img data-toggle="tooltip" data-placement="left" title="Аккаунт привязан" width="40px" src="<?= $this->baseUrl().'/ico/ok.png' ?>" >
+            <?php } ?>
+            <?php if($this->user['vk']){?>
+                <img data-toggle="tooltip" data-placement="left" title="Аккаунт привязан"  width="40px" src="<?= $this->baseUrl().'/ico/vk.png' ?>" >
+            <?php } ?>
         </div>
-        <div class="col-lg-12">
-            <label>Дата рождения : </label>
-            <?= date("d.m.Y",$this->user['birth_date']) ?>
-        </div>
-        <div class="col-lg-12">
-            rejting
-        </div>
-        <div class="col-lg-12">
-            Количество задач
-        </div>
-    </div>
-</div>
-<div class="col-lg-12">
-<div role="tabpanel">
+      </div>
+      <?php } ?>
 
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#tasks" aria-controls="tasks" role="tab" data-toggle="tab">Задачи</a></li>
-    <li role="presentation"><a href="#feedback" aria-controls="feedback" role="tab" data-toggle="tab">Отзывы</a></li>
+  
+      
+      <div class="clear"></div>
+
+      
+      <div style="clear:both"></div>
+
+      
+      <div class="clear"></div>
+
+      
     
-   
-  </ul>
+    <?php if($this->customersRating){ ?>
+      <div class="color-details"> <span class="selected-color"><strong>Рейтинг</strong></span>
+        <ul class="swatches Color">
+          <?php switch ($this->customersRating){
+              case 1:?>
+            <li> <a style="background-color:#f1f40e"> </a> </li>
+            <li > <a style="background-color:#adadad"> </a> </li>
+            <li > <a style="background-color:#adadad"> </a> </li>
+            <li > <a style="background-color:#adadad"> </a> </li>
+            <li > <a style="background-color:#adadad"> </a> </li>
+          <?php break;
+              case 2:
+      ?>
+            <li> <a style="background-color:#f1f40e"> </a> </li>
+            <li> <a style="background-color:#f1f40e"> </a> </li>
+            <li > <a style="background-color:#adadad"> </a> </li>
+            <li > <a style="background-color:#adadad"> </a> </li>
+            <li > <a style="background-color:#adadad"> </a> </li>
+        <?php
+        break;
+        case 3: ?>  
+            <li> <a style="background-color:#f1f40e"> </a> </li>
+            <li> <a style="background-color:#f1f40e"> </a> </li>
+            <li> <a style="background-color:#f1f40e"> </a> </li>
+            <li > <a style="background-color:#adadad"> </a> </li>
+            <li > <a style="background-color:#adadad"> </a> </li>
+        <?php break;
+              case 4:
+    ?>      <li> <a style="background-color:#f1f40e"> </a> </li>
+            <li> <a style="background-color:#f1f40e"> </a> </li>
+            <li> <a style="background-color:#f1f40e"> </a> </li>
+            <li> <a style="background-color:#f1f40e"> </a> </li>
+            <li > <a style="background-color:#adadad"> </a> </li>
+          <?php break;
+              case 5:
+    ?>      <li> <a style="background-color:#f1f40e"> </a> </li>
+            <li> <a style="background-color:#f1f40e"> </a> </li>
+            <li> <a style="background-color:#f1f40e"> </a> </li>
+            <li> <a style="background-color:#f1f40e"> </a> </li>
+            <li> <a style="background-color:#f1f40e"> </a> </li>
+          <?php 
+          break;
+          default: ?>
+          <li > <a style="background-color:#adadad"> </a> </li>
+          <li > <a style="background-color:#adadad"> </a> </li>
+          <li > <a style="background-color:#adadad"> </a> </li>
+          <li > <a style="background-color:#adadad"> </a> </li>
+          <li > <a style="background-color:#adadad"> </a> </li>
+          <?php }?>
+        </ul>
+      </div>
+      <?php } ?>
+    </div><!--/ right column end -->
 
-<div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="tasks">
-        <?php if($this->tasks){?>
-        <!-- Tab panes -->
-        <div class="tab-content">
-              <table id="tasksTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                      <thead>
-                          <tr>
-                              <th>Название</th>
-                              <th>Статус</th>
-                              <th>Категория</th>
-                              <th>Дата создания</th>
-                              <th>Дата выполнения</th>
-                              <th>Цена заказчика</th>
-                          </tr>
-                      </thead>    
-
-                      <tbody>
-                  <?php foreach($this->tasks as $task){?>
-                          <tr>
-                              <td><?= $task['title'] ?></td>
-                              <td><?= $task['status']?></td>
-                              <td><?= $task['cat_title'] ?></td>
-                              <td><?= date("d.m.Y", $task['created_at']) ?></td>
-                              <td><?= date("d.m.Y", $task['final_date']) ?></td>
-                              <td><?= $task['customers_price'] ?></td>
-                          </tr>
-
-                  <?php } ?>
-               </tbody>
-              </table>
-          </div>
-        <?php }else{?>
-            Задач не найдено
-        <?php }?>
-    </div>
-    <div role="tabpanel" class="tab-pane" id="feedback">
+  </div>
+    <div class="row">
+        <div calss="col-lg-12" style="padding-bottom: 5px; padding-top:5px">
+             <div class="product-share clearfix"></div>
       <?php if($this->feedbacks){?>
         <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
@@ -87,18 +147,14 @@
           <h2 class="block-title-2"> Отзывы о заказчике </h2>
         </div>
         <div class="col-xs-12 col-sm-12">
-          <table>
-            <tbody>
+
              <?php foreach($this->feedbacks as $feedback){?>
-              <tr class="CartProduct">
-                <td style="width:10%" class="CartProductThumb">
-                    <div>
-                        <a href="<?=$this->baseUrl().'/performer/task/view/id/'.$feedback['task_id'] ?>">
-                <img src="<?= $this->baseUrl().'/images/users_images/'.$feedback['u_image'] ?>" alt="img">
-                        </a>
-                    </div>
-                </td>
-                <td style="width:20%"><div class="CartDescription">
+              <div class="col-xs-2 col-sm-2">
+                <a href="<?=$this->baseUrl().'/performer/task/view/id/'.$feedback['task_id'] ?>">
+                    <img src="<?= $this->baseUrl().'/images/users_images/'.$feedback['u_image'] ?>" style="width: 100%">
+                </a>
+              </div>
+              <div class="col-xs-2 col-sm-2">
                     <h4> <a href="<?=$this->baseUrl().'/performer/task/view/id/'.$feedback['task_id'] ?>"><?= $feedback['t_title'] ?></a> </h4>
                     <span class="size">
                         <?php if($feedback['kind'] == 'positive'){?>
@@ -109,14 +165,15 @@
                     </span>
                     <div class="price"> <span><?= $feedback['rating'] ?> баллов</span> </div>
                   </div>
-                </td>
-                <td style="width:75%"><p><?= $feedback['text'] ?></p></td>
-
+              
+          <div class="col-xs-8 col-sm-8">
+              <p><?= $feedback['text'] ?></p>
+          </div>
+ </div>
                 
-              </tr>
+              
              <?php } ?>
-            </tbody>
-          </table>
+
         </div>
         
 <!--        <div class="col-lg-12 clearfix">
@@ -134,15 +191,62 @@
   </div>
       <?php }else{?>
         Отзывов пока нет
-      <?php } ?>  
+      <?php } ?> 
+        <div class="color-details"></div>
+        </div>
     </div>
 
-  </div>
 
-</div>    
-</div>
+
 <script>
-    $(document).ready(function(){
-        $('#tasksTable').DataTable();
-    });
-</script>
+$(document).ready(function(){
+
+    $('#table').DataTable();
+
+    $( "#bi" ).datepicker();
+ 
+
+}); 
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip();
+}) 
+
+function changeCategory(catId){ 
+    if($('#check'+catId).is(':checked')){
+        $('#prel'+catId).show();
+        $.ajax({
+          type: 'POST',
+          url: '<?= $this->baseUrl.'/performer/settings/add-user-category'; ?>',
+          data: {catId: catId},
+          success: function(){
+              $('#prel'+catId).hide();
+          }
+        });  
+    }else{
+    $('#prel'+catId).show();
+        $.ajax({
+          type: 'POST',
+          url: '<?= $this->baseUrl.'/performer/settings/remove-users-category'; ?>',
+          data: {catId: catId},
+          success: function(data){
+              $('#prel'+catId).hide();
+          }
+        });
+    }
+
+}
+
+function removeTask(id){
+$('#remPrel'+id).show();
+$.ajax({
+  type: 'POST',
+  url: '<?= $this->baseUrl.'/performer/task/remove-task/'; ?>',
+  data: {id: id},
+  success: function(response){
+      $('#remPrel'+id).hide();
+      $('#tr'+id).remove();
+  }
+});   
+}
+</script>    

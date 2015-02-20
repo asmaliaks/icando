@@ -10,6 +10,8 @@ class Performer_CUstomerController extends Zend_Controller_Action{
      
     }
     public function viewAction(){
+        $this->view->title = 'Заказчик';  
+        $this->view->headTitle('Заказчик', 'APPEND');
         // get id from URL
         $request = $this->getRequest();
         $customerId = $request->getParam('id');
@@ -22,6 +24,11 @@ class Performer_CUstomerController extends Zend_Controller_Action{
         // get customer's feedbacks
         $feedbackObj = new Performer_Model_DbTable_FeedbackModel();
         $feedbacks = $feedbackObj->getCustomersFeedbacks($customerId);
+        $closedCustomersTasks = $tasksObj->getCustomersTasksClosed($customerId);
+        if($closedCustomersTasks){
+                $customersRating = $feedbackObj->countCustomersRating($customerId);
+                $this->view->customersRating = floor($customersRating);
+         }
         // put data to the view
         $this->view->feedbacks = $feedbacks;
         $this->view->tasks = $customersTasks;

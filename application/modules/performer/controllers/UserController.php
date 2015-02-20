@@ -119,7 +119,7 @@ class Performer_UserController extends Zend_Controller_Action{
         $feedbackObj = new Performer_Model_DbTable_FeedbackModel();
         
         if($closedCustomersTasks){
-                $customersRating = $feedbackObj->countCUstomersRating($this->user->id);
+                $customersRating = $feedbackObj->countCustomersRating($this->user->id);
                 $this->view->customersRating = floor($customersRating);
          }
          if($closedPeformersTasks){
