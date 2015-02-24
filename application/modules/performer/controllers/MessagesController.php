@@ -1,6 +1,6 @@
 <?php 
 
-class Customer_MessagesController extends Zend_Controller_Action{
+class Performer_MessagesController extends Zend_Controller_Action{
     protected $user;
     public function init(){
        $auth = Zend_Auth::getInstance();
@@ -30,6 +30,7 @@ class Customer_MessagesController extends Zend_Controller_Action{
             echo 'true';exit;
         }
     }
+    
     public function markReadAction(){
         $request = $this->getRequest();
         if($request->isPost()){
@@ -38,7 +39,7 @@ class Customer_MessagesController extends Zend_Controller_Action{
             $messagesObj->markMessagesRead($taskId, $this->user->id);
             echo 'true';exit;
         }
-    }    
+    }
     
     public function getUnreadMessagesAction(){
         $request = $this->getRequest();
@@ -55,5 +56,5 @@ class Customer_MessagesController extends Zend_Controller_Action{
                 print_r($dataJson);exit;
             }
         }
-    }
+    }    
 }

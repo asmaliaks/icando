@@ -8,7 +8,7 @@
 <div class="col-lg-2">
 
 </div>
-<div class="col-sm-12">
+<div class="col-sm-12" style="padding-bottom: 10px">
     <?php if($this->task['task_image']){?>
         <div class="col-lg-4">
             <img src="<?= $this->baseUrl().'/images/task_images/'.$this->task['task_image'] ?>" class="img-thumbnail" width="200px">
@@ -45,21 +45,30 @@
         <?php }?>
     </div>
 </div>
-<div role="tabpanel">
+<div role="tabpanel" >
 
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Детали</a></li>
-    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Сообщения</a></li>
+    <?php if($this->task['status'] == 'taken'){?>
+        <li role="presentation" id="messTab">
+            <a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">
+                Сообщения
+                <?php if($this->unreadAmount){?>
+                    <span id="unreadAmount" class="badge"><?= $this->unreadAmount ?></span>
+                <?php } ?>
+            </a>
+        </li>
+    <?php } ?>
     <?php if($this->prepositions){
-        $count = count($this->prepositions);
-        ?>
-       <li role="presentation"><a href="#apps" aria-controls="apps" role="tab" data-toggle="tab">Заявки (<?= $count ?>)</a></li>
+    $count = count($this->prepositions);
+    ?>
+        <li role="presentation"><a href="#apps" aria-controls="apps" role="tab" data-toggle="tab">Заявки <span class="badge"><?= $count ?></span></a></li>
     <?php } ?>
   </ul>
 
   <!-- Tab panes -->
-  <div class="tab-content">
+  <div class="tab-content" style="padding-bottom: 10px">
     <div role="tabpanel" class="tab-pane active" id="home">
         <div class="col-lg-12">
            <h3 class="block-title-3">
@@ -152,9 +161,40 @@
         </div>
         <?php } ?>
     </div>
-    <div role="tabpanel" class="tab-pane" id="messages">
-       Сообщения
-    </div>
+      <?php if($this->task['status'] == 'taken'){?>
+            <div role="tabpanel" class="tab-pane" id="messages" >
+                <?php if($this->taskMessages){?>
+                    <div id="messagesArea" style="height: 300px; overflow-y:scroll">
+                        <?php foreach($this->taskMessages as $message){?>
+                            <?php if($message['user_from'] == $this->currentUser->id){?>
+                                <div class="list-group list-group-item">
+                                     <h4 class="list-group-item-heading"><?= $this->currentUser->username ?> <?= $this->currentUser->surname ?></h4>
+                                     <small><?= date("h:i d.m.Y",$message['created']) ?></small>
+                                     <p class="list-group-item-text"><?= $message['text'] ?></p>
+                                </div>
+                            <?php }else{?>
+                                <div class="list-group list-group-item" style="text-align: -webkit-right;">
+                                     <h4 class="list-group-item-heading"><?= $message['uf_username']." ".$message['uf_surname'] ?></h4>
+                                     <small><?= date("h:i d.m.Y",$message['created']) ?></small>
+                                     <p class="list-group-item-text"><?= $message['text']?></p>
+                                </div>
+                            <?php } ?>
+
+                        <?php }?>
+                    </div>
+                <?php }else{ ?>
+                    <div class="list-group list-group-item">
+                         <h3 class="list-group-item-heading">Сообщений пока нет</h3>
+                    </div>
+                <?php } ?>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Сообщение</label>
+                    <input type="text" id="message" class="form-control" placeholder="Текст...">
+                </div>            
+                <button id="senMessageBut" class="btn btn-primary" onclick="sendMessage(<?= $this->task['id'] ?>, <?= $this->task['customer_id'] ?>, <?= $this->task['performer_id'] ?>)">Послать</button>  
+                <img style="display: none" id="messagePrel" src="<?= $this->baseUrl()?>/images/blue_preloader.gif" width="50">
+            </div>
+      <?php } ?>
     <div role="tabpanel" class="tab-pane" id="apps">
         <?php if($this->prepositions){?>
 
@@ -282,6 +322,13 @@
 $(document).ready(function(){
     $('#prepTable').DataTable({
     });
+     
+    //var n = $('#messagesArea').height();
+    $('#messTab').click(function(){
+        $('#messagesArea').animate({ scrollTop: 100000000 }, "slow");
+        markRead();
+    });
+
     
     
       $('#positive').change(function(){ console.log("pos");
@@ -293,9 +340,67 @@ $(document).ready(function(){
          if($(this).is(':checked')){
              $('#ratingDiv').hide();
          }
-     });   
-});
+     });  
 
+  var timer = setInterval(function() { checkNewMessages() }, 2000);
+
+});
+function checkNewMessages(){
+        var taskId = "<?= $this->task['id'] ?>";
+        $.ajax({
+            type: 'POST',
+            url: '<?= $this->baseUrl.'/customer/messages/get-unread-messages/'; ?>',
+            data: {
+                   taskId: taskId
+            },
+            success: function(response){
+                if(response != 'empty'){
+                 var obj = JSON.parse(response);console.log(obj.amount);
+                 $('#unreadAmount').text(obj.amount);
+                } 
+            }
+        });
+    
+}
+
+function markRead(){
+    var taskId = "<?= $this->task['id'] ?>";
+        $.ajax({
+            type: 'POST',
+            url: '<?= $this->baseUrl.'/customer/messages/mark-read/'; ?>',
+            data: {
+                   taskId: taskId
+            },
+            success: function(){
+                $('#unreadAmount').hide(100);
+            }
+        }); 
+}
+
+function sendMessage(taskId, senderId, addressee){
+    var message = $('#message').val();
+    var created = "<?= date("h:i d.m.Y", time()); ?>";
+    if(message != ''){
+        $('#senMessageBut').hide();
+        $('#messagePrel').show();
+        $('#message').val('');
+        $.ajax({
+            type: 'POST',
+            url: '<?= $this->baseUrl.'/customer/messages/send-message/'; ?>',
+            data: {senderId: senderId,
+                   taskId: taskId,
+                   message: message,
+                   addressee: addressee
+              },
+            success: function(response){
+                $('#messagePrel').hide();
+                $('#senMessageBut').show();
+                $('#messagesArea').append('<div class="list-group list-group-item"><h4 class="list-group-item-heading"><?= $this->currentUser->username ?> <?= $this->currentUser->username ?></h4><small>'+created+'</small><p class="list-group-item-text">'+message+'</p></div>');
+                $('#messagesArea').animate({ scrollTop: 100000000 }, "slow");
+            }
+        }); 
+    }
+}
 function acceptPreposition(performerId, taskId){
 $('#acceptBut'+performerId).hide();
 $('#prepPrel'+performerId).show();

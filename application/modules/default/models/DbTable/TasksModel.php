@@ -20,7 +20,7 @@ class Default_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
       $select = $this->select()
                 ->from(array('t'=>'tasks'))
                 ->order(array('created_at DESC'))
-                ->where('status=?', 'non_taken')
+                ->where('status=?', 'closed')
                ->limit($amount);
         $result = $this->fetchAll($select);
         if($result){

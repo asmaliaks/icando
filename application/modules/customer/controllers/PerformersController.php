@@ -29,10 +29,10 @@ class Customer_PerformersController extends Zend_Controller_Action{
             // get user's rating
             $feedbackObj = new Customer_Model_DbTable_FeedbackModel();
             $rating = $feedbackObj->countPerformersRating($performerId);
-            $this->view->rating = $rating;
+            $this->view->rating = floor($rating);
             $this->view->closedTasks = $closedTasks;
         }
-        
+
         $this->view->usersCategories = $usersCategories;
         $this->view->performer = $performer;
     }

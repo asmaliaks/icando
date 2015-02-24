@@ -145,13 +145,24 @@ class Customer_TaskController extends Zend_Controller_Action{
         
             $this->view->prepositions = $prepositions;
         }
+        $messagesObj = new Default_Model_DbTable_Messages();
+        $taskMessages = $messagesObj->getTasksMessages($taskId);
+        $unreadMessages = $messagesObj->countUnreadMessages($taskId, $this->user->id );
+        if($unreadMessages){
+            $this->view->unreadAmount = $unreadMessages;
+        }
+        if($taskMessages){
+            $this->view->taskMessages = $taskMessages;
+        }
         if($tasksFeedback){
             $this->view->tasksFeedback = $tasksFeedback;
         }
         if($feedback){
             $this->view->feedback = $feedback;  
         }
+        $this->view->currentUser = $this->user;
         $this->view->task = $task;
+
     }
     
     public function acceptPropositionAction(){

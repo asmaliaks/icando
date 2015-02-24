@@ -58,7 +58,6 @@ class Admin_Model_DbTable_Users extends Zend_Db_Table_Abstract{
        
         $where = $this->getAdapter()->quoteInto('id = ?', $id);
         $this->update($data, $where);
-        return true;
     }
     public function editUser($data){
         $where = $this->getAdapter()->quoteInto('id = ?', $data['user_id']);
@@ -70,7 +69,6 @@ class Admin_Model_DbTable_Users extends Zend_Db_Table_Abstract{
        
         $where = $this->getAdapter()->quoteInto('id = ?', $id);
         $this->update($data, $where);
-        return true;
     }
     public function changeCustomerToPerformer($userId){
         $data = array('role' => 'performer',);

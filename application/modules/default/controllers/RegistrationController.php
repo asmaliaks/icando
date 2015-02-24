@@ -20,7 +20,7 @@ class RegistrationController extends Zend_Controller_Action{
                 print_r('surname empty');exit;
             }else if($request->getParam('sex') == ''){
                 print_r('sex empty');exit;
-            }else if($request->getParam('phonenumber') == ''){
+            }else if($request->getParam('phonenumber') == '' || is_nan($request->getParam('phonenumber'))){
                 print_r('phone empty');exit;
             }else if($request->getParam('city') == ''){
                 print_r('city empty');exit;

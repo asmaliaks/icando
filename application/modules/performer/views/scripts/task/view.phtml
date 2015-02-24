@@ -41,7 +41,31 @@
         <div class="col-lg-12">
             <img src="<?= $this->baseUrl().'/images/task_images/'.$this->task['task_image'] ?>" class="img-thumbnail" width="200px">
         </div>
-        <?php } ?>
+        
+<div role="tabpanel" style="padding-top: 10px">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Детали</a></li>
+    <?php if($this->task['status'] == 'taken'){?>
+        <li role="presentation" id="messTab">
+            <a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">
+                Сообщения
+                <?php if($this->unreadAmount){?>
+                    <span id="unreadAmount" class="badge"><?= $this->unreadAmount ?></span>
+                <?php } ?>
+            </a>
+        </li>
+    <?php } ?>
+    <?php if($this->tasksFeedback){?>
+        <li role="presentation"><a href="#feedback" aria-controls="feedback" role="tab" data-toggle="tab">Отзыв</a></li>
+    <?php } ?>    
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="home">
+<?php } ?>
         <div class="col-lg-12">
            <label>Пользователь : </label>
            <a href="<?= $this->baseUrl().'/performer/customer/view/id/'.$this->task['customer_id'] ?>"><?= $this->task['u_username'].' '.$this->task['u_surname'] ?></a>
@@ -60,10 +84,40 @@
         <div class="col-lg-12">
            <label>Стоимость предложенная заказчиком : </label>
            <?= $this->task['customers_price'] ?> рублей
-        </div>
-        <?php if($this->tasksFeedback){?>
+        </div>    
+    </div>
+    <?php if($this->task['status'] == 'taken'){?>
+      <div role="tabpanel" class="tab-pane" id="messages">
+            <div id="messagesArea" style="height: 300px; overflow-y:scroll">
+                <?php foreach($this->taskMessages as $message){?>
+                    <?php if($message['user_from'] == $this->currentUser->id){?>
+                        <div class="list-group list-group-item">
+                             <h4 class="list-group-item-heading"><?= $this->currentUser->username ?> <?= $this->currentUser->surname ?></h4>
+                             <small><?= date("h:i d.m.Y",$message['created']) ?></small>
+                             <p class="list-group-item-text"><?= $message['text'] ?></p>
+                        </div>
+                    <?php }else{?>
+                        <div class="list-group list-group-item" style="text-align: -webkit-right;">
+                             <h4 class="list-group-item-heading"><?= $message['uf_username']." ".$message['uf_surname'] ?></h4>
+                             <small><?= date("h:i d.m.Y",$message['created']) ?></small>
+                             <p class="list-group-item-text"><?= $message['text']?></p>
+                        </div>
+                    <?php } ?>
 
-        <div class="col-lg-12">
+                <?php }?>
+            </div> 
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Сообщение</label>
+                    <input type="text" id="message" class="form-control" placeholder="Текст...">
+                </div>            
+                <button id="senMessageBut" class="btn btn-primary" onclick="sendMessage(<?= $this->task['id'] ?>, <?= $this->task['performer_id'] ?>,<?= $this->task['customer_id'] ?>)">Послать</button>  
+                <img style="display: none" id="messagePrel" src="<?= $this->baseUrl()?>/images/blue_preloader.gif" width="50">            
+            <h3 class="block-title-3"></h3>
+      </div>
+    <?php } ?>
+    <?php if($this->tasksFeedback){?>
+        <div role="tabpanel" class="tab-pane" id="feedback">
+        <div class="col-lg-12" style="padding-bottom: 10px">
             <h3 class="block-title-3">
                 Отзыв  
             </h3>
@@ -133,7 +187,12 @@
                     <h3 class="product-code"><?= date("d.m.Y",$this->tasksFeedback['created']); ?></h3>
             </div>
         </div>
-        <?php } ?>
+        </div>
+    <?php } ?>    
+  </div>
+
+</div>
+
   
 </div>
         <!-- modal block   -->
@@ -263,7 +322,76 @@
              $('#ratingDiv').hide();
          }
      });
+     
+  
+    $('#messTab').click(function(){
+        $('#messagesArea').animate({ scrollTop: 100000000 }, "slow");
+        markRead();
+     });  
+     
+    var timer = setInterval(function() { checkNewMessages() }, 2000);
+        
  });   
+
+
+function checkNewMessages(){
+        var taskId = "<?= $this->task['id'] ?>";
+        $.ajax({
+            type: 'POST',
+            url: '<?= $this->baseUrl.'/performer/messages/get-unread-messages/'; ?>',
+            data: {
+                   taskId: taskId
+            },
+            success: function(response){
+                if(response != 'empty'){
+                 var obj = JSON.parse(response);console.log(obj.amount);
+                 $('#unreadAmount').text(obj.amount);
+                } 
+            }
+        });
+    
+}
+
+function markRead(){
+    var taskId = "<?= $this->task['id'] ?>";
+        $.ajax({
+            type: 'POST',
+            url: '<?= $this->baseUrl.'/performer/messages/mark-read/'; ?>',
+            data: {
+                   taskId: taskId
+            },
+            success: function(){
+                $('#unreadAmount').hide(100);
+            }
+        }); 
+}
+
+
+function sendMessage(taskId, senderId, addressee){
+    console.log(taskId, senderId, addressee);
+    var message = $('#message').val();
+    var created = "<?= date("h:i d.m.Y", time()); ?>";
+    if(message != ''){
+        $('#senMessageBut').hide();
+        $('#messagePrel').show();
+        $('#message').val('');
+        $.ajax({
+            type: 'POST',
+            url: '<?= $this->baseUrl.'/performer/messages/send-message/'; ?>',
+            data: {senderId: senderId,
+                   taskId: taskId,
+                   message: message,
+                   addressee: addressee
+              },
+            success: function(response){
+                $('#messagePrel').hide();
+                $('#senMessageBut').show();
+                $('#messagesArea').append('<div class="list-group list-group-item"><h4 class="list-group-item-heading"><?= $this->currentUser->username ?> <?= $this->currentUser->username ?></h4><small>'+created+'</small><p class="list-group-item-text">'+message+'</p></div>');
+                $('#messagesArea').animate({ scrollTop: 100000000 }, "slow");
+            }
+        }); 
+    }
+} 
  
  function feedback( custId, taskId){
     var feedbackText = $('#feedbackText').val();

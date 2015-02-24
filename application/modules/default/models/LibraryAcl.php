@@ -106,7 +106,9 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('customer', 'default:social-attach', 'ok-complete');
        $this->allow('customer', 'default:social-attach', 'fb');
        $this->allow('customer', 'default:social-attach', 'fb-link');
-       $this->allow('customer', 'default:social-attach', 'fb-complete');
+       $this->allow('customer', 'customer:messages', 'send-message');
+       $this->allow('customer', 'customer:messages', 'mark-read');
+       $this->allow('customer', 'customer:messages', 'get-unread-messages');
       
        // performer
        $this->allow('performer', 'default:authentication', 'log-out');
@@ -135,6 +137,9 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('performer', 'default:social-attach', 'fb');
        $this->allow('performer', 'default:social-attach', 'fb-link');
        $this->allow('performer', 'default:social-attach', 'fb-complete');
+       $this->allow('performer', 'performer:messages', 'send-message');
+       $this->allow('performer', 'performer:messages', 'mark-read');
+       $this->allow('performer', 'performer:messages', 'get-unread-messages');
        
        //guest
        $this->allow('guest', 'default:index', 'index');

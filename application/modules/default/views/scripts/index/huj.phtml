@@ -1,0 +1,126 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+        <script type="text/javascript" src="<?php $this->baseUrl() ?>/js/jq.js" ></script> 
+	<script src="<?php $this->baseUrl() ?>/js/lib.js"></script>
+</head>
+<body>
+
+
+
+
+<div >
+<img src="<?php $this->baseUrl() ?>/images/1.gif" width="200" height="300" realsrc="<?php $this->baseUrl() ?>/images/logo.png">
+</div>
+</div>
+
+<div >
+<img src="<?php $this->baseUrl() ?>/images/1.gif" width="200" height="259" realsrc="<?php $this->baseUrl() ?>/images/mazuri4.png">
+<img src="<?php $this->baseUrl() ?>/images/1.gif" width="200" height="260" realsrc="<?php $this->baseUrl() ?>/images/mts.png">
+</div>
+</div>
+
+<div >
+<img src="<?php $this->baseUrl() ?>/images/1.gif" width="200" height="300" realsrc="<?php $this->baseUrl() ?>/images/skype.png">
+<img src="<?php $this->baseUrl() ?>/images/1.gif" width="200" height="300" realsrc="<?php $this->baseUrl() ?>/images/mazuri4.png">
+</div>
+</div>
+
+<div ><img src="<?php $this->baseUrl() ?>/images/1.gif" width="200" height="300" realsrc="<?php $this->baseUrl() ?>/images/zam_tuby_phsl_mer-2.jpg"></div>
+
+
+<div ><img src="<?php $this->baseUrl() ?>/images/1.gif" width="200" height="300" realsrc="<?php $this->baseUrl() ?>/images/velc.png"></div>
+
+
+
+<div ><img src="<?php $this->baseUrl() ?>/images/1.gif" width=200" height="333" realsrc="<?php $this->baseUrl() ?>/images/header.png"></div>
+
+
+
+<div ><img src="<?php $this->baseUrl() ?>/images/1.gif" width="200" height="300" realsrc="<?php $this->baseUrl() ?>/images/mazuri4.png"></div>
+
+
+
+
+
+
+<div ><img src="<?php $this->baseUrl() ?>/images/1.gif" width="200" height="300" realsrc="<?php $this->baseUrl() ?>/images/huj.jpeg"></div>
+
+
+
+<script>
+    $(document).ready(function(){
+/**
+ * Проверяет элемент на попадание в видимую часть экрана.
+ * Для попадания достаточно, чтобы верхняя или нижняя границы элемента были видны.
+*/
+function isVisible(elem) {
+
+	var coords = getCoords(elem);
+	var windowTop = window.pageYOffset || document.documentElement.scrollTop;
+	var windowBottom = windowTop + document.documentElement.clientHeight;
+
+	coords.bottom = coords.top + elem.offsetHeight;
+
+	// верхняя граница elem в пределах видимости ИЛИ нижняя граница видима
+	var topVisible = coords.top > windowTop && coords.top < windowBottom;
+	var bottomVisible = coords.bottom < windowBottom && coords.bottom > windowTop;
+
+	return topVisible || bottomVisible;
+}
+
+/**
+Вариант проверки, считающий элемент видимым,
+если он не более чем -1 страница назад или +1 страница вперед
+
+function isVisible(elem) {
+
+	var coords = getCoords(elem);
+	var windowHeight = document.documentElement.clientHeight;
+	var windowTop = window.pageYOffset || document.documentElement.scrollTop;
+	var windowBottom = windowTop + windowHeight;
+
+	coords.bottom = coords.top + elem.offsetHeight;
+
+	windowTop -= windowHeight;
+	windowBottom += windowHeight;
+
+	// top visible || bottom visible
+	var topVisible = coords.top > windowTop && coords.top < windowBottom;
+	var bottomVisible = coords.bottom < windowBottom && coords.bottom > windowTop;
+
+	console.log(elem, topVisible, bottomVisible);
+
+	return topVisible || bottomVisible;
+}
+*/
+
+function showVisible() {
+	var imgs = document.getElementsByTagName('img');
+	for(var i=0; i<imgs.length; i++) {
+
+		var img = imgs[i];
+
+		var realsrc = img.getAttribute('realsrc');
+		if (!realsrc) continue;
+
+		if (isVisible(img)) {
+			img.src = realsrc;
+			img.setAttribute('realsrc', '');
+		}
+	}
+
+}
+$(window).scroll(function(){showVisible(); console.log('robit');});
+//window.onscroll = showVisible
+showVisible();
+});
+</script>
+
+</body>
+</html>
+

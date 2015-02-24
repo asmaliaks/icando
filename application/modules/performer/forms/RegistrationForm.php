@@ -77,8 +77,8 @@ class Performer_Form_RegistrationForm extends Zend_Form{
    
    $image = new Zend_Form_Element_File('image');
    $image->setLabel('Изображение')
-         ->setDestination(DOCUMENT_ROOT.'/images/users_images/');  
-//         ->setDestination($_SERVER['DOCUMENT_ROOT'].'/images/users_images/');  
+//         ->setDestination(DOCUMENT_ROOT.'/images/users_images/');  
+         ->setDestination($_SERVER['DOCUMENT_ROOT'].'/images/users_images/');  
    
    
    $pass = new Zend_Form_Element_Password('pass');

@@ -35,6 +35,16 @@ class Performer_TaskController extends Zend_Controller_Action{
         if($feedback){
             $this->view->feedback = $feedback;
         }
+        $messagesObj = new Default_Model_DbTable_Messages();
+        $taskMessages = $messagesObj->getTasksMessages($taskId);
+        if($taskMessages){
+            $this->view->taskMessages = $taskMessages;
+        }
+        $unreadMessages = $messagesObj->countUnreadMessages($taskId, $this->user->id );
+        if($unreadMessages){
+            $this->view->unreadAmount = $unreadMessages;
+        }
+        $this->view->currentUser = $this->user;
         $this->view->task = $task;
         $this->view->userId = $this->user->id;
     }
