@@ -50,7 +50,25 @@ class Customer_MessagesController extends Zend_Controller_Action{
                 print_r('empty');exit;
             }else{
                 $messagesAmount = count($unreadMessages);
-                $data = array('amount'=> $messagesAmount);
+                $n=0;
+                foreach($unreadMessages as $message){
+                    if($n==0){
+                        $messages = '<div class="list-group list-group-item" style="text-align:'
+                                . ' -webkit-right;"><h4 class="list-group-item-heading">'
+                                . $message['uf_username']." ".$message['uf_surname'].'</h4>'
+                                . '<small>'. date("h:i d.m.Y",$message['created']).'</small>'
+                                . '<p class="list-group-item-text">'. $message['text'].'</p></div>';
+                    }else{
+                        $messages = $messages.'<div class="list-group list-group-item" style="text-align:'
+                                . ' -webkit-right;"><h4 class="list-group-item-heading">'
+                                . $message['uf_username']." ".$message['uf_surname'].'</h4>'
+                                . '<small>'. date("h:i d.m.Y",$message['created']).'</small>'
+                                . '<p class="list-group-item-text">'. $message['text'].'</p></div>';
+                    }
+                    $n++;
+                }
+                $data = array('amount'=> $messagesAmount,
+                    'messages'=> $messages);
                 $dataJson = json_encode($data);
                 print_r($dataJson);exit;
             }

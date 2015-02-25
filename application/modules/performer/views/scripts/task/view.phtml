@@ -47,13 +47,14 @@
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Детали</a></li>
-    <?php if($this->task['status'] == 'taken'){?>
+    <?php if($this->task['status'] == 'taken' && $this->currentUser->banned == 0){?>
         <li role="presentation" id="messTab">
             <a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">
                 Сообщения
-                <?php if($this->unreadAmount){?>
-                    <span id="unreadAmount" class="badge"><?= $this->unreadAmount ?></span>
-                <?php } ?>
+                    <span id="unreadAmount" class="badge"<?php if(!$this->unreadAmount){?> style="display:none" <?php } ?>>
+                    <?= $this->unreadAmount ?>
+                    </span>
+                
             </a>
         </li>
     <?php } ?>
@@ -86,7 +87,7 @@
            <?= $this->task['customers_price'] ?> рублей
         </div>    
     </div>
-    <?php if($this->task['status'] == 'taken'){?>
+    <?php if($this->task['status'] == 'taken' && $this->currentUser->banned == 0){?>
       <div role="tabpanel" class="tab-pane" id="messages">
             <div id="messagesArea" style="height: 300px; overflow-y:scroll">
                 <?php foreach($this->taskMessages as $message){?>
@@ -325,7 +326,7 @@
      
   
     $('#messTab').click(function(){
-        $('#messagesArea').animate({ scrollTop: 100000000 }, "slow");
+        $('#messagesArea').animate({ scrollTop: 10000000000 }, "slow");
         markRead();
      });  
      
@@ -345,7 +346,19 @@ function checkNewMessages(){
             success: function(response){
                 if(response != 'empty'){
                  var obj = JSON.parse(response);console.log(obj.amount);
-                 $('#unreadAmount').text(obj.amount);
+                 var tabClass = $('#messTab').attr('class');
+                 console.log(obj);
+                 if(tabClass == 'active'){
+                     // put new message
+                     $('#messagesArea').append(obj.messages);
+                     $('#messagesArea').animate({ scrollTop: 10000000000 }, "slow");
+                     markRead();
+                 }else{
+                    $('#unreadAmount').show(100);
+                    $('#unreadAmount').text(obj.amount);
+                    $('#messagesArea').append(obj.messages);
+                 }
+                 
                 } 
             }
         });
