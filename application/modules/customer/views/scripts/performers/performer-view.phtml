@@ -32,6 +32,18 @@
             $age = floor($age);
       ?>
       <h3 class="product-code">Возраст : <?= $age; ?> лет</h3>
+          <div class="product-price"> 
+          <span class="price-sales">
+              Создано задач:  <?php $customersTasksAmount = count($this->customersTasks); ?>
+              <?= $customersTasksAmount; ?>
+          </span>  
+      </div>
+      <div class="product-price"> 
+          <span class="price-sales">
+              Выполнено задач:  <?php $performersTasksAmount = count($this->performersTasks); ?>
+              <?= $performersTasksAmount; ?>
+          </span>  
+      </div>
       <?php
       if($this->closedTasks){
          $closedTasksAmount = count($this->closedTasks);

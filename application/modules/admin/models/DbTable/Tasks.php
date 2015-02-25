@@ -107,4 +107,30 @@ class Admin_Model_DbTable_Tasks extends Zend_Db_Table_Abstract{
             return false;
         }  
     }
+    
+    
+    public function getPerformersTasksClosed($performerId){
+        $select = $this->select()
+                ->from(array('t'=>'tasks'))
+                ->where('t.performer_id=?', $performerId)
+                ->where('t.status=?','closed');
+        $result = $this->fetchAll($select);
+        if($result){
+            return $result->toArray();
+        }else{
+            return false;
+        }
+    }
+    public function getCustomersTasksClosed($customerId){
+        $select = $this->select()
+                ->from(array('t'=>'tasks'))
+                ->where('t.customer_id=?', $customerId)
+                ->where('t.status=?','closed');
+        $result = $this->fetchAll($select);
+        if($result){
+            return $result->toArray();
+        }else{
+            return false;
+        }
+    }    
 }    

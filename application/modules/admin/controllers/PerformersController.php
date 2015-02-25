@@ -29,16 +29,44 @@ class Admin_PerformersController extends Zend_Controller_Action{
         $tasksObj = new Admin_Model_DbTable_Tasks();
         $tasks = $tasksObj->getPerformersTasks($id);
         $user = $usersObj->getUserById($id);
-        // age counting
+        // get user's categories
+        $userCatObj = new Customer_Model_DbTable_UserCategory();
+        $usersCategories = $userCatObj->getUsersCategories($id);
         
+
+        // age countin
         $currentTime = time();
         $unixAge = $currentTime-$user['birth_date'];
         $realAge = $unixAge/31556926;
         $realAge = floor($realAge);
         
         $birthDate = date('d.m.Y',$user['birth_date']);
+        
+        //$taskObj = new Admin_Model_DbTable_TasksModel();
+        $customersTasks = $tasksObj->getCustomersTasks($id);    
+        $performesTasks = $tasksObj->getPerformersTasks($id);    
+   
+        $closedCustomersTasks = $tasksObj->getCustomersTasksClosed($id);
+        $closedPeformersTasks = $tasksObj->getPerformersTasksClosed($id);
+        $feedbackObj = new Performer_Model_DbTable_FeedbackModel();
+        
+        if($closedCustomersTasks){
+            $customersRating = $feedbackObj->countCustomersRating($id);
+            $this->view->customersRating = floor($customersRating);
+         }
+         if($closedPeformersTasks){
+             $performersRating = $feedbackObj->countPerformersRating($id);
+             
+             $this->view->performersRating = floor($performersRating);
+         }
+    // get performer's feedbacks
+
+         $feedbacks = $feedbackObj->getUsersFeedbacks($id);
+
+        $this->view->feedbacks = $feedbacks;   
+        $this->view->customersTasks = $customersTasks;          
         // send $user to the view
-        $this->view->tasks = $tasks;
+        $this->view->performersTasks = $performesTasks;
         $this->view->birthDate = $birthDate;
         $this->view->age = $realAge;
         $this->view->user = $user;
@@ -51,7 +79,7 @@ class Admin_PerformersController extends Zend_Controller_Action{
            $usersObj = new Admin_Model_DbTable_Users();
            $result = $usersObj->bannUser($id);
            if($result){
-               echo 'true';
+               echo 'true';exit;
            } 
        } 
     }
@@ -62,7 +90,7 @@ class Admin_PerformersController extends Zend_Controller_Action{
            $usersObj = new Admin_Model_DbTable_Users();
            $result = $usersObj->unbannUser($id);
            if($result){
-               echo 'true';
+               echo 'true';exit;
            } 
        } 
     }

@@ -32,6 +32,13 @@ class Admin_CustomersController extends Zend_Controller_Action{
         $realAge = $unixAge/31556926;
         $realAge = floor($realAge);
         
+        $feedbackObj = new Performer_Model_DbTable_FeedbackModel();
+        
+        if($closedCustomersTasks){
+            $customersRating = $feedbackObj->countCustomersRating($id);
+            $this->view->customersRating = floor($customersRating);
+         }
+        
         $birthDate = date('d.m.Y',$user['birth_date']);
         // send $user to the view
         $this->view->tasks = $tasks;

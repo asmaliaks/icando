@@ -24,7 +24,8 @@ class Customer_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
             return false;
         }
     }
-    
+
+ 
     public function removeTask($taskId){
         $where = $this->getAdapter()->quoteInto('id = ?', $taskId);
         $this->delete($where);
