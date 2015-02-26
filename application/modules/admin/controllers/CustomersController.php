@@ -51,12 +51,18 @@ class Admin_CustomersController extends Zend_Controller_Action{
        $request = $this->getRequest();
        if($request->isPost()){
            $id = $request->getParam('id');
+           $date = $request->getParam('date');
+           $date = strtotime($date);
+           $data = array(
+               'id' => $id,
+               'date'=> $date,
+           );
            $usersObj = new Admin_Model_DbTable_Users();
-           $result = $usersObj->bannUser($id);
+           $result = $usersObj->bannUser($data);
            if($result){
                echo 'true';exit;
            } 
-       }         
+       }        
     }
     public function unbannAction(){
        $request = $this->getRequest();

@@ -8,22 +8,25 @@
         </div>
         <div class="col-lg-9">
             <div class="col-lg-12">
-                <?php if($this->user['banned'] == 0){?>
-                    <button onclick="bann()" id="bannButton">Забанить</button>
-                    <button onclick="unBann()" id="unbannButton" style="display: none">Разбанить</button>
-                <?php }?>
-                <?php if($this->user['banned'] == 1){?>
-                    <button onclick="bann()" id="bannButton" style="display: none">Забанить</button>
-                    <button onclick="unBann()" id="unbannButton" >Разбанить</button>
-                <?php }?>
-                
-                <button id="halfbunnBut">Полубан</button>
-                <button id="halfbunnBut" style="display: none">Снять полубан</button> 
+                    <?php if(!$this->user['banned']){?>
+                        <button  id="bannButton" type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#bannModal">Забанить</button>
+                        <img id="bannPrel" src="/images/blue_preloader.gif" width="50" style="display: none">
+                        <button onclick="unBann()" id="unbannButton" class="btn btn-primary btn-xs" style="display: none">Разбанить</button>
+                    <?php }else{?>
+                        <button  id="bannButton" type="button" style="display: none" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#bannModal">Забанить</button>
+                        <img id="bannPrel" src="/images/blue_preloader.gif" width="50" style="display: none">
+                        <button onclick="unBann()" id="unbannButton" class="btn btn-primary btn-xs" >Разбанить</button>                        
+                    <?php } ?>
             </div>
             <div class="col-lg-12">
                                
                 <strong>Возраст :</strong><?= $this->age ?>
             </div>
+            <?php if($this->user['banned']){?>
+            <div class="col-lg-12">
+                <strong>Забанен до :</strong><?= date('d.m.y', $this->user['banned']) ?>
+            </div>
+            <?php } ?>            
             <div class="col-lg-12">
                 Создал задач: <?= count($this->tasks); ?>
             </div>
@@ -119,30 +122,67 @@
         </div>    
     </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="bannModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Забанить пользователя</h4>
+      </div>
+      <div class="modal-body">
+        <input type="text" onchange="enableSubmit()" id="bannDate">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+        <img id="bannPrelModal" src="/images/blue_preloader.gif" width="50" style="display: none">
+        <button type="button" id="modalBannBut" onclick="bann()" disabled class="btn btn-primary">Забанить</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
-    function bann(){
-        var id = '<?= $this->user['id'] ?>';
-$.ajax({
-  type: 'POST',
-  url: '<?= $this->baseUrl.'/admin/performers/bann/'; ?>',
-  data: {id: id},
-  success: function(){
-      $('#bannButton').hide();
-      $('#unbannButton').show();
+ $(function() {
+    $( "#bannDate" ).datepicker();
+  });
+  function enableSubmit(){
+      if($('#bannDate').val()!=''){
+          $('#modalBannBut').removeAttr('disabled');
+      }
   }
-});       
+    function bann(){
+        $('#modalBannBut').hide();
+        $('#bannButton').hide();
+        $('#bannPrel').show();
+        $('#bannPrelModal').show();
+        var id = '<?= $this->user['id'] ?>';
+        var date = $('#bannDate').val();
+        $.ajax({
+          type: 'POST',
+          url: '<?= $this->baseUrl.'/admin/customers/bann/'; ?>',
+          data: {
+                id: id,
+                date: date
+            },
+          success: function(){
+              $('#unbannButton').show();
+              $('#bannModal').modal('hide');
+              $('#bannPrel').hide();
+          }
+        });       
     }
     function unBann(){
-    var id = '<?= $this->user['id'] ?>';
-$.ajax({
-  type: 'POST',
-  url: '<?= $this->baseUrl.'/admin/performers/unbann/'; ?>',
-  data: {id: id},
-  success: function(){
-      $('#bannButton').show();
-      $('#unbannButton').hide();
-  }
-});       
-    }    
+
+        var id = '<?= $this->user['id'] ?>';
+        $.ajax({
+          type: 'POST',
+          url: '<?= $this->baseUrl.'/admin/customers/unbann/'; ?>',
+          data: {id: id},
+          success: function(){
+              $('#bannButton').show();
+              $('#unbannButton').hide();
+          }
+        });       
+    }       
 </script> 

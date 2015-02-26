@@ -43,6 +43,18 @@
       </div>
       <div class="product-price"> 
           <span class="price-sales">
+              Статус:
+              
+          </span>  
+      </div>
+      <div class="product-price"> 
+          <span class="price-sales">
+              Баланс:
+              <?= $this->user['balance']; ?> баллов
+          </span>  
+      </div>
+      <div class="product-price"> 
+          <span class="price-sales">
               Выполнено задач:  <?php $performersTasksAmount = count($this->performersTasks); ?>
               <?= $performersTasksAmount; ?>
           </span>  

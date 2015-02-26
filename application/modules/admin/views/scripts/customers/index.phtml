@@ -27,7 +27,7 @@
         </tfoot>
         <tbody>
     <?php foreach($this->customers as $customer){?>
-            <tr id="div<?= $customer['id'] ?>" <?php if($customer['banned'] == 1 ){?> class="danger" <?php } ?>>
+            <tr id="div<?= $customer['id'] ?>" <?php if($customer['banned']){?> class="danger" <?php } ?>>
                 <td><a href="<?= $this->baseUrl().'/admin/customers/view/id/'.$customer['id'] ?>"><?=  $customer['username'].' '.$customer['surname'] ?></a></td>
                 <td><?=  $customer['phonenumber'] ?></td>
                 <td><?=  $customer['city'] ?></td>
@@ -35,15 +35,15 @@
                 <td>balans</td>
                 <td>
                      <?php if($customer['banned'] == 0){?>
-                           <button id="bann<?= $customer['id'] ?>" onclick="bann(<?= $customer['id'] ?>)">Забанить</button>
-                           <button id="unbann<?= $customer['id'] ?>" style="display: none" onclick="unBann(<?= $customer['id'] ?>)">Разбанить</button>
+                           <button id="bann<?= $customer['id'] ?>" class="btn btn-primary btn-xs"  onclick="openModal(<?= $customer['id'] ?>)">Забанить</button>
+                           <button id="unbann<?= $customer['id'] ?>" class="btn btn-primary btn-xs"  style="display: none" onclick="unBann(<?= $customer['id'] ?>)">Разбанить</button>
                      <?php }else{ ?>
-                           <button id="unbann<?= $customer['id'] ?>" onclick="unBann(<?= $customer['id'] ?>)">Разбанить</button>
-                           <button id="bann<?= $customer['id'] ?>" style="display: none" onclick="bann(<?= $customer['id'] ?>)">Забанить</button>
+                           <button id="unbann<?= $customer['id'] ?>" class="btn btn-primary btn-xs"  onclick="unBann(<?= $customer['id'] ?>)">Разбанить</button>
+                           <button id="bann<?= $customer['id'] ?>" style="display: none" class="btn btn-primary btn-xs"  onclick="openModal(<?= $customer['id'] ?>)">Забанить</button>
                      <?php } ?>
                 </td>
                 <td>
-                     <button id="remove<?= $customer['id'] ?>" onclick="removeUser(<?= $customer['id'] ?>)">Удалить</button>
+                     <button id="remove<?= $customer['id'] ?>" class="btn btn-primary btn-xs"  onclick="removeUser(<?= $customer['id'] ?>)">Удалить</button>
                      <img style="display: none" id="remPrel<?= $customer['id'] ?>" src="<?= $this->baseUrl()?>/images/blue_preloader.gif" width="50"> 
                 </td>
             </tr>
@@ -52,38 +52,86 @@
  </tbody>
 </table>
 <?php } ?>
+<!-- Modal -->
+<div class="modal fade" id="bannModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Забанить пользователя</h4>
+      </div>
+      <div class="modal-body">
+          <input type="hidden" id="userIdHidden">
+        <input type="text" onchange="enableSubmit()" id="bannDate">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+        <img id="bannPrelModal" src="/images/blue_preloader.gif" width="50" style="display: none">
+        <button type="button" id="modalBannBut" onclick="bann()" disabled class="btn btn-primary">Забанить</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script>
     $(document).ready(function(){
         $('#customersTable').DataTable();
     });
+$(function() {
+  $( "#bannDate" ).datepicker();
+});
+function enableSubmit(){
+    if($('#bannDate').val()!=''){
+        $('#modalBannBut').removeAttr('disabled');
+    }
+}    
+    
+    
+
+  
+function openModal(userId){
+    $('#bannModal').modal('show');
+    $('#userIdHidden').val(userId);
+}        
+    
+ function bann(){ console.log('bann function');
+    $('#modalBannBut').hide();
+    $('#bannPrelModal').show();
+    var id = $('#userIdHidden').val();
+    var date = $('#bannDate').val();
+    $.ajax({
+      type: 'POST',
+      url: '<?= $this->baseUrl.'/admin/customers/bann/'; ?>',
+      data: {
+          id: id,
+          date: date
+      },
+      success: function(data){
+          $('#bann'+id).hide();
+          $('#unbann'+id).show();
+          $('#div'+id).addClass('danger');
+          $('#bannModal').modal('hide');
+          $('#bannPrelModal').hide();
+          $('#modalBannBut').show();
+      }
+    });       
+}   
+    
     function removeUser(id){
        
     if(confirm('Вы готовы безвозвратно удалить этого пользователя?')){
         $('#remove'+id).hide();
         $('#remPrel'+id).show();
         $.ajax({
-        type: 'POST',
-        url: '<?= $this->baseUrl.'/admin/customers/remove/'; ?>',
-        data: {id: id},
-        success: function(data){
+            type: 'POST',
+            url: '<?= $this->baseUrl.'/admin/customers/remove/'; ?>',
+            data: {id: id},
+            success: function(data){
            $('#div'+id).remove();
   }
 }); 
 }
     }
-    
-    function bann(id){
-$.ajax({
-  type: 'POST',
-  url: '<?= $this->baseUrl.'/admin/customers/bann/'; ?>',
-  data: {id: id},
-  success: function(data){
-      $('#bann'+id).hide();
-      $('#unbann'+id).show();
-      $('#div'+id).addClass('danger');
-  }
-});       
-    }
+
     function unBann(id){
 $.ajax({
   type: 'POST',

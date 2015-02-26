@@ -53,11 +53,11 @@ class Admin_Model_DbTable_Users extends Zend_Db_Table_Abstract{
         return true;
     }
     
-    public function bannUser($id){
-        $data = array('banned' => 1,);
+    public function bannUser($data){
+        $dat = array('banned' => $data['date']);
        
-        $where = $this->getAdapter()->quoteInto('id = ?', $id);
-        $this->update($data, $where);
+        $where = $this->getAdapter()->quoteInto('id = ?', $data['id']);
+        $this->update($dat, $where);
     }
     public function editUser($data){
         $where = $this->getAdapter()->quoteInto('id = ?', $data['user_id']);
@@ -65,13 +65,16 @@ class Admin_Model_DbTable_Users extends Zend_Db_Table_Abstract{
     }
     
     public function unbannUser($id){
-        $data = array('banned' => 0,);
+        $data = array('banned' => NULL,);
        
         $where = $this->getAdapter()->quoteInto('id = ?', $id);
         $this->update($data, $where);
     }
     public function changeCustomerToPerformer($userId){
-        $data = array('role' => 'performer',);
+        $data = array(
+            'role' => 'performer',
+            'balance' => 10,
+            );
        
         $where = $this->getAdapter()->quoteInto('id = ?', $userId);
         $this->update($data, $where);
