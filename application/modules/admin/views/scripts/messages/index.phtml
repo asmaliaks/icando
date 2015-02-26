@@ -1,0 +1,92 @@
+<div class="row">
+    <hr>
+    <div class="col-sm-12">
+        
+        <?php if($this->messages){?>
+        <div id="messagesArea" style="border: solid 1px #BFC9CA; height: 300px; overflow-y:scroll; min-height: 600px">
+            <?php foreach($this->messages as $message){?>
+            <div class="col-sm-12" id="messageDiv<?= $message['id'] ?>">
+                <div class="col-sm-2">
+                    <?php if($message['u_role'] == 'customer'){?>
+                        <a href="<?= $this->baseUrl().'/admin/customers/view/id/'.$message['u_id'] ?>">
+                            <?= $message['u_username'].' '.$message['u_surname'] ?>
+                        </a>    
+                    <?php }else if($message['u_role'] == 'performer'){?>
+                        <a href="<?= $this->baseUrl().'/admin/performers/view/id/'.$message['u_id'] ?>">
+                            <?= $message['u_username'].' '.$message['u_surname'] ?>
+                        </a>    
+                    <?php }?>   
+                </div>
+                <div class="col-sm-1">
+                    <small><?= date('h:i d.m.y', $message['created']);?></small>
+
+                </div>
+                <div class="col-sm-8">
+                        <?= $message['text'] ?>
+                </div>
+
+                <div class="col-sm-1">
+                    <button id="remBut<?= $message['id'] ?>" onclick="removeMessage(<?= $message['id'] ?>)">Удалить</button>
+                    <img id="prel<?= $message['id'] ?>" src="<?= $this->baseUrl().'/images/blue_preloader.gif' ?>" width="60" style="display:none">
+                </div>    
+                <div class="col-sm-12">
+                    <hr>
+                </div>
+              </div>
+               
+            <?php } ?>
+        </div>
+        <?php }else{ ?>
+            Сообщений не найдено.
+        <?php }?>
+    </div>    
+    <hr>
+</div>
+<script>
+$(document).ready(function(){
+      var timer = setInterval(function() { checkNewMessages() }, 2000);
+}); 
+
+function checkNewMessages(){
+
+        $.ajax({
+            type: 'POST',
+            url: '<?= $this->baseUrl.'/admin/messages/get-unread-messages-for-admin/'; ?>',
+            data: {},
+            success: function(response){
+                if(response != 'empty'){console.log(response);
+                 var obj = JSON.parse(response);
+                     $('#messagesArea').prepend(obj.messages);
+                     $('#messagesArea').animate({ scrollTop: 0 }, "slow");
+                     markRead();
+                } 
+            }
+        });
+    
+}
+
+function markRead(){
+
+        $.ajax({
+            type: 'POST',
+            url: '<?= $this->baseUrl.'/admin/messages/mark-admin-read/'; ?>',
+            data: {},
+            success: function(){}
+        }); 
+}
+
+function removeMessage(id){
+    $('#prel'+id).show();
+    $('#remBut'+id).hide();
+        $.ajax({
+            type: 'POST',
+            url: '<?= $this->baseUrl.'/admin/messages/remove/'; ?>',
+            data: {
+                   id: id
+            },
+            success: function(){
+                $('#messageDiv'+id).fadeOut(1000);
+            }
+        }); 
+}
+</script>

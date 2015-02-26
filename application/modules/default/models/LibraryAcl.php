@@ -20,6 +20,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->add(new Zend_Acl_Resource('admin:customers'), 'admin');
        $this->add(new Zend_Acl_Resource('admin:applications'), 'admin');
        $this->add(new Zend_Acl_Resource('admin:tasks'), 'admin');
+       $this->add(new Zend_Acl_Resource('admin:messages'), 'admin');
        
        $this->add(new Zend_Acl_Resource('customer'));
        $this->add(new Zend_Acl_Resource('customer:index'), 'customer');
@@ -56,7 +57,6 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('admin', 'admin:category', 'edit-category');
        $this->allow('admin', 'admin:category', 'remove-category');
        $this->allow('admin', 'default:authentication', 'log-out');
-       
        $this->allow('admin', 'admin:performers', 'index');
        $this->allow('admin', 'admin:performers', 'add');
        $this->allow('admin', 'admin:performers', 'edit');
@@ -64,19 +64,20 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('admin', 'admin:performers', 'bann');
        $this->allow('admin', 'admin:performers', 'unbann');
        $this->allow('admin', 'admin:performers', 'view');
-       
        $this->allow('admin', 'admin:tasks', 'index');
        $this->allow('admin', 'admin:tasks', 'view');
-       
        $this->allow('admin', 'admin:customers', 'index');
        $this->allow('admin', 'admin:customers', 'remove');
        $this->allow('admin', 'admin:customers', 'bann');
        $this->allow('admin', 'admin:customers', 'unbann');
        $this->allow('admin', 'admin:customers', 'view');
-       
        $this->allow('admin', 'admin:applications', 'index');
        $this->allow('admin', 'admin:applications', 'decline');
        $this->allow('admin', 'admin:applications', 'accept');
+       $this->allow('admin', 'admin:messages', 'index');
+       $this->allow('admin', 'admin:messages', 'remove');
+       $this->allow('admin', 'admin:messages', 'get-unread-messages-for-admin');
+       $this->allow('admin', 'admin:messages', 'mark-admin-read');
        
        // customer
        $this->allow('customer', 'default:authentication', 'log-out');

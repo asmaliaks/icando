@@ -9,6 +9,66 @@ class Default_Model_DbTable_Messages extends Zend_Db_Table_Abstract
        return true;
    }
    
+   public function markMessagesReadByAdmin(){
+        $data = array('admin_read' => 1);
+        $where = $this->getAdapter()->quoteInto('admin_read =?',0);
+        
+        $this->update($data, $where);
+        return true;
+   }
+   public function getNewMessagesForAdmin(){
+        $select = $this->select()
+                ->from(array('m'=>'messages'),
+                        array('m.id',
+                            'm.user_to',
+                            'm.user_from',
+                            'm.unread',
+                            'm.created',
+                            'm.text'))
+                ->where('admin_read=?', 0)
+                ->joinLeft(array('u' => 'users'),
+                'm.user_from = u.id',
+                        array(
+                            'u.username as u_username',
+                            'u.surname as u_surname',
+                            'u.role as u_role',
+                            'u.id as u_id'))
+                ->order('created DESC')
+                ->setIntegrityCheck(false);
+
+        $result = $this->fetchAll($select);
+        if($result){
+            return $result->toArray();
+        }else{
+            return false;
+        }
+   }
+   public function getMessages(){
+        $select = $this->select()
+                ->from(array('m'=>'messages'),
+                        array('m.id',
+                            'm.user_to',
+                            'm.user_from',
+                            'm.created',
+                            'm.unread',
+                            'm.text'))
+                ->joinLeft(array('u' => 'users'),
+                'm.user_from = u.id',
+                        array(
+                            'u.username as u_username',
+                            'u.surname as u_surname',
+                            'u.role as u_role',
+                            'u.id as u_id'))
+                ->order('created DESC')
+                ->setIntegrityCheck(false);
+
+        $result = $this->fetchAll($select);
+        if($result){
+            return $result->toArray();
+        }else{
+            return false;
+        }
+   }
    public function getTasksMessages($taskId ){
         $select = $this->select()
                 ->from(array('m'=>'messages'),
