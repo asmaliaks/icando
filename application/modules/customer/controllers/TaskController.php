@@ -181,6 +181,18 @@ class Customer_TaskController extends Zend_Controller_Action{
             $task= $taskObj->getTaskById($taskId);
             $usersObj = new Admin_Model_DbTable_Users();
             $user = $usersObj->getUserById($performerId);
+            // block peace of the performer's balance
+            $balanceReserveObj = new Default_Model_DbTable_BalanceReserve();
+            $blockedBalance = 15/$task['customers_price'];
+            $blockedBalance = $blockedBalance*100;
+            $blockBalance = array(
+                'task_id'=>$task['id'],
+                'user_id'=>$performerId,
+                'amount' =>$blockedBalance,
+                'created'=>time(),
+            );
+            
+            $balanceReserveObj->blockBalance($blockBalance);
             $smtpObj = new Default_Model_Smtp();
             $message = "Заказчик ".$this->user->username." ".$this->user->surname." "
                     . "принял вашу заявку на выполнение задачи ".$task['title'];
