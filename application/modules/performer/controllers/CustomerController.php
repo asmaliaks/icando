@@ -1,5 +1,5 @@
 <?php
-class Performer_CUstomerController extends Zend_Controller_Action{
+class Performer_CustomerController extends Zend_Controller_Action{
     protected $user;
     public function init(){
        $auth = Zend_Auth::getInstance();

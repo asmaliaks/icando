@@ -40,6 +40,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->add(new Zend_Acl_Resource('performer:task'), 'performer');
        $this->add(new Zend_Acl_Resource('performer:feedback'), 'performer');
        $this->add(new Zend_Acl_Resource('performer:performers'), 'performer');
+       $this->add(new Zend_Acl_Resource('performer:balance'), 'performer');
        
 
        
@@ -141,6 +142,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('performer', 'performer:messages', 'send-message');
        $this->allow('performer', 'performer:messages', 'mark-read');
        $this->allow('performer', 'performer:messages', 'get-unread-messages');
+       $this->allow('performer', 'performer:balance', 'fill-ajax');
        
        //guest
        $this->allow('guest', 'default:index', 'index');

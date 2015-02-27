@@ -33,7 +33,16 @@ class Performer_Model_DbTable_Users extends Zend_Db_Table_Abstract{
 //            return false;
 //        }      
 //   }
-
+    public function fillBalance($userId, $sum){
+        $select = $this->select('balance')
+                    ->where('id=?', $userId);
+        $result = $this->fetchRow($select);
+        $sum = $result['balance'] + $sum;
+        $data = array('balance' => $sum);
+        $where = $this->getAdapter()->quoteInto('id = ?', $userId);
+        $this->update($data, $where);
+        return $sum;
+    }
    public function getUserById($userId){
        $select = $this->select()
                ->where('id=?',$userId);

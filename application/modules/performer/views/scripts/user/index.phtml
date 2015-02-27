@@ -36,22 +36,31 @@
                 <?= $age;  ?> лет
       </h3>
       <div class="product-price"> 
+          <input type="text" id="sum">
+          <button onclick="fillBalance()" id="balanceButton" class="btn btn-primary xs3Response">пополнить баланс</button>
+          <img id="balancePrel" src="<?= $this->baseUrl().'/images/blue_preloader.gif' ?>" width="60" style="display: none">
+      </div>
+      <div class="product-price"> 
           <span class="price-sales">
-              Создано задач:  <?php $customersTasksAmount = count($this->customersTasks); ?>
+              Создано задач:  <?php $customersTasksAmount = count($this->customersTasks); ?></span> 
               <?= $customersTasksAmount; ?>
-          </span>  
+           
       </div>
       <div class="product-price"> 
           <span class="price-sales">
-              Статус:
-              
-          </span>  
+              Статус:</span> 
+            <?php if($this->user['banned']){?>
+             Забанен до <?= date('d.m.y', $this->user['banned']); ?> 
+            <?php }else{ ?>
+             Активен
+            <?php } ?> 
+           
       </div>
       <div class="product-price"> 
           <span class="price-sales">
-              Баланс:
-              <?= $this->user['balance']; ?> баллов
-          </span>  
+              Баланс:</span> 
+              <span id="balSpan"><?= $this->user['balance']; ?></span> баллов
+           
       </div>
       <div class="product-price"> 
           <span class="price-sales">
@@ -371,7 +380,29 @@ $(document).ready(function(){
 
 $(function () {
   $('[data-toggle="tooltip"]').tooltip();
-}) 
+}); 
+
+function fillBalance(){
+    $('#balanceButton').hide();
+    $('#balancePrel').show();
+ var userId = '<?= $this->user->id ?>'; 
+ var sum = $('#sum').val();
+    $.ajax({
+      type: 'POST',
+      url: '<?= $this->baseUrl.'/performer/balance/fill-ajax'; ?>',
+      data: {
+          sum: sum,
+          userId: userId
+      },
+      success: function(data){
+          $('#sum').val('');
+          $('#balSpan').text(data);
+          $('#balancePrel').hide();
+          $('#balanceButton').show();
+          
+      }
+    });
+}
 
 function changeCategory(catId){ 
     if($('#check'+catId).is(':checked')){

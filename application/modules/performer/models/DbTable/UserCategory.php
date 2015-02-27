@@ -21,6 +21,8 @@ class Performer_Model_DbTable_UserCategory extends Zend_Db_Table_Abstract{
         $db->delete($this->_name, $where);
     }
     
+
+    
     public function getUsersCategories($userId){
                     $select = $this->select()
                     ->from(array('uc'=>'user_category'),
