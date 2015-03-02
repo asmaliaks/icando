@@ -13,8 +13,9 @@
                       <div style="padding-left: 25px">
                         <?php foreach($category['children'] as $kid){?>
                           <div class="col-lg-12">
+                            <label for="category">  
                             <input type="radio" name="category" value="<?= $kid['id'] ?>" >
-                            <?= $kid['title'] ?>
+                            <?= $kid['title'] ?></label>
                           </div>
                         <?php } ?>
                    <?php } ?>
@@ -22,7 +23,7 @@
              
             <?php } ?>
             <div class="col-sm-12">
-                <input type="submit" value="Продолжить" name="submit">
+                <input type="submit" value="Продолжить" class="btn btn-primary" name="submit">
             </div>
                 </form>
         </div>

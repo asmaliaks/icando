@@ -24,6 +24,9 @@ class Performer_UserController extends Zend_Controller_Action{
       // get accepted tasks
       $taskObj = new Performer_Model_DbTable_TasksModel();
       $acceptedTasks = $taskObj->getAcceptedTasks($this->user->id);
+      // get performer's prepositions
+      $prepositionsObj = new Performer_Model_DbTable_TaskPrepositionModel();
+      $userPrepositions = $prepositionsObj->getPerformersPrepositions($this->user->id);
       
       // get category list
       $categoryObj = new Performer_Model_DbTable_Categories();
@@ -129,6 +132,9 @@ class Performer_UserController extends Zend_Controller_Action{
          }
     
 
+      if(!empty($userPrepositions)){ 
+        $this->view->userPrepositions  =$userPrepositions;
+      }
       $this->view->customersTasks = $customersTasks;   
       $this->view->performersTasks = $performesTasks;   
       $this->view->orders = $orders;

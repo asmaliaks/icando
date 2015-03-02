@@ -1,3 +1,4 @@
+<script type="text/javascript" src="<?= $this->baseUrl() ?>/assets/js/jquery/1.8.3/jquery.js"></script> 
 <div class="col-sm-12">
     <?php if($this->error){?>
      <p  class="text-danger"><?= $this->error ?></p>
@@ -8,29 +9,29 @@
             <input id="pass" name="pass" type="password" class="form-control" id="email" placeholder="Пароль">
          </div>
          <div class="form-group">
-            <input id="passConf" type="password" class="form-control" id="email" placeholder="Потверждение">
+            <input id="passConfRec" type="password" class="form-control" id="email" placeholder="Потверждение">
          </div>
          <p id="passError" class="text-danger" style="display: none">Пароли не совпадают</p>
-         <button id="submit" style="display: none" class="btn btn-default">Изменить</button>
+         <button id="submitRec" style="display: none" class="btn  btn-block btn-primary">Изменить</button>
      </form>
     <?php }?> 
 </div>
 <script>
 $(document).ready(function(){
     $('#passError').hide();
-    $('#passConf').keyup(function(){
-        checkPass();
+    $('#passConfRec').keyup(function(){
+        checkPassRec();
     });
 });
-function checkPass(){
+function checkPassRec(){
     var pass = $('#pass').val();
     var passConf = $('#passConf').val();
     if(pass == passConf){
         $('#passError').hide(); 
-        $('#submit').show(); 
+        $('#submitRec').show(); 
     }else{
         $('#passError').show(); 
-        $('#submit').hide(); 
+        $('#submitRec').hide(); 
     }
 }
 </script>

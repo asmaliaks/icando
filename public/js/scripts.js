@@ -1,3 +1,45 @@
+function recoveryPass(e){
+   
+    var email = $('#email').val();
+    if(checkEmail(email)){
+       
+       console.log(response);
+    }else{
+//        console.log(checkEmail(email));
+    }
+}
+
+function checkEmail(email){
+    $('#error').hide();
+    $('#success').hide();
+    $('#submit').hide();
+    $('#preloader').show();
+    var email = $('#email').val();
+        $.ajax({
+          type: 'POST',
+          url: '/registration/check-email',
+          data: {email: email},
+          success: function(data){
+              if(data === 'false'){
+                  $('#submit').show();
+                  $('#preloader').hide();
+                  $('#error').show();
+              }else{
+                  $.ajax({
+                      type: 'POST',
+                      url: '/registration/send-pass-email',
+                      data: {email: email},
+                      success: function(data){
+                         $('#submit').show();
+                         $('#preloader').hide();
+                         $('#success').show();
+                      }
+                   });
+              }    
+        }
+        }); 
+}
+
 function login(){
     $('#authError').hide();
   var login = $('#login-user').val();
@@ -92,10 +134,10 @@ function checkPass(){console.log('checkPass');
    var passConf = $('#passConf').val();
    if(passConf === pass){
        $('#passError').hide();
-      $('#submit').prop('disabled', false);
+       $('#submitReg').prop('disabled', false);
    }else{
        $('#passError').show();
-       $('#submit').prop('disabled', true);
+       $('#submitReg').prop('disabled', true);
    }
 }
 

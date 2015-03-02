@@ -17,6 +17,18 @@ class Admin_Model_DbTable_Users extends Zend_Db_Table_Abstract{
             return false;
         }
     }
+    
+    public function getBalanceSmaller($userId, $price){
+        $user = $this->getUserById($userId);
+        $percentage = $price*15;
+        $percentage = $percentage*100;
+        $finalBalance = $user['balance']-$percentage;
+        $data = array('balnce' => $finalBalance);
+       
+        $where = $this->getAdapter()->quoteInto('id = ?', $userId);
+        $this->update($data, $where);
+    }
+    
     public function getCustomers(){
         $select = $this->select('*')->where('role = ?', 'customer');
         $result = $this->fetchAll($select);

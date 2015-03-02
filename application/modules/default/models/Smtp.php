@@ -39,7 +39,7 @@ class Default_Model_Smtp{
     * @return bool|string В случаи отправки вернет true, иначе текст ошибки    *
     */
     function send($mailTo, $subject, $message, $headers) {
-$mailTo = "asmaliaks@gmail.com";
+//$mailTo = "asmaliaks@gmail.com";
         
         $contentMail = "Date: " . date("D, d M Y H:i:s") . " UT\r\n";
         $contentMail .= 'Subject: =?' . $this->smtp_charset . '?B?'  . base64_encode($subject) . "=?=\r\n";

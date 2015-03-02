@@ -85,6 +85,12 @@ class Customer_FeedbackController extends Zend_Controller_Action{
                         $message = "Статус задачи ".$task['title']." на \"Закрыта\"";
                         $headers = 'From: no_reply@icando.by';
                         $smtpObj->send($performer['email'], 'Статус задачи', $message, $headers);
+                        
+                        //  get ballance from performer
+                        $usersObj->getBalanceSmaller($task['customer_id'], $task['customers_price']);
+                        // remove balance reserve
+                        $balanceReserveObj  = new Default_Model_DbTable_BalanceReserve();
+                        $balanceReserveObj->removeReserve($task['id'],$task['performer_id']);
                     }
                 }
                     

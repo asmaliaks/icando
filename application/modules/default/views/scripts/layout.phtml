@@ -146,6 +146,42 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
 </div>-->
 
 
+<!-- Modal Forgot start -->
+<div class="modal signUpContent fade" id="ModalForgotPass" tabindex="-1" role="dialog" >
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
+        <h3 class="modal-title-site text-center" > Восстановление пароля </h3>
+      </div>
+      <div class="modal-body">
+        <div class="form-group login-username">
+            <p id="error" style="display: none" class="text-danger">Пользователь с таким адресом не зарегестрирован</p>
+            <p id="success" style="display: none" class="text-success">Проверьте ваш почтовый ящик</p>
+          <div >
+            <input type="text" class="form-control" id="email" placeholder="Email">
+          </div>
+        </div>
+        <div >
+          <div >
+            <button id="submit"  onclick="checkEmail()" class="btn  btn-block btn-primary">Восстановить</button>
+            <img id="preloader" style="display:none" src="<?= $this->baseUrl() ?>/images/blue_preloader.gif" width="55">
+          </div>
+        </div>
+        <!--userForm--> 
+        
+      </div>
+      <div class="modal-footer">
+        <p class="text-center"> Нет аккаунта? <a data-toggle="modal"  data-dismiss="modal" href="#ModalSignup">Зарегистрироваться</a> <br>
+        
+      </div>
+    </div>
+    <!-- /.modal-content --> 
+    
+  </div>
+  <!-- /.modal-dialog --> 
+  
+</div>
 <!-- Modal Login start -->
 <div class="modal signUpContent fade" id="ModalLogin" tabindex="-1" role="dialog" >
   <div class="modal-dialog ">
@@ -181,7 +217,7 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
       </div>
       <div class="modal-footer">
         <p class="text-center"> Нет аккаунта? <a data-toggle="modal"  data-dismiss="modal" href="#ModalSignup">Зарегистрироваться</a> <br>
-          <a href="forgot-password.html" > Забыли пароль? </a> </p>
+            <a href="#ModalForgotPass" data-toggle="modal"  data-dismiss="modal" > Забыли пароль? </a> </p>
       </div>
     </div>
     <!-- /.modal-content --> 
@@ -279,7 +315,7 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
         </div>-->
         <div >
           <div >
-            <input name="submit" id="submit" disabled="disabled" onclick="register()" class="btn  btn-block btn-lg btn-primary" value="REGISTER" type="submit">
+            <input name="submit" id="submitReg" disabled="disabled" onclick="register()" class="btn  btn-block btn-lg btn-primary" value="REGISTER" type="submit">
           </div>
         </div>
         <!--userForm--> 
