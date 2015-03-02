@@ -159,7 +159,7 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
             <p id="error" style="display: none" class="text-danger">Пользователь с таким адресом не зарегестрирован</p>
             <p id="success" style="display: none" class="text-success">Проверьте ваш почтовый ящик</p>
           <div >
-            <input type="text" class="form-control" id="email" placeholder="Email">
+            <input type="text" class="form-control" id="emailRec" placeholder="Email">
           </div>
         </div>
         <div >
@@ -274,11 +274,15 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
           </div>
           <p class="text-danger" id="sexError" style="display: none" >* Проверьте вводимые данные</p>
         </div>
-        <div class="form-group reg-email">
-          <div >
-            <input name="phonenumber" id="phonenumber" class="form-control input" size="20" placeholder="Номер телефона" type="text">
-          </div>
-            <p class="text-danger" id="phoneError" style="display: none" >* Проверьте вводимые данные</p>
+        <div>
+        <div class="form-group reg-email input-group" style="width: 100%">
+          
+              <span class="input-group-addon">+375</span>
+              <input id="phonenumber" name="phonenumber" class="form-control" placeholder="Номер телефона" type="text">
+           
+            
+        </div>
+        <p class="text-danger" id="phoneError" style="display: none" >* Проверьте вводимые данные</p>
         </div>
         <div class="form-group reg-email">
           <div >
@@ -315,7 +319,8 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
         </div>-->
         <div >
           <div >
-            <input name="submit" id="submitReg" disabled="disabled" onclick="register()" class="btn  btn-block btn-lg btn-primary" value="REGISTER" type="submit">
+            <input name="submit" id="submitReg" onclick="register()" class="btn  btn-block btn-lg btn-primary" value="REGISTER" type="submit">
+            <img id="restrationPreloader" src="<?= $this->baseUrl.'/images/blue_preloader.gif' ?>" width="70" style="display: none" >
           </div>
         </div>
         <!--userForm--> 

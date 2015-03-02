@@ -10,9 +10,14 @@
 	*/
 $(document).ready(function() {
 // main register form
-$('#passConf').bind("keyup",function(){
-    checkPass();
-});
+//var pass = $('#pass').val();
+//var passConf = $('#passpassConf').val();
+//if(pass === passConf){
+//    $('#submitReg').prop('disabled', false);
+//}
+//$('#passConf').bind("keyup",function(){
+//    checkPass();
+//});
 
 
     /*==================================

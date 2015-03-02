@@ -14,7 +14,7 @@ function checkEmail(email){
     $('#success').hide();
     $('#submit').hide();
     $('#preloader').show();
-    var email = $('#email').val();
+    var email = $('#emailRec').val();
         $.ajax({
           type: 'POST',
           url: '/registration/check-email',
@@ -69,48 +69,75 @@ function login(){
 function register(){ console.log('register function');
     $('#mailInvalid').hide();
     $('#mailError').hide();
+    $('#submitReg').hide();
+    $('#restrationPreloader').show();
   var username = $('#username').val();  
   var surname = $('#surname').val();  
   var email = $('#email').val();  
   var phonenumber = $('#phonenumber').val();  
+  phonenumber = '375'+phonenumber;
 
       var sex = $('input[name=sex]:checked').val();
 
   var city = $('#city').val();
   var birthday = $('#birthday').val();
   var pass = $('#pass').val();
+  var passConf = $('#passConf').val();
   $.ajax({
     type: 'POST',
     url: '/registration/index',
-    data: {username: username, surname: surname, phonenumber: phonenumber, email: email, sex: sex, city: city, birthday: birthday, pass: pass},
+    data: {username: username, surname: surname, phonenumber: phonenumber, email: email, sex: sex, city: city, birthday: birthday, pass: pass, passConf: passConf},
     success: function(data){ 
         switch (data) {
             case 'username empty':
                $('#usernameError').show();
+               $('#submitReg').show();
+               $('#restrationPreloader').hide();
                break
             case 'surname empty':
                $('#surnameError').show();
+               $('#submitReg').show();
+               $('#restrationPreloader').hide();
                break
             case 'sex empty':
                $('#sexError').show();
+               $('#submitReg').show();
+               $('#restrationPreloader').hide();
                break
             case 'phone empty':
                $('#phoneError').show();
+               $('#submitReg').show();
+               $('#restrationPreloader').hide();
                break
             case 'city empty':
                $('#cityError').show();
+               $('#submitReg').show();
+               $('#restrationPreloader').hide();
                break
             case 'city empty':
                $('#cityError').show();
+               $('#submitReg').show();
+               $('#restrationPreloader').hide();
                break
             case 'birthday empty':
                $('#birthdayError').show();
+               $('#submitReg').show();
+               $('#restrationPreloader').hide();
                break
             case 'mail taken':
                $('#mailError').show();
+               $('#submitReg').show();
+               $('#restrationPreloader').hide();
                break
             case 'invalid mail':
                $('#mailInvalid').show();
+               $('#submitReg').show();
+               $('#restrationPreloader').hide();
+               break
+            case 'pass':
+               $('#passError').show();
+               $('#submitReg').show();
+               $('#restrationPreloader').hide();
                break
             case 'true':
                 var pathArray = location.href.split( '/' );

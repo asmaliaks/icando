@@ -26,6 +26,8 @@ class RegistrationController extends Zend_Controller_Action{
                 print_r('city empty');exit;
             }else if($request->getParam('birthday') == ''){
                 print_r('birthday empty');exit;
+            }else if($request->getParam('pass') != $request->getParam('passConf')){
+                print_r('pass');exit;
             }
             $email = $request->getParam('email');
             // check if mail exists
@@ -33,10 +35,10 @@ class RegistrationController extends Zend_Controller_Action{
             if($usersModel->checkMail($email)){
                print_r('mail taken');exit;
             }
-            $validator = new Zend_Validate_EmailAddress();
-            if (!$validator->isValid($email)) {
-                print_r('invalid mail');exit;
-            }
+//            $validator = new Zend_Validate_EmailAddress();
+//            if (!$validator->isValid($email)) {
+//                print_r('invalid mail');exit;
+//            }
             $birthDate = $request->getParam('birthday');
             $birthDate = strtotime($birthDate);
             $passStr = $request->getParam('pass');
@@ -47,7 +49,7 @@ class RegistrationController extends Zend_Controller_Action{
                 'username'  => $request->getParam('username'),
                 'surname' => $request->getParam('surname'),
                 'sex' => $request->getParam('sex'),
-                'phonenumber' => $request->getParam('phonenumber'),
+                'phonenumber' => '375'.$request->getParam('phonenumber'),
                 'city' => $request->getParam('city'),
                 'pass' => $pass,
                 'birth_date' => $birthDate,
