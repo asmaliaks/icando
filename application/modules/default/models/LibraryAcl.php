@@ -96,6 +96,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('customer', 'customer:task', 'customers-task-view');
        $this->allow('customer', 'customer:task', 'remove-task');
        $this->allow('customer', 'customer:task', 'view');
+       $this->allow('customer', 'customer:task', 'get-subcats');
        $this->allow('customer', 'customer:task', 'accept-proposition');
        $this->allow('customer', 'customer:feedback', 'leave-feedback');
        $this->allow('customer', 'customer:performers', 'performer-view');
@@ -125,6 +126,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('performer', 'performer:task', 'create-task');
        $this->allow('performer', 'performer:task', 'remove-task');
        $this->allow('performer', 'performer:task', 'accept-proposition');
+       $this->allow('performer', 'performer:task', 'get-subcats');
        $this->allow('performer', 'performer:task', 'performers-view');
        $this->allow('performer', 'performer:task', 'add');
        $this->allow('performer', 'performer:feedback', 'leave-feedback');

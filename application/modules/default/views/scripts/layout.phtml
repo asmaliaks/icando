@@ -319,7 +319,7 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
         </div>-->
         <div >
           <div >
-            <input name="submit" id="submitReg" onclick="register()" class="btn  btn-block btn-lg btn-primary" value="REGISTER" type="submit">
+            <input name="submit" id="submitReg"  class="btn  btn-block btn-lg btn-primary" value="REGISTER" type="submit">
             <img id="restrationPreloader" src="<?= $this->baseUrl.'/images/blue_preloader.gif' ?>" width="70" style="display: none" >
           </div>
         </div>
@@ -540,6 +540,11 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <script>
+
+
+function test(){
+    $('#ModalLogin').modal('show');
+}
   $(function() {
     $( "#birthday" ).datepicker();
   }); 

@@ -5,13 +5,25 @@ class Customer_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
     protected $_name = 'tasks';
     
     public function addTask($data){
-        $this->insert($data);
+        $id = $this->insert($data);
+        return $id;
     }
     
     public function getCustomersTasks($customerId){
         $row = $this->fetchAll($this->select()->where('customer_id = ?', $customerId));
         if($row){
             return $row->toArray();
+        }else{
+            return false;
+        }
+    }
+    public function getCustomersTasksForOffice($customerId){
+        $select = $this->select()
+                ->from(array('t'=>'tasks'))
+                ->where('customer_id='.$customerId.' AND status NOT LIKE ?', 'closed');
+        $result= $this->fetchAll($select);
+        if($result){
+            return $result->toArray();
         }else{
             return false;
         }

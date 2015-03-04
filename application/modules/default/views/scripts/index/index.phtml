@@ -16,7 +16,11 @@
               
              </div>
                 <a href="#" data-toggle="modal" data-target="#ModalLogin" >
-                 <img src="<?= $this->baseUrl().'/images/task_images/'.$lastTask['task_image'] ?>" alt="img" class="img-responsive">
+                 <?php if($lastTask['task_image']){?>   
+                    <img src="<?= $this->baseUrl().'/images/task_images/'.$lastTask['task_image'] ?>" alt="img" class="img-responsive">
+                 <?php }else{ ?>
+                    <img src="<?= $this->baseUrl().'/images/task_images/no-image.png' ?>" alt="img" class="img-responsive">
+                 <?php } ?>   
                 </a>
 <!--              <div class="promotion"> <span class="new-product"> NEW</span> </div>-->
             </div>

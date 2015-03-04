@@ -1,31 +1,191 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <h3>Выберите категорию</h3>
+            <h3>Создание задачи</h3>
         </div>
         <div class="col-lg-12">
-            <form method="POST" action="<?= $this->baseUrl() ?>/customer/task/add-task/">
-            <?php foreach($this->categories as $category){?>
-                   <div class="col-lg-12">
-                      <strong><?= $category['title'] ?></strong>
+            <form method="POST" id="task_form" class="form-inline" enctype="multipart/form-data" action="<?= $this->baseUrl() ?>/customer/task/add-task/">
+                <div class="col-sm-4">
+                    <label  for="cat">Категория</label>
+                    <select class="form-control" onchange="getSubCats()" id="cat" style="width: 100%">
+                        <option></option>
+                        <?php foreach($this->categories as $cat){?>
+                        
+                            <?php if($cat['parent_id'] == 0){?>
+                               <option value="<?= $cat['id'] ?>"><?= $cat['title'] ?></option>
+                            <?php } ?>
+                        <?php }?>
+                    </select>
+                </div>
+                <div class="col-sm-4">
+                    <label  for="cat">Подкатегория</label>
+                    <select class="form-control" id="sub_cat" name="cat" style="width: 100%">
+                        <option value="0"></option>
+                    </select>
+                    <p id="sub_cat_error" class="text-danger" style="display: none">* Выберите категорию</p>
+                </div>
+                <div class="col-sm-4">
+                    <label>Название</label>
+                    <input name="title" type="text" id="title" class="form-control" style="width: 100%">
+                    <p id="title_error" class="text-danger" style="display: none">* Поле не может быть пустым</p>
+                </div>
+                <div class="col-sm-12">
+                    <label>Описание</label>
+                    <textarea name="description" id="description" style="width: 100%" rows="10" class="form-control"></textarea>
+                </div>
+                <div class="col-sm-12">
+                <div class="col-sm-4">
+                    <label>Стоимость</label>
+                    <input type="text" name="price" id="price" class="form-control" style="width: 100%">
+                    <p id="price_error" class="text-danger" style="display: none">* Поле не может быть пустым</p>
+                </div>
+                <div class="col-sm-4">
+                    <label>Дата выполнения</label>
+                    <input type="text" name="final_date" id="final_date" class="form-control" style="width: 100%">
+                    <p id="final_date_error" class="text-danger" style="display: none">* Поле не может быть пустым</p>
+                </div>
+                <div class="col-sm-4">
+                    <label>Дата окончания предложения</label>
+                    <input type="text" name="expiry_date" id="expiry_date" class="form-control" style="width: 100%">
+                    <p id="expiry_date_error" class="text-danger" style="display: none">* Поле не может быть пустым</p>
+                </div>
+                    </div>
+                <div class="col-sm-4">
+                    <label>Изображение</label>
+                    <input type="file" name="image" class="form-control" style="width: 100%">
+                </div>
+                <input type="hidden" value="0" name="docs" style="display: none">
+                <div class="col-sm-4">
+                    <label>Наличие документов</label></br>
+                    
+                        <span>
+                        <input type="checkbox" name="docs" value="1" id="docs" class="form-control" >
+                        Исполнитель обязан иметь при себе расписку</span>
+                    
+                </div>
+                <input type="hidden" name="agree"  value="0">
+                <div class="col-sm-4">
+                   <label>Пользовательское соглашение</label></br>
+                   
+                   
+                      <span>  
+                   <input type="checkbox" name="agree" value="1" id="agree" class="form-control" >
+                         Я согласен/а с <a id="serviceAgreement">требованиями и правилами</a> данного сервиса
+                    </span>
+                   <p id="agree_error" class="text-danger" style="display: none">* Согласитесь с условиями</p>
+                </div>
+                <div class="col-sm-12" id="agreementDiv" style="display: none">
+                   <div class="panel panel-default ">
+                       <div class="panel-heading">
+                            <h4 class="panel-title">
+                                    <a id="terms">Правила использования услуг</a>
+                            </h4>
+                        </div>
+                       <div class="panel-collapse collapse in">
+                        <p>Разнообразный и богатый опыт консультация с широким активом обеспечивает широкому кругу (специалистов) участие в формировании дальнейших направлений развития. Товарищи! консультация с широким активом позволяет оценить значение направлений прогрессивного развития. Равным образом постоянное информационно-пропагандистское обеспечение нашей деятельности играет важную роль в формировании форм развития. Идейные соображения высшего порядка, а также реализация намеченных плановых заданий требуют определения и уточнения систем массового участия. Таким образом реализация намеченных плановых заданий представляет собой интересный эксперимент проверки форм развития. Равным образом постоянное информационно-пропагандистское обеспечение нашей деятельности обеспечивает широкому кругу (специалистов) участие в формировании существенных финансовых и административных условий.</p>
+                       </div>
                    </div>
-                   <?php if(!empty($category['children'])){?>
-                      <div style="padding-left: 25px">
-                        <?php foreach($category['children'] as $kid){?>
-                          <div class="col-lg-12">
-                            <label for="category">  
-                            <input type="radio" name="category" value="<?= $kid['id'] ?>" >
-                            <?= $kid['title'] ?></label>
-                          </div>
-                        <?php } ?>
-                   <?php } ?>
-                      </div>
-             
-            <?php } ?>
+                </div>
+                
+            </form>
             <div class="col-sm-12">
-                <input type="submit" value="Продолжить" class="btn btn-primary" name="submit">
-            </div>
-                </form>
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4" style="padding-top: 10px; padding-bottom:10px; text-align: center">
+                    <img id="taskSubmPrel" src="<?= $this->baseUrl().'/images/blue_preloader.gif' ?>" width="60" style="display: none">
+                    <button style=" width:100%;" class="btn btn-primary" id="submitTask" class="btn btn-primary" >Создать</button>
+                </div>
+                <div class="col-sm-4"></div>
+                </div>
         </div>
     </div>
-</div>  
+</div> 
+<script>
+
+$(document).ready(function(){
+    $('#submitTask').bind("click", function(){
+        newTask();
+    });
+    $('#serviceAgreement').bind("click", function(){
+        $('#agreementDiv').toggle(400);
+    });
+    $('#terms').bind("click", function(){
+        $('#agreementDiv').toggle(400);
+    });
+});
+    
+  $(function() {
+    $( "#final_date" ).datepicker();
+  }); 
+  $(function() {
+    $( "#expiry_date" ).datepicker();
+  }); 
+  
+function newTask(){
+    $('#sub_cat_error').hide();
+    $('#title_error').hide(); 
+    $('#price_error').hide(); 
+    $('#date_error').hide();
+    $('#finish_date_error').hide(); 
+    $('#agree_error').hide(); 
+    
+    var catId = $('#sub_cat :selected').val();
+    var title = $('#title').val();
+    var description = $('#description').val();
+    var price = $('#price').val();
+    var date = $('#final_date').val();
+    var finishDate = $('#expiry_date').val();
+    if($('#agree').is(':checked')){
+        var agree = '1';
+    }else{
+        var agree = '0';
+    }
+
+ if(catId === '0' || title === '' || price === '' || date === '' || finishDate === '' || agree === '0'){
+//    if( title === '' || price === '' || date === '' || finishDate === '' || agree === '0'){
+        if(catId === '0'){
+            $('#sub_cat_error').show();
+        }
+        if(title === ''){
+           $('#title_error').show(); 
+        }
+        if(price === ''){
+           $('#price_error').show(); 
+        }
+        if(date === ''){
+           $('#final_date_error').show(); 
+        }
+        if(finishDate === ''){
+           $('#expiry_date_error').show(); 
+        }
+        if(agree === '0'){
+           $('#agree_error').show(); 
+        }
+    }else{
+        $('#submitTask').hide()
+        $('#taskSubmPrel').show()
+        $('#task_form').submit();
+    }
+    
+}  
+
+  
+function getSubCats(){
+    $('#sub_cat option').remove();
+    $('#sub_cat').append('<option>Ждемс...</option>');
+    var catId = $('#cat option:selected').val();
+    $.ajax({
+        type: 'POST',
+        url: '<?= $this->baseUrl.'/customer/task/get-subcats/'; ?>',
+        data: {catId: catId},
+        success: function(response){
+            if(response){
+                $('#sub_cat option').remove();
+                $('#sub_cat').append(response);
+            }else{
+                $('#sub_cat option').remove();
+            }
+        }
+    }); 
+}
+</script>

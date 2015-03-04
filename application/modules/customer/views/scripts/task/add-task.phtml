@@ -1,11 +1,9 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <?php if($_SESSION['category']['catId']){?>
+            
                <?= $this->form ?>
-            <?php }else{?>
-            Вернитесь на шаг назад и выберите <a href="<?= $this->baseUrl()?>/customer/task/new-task">категорию</a>
-            <?php } ?>
+            
         </div>    
     </div>
 </div>

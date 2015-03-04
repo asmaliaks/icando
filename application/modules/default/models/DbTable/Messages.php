@@ -136,7 +136,8 @@ class Default_Model_DbTable_Messages extends Zend_Db_Table_Abstract
                 'm.user_from = uf.id',
                         array(
                             'uf.username as uf_username',
-                            'uf.surname as uf_surname'))
+                            'uf.image as uf_image',
+                            'uf.surname as uf_surname',))
                 ->order('created ASC')
                 ->setIntegrityCheck(false);
 

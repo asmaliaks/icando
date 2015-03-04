@@ -55,13 +55,15 @@ class Performer_MessagesController extends Zend_Controller_Action{
                 foreach($unreadMessages as $message){
                     if($n==0){
                         $messages = '<div class="list-group list-group-item" style="text-align:'
-                                . ' -webkit-right;"><h4 class="list-group-item-heading">'
+                                . ' -webkit-right;"><img src="/images/users_images/'.$message['uf_image'] .'" height="60" ></br>'
+                                . '<h4 class="list-group-item-heading">'
                                 . $message['uf_username']." ".$message['uf_surname'].'</h4>'
                                 . '<small>'. date("h:i d.m.Y",$message['created']).'</small>'
                                 . '<p class="list-group-item-text">'. $message['text'].'</p></div>';
                     }else{
                         $messages = $messages.'<div class="list-group list-group-item" style="text-align:'
-                                . ' -webkit-right;"><h4 class="list-group-item-heading">'
+                                . ' -webkit-right;"><img src="/images/users_images/'.$message['uf_image'] .'" height="60" ></br>'
+                                . '<h4 class="list-group-item-heading">'
                                 . $message['uf_username']." ".$message['uf_surname'].'</h4>'
                                 . '<small>'. date("h:i d.m.Y",$message['created']).'</small>'
                                 . '<p class="list-group-item-text">'. $message['text'].'</p></div>';

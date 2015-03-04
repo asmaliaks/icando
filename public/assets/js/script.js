@@ -9,6 +9,11 @@
 	responsive fix
 	*/
 $(document).ready(function() {
+    $('#submitReg').bind("click",function(){
+        register();
+    });
+
+    
 // main register form
 //var pass = $('#pass').val();
 //var passConf = $('#passpassConf').val();
@@ -401,7 +406,7 @@ $(document).ready(function() {
 
 
     // customs select by minimalect
-    $("select").minimalect();
+//    $("select").minimalect();
 
     // cart quantity changer sniper
     $("input[name='quanitySniper']").TouchSpin({

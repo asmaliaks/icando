@@ -22,6 +22,7 @@ $application = new Zend_Application(
     APPLICATION_ENV,
     APPLICATION_PATH . '/configs/application.ini'
 );
+// for uploading files
 
 // SMTP constants definding
 define('ADMIN_MAIL','asmaliaks@gmail.com');

@@ -54,7 +54,7 @@ class SAuthController extends Zend_Controller_Action{
            $params = array(
            'user_id'         => $token['user_id'],
            'v'=>'5.28',
-           'fields'       => 'uid,first_name,last_name,screen_name,sex,domain,bdate,photo_big,city,country,email',
+           'fields'       => 'uid,first_name,last_name,screen_name,sex,domain,bdate,photo_big,city,country,email,has_mobile',
            'access_token' => $token['access_token']
            );
             $url = 'https://api.vk.com/method/users.get' . '?' . urldecode(http_build_query($params));
@@ -71,6 +71,7 @@ class SAuthController extends Zend_Controller_Action{
             if(!$user){
                 // if user is not registred
                 $userInfo = $userInfo['response']['0'];
+
                 if($userInfo['sex'] == 2){
                     $userInfo['sex'] = 'male';
                 }else if($userInfo['sex'] == 1){

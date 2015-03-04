@@ -91,10 +91,11 @@ class Customer_FeedbackController extends Zend_Controller_Action{
                         // remove balance reserve
                         $balanceReserveObj  = new Default_Model_DbTable_BalanceReserve();
                         $balanceReserveObj->removeReserve($task['id'],$task['performer_id']);
+                        echo 'true';exit;
                     }
                 }
                     
-                echo 'true';
+                echo 'true';exit;
             }
         }
     } 

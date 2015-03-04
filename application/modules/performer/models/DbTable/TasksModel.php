@@ -5,7 +5,8 @@ class Performer_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
     protected $_name = 'tasks';
     
     public function addTask($data){
-        $this->insert($data);
+       $id = $this->insert($data);
+       return $id;
     }
     
     public function getPerformersTasks($customerId){

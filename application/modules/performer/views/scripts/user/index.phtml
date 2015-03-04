@@ -364,8 +364,9 @@
                            <div style="padding-left: 25px">
                              <?php foreach($category['children'] as $kid){?>
                                <div class="col-lg-12">
-                                 <input type="checkbox"id="check<?= $kid['id'] ?>" name="category" <?php if($kid['user_id']){?> checked <?php } ?> onchange="changeCategory(<?= $kid['id'] ?>);" >
-                                 <?= $kid['title'] ?>
+                                 
+                                 <input type="checkbox" id="check<?= $kid['id'] ?>" name="category" <?php if($kid['user_id']){?> checked <?php } ?> onchange="changeCategory(<?= $kid['id'] ?>);" >
+                                 <label for="category"><?= $kid['title'] ?></label>
                                  <img id="prel<?= $kid['id'] ?>" style="display:none" src="<?= $this->baseUrl() ?>/images/blue_preloader.gif" width="45">
                                </div>
                              <?php } ?>

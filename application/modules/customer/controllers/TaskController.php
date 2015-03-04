@@ -40,59 +40,79 @@ class Customer_TaskController extends Zend_Controller_Action{
         // sending data to the view
         $this->view->categories = $categories;
     }
-    
+   public function getSubcatsAction(){
+       $request = $this->getRequest();
+       if($request->isPost()){
+           $id = $request->getParam('catId');
+           $categoryObj = new Default_Model_DbTable_Categories();
+           $categories = $categoryObj->getCategoriesByParentId($id);
+           $n=0;
+           foreach($categories as $cat){
+               if($n==0){
+                   $resultString = '<option value="0">Выберите...</option><option value="'.$cat['id'].'">'.$cat['title'].'</option>';
+               }else{
+                   $resultString = $resultString.'<option value="'.$cat['id'].'">'.$cat['title'].'</option>';
+               }
+               $n++;
+           }
+           print_r($resultString);exit;
+       }
+   } 
     public function addTaskAction(){
+        
         $request = $this->getRequest();
-        $form = new Customer_Form_TaskForm();
         if($request->isPost()){
             $params = $request->getParams();
-            if($params['title']){
-                if($form->isValid($this->_request->getPost())){
-                $finalDateUnix = strtotime($form->getValue('final_date'));
-                $data = array(
-                    'customer_id' => $this->user->id,
-                    'customers_price' => $form->getValue('customers_price'),
-                    'category_id' => $form->getValue('category_id'),
-                    'title' => $form->getValue('title'),
-                    'description' => $form->getValue('description'),
-                    'final_date' => $finalDateUnix,
-                    'customers_price' => $form->getValue('customers_price'),
-                    'task_image' => $form->getValue('task_image'),
-                    'created_at' => time(),
-                );
-
-                    $tasksObj = new Customer_Model_DbTable_TasksModel();
-                    $id = $tasksObj->addTask($data);
-                    // send mail to admin
-                    $smtpObj = new Default_Model_Smtp();
-                    $message = "Пользователь ".$this->user->username." ".$this->user->surmname." "
-                            . "создал задачу ".$data['title'];
-                    $message = wordwrap($message, 70);
-                    $headers = 'From: no_reply@icando.by';
-                    $smtpObj->send(ADMIN_MAIL, 'Создана задача', $message, $headers);
-                    // send mail to customer
-                    $message = "Вы успешно создали задачу ".$data['title'];
-                    $message = wordwrap($message, 70);
-                    $headers = 'From: no_reply@icando.by';
-                    $smtpObj->send($this->user->email, 'Создана задача', $message, $headers);
-                    $this->_redirect('/customer/office/index');
-                }else{
-                    $catNms = new Zend_Session_Namespace('category');
-                    
-                    $this->view->catId = $catNms->catId;
-                    $this->view->form = $form;
+            $finalDateUnix = strtotime($params['final_date']);
+            $expiryDate  = strtotime($params['expiry_date']);
+            $data = array(
+                'title'=>$params['title'],
+                'customer_id'=>$this->user->id,
+                'customers_price'=>$params['price'],
+                'price'=>$params['price'],
+                'category_id'=>$params['cat'],
+                'description'=>$params['description'],
+                'final_date'=>$finalDateUnix,
+                'expiry_date'=>$expiryDate,
+                'status'=>'non_taken',
+                'created_at'=>time(),
+                'docs' => $params['docs'],
+            );
+           
+            // upload image
+            if($_FILES['image']){
+                $dir = (int)is_dir($_SERVER['DOCUMENT_ROOT']."/images/task_images/");
+                if( !$dir ){					
+                        //die($_SERVER['DOCUMENT_ROOT'].$file_path.'/');				
+                        mkdir( $_SERVER['DOCUMENT_ROOT']."/images/task_images/" );
+                        chmod( $_SERVER['DOCUMENT_ROOT']."/images/task_images/", 0777 );				
                 }
-            }else{
-                $category = $request->getParam('category');
-                $catNms = new Zend_Session_Namespace('category');
-                $catNms->catId = $category;
-                $catNms->setExpirationHops(1);
-                // caling form 
-                $form = new Customer_Form_TaskForm();
-
-                $this->view->form = $form;
+                if(is_uploaded_file($_FILES["image"]["tmp_name"]))
+                {
+              
+                  copy($_FILES["image"]["tmp_name"], DOCUMENT_ROOT."/images/task_images/".$_FILES["image"]["name"]);
+//                  copy($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT']."/images/task_images/".$_FILES["image"]["name"]);
+                  $data['task_image'] = $_FILES['image']['name'];
+                }
             }
+            $tasksObj = new Customer_Model_DbTable_TasksModel();
+            $taskId = $tasksObj->addTask($data);
+            // send mail to admin
+            $smtpObj = new Default_Model_Smtp();
+            $message = 'Пользователь '.$this->user->username.' '.$this->user->surmname.' '
+                    . 'создал задачу '.$_SERVER['HTTP_ORIGIN'].'/admin/tasks/view/id/'.$taskId.' '.$data['title'].' ';
+            
+            $message = wordwrap($message, 70);
+            $headers = 'From: no_reply@icando.by';
+            $smtpObj->send(ADMIN_MAIL, 'Создана задача', $message, $headers);
+            // send mail to customer
+            $message = 'Вы успешно создали задачу '.$_SERVER['HTTP_ORIGIN'].'/customer/task/view/id/'.$taskId.' '.$data['title'].' ';
+            $message = wordwrap($message, 70);
+            $headers = 'From: no_reply@icando.by';
+            $smtpObj->send($this->user->email, 'Создана задача', $message, $headers);
+            $this->_redirect('/customer/office/index');
         }
+
     }
     
 

@@ -19,7 +19,7 @@ class Customer_OfficeController extends Zend_Controller_Action{
 //        $user = $usersModel->getCustomerById($this->user->id);
         // get customer's tasks
         $tasksObj = new Customer_Model_DbTable_TasksModel();
-        $customersTasks = $tasksObj->getCustomersTasks($this->user->id);
+        $customersTasks = $tasksObj->getCustomersTasksForOffice($this->user->id);
         
         $request = $this->getRequest();
              // user data form   
@@ -82,7 +82,7 @@ class Customer_OfficeController extends Zend_Controller_Action{
             // get user's rating
             $feedbackObj = new Customer_Model_DbTable_FeedbackModel();
             $rating = $feedbackObj->countCustomersRating($this->user->id);
-            $this->view->rating = $rating;
+            $this->view->rating = floor($rating);
             $this->view->closedTasks = $closedTasks;
         }
     
