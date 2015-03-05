@@ -24,6 +24,14 @@ class Customer_PerformersController extends Zend_Controller_Action{
         // get user's categories
         $userCatObj = new Customer_Model_DbTable_UserCategory();
         $usersCategories = $userCatObj->getUsersCategories($performerId);
+        // get all  feedback left for user
+        $feedbackObj = new Default_Model_Feedback();
+        $performersFeedbackList = $feedbackObj->getPerformersFeedbacks($performerId);
+        
+                    //   pagination    
+        $feedbacks = new Zend_Paginator(new Zend_Paginator_Adapter_DbSelect($performersFeedbackList));
+        $feedbacks->setItemCountPerPage(10)
+                ->setCurrentPageNumber($this->getParam('page', 1));
         
         if($closedTasks){
             // get user's rating
@@ -33,6 +41,7 @@ class Customer_PerformersController extends Zend_Controller_Action{
             $this->view->closedTasks = $closedTasks;
         }
 
+        $this->view->feedbacks = $feedbacks;
         $this->view->usersCategories = $usersCategories;
         $this->view->performer = $performer;
     }

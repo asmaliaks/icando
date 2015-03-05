@@ -23,7 +23,13 @@ class Performer_CustomerController extends Zend_Controller_Action{
         $customersTasks = $tasksObj->getCustomersTasks($customerId);
         // get customer's feedbacks
         $feedbackObj = new Performer_Model_DbTable_FeedbackModel();
-        $feedbacks = $feedbackObj->getCustomersFeedbacks($customerId);
+        $feedbackListObj = new Default_Model_Feedback();
+        $feedbackList = $feedbackListObj->getPerformersFeedbacks($customerId);
+        
+        $feedbacks = new Zend_Paginator(new Zend_Paginator_Adapter_DbSelect($feedbackList));
+        $feedbacks->setItemCountPerPage(10)
+                ->setCurrentPageNumber($this->getParam('page', 1));
+        
         $closedCustomersTasks = $tasksObj->getCustomersTasksClosed($customerId);
         if($closedCustomersTasks){
                 $customersRating = $feedbackObj->countCustomersRating($customerId);

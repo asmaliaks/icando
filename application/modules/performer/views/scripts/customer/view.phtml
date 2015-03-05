@@ -28,7 +28,7 @@
     <!-- right column -->
     <div class="col-lg-6 col-md-6 col-sm-5">
     
-      <h1 class="product-title"><?= $this->user['username']." ".$this->user['surname']?></h1>
+      <h1 class="product-title"><?= $this->user['username']?></h1>
       <h3 class="product-code">Возраст : <?php $unixAge = time() - $this->user['birth_date'];
                 $unixYears = $unixAge/31536000;
                 $age = floor($unixYears);
@@ -140,50 +140,81 @@
              <div class="product-share clearfix"></div>
       <?php if($this->feedbacks){?>
         <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12">
-      
-      <div class="row userInfo">
-        <div class="col-lg-12">
-          <h2 class="block-title-2"> Отзывы о заказчике </h2>
-        </div>
-        <div class="col-xs-12 col-sm-12">
+        <div class="col-lg-12" style="padding-bottom: 10px">
+            <h3 class="block-title-3">
+                Отзывы  
+            </h3>
+            <?php foreach($this->feedbacks as $feedback){?>
+            <div class="col-sm-12">
+            <div class="col-lg-3"> 
+                <?php if($feedback['kind'] == 'negative'){ ?>
+                        <p class="text-danger">Отрицательный</p>
+                <?php }else{?>
+                        <p class="text-success">Положительный</p>
+                        <span class="selected-color"><strong>Оценка</strong></span>
+                        <ul class="swatches Color">
+                            <?php switch ($feedback['rating']){
+                                case 1:?>
+                              <li> <a style="background-color:#f1f40e"> </a> </li>
+                              <li > <a style="background-color:#adadad"> </a> </li>
+                              <li > <a style="background-color:#adadad"> </a> </li>
+                              <li > <a style="background-color:#adadad"> </a> </li>
+                              <li > <a style="background-color:#adadad"> </a> </li>
+                            <?php break;
+                                case 2:
+                        ?>
+                              <li> <a style="background-color:#f1f40e"> </a> </li>
+                              <li> <a style="background-color:#f1f40e"> </a> </li>
+                              <li > <a style="background-color:#adadad"> </a> </li>
+                              <li > <a style="background-color:#adadad"> </a> </li>
+                              <li > <a style="background-color:#adadad"> </a> </li>
+                          <?php
+                          break;
+                          case 3: ?>  
+                              <li> <a style="background-color:#f1f40e"> </a> </li>
+                              <li> <a style="background-color:#f1f40e"> </a> </li>
+                              <li> <a style="background-color:#f1f40e"> </a> </li>
+                              <li > <a style="background-color:#adadad"> </a> </li>
+                              <li > <a style="background-color:#adadad"> </a> </li>
+                          <?php break;
+                                case 4:
+                      ?>      <li> <a style="background-color:#f1f40e"> </a> </li>
+                              <li> <a style="background-color:#f1f40e"> </a> </li>
+                              <li> <a style="background-color:#f1f40e"> </a> </li>
+                              <li> <a style="background-color:#f1f40e"> </a> </li>
+                              <li > <a style="background-color:#adadad"> </a> </li>
+                            <?php break;
+                                case 5:
+                      ?>      <li> <a style="background-color:#f1f40e"> </a> </li>
+                              <li> <a style="background-color:#f1f40e"> </a> </li>
+                              <li> <a style="background-color:#f1f40e"> </a> </li>
+                              <li> <a style="background-color:#f1f40e"> </a> </li>
+                              <li> <a style="background-color:#f1f40e"> </a> </li>
+                            <?php 
+                            break;
+                            default: ?>
+                            <li > <a style="background-color:#adadad"> </a> </li>
+                            <li > <a style="background-color:#adadad"> </a> </li>
+                            <li > <a style="background-color:#adadad"> </a> </li>
+                            <li > <a style="background-color:#adadad"> </a> </li>
+                            <li > <a style="background-color:#adadad"> </a> </li>
+                            <?php }?>
+                                          </ul>
+                                  <?php } ?>
 
-             <?php foreach($this->feedbacks as $feedback){?>
-              <div class="col-xs-2 col-sm-2">
-                <a href="<?=$this->baseUrl().'/performer/task/view/id/'.$feedback['task_id'] ?>">
-                    <img src="<?= $this->baseUrl().'/images/users_images/'.$feedback['u_image'] ?>" style="width: 100%">
-                </a>
-              </div>
-              <div class="col-xs-2 col-sm-2">
-                    <h4> <a href="<?=$this->baseUrl().'/performer/task/view/id/'.$feedback['task_id'] ?>"><?= $feedback['t_title'] ?></a> </h4>
-                    <span class="size">
-                        <?php if($feedback['kind'] == 'positive'){?>
-                        Положительный
-                        <?php }else{ ?>
-                        Отрицательный
-                        <?php }?>
-                    </span>
-                    <div class="price"> <span><?= $feedback['rating'] ?> баллов</span> </div>
-                  </div>
-              
-          <div class="col-xs-8 col-sm-8">
-              <p><?= $feedback['text'] ?></p>
-          </div>
- </div>
-                
-              
-             <?php } ?>
-
+            </div>
+            <div class="col-lg-2">
+                <img class="img-thumbnail" width="100%" src="<?= $this->baseUrl().'/images/users_images/'.$feedback['u_image'] ?>">
+            </div>
+            <div class="col-lg-7"> 
+                <h2><?=  $feedback['u_username']?></h2>
+                    <p><?= $feedback['text'] ?></p>
+                    <h3 class="product-code"><?= date("d.m.Y",$feedback['created']); ?></h3>
+            </div>
+            </div>
+            <?php } ?>
+            <?=  $this->paginationControl($this->feedbacks, 'Sliding', 'pagination.phtml') ?>
         </div>
-        
-<!--        <div class="col-lg-12 clearfix">
-          <ul class="pager">
-            <li class="previous pull-right"><a href="index.html"> <i class="fa fa-home"></i> Go to Shop </a></li>
-            <li class="next pull-left"><a href="account.html"> ← Back to My Account</a></li>
-          </ul>
-        </div>-->
-        
-      </div>
       <!--/row end--> 
       
     </div>

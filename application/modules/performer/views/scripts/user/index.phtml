@@ -249,7 +249,7 @@
             <?php foreach($this->acceptedTasks as $task){?>
                     <tr>
                         <td><a href="<?= $this->baseUrl().'/performer/task/view/id/'.$task['id'] ?>"><?= $task['title'] ?></a></td>
-                        <td><a href="<?= $this->baseUrl().'/performer/customer/view/id/'.$task['customer_id'] ?>"><?= $task['u_username'].' '.$task['u_surname'] ?></a></td>
+                        <td><a href="<?= $this->baseUrl().'/performer/customer/view/id/'.$task['customer_id'] ?>"><?= $task['u_username'] ?></a></td>
                         <td><?= $task['customers_price'] ?></td>
                         <td><?= date('d.m.Y', $task['final_date']) ?></td>
                         <td>
@@ -329,7 +329,7 @@
             <?php foreach($this->userPrepositions as $prep){?>
             <tr >
                 <td><a href="<?= $this->baseUrl().'/performer/task/view/id/'.$prep['t_id']?>"><?= $prep['t_title'] ?></a></td>
-                <td><a href="<?= $this->baseUrl().'/performer/customer/view/id/'.$prep['t_customer_id'] ?>"><?= $prep['cust_surname'].' '.$prep['cust_username'] ?></td>
+                <td><a href="<?= $this->baseUrl().'/performer/customer/view/id/'.$prep['t_customer_id'] ?>"><?= $prep['cust_username'] ?></td>
                 
             </tr>
             <?php } ?>
