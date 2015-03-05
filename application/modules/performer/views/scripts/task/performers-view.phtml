@@ -50,12 +50,28 @@
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Детали</a></li>
-    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Сообщения</a></li>
+    <?php if($this->task['status'] == 'taken'){?>
+    <li role="presentation" id="messTab">
+        <a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">
+            Сообщения
+            <span id="unreadAmount" class="badge"<?php if(!$this->unreadAmount){?> style="display:none" <?php } ?>>
+                <?= $this->unreadAmount ?>
+            </span>
+            
+        </a>
+    </li>
+    <?php } ?>
     <?php if($this->prepositions){
         $count = count($this->prepositions);
         ?>
-       <li role="presentation"><a href="#apps" aria-controls="apps" role="tab" data-toggle="tab">Заявки (<?= $count ?>)</a></li>
+       <li role="presentation">
+           <a href="#apps" aria-controls="apps" role="tab" data-toggle="tab">
+               Заявки <span id="unreadAmount" class="badge"<?php if($count <= 0){?> style="display:none" <?php } ?>>
+                <?= $count ?>
+            </span></a>
+       </li>
     <?php } ?>
+       <li role="presentation"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Комментарии</a></li>
   </ul>
 
   <!-- Tab panes -->
@@ -152,15 +168,96 @@
         </div>
         <?php } ?>
     </div>
+      <?php if($this->task['status'] == 'taken'){?>
     <div role="tabpanel" class="tab-pane" id="messages">
-       Сообщения
+            <div id="messagesArea" style="height: 300px; overflow-y:scroll">
+                <?php if($this->taskMessages){?>
+                <?php foreach($this->taskMessages as $message){?>
+                    <?php if($message['user_from'] == $this->currentUser->id){?>
+                        <div class="list-group list-group-item">
+                            <img src="<?= $this->baseUrl().'/images/users_images/'.$message['uf_image'] ?>" height="60" ></br>
+                             <h4 class="list-group-item-heading"><?= $this->currentUser->username ?> <?= $this->currentUser->surname ?></h4>
+                             <small><?= date("h:i d.m.Y",$message['created']) ?></small>
+                             <p class="list-group-item-text"><?= $message['text'] ?></p>
+                        </div>
+                    <?php }else{?>
+                        <div class="list-group list-group-item" style="text-align: -webkit-right;">
+                            <img src="<?= $this->baseUrl().'/images/users_images/'.$message['uf_image'] ?>" height="60" ></br>
+                             <h4 class="list-group-item-heading"><?= $message['uf_username']." ".$message['uf_surname'] ?></h4>
+                             <small><?= date("h:i d.m.Y",$message['created']) ?></small>
+                             <p class="list-group-item-text"><?= $message['text']?></p>
+                        </div>
+                    <?php } ?>
+
+                <?php }?>
+                <?php }else{?>
+                    Отправте первое сообщение
+                <?php }?>
+            </div> 
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Сообщение</label>
+                    <input type="text" id="message" class="form-control" placeholder="Текст...">
+                </div>            
+                <button id="senMessageBut" class="btn btn-primary" onclick="sendMessage(<?= $this->task['id'] ?>, <?= $this->currentUser->id ?>,<?= $this->task['performer_id'] ?>)">Послать</button>  
+                <img style="display: none" id="messagePrel" src="<?= $this->baseUrl()?>/images/blue_preloader.gif" width="50">            
+            <h3 class="block-title-3"></h3>
     </div>
+      <?php } ?>
+            <div role="tabpanel" class="tab-pane" id="comments">
+                <?php if(!$this->comments){?>
+                   <div class="col-sm-12">
+                     <div class="list-group list-group-item">
+                       <h3 class="list-group-item-heading">Сообщений пока нет</h3>
+                     </div>
+                   </div>
+          <?php }else{ ?>
+          <div class="col-sm-12"> 
+              <?php foreach($this->comments as $comment){?>
+              <div class="col-sm-12" style="padding-bottom: 10px">
+                 
+                    <?php if($comment['user_from'] == $this->currentUser->id){?>
+                        <div class="col-sm-3">
+                            <img src="<?= $this->baseUrl().'/images/users_images/'.$comment['u_image'] ?>" height="70">
+                        </div>
+                        <div class="col-sm-6">
+                            <h5><?= $comment['u_username'] ?></h5>
+                            <small><?= date("h:i d.m.y", $comment['created']); ?></small>
+                            <p><?= $comment['text'] ?></p>
+                        </div>
+                        <div class="col-sm-3"></div>
+                    <?php }else{?>
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-6">
+                            <h5><a href="<?= $this->baseUrl().'/customer/performes/view/id/'.$comment['u_id'] ?>"><?= $comment['u_username'] ?></a></h5>
+                            <small><?= date("h:i d.m.y", $comment['created']); ?></small>
+                            <p><?= $comment['text'] ?></p>
+                        </div>
+                        <div class="col-sm-3">
+                            <img src="<?= $this->baseUrl().'/images/users_images/'.$comment['u_image'] ?>" height="70">
+                        </div>
+                        
+                    <?php }?>
+                       
+                        </div>
+              <?php } ?> 
+          </div>
+          <?=  $this->paginationControl($this->comments, 'Sliding', 'pagination.phtml') ?>
+          <?php } ?>
+                   <div class="col-sm-12" style="padding-bottom: 10px">
+                       <label>Сообщение</label>
+                       <textarea class="form-control" id="commnetTextArea" style="width: 100%"></textarea>    
+                   </div>
+                   <div class="col-sm-12">
+                       <button class="btn btn-primary" id="sendCommentButton">Отправить</button>
+                       <img id="sendCommentPrel" src="<?= $this->baseUrl(),'/images/blue_preloader.gif' ?>" style="display:none" width="50">
+                   </div>
+            </div>
     <div role="tabpanel" class="tab-pane" id="apps">
         <?php if($this->prepositions){?>
 
         <div class="row">
       
-       <table id="prepTable" class="display" cellspacing="0" width="100%">
+       <table id="prepTable" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
         <thead>
             <tr>
                 <th>Исполнитель</th>
@@ -174,7 +271,7 @@
             <?php foreach($this->prepositions as $preposition){?>
             <tr id="tr<?= $preposition['u_id'] ?>">
                 <td>
-                    <a href="<?= $this->baseUrl()."/performer/performers/performer-view/id/".$preposition['performer_id'] ?>"><?= $preposition['u_surname'].' '.$preposition['u_username'] ?></a>
+                    <a href="<?= $this->baseUrl()."/performer/performers/performer-view/id/".$preposition['performer_id'] ?>"><?= $preposition['u_username'] ?></a>
                 </td>
                 <td>
                     <?= $preposition['rating'] ?>
@@ -293,8 +390,117 @@ $(document).ready(function(){
          if($(this).is(':checked')){
              $('#ratingDiv').hide();
          }
-     });   
+     }); 
+     
+     
+    $('#messTab').click(function(){
+        $('#messagesArea').animate({ scrollTop: 10000000000 }, "slow");
+        markRead();
+     });  
+     
+    var timer = setInterval(function() { checkNewMessages() }, 2000);
+        
+    $('#sendCommentButton').bind("click", function(){
+        sendComment();
+    });       
 });
+
+function sendComment(){
+    $('#sendCommentButton').hide();
+    $('#sendCommentPrel').show();
+    var comment = $('#commnetTextArea').val();
+    var userId = "<?= $this->currentUser->id ?>";
+    var taskId = "<?= $this->task['id'] ?>";
+    $.ajax({
+    type: 'POST',
+    url: '<?= $this->baseUrl.'/customer/comments/send-comment'; ?>',
+    data: {
+            comment: comment,
+            userId: userId,
+            taskId: taskId
+    },
+    success: function(data){
+        if(data === 'true'){
+            $('#sendCommentPrel').hide();
+            $('#sendCommentButton').show();
+            alert('Сообщение отправлено');
+            var url = '<?= $this->baseUrl().'/performer/task/performers-view/id/'.$this->task['id'] ?>';
+            window.location.href = url;
+        }
+    }
+}); 
+}
+
+function checkNewMessages(){
+        var taskId = "<?= $this->task['id'] ?>";
+        $.ajax({
+            type: 'POST',
+            url: '<?= $this->baseUrl.'/performer/messages/get-unread-messages/'; ?>',
+            data: {
+                   taskId: taskId
+            },
+            success: function(response){
+                if(response != 'empty'){
+                 var obj = JSON.parse(response);console.log(obj.amount);
+                 var tabClass = $('#messTab').attr('class');
+                 console.log(tabClass);
+                 if(tabClass == 'active'){
+                     // put new message
+                     $('#messagesArea').append(obj.messages);
+                     $('#messagesArea').animate({ scrollTop: 10000000000 }, "slow");
+                     markRead();
+                 }else{
+                    $('#unreadAmount').show(100);
+                    $('#unreadAmount').text(obj.amount);
+                    $('#messagesArea').append(obj.messages);
+                 }
+                 
+                } 
+            }
+        });
+    
+}
+
+function markRead(){ 
+    var taskId = "<?= $this->task['id'] ?>";
+        $.ajax({
+            type: 'POST',
+            url: '<?= $this->baseUrl.'/performer/messages/mark-read/'; ?>',
+            data: {
+                   taskId: taskId
+            },
+            success: function(){
+                $('#unreadAmount').hide(100);
+            }
+        }); 
+}
+
+
+function sendMessage(taskId, senderId, addressee){
+    console.log(taskId, senderId, addressee);
+    var message = $('#message').val();
+    var created = "<?= date("h:i d.m.Y", time()); ?>";
+    if(message != ''){
+        $('#senMessageBut').hide();
+        $('#messagePrel').show();
+        $('#message').val('');
+        $.ajax({
+            type: 'POST',
+            url: '<?= $this->baseUrl.'/performer/messages/send-message/'; ?>',
+            data: {senderId: senderId,
+                   taskId: taskId,
+                   message: message,
+                   addressee: addressee
+              },
+            success: function(response){
+                $('#messagePrel').hide();
+                $('#senMessageBut').show();
+                $('#messagesArea').append('<div class="list-group list-group-item"><img src="<?= $this->baseUrl().'/images/users_images/'.$this->currentUser->image ?>" height="60" ></br><h4 class="list-group-item-heading"><?= $this->currentUser->username ?> <?= $this->currentUser->username ?></h4><small>'+created+'</small><p class="list-group-item-text">'+message+'</p></div>');
+                $('#messagesArea').animate({ scrollTop: 100000000 }, "slow");
+            }
+        }); 
+    }
+}
 
 function acceptPreposition(performerId, taskId){
 $('#acceptBut'+performerId).hide();

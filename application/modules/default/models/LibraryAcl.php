@@ -154,6 +154,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('performer', 'performer:messages', 'get-unread-messages');
        $this->allow('performer', 'performer:balance', 'fill-ajax');
        $this->allow('performer', 'performer:comments', 'send-comment');
+       $this->allow('performer', 'customer:comments', 'send-comment');
        
        //guest
        $this->allow('guest', 'default:index', 'index');

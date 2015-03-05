@@ -192,12 +192,33 @@ class Performer_TaskController extends Zend_Controller_Action{
 
                 $this->view->prepositions = $prepositions;
         }
+        
+                /// get all comments for the task
+        $commentsObj = new Default_Model_Comments();
+        $commentsList = $commentsObj->getCommentsByTaskId($taskId);
+            //   pagination    
+        $comments = new Zend_Paginator(new Zend_Paginator_Adapter_DbSelect($commentsList));
+        $comments->setItemCountPerPage(10)
+                ->setCurrentPageNumber($this->getParam('page', 1));
+        
         if($tasksFeedback){
             $this->view->tasksFeedback = $tasksFeedback;
         }
         if($feedback){
             $this->view->feedback = $feedback;  
         }
+        $messagesObj = new Default_Model_DbTable_Messages();
+        $taskMessages = $messagesObj->getTasksMessages($taskId);
+        if($taskMessages){
+            $this->view->taskMessages = $taskMessages;
+        }
+        $unreadMessages = $messagesObj->countUnreadMessages($taskId, $this->user->id );
+        if($unreadMessages){
+            $this->view->unreadAmount = $unreadMessages;
+        }
+        
+        $this->view->comments = $comments;
+        $this->view->currentUser = $this->user;
         $this->view->task = $task;        
     }
     public function proposeTaskAction(){
