@@ -23,8 +23,16 @@ class Admin_TasksController extends Zend_Controller_Action{
       
       $taskObj = new Admin_Model_DbTable_Tasks();
       $task = $taskObj->getTaskById($taskId);
+      // get comments by task_id
+      $commentsObj = new Default_Model_Comments();
+      $commentList = $commentsObj->getCommentsByTaskId($taskId);
       
+        $comments = new Zend_Paginator(new Zend_Paginator_Adapter_DbSelect($commentList));
+        $comments->setItemCountPerPage(10)
+                ->setCurrentPageNumber($this->getParam('page', 1));
+    
       $this->view->task = $task;
+      $this->view->comments = $comments;
     }
     
 }

@@ -26,6 +26,7 @@ class Default_Model_Comments{
                            'u.surname as u_surname',
                            'u.image as u_image',
                            'u.id as u_id',
+                           'u.role as u_role',
                        )
                        )
                ->order('created ASC');

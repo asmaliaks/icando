@@ -12,6 +12,16 @@
         </div>
         <div class="col-lg-9">
             <div class="col-lg-12">
+                <strong>Заказчик :</strong><a href="<?= $this->baseUrl().'/admin/customers/view/id/'.$this->task['customer_id'] ?>"><?= $this->task['cust_username'].' '.$this->task['cust_surname'] ?></a>
+                
+            </div>
+            <?php if($this->task['status'] != 'non_taken'){?>
+            <div class="col-lg-12">
+                <strong>Исполнитель :</strong><a href="<?= $this->baseUrl().'/admin/performers/view/id/'.$this->task['performer_id'] ?>"><?= $this->task['per_username'].' '.$this->task['per_surname'] ?></a>
+                
+            </div>
+            <?php } ?>
+            <div class="col-lg-12">
                 <strong>Статус :</strong><?= $this->task['status'] ?>
                 
             </div>
@@ -19,9 +29,29 @@
                 <strong>Создана:</strong> <?= date(" d.m.y",$this->task['created_at']) ?>
                 
             </div>
+            <div class="col-lg-12">
+                <strong>Стоимость:</strong> <?= $this->task['customers_price'] ?>
+                
+            </div>
 
         </div>
-        <div class="col-lg-12"></div>
+        <div class="col-lg-12">
+<div role="tabpanel">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active">
+        <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Отзывы</a>
+    </li>
+    <li role="presentation">
+        <a href="#comments" aria-controls="profile" role="tab" data-toggle="tab">Комментарии</a>
+    </li>
+ </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="home">
+        <div class="col-lg-12">
         
            <?php if($this->task['fp_kind'] || $this->task['fc_kind']){?>
             <div class="col-lg-12">    
@@ -44,11 +74,47 @@
                 <p><small><?= date("h:i d.m.y",$this->task['fc_created']) ?></small></p>
             </div>
             <?php }?>
+           <?php }else{ ?>
+            <h3>Отзывов пока нет</h3>
            <?php } ?>
         
 
 
-        </div>    
+        </div>       
+    </div>
+      <div role="tabpanel" class="tab-pane" id="comments">
+          <?php foreach($this->comments as $comment){?>
+          <div class="col-sm-12">
+              <div class="col-sm-3">
+                  <img width="100" src="<?= $this->baseUrl().'/images/users_images/'.$comment['u_image'] ?>">
+              </div>
+              <div class="col-sm-3">
+                  Пользователь : 
+                  <?php if($comment['u_role'] == 'customer'){ ?>
+                    <a href="<?= $this->baseUrl().'/admin/customers/view/id/'.$comment['user_from'] ?>">
+                          <?= $comment['u_username'].' '.$comment['u_surname'] ?>
+                    </a>
+                  <?php }else if($comment['u_role'] == 'performer'){ ?>
+                    <a href="<?= $this->baseUrl().'/admin/performers/view/id/'.$comment['user_from'] ?>">
+                          <?= $comment['u_username'].' '.$comment['u_surname'] ?>
+                    </a>   
+                  <?php }  ?>
+                        <small><?= date("h:i d.m.y", $comment['created']) ?></small>
+              </div>
+              <div class="col-sm-6">
+                  <p><?= $comment['text'] ?></p>
+              </div>    
+              
+          </div>
+          <?php } ?>
+           <?=  $this->paginationControl($this->comments, 'Sliding', 'pagination.phtml') ?>
+      </div>
+  </div>
+
+</div>        
+ 
+    </div>
     </div>
 </div>
+
 
