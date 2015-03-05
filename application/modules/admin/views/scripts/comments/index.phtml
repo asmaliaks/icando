@@ -1,0 +1,32 @@
+<div class="containter">
+          <?php if(!$this->comments){?>
+          <div class="col-sm-12">
+            <div class="list-group list-group-item">
+              <h3 class="list-group-item-heading">Сообщений пока нет</h3>
+            </div>
+          </div>
+          <?php }else{ ?>
+          <div class="col-sm-12"> 
+              <?php foreach($this->comments as $comment){?>
+                <div class="col-sm-12" style="padding-bottom: 10px">
+
+                    <div class="col-sm-3">
+                        <img src="<?= $this->baseUrl().'/images/users_images/'.$comment['u_image'] ?>" height="70">
+                    </div>
+                    <div class="col-sm-6">
+                        <?php if($comment['u_role'] == 'customer'){?>
+                            <h5>Пользователь: <a href="<?= $this->baseUrl().'/admin/customers/view/id/'.$comment['u_id']?>"><?= $comment['u_username'].' '.$comment['u_surname'] ?></a></h5>
+                        <?php }else if($comment['u_role'] == 'performer'){ ?>
+                            <h5>Пользователь: <a href="<?= $this->baseUrl().'/admin/performers/view/id/'.$comment['u_id']?>"><?= $comment['u_username'].' '.$comment['u_surname'] ?></a></h5>
+                        <?php }?>
+                            <h5>Задача : <a href="<?= $this->baseUrl().'/admin/tasks/view/id/'.$comment['task_id'] ?>"><?= $comment['t_title'] ?></a></h5>
+                        <small><?= date("h:i d.m.y", $comment['created']); ?></small>
+                        <p><?= $comment['text'] ?></p>
+                    </div>
+                    <div class="col-sm-3"></div>
+                 </div>
+              <?php } ?> 
+          </div>
+          <?=  $this->paginationControl($this->comments, 'Sliding', 'pagination.phtml') ?>
+          <?php } ?>
+</div>

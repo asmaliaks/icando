@@ -152,6 +152,15 @@ class Customer_TaskController extends Zend_Controller_Action{
         $feedbackObj = new Customer_Model_DbTable_FeedbackModel();
         $feedback = $feedbackObj->getCustomersFeedbackByTaskId($taskId, $this->user->id);
         $tasksFeedback = $feedbackObj->getTasksFeedbackByPerformer($taskId, $this->user->id);
+        
+        /// get all comments for the task
+        $commentsObj = new Default_Model_Comments();
+        $commentsList = $commentsObj->getCommentsByTaskId($taskId);
+            //   pagination    
+        $comments = new Zend_Paginator(new Zend_Paginator_Adapter_DbSelect($commentsList));
+        $comments->setItemCountPerPage(10)
+                ->setCurrentPageNumber($this->getParam('page', 1));
+        
         if($prepositions){
         $n = 0;
         foreach($prepositions as $prep){
@@ -180,6 +189,7 @@ class Customer_TaskController extends Zend_Controller_Action{
         if($feedback){
             $this->view->feedback = $feedback;  
         }
+        $this->view->comments = $comments;
         $this->view->currentUser = $this->user;
         $this->view->task = $task;
 

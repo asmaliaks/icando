@@ -9,20 +9,17 @@
 ?>
 <ul class="pager top46">
  <?php
- $count = count($this->pagesInRange);
- if($count > 1){
  foreach($this->pagesInRange as $page){
     if($this->current != $page){
        echo '<li><a href="'.$this->url(array('page' => $page)).'" >'.$page.'</a></li>';
     }else{
-        echo '<li><a href="#" class="active">'.$page.'</a></li>';
+        echo '<li><a href="#" disabled="disabled" class="active">'.$page.'</a></li>';
     }     
- }
  }
 //if(isset($this->next)){
 //    echo ' <li><a href="'.$this->url(array('page' => $this->last)).'" class="last-page" >Конец</a></li>';
 //}else{
-//    echo '<li><a href="#" class="last-page" >Конец</a></li>';
+//    //echo '<li><a href="#" class="last-page" >Конец</a></li>';
 //}
  ?>
 

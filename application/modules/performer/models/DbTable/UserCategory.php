@@ -11,7 +11,13 @@ class Performer_Model_DbTable_UserCategory extends Zend_Db_Table_Abstract{
         return true;
     }
     
+    public function removeCategotySettings($userId){
+        $db = $this->getAdapter();
+    
+        $where = $db->quoteInto('user_id = ?', $userId);
 
+        $db->delete($this->_name, $where);
+    }
     
     public function removeUsersCategory($userId, $categoryId){
         $db = $this->getAdapter();

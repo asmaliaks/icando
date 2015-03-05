@@ -21,6 +21,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->add(new Zend_Acl_Resource('admin:applications'), 'admin');
        $this->add(new Zend_Acl_Resource('admin:tasks'), 'admin');
        $this->add(new Zend_Acl_Resource('admin:messages'), 'admin');
+       $this->add(new Zend_Acl_Resource('admin:comments'), 'admin');
        
        $this->add(new Zend_Acl_Resource('customer'));
        $this->add(new Zend_Acl_Resource('customer:index'), 'customer');
@@ -30,6 +31,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->add(new Zend_Acl_Resource('customer:office'), 'customer');
        $this->add(new Zend_Acl_Resource('customer:task'), 'customer');
        $this->add(new Zend_Acl_Resource('customer:feedback'), 'customer');
+       $this->add(new Zend_Acl_Resource('customer:comments'), 'customer');
        
        $this->add(new Zend_Acl_Resource('performer'));
        $this->add(new Zend_Acl_Resource('performer:index'), 'performer');
@@ -41,6 +43,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->add(new Zend_Acl_Resource('performer:feedback'), 'performer');
        $this->add(new Zend_Acl_Resource('performer:performers'), 'performer');
        $this->add(new Zend_Acl_Resource('performer:balance'), 'performer');
+       $this->add(new Zend_Acl_Resource('performer:comments'), 'performer');
        
 
        
@@ -79,6 +82,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('admin', 'admin:messages', 'remove');
        $this->allow('admin', 'admin:messages', 'get-unread-messages-for-admin');
        $this->allow('admin', 'admin:messages', 'mark-admin-read');
+       $this->allow('admin', 'admin:comments', 'index');
        
        // customer
        $this->allow('customer', 'default:authentication', 'log-out');
@@ -88,6 +92,9 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('customer', 'customer:settings', 'index');
        $this->allow('customer', 'customer:settings', 'social');
        $this->allow('customer', 'customer:office', 'index');
+       $this->allow('customer', 'customer:office', 'application');
+       $this->allow('customer', 'customer:office', 'add-user-category');
+       $this->allow('customer', 'customer:office', 'remove-users-category');
        $this->allow('customer', 'customer:task', 'new-task');
        $this->allow('customer', 'customer:task', 'select-category');
        $this->allow('customer', 'customer:task', 'add-task');
@@ -112,6 +119,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('customer', 'customer:messages', 'send-message');
        $this->allow('customer', 'customer:messages', 'mark-read');
        $this->allow('customer', 'customer:messages', 'get-unread-messages');
+       $this->allow('customer', 'customer:comments', 'send-comment');
       
        // performer
        $this->allow('performer', 'default:authentication', 'log-out');
@@ -145,6 +153,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('performer', 'performer:messages', 'mark-read');
        $this->allow('performer', 'performer:messages', 'get-unread-messages');
        $this->allow('performer', 'performer:balance', 'fill-ajax');
+       $this->allow('performer', 'performer:comments', 'send-comment');
        
        //guest
        $this->allow('guest', 'default:index', 'index');

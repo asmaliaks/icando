@@ -22,6 +22,15 @@ class Performer_TaskController extends Zend_Controller_Action{
         $feedbackObj = new Performer_Model_DbTable_FeedbackModel();
         $feedback = $feedbackObj->getPerformersFeedbackByTaskId($taskId, $this->user->id);
         $tasksFeedback = $feedbackObj->getTasksFeedbackByCustomer($taskId, $this->user->id);
+
+        /// get all comments for the task
+        $commentsObj = new Default_Model_Comments();
+        $commentsList = $commentsObj->getCommentsByTaskId($taskId);
+            //   pagination    
+        $comments = new Zend_Paginator(new Zend_Paginator_Adapter_DbSelect($commentsList));
+        $comments->setItemCountPerPage(10)
+                ->setCurrentPageNumber($this->getParam('page', 1));
+        
         // check if the performer sent preposition
         $taskPrepObj = new Performer_Model_DbTable_TaskPrepositionModel();
         $sentPrep = $taskPrepObj->ifPerformerSentPrep($this->user->id, $taskId);
@@ -44,6 +53,7 @@ class Performer_TaskController extends Zend_Controller_Action{
         if($unreadMessages){
             $this->view->unreadAmount = $unreadMessages;
         }
+        $this->view->comments = $comments;
         $this->view->currentUser = $this->user;
         $this->view->task = $task;
         $this->view->userId = $this->user->id;

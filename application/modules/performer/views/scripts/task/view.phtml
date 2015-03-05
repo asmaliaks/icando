@@ -58,6 +58,7 @@
             </a>
         </li>
     <?php } ?>
+        <li role="presentation" id="commentsTab"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Комментарии</a></li>
     <?php if($this->tasksFeedback){?>
         <li role="presentation"><a href="#feedback" aria-controls="feedback" role="tab" data-toggle="tab">Отзыв</a></li>
     <?php } ?>    
@@ -90,6 +91,7 @@
     <?php if($this->task['status'] == 'taken' && $this->currentUser->banned == 0){?>
       <div role="tabpanel" class="tab-pane" id="messages">
             <div id="messagesArea" style="height: 300px; overflow-y:scroll">
+                <?php if($this->taskMessages){?>
                 <?php foreach($this->taskMessages as $message){?>
                     <?php if($message['user_from'] == $this->currentUser->id){?>
                         <div class="list-group list-group-item">
@@ -107,6 +109,9 @@
                         </div>
                     <?php } ?>
 
+                <?php }?>
+                <?php }else{?>
+                    Отправте первое сообщение
                 <?php }?>
             </div> 
                 <div class="form-group">
@@ -191,7 +196,57 @@
             </div>
         </div>
         </div>
-    <?php } ?>    
+    <?php } ?> 
+            <div role="tabpanel" class="tab-pane" id="comments">
+                <?php if(!$this->comments){?>
+                   <div class="col-sm-12">
+                     <div class="list-group list-group-item">
+                       <h3 class="list-group-item-heading">Сообщений пока нет</h3>
+                     </div>
+                   </div>
+          <?php }else{ ?>
+          <div class="col-sm-12"> 
+              <?php foreach($this->comments as $comment){?>
+              <div class="col-sm-12" style="padding-bottom: 10px">
+                 
+                    <?php if($comment['user_from'] == $this->currentUser->id){?>
+                        <div class="col-sm-3">
+                            <img src="<?= $this->baseUrl().'/images/users_images/'.$comment['u_image'] ?>" height="70">
+                        </div>
+                        <div class="col-sm-6">
+                            <h5><?= $comment['u_username'] ?></h5>
+                            <small><?= date("h:i d.m.y", $comment['created']); ?></small>
+                            <p><?= $comment['text'] ?></p>
+                        </div>
+                        <div class="col-sm-3"></div>
+                    <?php }else{?>
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-6">
+                            <h5><a href="<?= $this->baseUrl().'/customer/performes/view/id/'.$comment['u_id'] ?>"><?= $comment['u_username'] ?></a></h5>
+                            <small><?= date("h:i d.m.y", $comment['created']); ?></small>
+                            <p><?= $comment['text'] ?></p>
+                        </div>
+                        <div class="col-sm-3">
+                            <img src="<?= $this->baseUrl().'/images/users_images/'.$comment['u_image'] ?>" height="70">
+                        </div>
+                        
+                    <?php }?>
+                       
+                        </div>
+              <?php } ?> 
+          </div>
+          <?=  $this->paginationControl($this->comments, 'Sliding', 'pagination.phtml') ?>
+          <?php } ?>
+                   <div class="col-sm-12" style="padding-bottom: 10px">
+                       <label>Сообщение</label>
+                       <textarea class="form-control" id="commnetTextArea" style="width: 100%"></textarea>    
+                   </div>
+                   <div class="col-sm-12">
+                       <button class="btn btn-primary" id="sendCommentButton">Отправить</button>
+                       <img id="sendCommentPrel" src="<?= $this->baseUrl(),'/images/blue_preloader.gif' ?>" style="display:none" width="50">
+                   </div>
+            </div>
+      </div>
   </div>
 
 </div>
@@ -315,6 +370,17 @@
              $('#priceDiv').show();
          }
      });
+     
+    // get currrent url
+     var currentUrl = document.URL;
+     var hasPage = currentUrl.indexOf('page');console.log(hasPage);
+     if(hasPage >= 0){
+         $('#detailTab').removeClass('active');
+//         $('#commentsTab').addClass('active');
+         $('#commentsTab a').tab('show');
+         
+     }     
+     
      $('#positive').change(function(){ 
          if($(this).is(':checked')){
              $('#ratingDiv').show();
@@ -334,8 +400,37 @@
      
     var timer = setInterval(function() { checkNewMessages() }, 2000);
         
+    $('#sendCommentButton').bind("click", function(){
+        sendComment();
+    });        
+        
  });   
 
+function sendComment(){
+    $('#sendCommentButton').hide();
+    $('#sendCommentPrel').show();
+    var comment = $('#commnetTextArea').val();
+    var userId = "<?= $this->currentUser->id ?>";
+    var taskId = "<?= $this->task['id'] ?>";
+    $.ajax({
+    type: 'POST',
+    url: '<?= $this->baseUrl.'/performer/comments/send-comment'; ?>',
+    data: {
+            comment: comment,
+            userId: userId,
+            taskId: taskId
+    },
+    success: function(data){
+        if(data === 'true'){
+            $('#sendCommentPrel').hide();
+            $('#sendCommentButton').show();
+            alert('Сообщение отправлено');
+            var url = '<?= $this->baseUrl().'/performer/task/view/id/'.$this->task['id'] ?>';
+            window.location.href = url;
+        }
+    }
+}); 
+}
 
 function checkNewMessages(){
         var taskId = "<?= $this->task['id'] ?>";

@@ -17,7 +17,7 @@ class Performer_SettingsController extends Zend_Controller_Action {
             $userCatObj = new Performer_Model_DbTable_UserCategory();
             $catId = $request->getParam('catId');
             $userCatObj->addUsersCategory($this->user->id, $catId);
-            echo 'true';
+            echo 'true';exit;
         }
     }
     
@@ -27,7 +27,7 @@ class Performer_SettingsController extends Zend_Controller_Action {
             $userCatObj = new Performer_Model_DbTable_UserCategory();
             $catId = $request->getParam('catId');
             $userCatObj->removeUsersCategory($this->user->id, $catId);
-            echo 'true';
+            echo 'true';exit;
         }
     }
 }

@@ -90,5 +90,57 @@ class Customer_OfficeController extends Zend_Controller_Action{
         $this->view->form = $form;
         $this->view->user = $user;
     }
+    
+public function applicationAction(){
+        $this->view->title = 'Настройка категорий';  
+        $this->view->headTitle('Настройка категорий', 'APPEND');
+        
+              // get category list
+        $categoryObj = new Performer_Model_DbTable_Categories();
+        $mainCategories = $categoryObj->getCategoryList();
+          // get sub categories
+          $n=0;
+          foreach($mainCategories as $mainCat){
+              $subCats = $categoryObj->getSubCats($mainCat['id'], $this->user->id);
+              $categories[$n] = array(
+                  'title' => $mainCat['title'],
+                  'id'    => $mainCat['id'],
+              );
+              if($subCats){
+                 foreach($subCats as $subCat){
+                     $categories[$n]['children'][] = array(
+                         'id' => $subCat['id'],
+                         'title' => $subCat['title'],
+                         'parent_id' => $subCat['parent_id'],
+                         'user_id' => $subCat['user_id'],
+                         );
+
+
+                 }
+          }
+              $n++;
+          }
+          $this->view->categories = $categories;
+}  
+
+    public function addUserCategoryAction(){
+        $request = $this->getRequest();
+        if($request->isPost()){
+            $userCatObj = new Performer_Model_DbTable_UserCategory();
+            $catId = $request->getParam('catId');
+            $userCatObj->addUsersCategory($this->user->id, $catId);
+            echo 'true';exit;
+        }
+    }
+    
+    public function removeUsersCategoryAction(){
+        $request = $this->getRequest();
+        if($request->isPost()){
+            $userCatObj = new Performer_Model_DbTable_UserCategory();
+            $catId = $request->getParam('catId');
+            $userCatObj->removeUsersCategory($this->user->id, $catId);
+            echo 'true';exit;
+        }
+    }
 }
 

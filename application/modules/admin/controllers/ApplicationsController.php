@@ -1,8 +1,14 @@
 <?php
 
 class Admin_ApplicationsController extends Zend_Controller_Action{
+    protected $user;
+    
     public function init(){
-        
+       $auth = Zend_Auth::getInstance();
+       if($auth->hasIdentity()){
+          $this->user = $auth->getIdentity();
+          
+       }        
     }
     
     public function indexAction(){
@@ -19,7 +25,10 @@ class Admin_ApplicationsController extends Zend_Controller_Action{
             $id = $request->getParam('id');
             $customerId = $request->getParam('customerId');
             $appObj = new Admin_Model_DbTable_PerformerApplication();
-            $result = $appObj->removeApp($id);
+            $appObj->removeApp($id);
+            // remove categorry settings for the user
+            $categoryUserObj = new Performer_Model_DbTable_UserCategory();
+            $categoryUserObj->removeCategotySettings($customerId);
             // if app removed then send mail
             $smtpObj = new Default_Model_Smtp();
             $usersObj = new Admin_Model_DbTable_Users();

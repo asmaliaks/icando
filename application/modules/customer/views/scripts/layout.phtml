@@ -149,7 +149,22 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
 <p class="tbtn">  <i class="fa fa-angle-double-left"></i></p>
 </div>-->
 
-<!-- /.ModalSignup End --> 
+<!-- Modal categories settings start -->
+
+        <!--userForm--> 
+        
+      </div>
+      <div class="modal-footer">
+        <p class="text-center"> Нет аккаунта? <a data-toggle="modal"  data-dismiss="modal" href="#ModalSignup">Зарегистрироваться</a> <br>
+        
+      </div>
+    </div>
+    <!-- /.modal-content --> 
+    
+  </div>
+  <!-- /.modal-dialog --> 
+  
+</div> 
 
 <!-- Fixed navbar start -->
 <div class="navbar navbar-tshop navbar-fixed-top megamenu" role="navigation">
@@ -206,7 +221,7 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
           <li> <a href="<?= $this->baseUrl().'/customer/performers/'?>">Исполнители</a> </li>
 
           <?php if($this->application['customer_id'] != $this->user['id'] || $this->application == 0){?>
-          <li><a class="blog-nav-item" id="sendApp" href="javascript:applyPerformer()"  >Стать исполнителем</a></ли>
+          <li><a class="blog-nav-item"  href="<?= $this->baseUrl().'/customer/office/application' ?>"  >Стать исполнителем</a></li>
           <?php }?>
         <!-- change width of megamenu = use class > megamenu-fullwidth, megamenu-60width, megamenu-40width -->
 
@@ -389,21 +404,7 @@ $(window).load(function(){
 <script src="<?= $this->baseUrl() ?>/assets/js/script.js"></script> 
 <script src="<?= $this->baseUrl() ?>/js/scripts.js"></script> 
   <script>
-      function applyPerformer(){
-          var url  = '/customer/performers/request-to-be-performer/';
-          console.log(url);
-          if(confirm('Отправить заявку?')){
-              $.ajax({
-                type: 'POST',
-                url: '/customer/performers/request-to-be-performer/',
-                data: {id: 'id'},
-                success: function(){
-                    alert('Ваша заявка отправлена администратору.');
-                    $('#sendApp').hide(500);
-                }
-              });
-          }
-      }
+
   </script> 
 </body>
 
