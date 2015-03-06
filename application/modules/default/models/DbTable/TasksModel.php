@@ -47,6 +47,28 @@ class Default_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
         }
     }
     
+    
+    public function getTasksYoungerThanHour(){
+        $currentDate = time();
+        $curTimeMinusHour = $currentDate - 3600;
+        $select = $this->select()
+                ->from(array('t'=>'tasks'))
+                ->where('status=?', 'non_taken')
+                ->where('created_at > ?', $curTimeMinusHour)
+                ->joinLeft(array('u' => 'u'),
+                    't.customer_id = u.id',
+                            array(
+                                'u.id as u_id',
+                                'u.username as u_username',
+                                'u.email as u_email'))->setIntegrityCheck(false);
+        $result = $this->fetchAll($select);
+        if($result){
+            return $result->toArray();
+        }else{
+            return false;
+        }
+    }
+    
     public function acceptPreposition($performerId, $taskId){
         $data = array(
             'performer_id'=>$performerId,

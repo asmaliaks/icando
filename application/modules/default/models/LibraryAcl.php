@@ -12,6 +12,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->add(new Zend_Acl_Resource('default:s-auth'), 'default'); 
        $this->add(new Zend_Acl_Resource('default:social-attach'), 'default'); 
        $this->add(new Zend_Acl_Resource('default:tasks'), 'default'); 
+       $this->add(new Zend_Acl_Resource('default:cron-api'), 'default'); 
        
        $this->add(new Zend_Acl_Resource('admin'));
        $this->add(new Zend_Acl_Resource('admin:index'), 'admin');
@@ -176,5 +177,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('guest', 'default:registration', 'pass-change');
        $this->allow('guest', 'default:tasks', 'index');
        $this->allow('guest', 'default:error');
+       $this->allow('guest', 'default:cron-api', 'new-tasks-send-mail');
+       $this->allow('guest', 'default:cron-api', 'unbann');
     }
 }

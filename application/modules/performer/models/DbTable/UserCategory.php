@@ -27,7 +27,28 @@ class Performer_Model_DbTable_UserCategory extends Zend_Db_Table_Abstract{
         $db->delete($this->_name, $where);
     }
     
+    public function getUsersByCategoryId($catId){
+            $select = $this->select()
+                    ->from(array('uc'=>'user_category'),
+                            array('uc.id as uc_id',
+                            'uc.user_id as uc_user_id',
+                                'uc.category_id as category_id'))
+                    ->where('uc.category_id=?', $catId)
+                    ->where('u.banned=?', NUll)
+                    ->joinLeft(array('u' => 'u'),
+                    'uc.user_id = u.id',
+                            array(
+                                'u.surname as u_surname',
+                                'u.username as u_username',
+                                'u.email as u_email'))->setIntegrityCheck(false);
 
+            $result = $this->fetchAll($select);
+            if($result){
+                return $result->toArray();
+            }else{
+                return false;
+            }
+    }
     
     public function getUsersCategories($userId){
                     $select = $this->select()

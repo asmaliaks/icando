@@ -82,6 +82,14 @@ class Admin_Model_DbTable_Users extends Zend_Db_Table_Abstract{
         $where = $this->getAdapter()->quoteInto('id = ?', $id);
         $this->update($data, $where);
     }
+    
+    public function unbannUsers(){
+        $currentTime = time();
+        $data = array('banned' => NULL,);
+       
+        $where = $this->getAdapter()->quoteInto('banned - 75600 <= ?', $currentTime);
+        $this->update($data, $where);
+    }
     public function changeCustomerToPerformer($userId){
         $data = array(
             'role' => 'performer',

@@ -28,14 +28,71 @@ class Performer_IndexController extends Zend_Controller_Action {
     }
     
     public function tasksAction(){
-         // get users categories 
-        $usersCatObj = new Performer_Model_DbTable_UserCategory();
-        $usersCats = $usersCatObj->getUsersCategories($this->user->id);
+
         //  get list of the tasks which fit to the performer
-        if(!empty($usersCats)){
-            $taskObj = new Performer_Model_DbTable_TasksModel();
-            $performersTasks =  $taskObj->getTasksForPerformer($this->user->id, $usersCats);
+        $request = $this->getRequest();
+        $sortOption = $request->getParam('sort_option');
+        $category = $request->getParam('category');
+        if(!$category){
+            $category = 0;
         }
+        if($sortOption){
+            switch($sortOption){
+                case 'created_at_DESC':
+                    $sortOption = 'created_at DESC';
+                    break;
+                case 'created_at_ASC':
+                    $sortOption = 'created_at ASC';
+                    break;
+                case 'customers_price_ASC':
+                    $sortOption = 'customers_price ASC';
+                    break;
+                case 'customers_price_DESC':
+                    $sortOption = 'customers_price DESC';
+                    break;
+                default:
+                    $sortOption = 'created_at DESC';
+                    break;
+            }
+        }else{
+            $sortOption = 'created_at ASC';
+        }
+        /// get all comments for the task
+        $tasksObj = new Default_Model_TaskList();
+        $tasksList = $tasksObj->listTask($sortOption, $category);
+            //   pagination    
+        $tasks = new Zend_Paginator(new Zend_Paginator_Adapter_DbSelect($tasksList));
+        $tasks->setItemCountPerPage(12)
+                ->setCurrentPageNumber($this->getParam('page', 1));
+        
+        // get categories for the filter
+              // get category list
+      $categoryObj = new Performer_Model_DbTable_Categories();
+      $mainCategories = $categoryObj->getCategoryList();
+        // get sub categories
+        $n=0;
+        foreach($mainCategories as $mainCat){
+            $subCats = $categoryObj->getSubCats($mainCat['id'], $this->user->id);
+            $categories[$n] = array(
+                'title' => $mainCat['title'],
+                'id'    => $mainCat['id'],
+            );
+            if($subCats){
+               foreach($subCats as $subCat){
+                   $categories[$n]['children'][] = array(
+                       'id' => $subCat['id'],
+                       'title' => $subCat['title'],
+                       'parent_id' => $subCat['parent_id'],
+                       'user_id' => $subCat['user_id'],
+                       );
+                       
+                    
+               }
+        }
+            $n++;
+        }
+        
+        
         // count all user's reservs
         $balanceResObj = new Default_Model_DbTable_BalanceReserve();
         $amountOfReserves = $balanceResObj->countUsersReserves($this->user->id);
@@ -49,9 +106,12 @@ class Performer_IndexController extends Zend_Controller_Action {
             $this->view->freePoints = $freePoints;
         }
         // put tasks to the view
-        if(!empty($usersCats)){
-            $this->view->tasks = $performersTasks;   
-        }
+
+        $this->view->currentCategory = $category;
+        $this->view->sortOption = $sortOption;
+        $this->view->categories = $categories;
+        $this->view->tasks = $tasks;   
+
     }
 }
 
