@@ -71,14 +71,14 @@ class Customer_Form_RegistrationForm extends Zend_Form{
    }
            
    $phoneNumber = new Zend_Form_Element_Text('phonenumber');
-   $phoneNumber->setLabel('Номер телефона');
+   $phoneNumber->setLabel('Номер телефона +375');
    
    $city = new Zend_Form_Element_Text('city');
    $city->setLabel('Город');
    
    $image = new Zend_Form_Element_File('image');
    $image->setLabel('Изображение')
- //        ->setDestination(DOCUMENT_ROOT.'/images/users_images/');  
+//         ->setDestination(DOCUMENT_ROOT.'/images/users_images/');  
          ->setDestination($_SERVER['DOCUMENT_ROOT'].'/images/users_images/');  
    
    

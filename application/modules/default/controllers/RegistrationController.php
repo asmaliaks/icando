@@ -47,13 +47,14 @@ class RegistrationController extends Zend_Controller_Action{
             $birthDate = strtotime($birthDate);
             $passStr = $request->getParam('pass');
             $pass = base64_encode($passStr);
+            $phonenumber = (int)$request->getParam('phonenumber');
             $pass = $pass.SALT;
             $data = array(
                 'email' => $email,
                 'username'  => $request->getParam('username'),
                 'surname' => $request->getParam('surname'),
                 'sex' => $request->getParam('sex'),
-                'phonenumber' => '+375'.$request->getParam('phonenumber'),
+                'phonenumber' => '+375'.$phonenumber,
                 'city' => $request->getParam('city'),
                 'pass' => $pass,
                 'birth_date' => $birthDate,

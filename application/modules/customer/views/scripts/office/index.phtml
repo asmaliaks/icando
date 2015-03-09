@@ -127,10 +127,14 @@
         </div>
       </div>
       <div class="product-share clearfix">
+        <?php if(!$this->user['phonenumber']){?>
+                  <p class="text-danger">Введите свой номер телефона в настройках аккаунта</p>
+        <?php }else{?>
         <p> Верификация телефона </p>
         <img id="verificatePhone" style="display:none" data-toggle="tooltip" data-placement="left" title="Телефон верифецирован"  width="40px" src="<?= $this->baseUrl().'/ico/phone.png' ?>" >
         <div id="verifDiv" > 
             <?php if(!$this->user['phone_vefivied']){?>
+                
                 <?php if(!$this->user['pv_id']){?>
             <a id="verificatePhoneNum">
                     <img  data-toggle="tooltip" data-placement="left" title="Нажмите для верификации телефона"  width="30px" src="<?= $this->baseUrl().'/ico/phone_wb.png' ?>" >
@@ -174,6 +178,7 @@
                 <img id="verificatePhone" data-toggle="tooltip" data-placement="left" title="Телефон верифецирован"  width="40px" src="<?= $this->baseUrl().'/ico/phone.png' ?>" >
             <?php } ?>
         </div>
+        <?php } ?>
       </div>
       
     </div><!--/ right column end -->
@@ -278,10 +283,11 @@ $(document).ready(function(){
 
 
     $('#verificatePhoneNum').bind('click', function(){  console.log('opa');
-        $('#verificatePhoneNum').hide();
-        $('#phoneVerifyPreloader').show();
-        sendSms(<?= $this->user['phonenumber'] ?>, <?= $this->user['id'] ?>);
-
+        
+            $('#verificatePhoneNum').hide();
+            $('#phoneVerifyPreloader').show();
+            sendSms(<?= $this->user['phonenumber'] ?>, <?= $this->user['id'] ?>);
+            
     });
 
     $('#activation').bind("click", function(e){

@@ -69,7 +69,7 @@ class Performer_Form_RegistrationForm extends Zend_Form{
    }
            
    $phoneNumber = new Zend_Form_Element_Text('phonenumber');
-   $phoneNumber->setLabel('Номер телефона')
+   $phoneNumber->setLabel('Номер телефона +375')
            ->addValidator('alnum');
    
    $city = new Zend_Form_Element_Text('city');

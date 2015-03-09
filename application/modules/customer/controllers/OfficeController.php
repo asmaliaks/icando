@@ -31,16 +31,17 @@ class Customer_OfficeController extends Zend_Controller_Action{
                 $birthDate = $birthDay.'.'.$birthMonth.'.'.$birthYear;
                 $birthDate = strtotime($birthDate);
                 $passStr = $form->getValue('pass');
-                
+                $phonenumber = (int)$form->getValue('phonenumber');
                 $data = array(
                     'email' => $form->getValue('email'),
                     'username'  => $form->getValue('username'),
                     'surname' => $form->getValue('surname'),
                     'sex' => $form->getValue('sex'),
-                    'phonenumber' => $form->getValue('phonenumber'),
+                    'phonenumber' => '375'.$phonenumber,
                     'city' => $form->getValue('city'),
                     'birth_date' => $birthDate,
                 );
+                $data['phonenumber'] = (int)$data['phonenumber']; 
                 $image = $form->getValue('image');
                 if($image){
                     $data['image'] = $image;
@@ -72,7 +73,7 @@ class Customer_OfficeController extends Zend_Controller_Action{
         $form->getElement('day_birth')->setValue($birthAr[0]);
         $form->getElement('sex')->setValue($user['sex']);
         $form->getElement('image')->setValue($user['image']);
-        $form->getElement('phonenumber')->setValue($user['phonenumber']);
+        $form->getElement('phonenumber')->setValue(substr($user['phonenumber'], 3));
         $form->getElement('city')->setValue($user['city']);
         $this->view->form = $form;
     }
