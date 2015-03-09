@@ -4,12 +4,18 @@ class Model_DbTable_Users extends Zend_Db_Table_Abstract{
     
     
     public function addNewUser($data){
-        $this->insert($data);
-        return true;
+       return $this->insert($data);
+        
     }
       public function getUserById($userId){
        $select = $this->select()
-               ->where('id=?',$userId);
+               ->from(array('u'=>'users'))
+               ->where('u.id=?',$userId)
+               ->joinLeft(array('pv' => 'phone_verification'),
+                    'pv.user_id = u.id',
+                            array('pv.id as pv_id',
+                                'pv.phone_number as pv_phone_number',
+                                'pv.code as pv_code'))->setIntegrityCheck(false);
        $result = $this->fetchRow($select);
        if($result){
            return $result->toArray();
@@ -47,6 +53,15 @@ class Model_DbTable_Users extends Zend_Db_Table_Abstract{
     public function checkMail($mail){
  
         $row = $this->fetchRow($this->select()->where('email = ?', $mail));
+        if($row){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public function checkPhone($phone){
+ 
+        $row = $this->fetchRow($this->select()->where('email = ?', $phone));
         if($row){
             return true;
         }else{

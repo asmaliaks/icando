@@ -281,7 +281,7 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
           
               <span class="input-group-addon">+375</span>
               <input id="phonenumber" name="phonenumber" class="form-control" placeholder="Номер телефона" type="text">
-           
+           <p class="text-danger" id="phoneTaken" style="display: none" >* Данный номер телефона уже занят</p>
             
         </div>
         <p class="text-danger" id="phoneError" style="display: none" >* Проверьте вводимые данные</p>
@@ -305,7 +305,7 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
         </div>
         <div class="form-group reg-password">
           <div >
-            <input name="passConfirm" id="passConf"  class="form-control input"  size="20" placeholder=Подтвердите пароль" type="password">
+            <input name="passConfirm" id="passConf"  class="form-control input"  size="20" placeholder="Подтвердите пароль" type="password">
           </div>
             <p class="text-danger" id="passError" style="display: none">Пароли не совпадают</p>
         </div>

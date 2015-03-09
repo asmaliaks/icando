@@ -68,6 +68,8 @@ function login(){
 
 function register(){ console.log('register function');
     $('#mailInvalid').hide();
+    $('#phoneTaken').hide();
+    $('#phoneError').hide();
     $('#mailError').hide();
     $('#submitReg').hide();
     $('#restrationPreloader').show();
@@ -115,6 +117,11 @@ function register(){ console.log('register function');
                $('#restrationPreloader').hide();
                break
             case 'city empty':
+               $('#phoneTaken').show();
+               $('#submitReg').show();
+               $('#restrationPreloader').hide();
+               break
+            case 'city empty':
                $('#cityError').show();
                $('#submitReg').show();
                $('#restrationPreloader').hide();
@@ -147,7 +154,7 @@ function register(){ console.log('register function');
                 window.location.href = url+'/';
                break
             default:
-               console.log('internal server error');
+               console.log(data);
                break
          };
 

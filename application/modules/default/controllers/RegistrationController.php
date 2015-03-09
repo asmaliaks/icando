@@ -30,10 +30,14 @@ class RegistrationController extends Zend_Controller_Action{
                 print_r('pass');exit;
             }
             $email = $request->getParam('email');
+            $phonenumber = $request->getParam('phonenumber');
             // check if mail exists
             $usersModel = new Model_DbTable_Users();
             if($usersModel->checkMail($email)){
                print_r('mail taken');exit;
+            }
+            if($usersModel->checkPhone($phonenumber)){
+               print_r('phone taken');exit;
             }
 //            $validator = new Zend_Validate_EmailAddress();
 //            if (!$validator->isValid($email)) {
@@ -49,13 +53,13 @@ class RegistrationController extends Zend_Controller_Action{
                 'username'  => $request->getParam('username'),
                 'surname' => $request->getParam('surname'),
                 'sex' => $request->getParam('sex'),
-                'phonenumber' => '375'.$request->getParam('phonenumber'),
+                'phonenumber' => '+375'.$request->getParam('phonenumber'),
                 'city' => $request->getParam('city'),
                 'pass' => $pass,
                 'birth_date' => $birthDate,
             );
 
-            $usersModel->addNewUser($data);
+            $userId = $usersModel->addNewUser($data);
                 // makeing authorization
                 $authAdapter = $this->getAuthAdapter();
         
@@ -69,10 +73,32 @@ class RegistrationController extends Zend_Controller_Action{
               
                 $mailObj = new Default_Model_Smtp();
                 $message = "Уважаемый ".$data['username']." Вы зарегестрировались на нашем сайте. "
+                        ." На указанный вами номер телефона выслана SMS  с кодом, "
+                        ." пожалуйста перейдите по указанной ниже ссылке и введите полученный в SMS код"
+                        ." для завершения регистрации вашей учетной записи. В случае неподтверждения номера телефона "
+                        ."в течение суток с момента регистрации ваша учетная запись будет удалена безвозвратно. "
+                        ." ".$_SERVER['HTTP_ORIGIN']."/sms/phone-activate/ "
                         ."Используйте свой email в качестве логина";
-                $message = wordwrap($message, 70);
+                $message = wordwrap($message, 120);
                 $headers = 'From: no_reply@icando.by';
                 $mailObj->send($data['email'], 'Регистрация', $message, $headers);
+                
+                // generate SMS-code
+                $smsCode = $this->makeSmsCode();
+                // insert code in the database
+                $phoneVerifObj = new Default_Model_DbTable_PhoneVerification();
+                $smsData = array(
+                    'code' => $smsCode,
+                    'phone_number' => '+375'.$data['phonenumber'],
+                    'user_id' => $userId,
+                );
+                $phoneVerifObj->addCode($smsData);
+                
+                $smsObj = new Default_Model_SmsModel();
+                $smsText = 'Код для верификации '.$smsCode;
+                $smsObj->sendSmsAction($smsData['phone_number'], $smsText);
+                
+                
                 if($result->isValid()){
                     
                     $identity = $authAdapter->getResultRowObject();
@@ -183,11 +209,37 @@ class RegistrationController extends Zend_Controller_Action{
         }
     }
     
+    public function activateAccountByPhoneAction(){
+        $request = $this->getRequest();
+        if($request->isPost()){
+           $userId = $request->getParam('userId');
+           $usersObj = new Performer_Model_DbTable_Users();
+           $phoneVerifObj = new Default_Model_DbTable_PhoneVerification();
+           $data = array('phone_vefivied'=> 1);
+           $usersObj->editUser($data, $userId);
+           $phoneVerifObj->removeNumber($userId);
+           
+           print_r('true');exit;
+        }
+    }
+    
     private function makeHash(){
 	$quan1 = substr(str_shuffle(str_repeat("123", 15)), 0, 1);
     	$quan2 = substr(str_shuffle(str_repeat("123456780", 15)), 0, 1);
     	$quan = $quan1."". $quan2;
     	$s = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 15)), 0, $quan);
+        $recoveryObj = new Default_Model_DbTable_PasswordRecovery();
+        $hashExists = $recoveryObj->checkHash($s);
+    	if(!$hashExists){
+            return $s;
+        }else{
+            $this->makeHash();
+        }
+    }
+    
+    
+    private function makeSmsCode(){
+    	$s = substr(str_shuffle(str_repeat("0123456789", 15)), 0, 6);
         $recoveryObj = new Default_Model_DbTable_PasswordRecovery();
         $hashExists = $recoveryObj->checkHash($s);
     	if(!$hashExists){

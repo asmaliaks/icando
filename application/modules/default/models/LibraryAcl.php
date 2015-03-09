@@ -13,6 +13,8 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->add(new Zend_Acl_Resource('default:social-attach'), 'default'); 
        $this->add(new Zend_Acl_Resource('default:tasks'), 'default'); 
        $this->add(new Zend_Acl_Resource('default:cron-api'), 'default'); 
+       $this->add(new Zend_Acl_Resource('default:sms'), 'default'); 
+       $this->add(new Zend_Acl_Resource('default:phone-activation'), 'default'); 
        
        $this->add(new Zend_Acl_Resource('admin'));
        $this->add(new Zend_Acl_Resource('admin:index'), 'admin');
@@ -89,6 +91,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('customer', 'default:authentication', 'log-out');
        $this->allow('customer', 'default:error');
        $this->allow('customer', 'customer:performers', 'request-to-be-performer');
+       $this->allow('customer', 'default:registration', 'activate-account-by-phone');
        $this->allow('customer', 'customer:settings', 'personal-data-edit');
        $this->allow('customer', 'customer:settings', 'index');
        $this->allow('customer', 'customer:settings', 'social');
@@ -117,6 +120,9 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('customer', 'default:social-attach', 'ok-complete');
        $this->allow('customer', 'default:social-attach', 'fb');
        $this->allow('customer', 'default:social-attach', 'fb-link');
+       $this->allow('customer', 'default:sms', 'phone-activate');
+       $this->allow('customer', 'default:sms', 'phone-verify');
+       $this->allow('customer', 'default:phone-activation', 'activate-account');
        $this->allow('customer', 'customer:messages', 'send-message');
        $this->allow('customer', 'customer:messages', 'mark-read');
        $this->allow('customer', 'customer:messages', 'get-unread-messages');
@@ -127,6 +133,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('performer', 'default:error');
        $this->allow('performer', 'performer:user', 'index');
        $this->allow('performer', 'performer:index', 'tasks');
+       $this->allow('performer', 'default:registration', 'activate-account-by-phone');
        $this->allow('performer', 'performer:settings', 'add-user-category');
        $this->allow('performer', 'performer:settings', 'remove-users-category');
        $this->allow('performer', 'performer:customer', 'view');
@@ -150,6 +157,9 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('performer', 'default:social-attach', 'fb');
        $this->allow('performer', 'default:social-attach', 'fb-link');
        $this->allow('performer', 'default:social-attach', 'fb-complete');
+       $this->allow('performer', 'default:phone-activation', 'activate-account');
+       $this->allow('performer', 'default:sms', 'phone-activate');
+       $this->allow('performer', 'default:sms', 'phone-verify');
        $this->allow('performer', 'performer:messages', 'send-message');
        $this->allow('performer', 'performer:messages', 'mark-read');
        $this->allow('performer', 'performer:messages', 'get-unread-messages');
@@ -175,9 +185,12 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('guest', 'default:registration', 'send-pass-email');
        $this->allow('guest', 'default:registration', 'hash');
        $this->allow('guest', 'default:registration', 'pass-change');
+       $this->allow('guest', 'default:registration', 'activate-account-by-phone');
+       $this->allow('guest', 'default:phone-activation', 'activate-account');
        $this->allow('guest', 'default:tasks', 'index');
        $this->allow('guest', 'default:error');
        $this->allow('guest', 'default:cron-api', 'new-tasks-send-mail');
        $this->allow('guest', 'default:cron-api', 'unbann');
+       $this->allow('guest', 'default:sms', 'phone-activate');
     }
 }

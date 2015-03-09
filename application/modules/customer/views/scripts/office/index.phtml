@@ -126,6 +126,55 @@
             <?php } ?>
         </div>
       </div>
+      <div class="product-share clearfix">
+        <p> Верификация телефона </p>
+        <img id="verificatePhone" style="display:none" data-toggle="tooltip" data-placement="left" title="Телефон верифецирован"  width="40px" src="<?= $this->baseUrl().'/ico/phone.png' ?>" >
+        <div id="verifDiv" > 
+            <?php if(!$this->user['phone_vefivied']){?>
+                <?php if(!$this->user['pv_id']){?>
+            <a id="verificatePhoneNum">
+                    <img  data-toggle="tooltip" data-placement="left" title="Нажмите для верификации телефона"  width="30px" src="<?= $this->baseUrl().'/ico/phone_wb.png' ?>" >
+                    </a>
+                    <img id="phoneVerifyPreloader" width="50" src="<?= $this->baseUrl().'/images/blue_preloader.gif' ?>" style="display: none">
+                    <div  id="verificateDiv" style="display: none">
+
+                    </div>
+                <?php }else{?>
+                     
+                        <div  id="verificateDiv">
+                        <form class="form-inline">
+
+                          <div class="form-group" style="padding-bottom: 15px">
+                            <p id="codeError" style="display: none" class="text-danger">Неверный код</p>
+                            <div class="input-group">
+                              <input type="text" class="form-control" id="code" placeholder="код">
+
+                            </div>
+                          </div>
+                </br>
+
+                          <div class="form-group">
+                            <p id="phoneVerificationError" style="display: none" class="text-danger">Нет такого номера</p>
+                            <div class="input-group">
+                              <div class="input-group-addon">+375</div>
+                              <input  type="text" class="form-control" id="phoneNum" placeholder="телефон">
+
+                            </div>
+                          </div>
+                        <div style="padding-top: 10px">
+                            <button class="btn btn-primary" id="activation">Активация</button>
+                            <img id="activatePrel" src="<?= $this->baseUrl().'/images/blue_preloader.gif' ?>" width="60" style="display: none">
+                          
+                            </form>
+
+                          </div>
+                          </div>
+                <?php }?>
+            <?php }else{ ?>
+                <img id="verificatePhone" data-toggle="tooltip" data-placement="left" title="Телефон верифецирован"  width="40px" src="<?= $this->baseUrl().'/ico/phone.png' ?>" >
+            <?php } ?>
+        </div>
+      </div>
       
     </div><!--/ right column end -->
 
@@ -137,7 +186,7 @@
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#orders" aria-controls="orders" role="tab" data-toggle="tab">Заказы</a></li>
-    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Сообщения</a></li>
+    
     <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Настройки</a></li>
    
   </ul>
@@ -207,9 +256,7 @@
         </table>
         </div>
     </div>
-    <div role="tabpanel" class="tab-pane" id="messages">
-      Сообщения
-    </div>
+
     <div role="tabpanel" class="tab-pane" id="settings">
       <div role="tabpanel2">
          <?= $this->form ?>
@@ -230,10 +277,83 @@ $(document).ready(function(){
     });
 
 
+    $('#verificatePhoneNum').bind('click', function(){  console.log('opa');
+        $('#verificatePhoneNum').hide();
+        $('#phoneVerifyPreloader').show();
+        sendSms(<?= $this->user['phonenumber'] ?>, <?= $this->user['id'] ?>);
+
+    });
+
+    $('#activation').bind("click", function(e){
+        e.preventDefault();
+        var phone = $('#phoneNum').val();
+        var code = $('#code').val();
+        if(phone == ''){
+            $('#phoneVerificationError').show();
+        }
+        if(code == ''){
+            $('#codeError').show();
+        }
+        if(code != '' && phone != ''){
+            activatePhone(phone, code);
+        }
+    });
+
+
 });
+
+function activatePhone(phone, code){
+$('#codeError').hide();
+$('#phoneVerificationError').hide();
+$('#activation').hide();  
+$('#activatePrel').show();
+$.ajax({
+    type: 'POST',
+    url: '<?= $this->baseUrl.'/phone-activation/activate-account'; ?>',
+    data: {phone: phone, code: code},
+    success: function(data){
+        data = JSON.parse(data);console.log(data);
+        if(data.code != '1' || data.phone != '1'){
+              if(data.code != '1'){
+                  $('#codeError').show();
+                }    
+              if(data.phone != '1'){
+                  $('#phoneVerificationError').show();
+                }  
+                $('#activation').show();  
+                $('#activatePrel').hide();
+        }else{
+        // the ajax activates user account console.log(data);
+            $.ajax({
+                type: 'POST',
+                url: '<?= $this->baseUrl.'/registration/activate-account-by-phone'; ?>',
+                data: {userId: data.user_id},
+                success: function(data){
+//                    $('#activation').show();  
+                    $('#verifDiv').hide();
+                    $('#verificatePhone').show();
+              }
+            });
+        }
+  }
+});
+}
+
 $(function () {
   $('[data-toggle="tooltip"]').tooltip();
-})    
+});
+
+function sendSms(phoneNumber, userId){
+    $.ajax({
+        type: 'POST',
+        url: '<?= $this->baseUrl.'/sms/phone-verify'; ?>',
+        data: {phoneNumber: phoneNumber, userId: userId},
+        success: function(data){
+            location.reload();
+         }
+     });
+     }
+
 function removeTask(id){
 $('#remPrel'+id).show();
 $.ajax({
