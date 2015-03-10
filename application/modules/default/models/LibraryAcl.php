@@ -26,6 +26,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->add(new Zend_Acl_Resource('admin:tasks'), 'admin');
        $this->add(new Zend_Acl_Resource('admin:messages'), 'admin');
        $this->add(new Zend_Acl_Resource('admin:comments'), 'admin');
+       $this->add(new Zend_Acl_Resource('admin:settings'), 'admin');
        
        $this->add(new Zend_Acl_Resource('customer'));
        $this->add(new Zend_Acl_Resource('customer:index'), 'customer');
@@ -87,6 +88,8 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('admin', 'admin:messages', 'get-unread-messages-for-admin');
        $this->allow('admin', 'admin:messages', 'mark-admin-read');
        $this->allow('admin', 'admin:comments', 'index');
+       $this->allow('admin', 'admin:settings', 'edit-about');
+       $this->allow('admin', 'admin:settings', 'edit-contacts');
        
        // customer
        $this->allow('customer', 'default:authentication', 'log-out');

@@ -8,7 +8,7 @@
 
    <?=  $this->headTitle(); ?>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    
+    <script src="//cdn.ckeditor.com/4.4.7/full/ckeditor.js"></script>
     <script src="<?= $this->baseUrl() ?>/datatable/js/datatable.js"></script>
     <!-- Bootstrap core CSS -->
     <link href="<?= $this->baseUrl() ?>/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -74,8 +74,8 @@
                  <span class="caret"></span>
                  </a>
                  <ul class="dropdown-menu">
-                   <li><a tabindex="-1" href="<?= $this->url(array('controller' => 'settings', 'action' => 'about'))?>">О проекте</a></li>
-                   <li><a tabindex="-1" href="<?= $this->url(array('controller' => 'settings', 'action' => 'contacts'))?>">Контакты</a></li>
+                   <li><a tabindex="-1" href="<?= $this->url(array('controller' => 'settings', 'action' => 'edit-about'))?>">О проекте</a></li>
+                   <li><a tabindex="-1" href="<?= $this->url(array('controller' => 'settings', 'action' => 'edit-contacts'))?>">Контакты</a></li>
                  </ul>
           </div>
           <div class="btn-group">
