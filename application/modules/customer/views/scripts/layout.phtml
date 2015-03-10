@@ -243,11 +243,13 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
           <?php if($user->phone_verified == 1){ ?>
-            <li class="active"> <a href="<?= $this->baseUrl().'/customer/task/new-task'?>">Создать задачу</a> </li>
+            <li > <a href="<?= $this->baseUrl().'/customer/task/new-task'?>">Создать задачу</a> </li>
           <?php }else{?>
-            <li class="active"> <a data-toggle="modal"  data-dismiss="modal" href="#ModalPhoneNotVerified">Создать задачу</a> </li>
+            <li > <a data-toggle="modal"  data-dismiss="modal" href="#ModalPhoneNotVerified">Создать задачу</a> </li>
           <?php } ?>
           <li> <a href="<?= $this->baseUrl().'/customer/performers/'?>">Исполнители</a> </li>
+          <li> <a href="<?= $this->baseUrl().'/customer/about/'?>">О проекте</a> </li>
+          <li> <a href="<?= $this->baseUrl().'/customer/contacts/'?>">Контакты</a> </li>
 
           <?php if($this->application['customer_id'] != $this->user['id'] || $this->application == 0){?>
           <li><a class="blog-nav-item"  href="<?= $this->baseUrl().'/customer/office/application' ?>"  >Стать исполнителем</a></li>

@@ -16,6 +16,8 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->add(new Zend_Acl_Resource('default:sms'), 'default'); 
        $this->add(new Zend_Acl_Resource('default:phone-activation'), 'default'); 
        $this->add(new Zend_Acl_Resource('default:performers'), 'default'); 
+       $this->add(new Zend_Acl_Resource('default:about'), 'default'); 
+       $this->add(new Zend_Acl_Resource('default:contacts'), 'default'); 
        
        $this->add(new Zend_Acl_Resource('admin'));
        $this->add(new Zend_Acl_Resource('admin:index'), 'admin');
@@ -37,6 +39,8 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->add(new Zend_Acl_Resource('customer:task'), 'customer');
        $this->add(new Zend_Acl_Resource('customer:feedback'), 'customer');
        $this->add(new Zend_Acl_Resource('customer:comments'), 'customer');
+       $this->add(new Zend_Acl_Resource('customer:about'), 'customer');
+       $this->add(new Zend_Acl_Resource('customer:contacts'), 'customer');
        
        $this->add(new Zend_Acl_Resource('performer'));
        $this->add(new Zend_Acl_Resource('performer:index'), 'performer');
@@ -49,6 +53,8 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->add(new Zend_Acl_Resource('performer:performers'), 'performer');
        $this->add(new Zend_Acl_Resource('performer:balance'), 'performer');
        $this->add(new Zend_Acl_Resource('performer:comments'), 'performer');
+       $this->add(new Zend_Acl_Resource('performer:contacts'), 'performer');
+       $this->add(new Zend_Acl_Resource('performer:about'), 'performer');
        
 
        
@@ -135,6 +141,8 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('customer', 'customer:messages', 'mark-read');
        $this->allow('customer', 'customer:messages', 'get-unread-messages');
        $this->allow('customer', 'customer:comments', 'send-comment');
+       $this->allow('customer', 'customer:about', 'index');
+       $this->allow('customer', 'customer:contacts', 'index');
       
        // performer
        $this->allow('performer', 'default:authentication', 'log-out');
@@ -156,6 +164,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('performer', 'performer:feedback', 'leave-feedback');
        $this->allow('performer', 'performer:feedback', 'leave-feedback-as-customer');
        $this->allow('performer', 'performer:performers', 'performer-view');
+       $this->allow('performer', 'performer:performers', 'index');
        $this->allow('performer', 'default:social-attach', 'vk');
        $this->allow('performer', 'default:social-attach', 'vk-link');
        $this->allow('performer', 'default:social-attach', 'vk-complete');
@@ -173,6 +182,8 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('performer', 'performer:messages', 'get-unread-messages');
        $this->allow('performer', 'performer:balance', 'fill-ajax');
        $this->allow('performer', 'performer:comments', 'send-comment');
+       $this->allow('performer', 'performer:about', 'index');
+       $this->allow('performer', 'performer:contacts', 'index');
        $this->allow('performer', 'customer:comments', 'send-comment');
        
        //guest
@@ -202,5 +213,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('guest', 'default:sms', 'phone-activate');
        $this->allow('guest', 'default:performers', 'index');
        $this->allow('guest', 'default:performers', 'view');
+       $this->allow('guest', 'default:about', 'index');
+       $this->allow('guest', 'default:contacts', 'index');
     }
 }

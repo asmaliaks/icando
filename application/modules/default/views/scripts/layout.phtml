@@ -359,7 +359,7 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
             <ul class="userMenu">
                 
               <?php if(Zend_Auth::getInstance()->hasIdentity()){?>
-                <li> <a href="account-1.html"><span class="hidden-xs">Личный кабинет</span> <i class="glyphicon glyphicon-user hide visible-xs "></i></a> </li>
+                
                 <li> <a href="<?= $this->baseUrl().'/authentication/log-out/' ?>"  > <span class="hidden-xs">Выйти</span> <i class="glyphicon glyphicon-log-in hide visible-xs "></i> </a> </li>
               <?php }else{ ?>
                 <li> <a href="#"  data-toggle="modal" data-target="#ModalLogin"> <span class="hidden-xs">Войти</span> <i class="glyphicon glyphicon-log-in hide visible-xs "></i> </a> </li>
@@ -398,12 +398,12 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
           <li > <a href="<?= $this->baseUrl()?>/default/performers/index">Исполнители </a> </li>
 
         <!-- change width of megamenu = use class > megamenu-fullwidth, megamenu-60width, megamenu-40width -->
-        <li class="dropdown megamenu-80width "> 
-            <a  href="#"> О проекте <b class="caret"> </b> </a>
+        <li > 
+            <a  href="<?= $this->baseUrl().'/about/' ?>"> О проекте</a>
 
         </li>
-        <li class="dropdown megamenu-fullwidth">
-            <a  href="#"> Контакты <b class="caret"> </b> </a>
+        <li >
+            <a  href="<?= $this->baseUrl().'/contacts/' ?>"> Контакты</a>
 
         </li>
       </ul>

@@ -10,7 +10,18 @@ class Performer_PerformersController extends Zend_Controller_Action{
        }
     }
     public function indexAction(){
-        echo 'index';
+        /// get all comments for the task
+        $performersObj = new Default_Model_Performers();
+        $performesList = $performersObj->listPerformers();
+            //   pagination    
+        $performers = new Zend_Paginator(new Zend_Paginator_Adapter_DbSelect($performesList));
+        $performers->setItemCountPerPage(12)
+                ->setCurrentPageNumber($this->getParam('page', 1));
+        
+        if($this->user){
+            $this->view->user = $user;
+        }
+        $this->view->performers = $performers;
     }
     
     public function performerViewAction(){

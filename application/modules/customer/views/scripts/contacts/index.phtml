@@ -1,0 +1,19 @@
+    <div class="row">
+        <div class="breadcrumbDiv col-lg-12">
+              <ul class="breadcrumb">
+                  <li> <a href="<?= $this->baseUrl() ?>">Главная</a> </li>
+                 <li class="active" >Контакты</li>
+              </ul>
+        </div>
+
+
+    <h3>Контакты</h3>
+    <div class="col-sm-12">
+        <?= $this->contacts['content'] ?>
+    </div>
+    <?php if($this->contacts['js_map']){?>
+        <div class="col-sm-12">
+            <?= $this->contacts['js_map'] ?>
+        </div>
+    <?php } ?>
+</div>
