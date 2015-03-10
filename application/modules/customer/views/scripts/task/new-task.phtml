@@ -33,6 +33,7 @@
                 <div class="col-sm-12">
                     <label>Описание</label>
                     <textarea name="description" id="description" style="width: 100%" rows="10" class="form-control"></textarea>
+                    <p id="description_error" class="text-danger" style="display: none">* Поле не может быть пустым</p>
                 </div>
                 <div class="col-sm-12">
                 <div class="col-sm-4">
@@ -40,11 +41,42 @@
                     <input type="text" name="price" id="price" class="form-control" style="width: 100%">
                     <p id="price_error" class="text-danger" style="display: none">* Поле не может быть пустым</p>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-2">
                     <label>Дата выполнения</label>
                     <input type="text" name="final_date" id="final_date" class="form-control" style="width: 100%">
                     <p id="final_date_error" class="text-danger" style="display: none">* Поле не может быть пустым</p>
                 </div>
+                <div class="col-sm-2">
+                    <label>Время выполнения</label>
+                        
+                        <select  id="timepicker" name="time" class="form-control" style="width: 100%">
+                            <option value="0">00:00</option>
+                            <option value="1">01:00</option>
+                            <option value="2">02:00</option>
+                            <option value="3">03:00</option>
+                            <option value="4">04:00</option>
+                            <option value="5">05:00</option>
+                            <option value="6">06:00</option>
+                            <option value="7">07:00</option>
+                            <option value="8">08:00</option>
+                            <option value="9">09:00</option>
+                            <option value="10">10:00</option>
+                            <option value="11">11:00</option>
+                            <option value="12">12:00</option>
+                            <option value="13">13:00</option>
+                            <option value="14">14:00</option>
+                            <option value="15">15:00</option>
+                            <option value="16">16:00</option>
+                            <option value="17">17:00</option>
+                            <option value="18">18:00</option>
+                            <option value="19">19:00</option>
+                            <option value="20">20:00</option>
+                            <option value="21">21:00</option>
+                            <option value="22">22:00</option>
+                            <option value="23">23:00</option>
+                        
+                        </select>
+                </div>    
                 <div class="col-sm-4">
                     <label>Дата окончания предложения</label>
                     <input type="text" name="expiry_date" id="expiry_date" class="form-control" style="width: 100%">
@@ -100,6 +132,7 @@
         </div>
     </div>
 </div> 
+
 <script>
 
 $(document).ready(function(){
@@ -112,8 +145,11 @@ $(document).ready(function(){
     $('#terms').bind("click", function(){
         $('#agreementDiv').toggle(400);
     });
-});
+
     
+    
+});
+  
   $(function() {
     $( "#final_date" ).datepicker();
   }); 
@@ -125,6 +161,7 @@ function newTask(){
     $('#sub_cat_error').hide();
     $('#title_error').hide(); 
     $('#price_error').hide(); 
+    $('#description_error').hide(); 
     $('#date_error').hide();
     $('#finish_date_error').hide(); 
     $('#agree_error').hide(); 
@@ -141,7 +178,7 @@ function newTask(){
         var agree = '0';
     }
 
- if(catId === '0' || title === '' || price === '' || date === '' || finishDate === '' || agree === '0'){
+ if(catId === '0' || title === '' || price === '' || date === '' || finishDate === '' || description === '' || agree === '0'){
 //    if( title === '' || price === '' || date === '' || finishDate === '' || agree === '0'){
         if(catId === '0'){
             $('#sub_cat_error').show();
@@ -154,6 +191,9 @@ function newTask(){
         }
         if(date === ''){
            $('#final_date_error').show(); 
+        }
+        if(description === ''){
+           $('#description_error').show(); 
         }
         if(finishDate === ''){
            $('#expiry_date_error').show(); 

@@ -15,6 +15,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->add(new Zend_Acl_Resource('default:cron-api'), 'default'); 
        $this->add(new Zend_Acl_Resource('default:sms'), 'default'); 
        $this->add(new Zend_Acl_Resource('default:phone-activation'), 'default'); 
+       $this->add(new Zend_Acl_Resource('default:performers'), 'default'); 
        
        $this->add(new Zend_Acl_Resource('admin'));
        $this->add(new Zend_Acl_Resource('admin:index'), 'admin');
@@ -111,6 +112,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('customer', 'customer:task', 'accept-proposition');
        $this->allow('customer', 'customer:feedback', 'leave-feedback');
        $this->allow('customer', 'customer:performers', 'performer-view');
+       $this->allow('customer', 'customer:performers', 'index');
        $this->allow('customer', 'customer:performers', 'request-to-be-performer');
        $this->allow('customer', 'default:social-attach', 'vk');
        $this->allow('customer', 'default:social-attach', 'vk-link');
@@ -120,6 +122,9 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('customer', 'default:social-attach', 'ok-complete');
        $this->allow('customer', 'default:social-attach', 'fb');
        $this->allow('customer', 'default:social-attach', 'fb-link');
+       $this->allow('customer', 'default:social-attach', 'fb-complete');
+       $this->allow('customer', 'default:performers', 'index');
+       $this->allow('customer', 'default:performers', 'view');
        $this->allow('customer', 'default:sms', 'phone-activate');
        $this->allow('customer', 'default:sms', 'phone-verify');
        $this->allow('customer', 'default:phone-activation', 'activate-account');
@@ -192,5 +197,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('guest', 'default:cron-api', 'new-tasks-send-mail');
        $this->allow('guest', 'default:cron-api', 'unbann');
        $this->allow('guest', 'default:sms', 'phone-activate');
+       $this->allow('guest', 'default:performers', 'index');
+       $this->allow('guest', 'default:performers', 'view');
     }
 }

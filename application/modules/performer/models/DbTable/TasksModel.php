@@ -59,6 +59,13 @@ class Performer_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
         return true;
     }
     
+    public function removeNonTkenTasks(){
+        $currentDate = time();
+        $where = $this->getAdapter()->quoteInto('expiry_date < ?', $currentDate);
+        $this->delete($where);
+        return true;
+    }
+    
     public function getCustomersTasks($userId){
         $select = $this->select()
                 ->from(array('t'=>'tasks'))

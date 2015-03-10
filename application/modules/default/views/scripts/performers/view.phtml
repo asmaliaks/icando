@@ -3,8 +3,8 @@
     <div class="breadcrumbDiv col-lg-12">
       <ul class="breadcrumb">
           <li> <a href="<?= $this->baseUrl().'/customer/' ?>">Главная</a> </li>
-          <li> <a href="<?= $this->baseUrl().'/customer/performers/' ?>">Список исполнителей</a> </li>
-        <li class="active"><?= $this->performer['username'].' '.substr($performer['surname'], 0, 1).'.' ?> </li>
+          <li> <a href="<?= $this->baseUrl().'/customer/office/' ?>">Исполнитель</a> </li>
+        <li class="active"><?= $this->performer['username'].' '.$this->performer['surname'] ?> </li>
       </ul>
     </div>
   </div>
@@ -40,30 +40,20 @@
       </div>
       <div class="product-price"> 
           <span class="price-sales">
-                <?php
-                if($this->closedTasks){
-                   $closedTasksAmount = count($this->closedTasks);
+            <?php
+            if($this->closedTasks){
+               $closedTasksAmount = count($this->closedTasks);
 
-                ?>
-                <?php if($closedTasksAmount){ ?>
-                     Выполненных работ: <?= $closedTasksAmount ?>
-                <?php }else{ ?>
-                     Пользователь еще не завершил ни одного задания
-                <?php } 
-                } ?>
+            ?>
+            <?php if($closedTasksAmount){ ?>
+               Выполненных работ: <?= $closedTasksAmount ?>
+            <?php }else{ ?>
+               Пользователь еще не завершил ни одного задания
+            <?php } 
+            } ?>
           </span>  
       </div>
-      <?php
-      if($this->closedTasks){
-         $closedTasksAmount = count($this->closedTasks);
-      
-      ?>
-      <?php if($closedTasksAmount){ ?>
-        <h3 class="product-code"> Выполненных работ: <span class="price-sales"><?= $closedTasksAmount ?></span> </h3>
-      <?php }else{ ?>
-        <h3 class="product-code"> Пользователь еще не завершил ни одного задания</h3>
-      <?php } 
-      } ?>
+
       <div class="details-description">
           <h3 class="product-code">Сферы деятельности :</h3>
           

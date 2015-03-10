@@ -121,59 +121,7 @@
       </div>    
  <?php } ?>     
     </div>
-        <?php if($this->tasks){?>
-        <div class="col-lg-12">
-            <h3>По вашим видам деятельности задач не найдено</h3>
-        </div>
-        <?php }else{ ?>
-        <div class="col-lg-12">
-            <h3>Задачи</h3>
-        </div>
-        <table id="taskTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
-        <thead>
-            <tr>
-                <th>Название</th>
-                <th>Заказчик</th>
-                <th>Дата исполнения</th>
-                <th>Дата создания</th>
-                <th>Цена</th>
-            </tr>
-        </thead>    
 
-        <tbody>
-    <?php foreach($this->tasks as $task){?>
-            <?php 
-                $taskPoints = 15*$task['customers_price'];
-                $taskPoints = $taskPoints/100;
-            ?>
-            <tr id="div<?= $customer['id'] ?>">
-                <td>
-                    <?php if($this->freePoints >= $taskPoints){?>
-                        <a href="<?= $this->baseUrl() ?>/performer/task/view/id/<?= $task['id'] ?>">
-                    <?php }else{?> 
-                        <a data-toggle="modal" data-target="#notallowedModal">
-                    <?php } ?>
-                        <?= $task['title'] ?>
-                    </a>    
-                    </td>
-                <td>
-                    <?php if($this->freePoints >= $taskPoints){?>
-                        <a href="<?= $this->baseUrl()?>/performer/customer/view/id/<?= $task['customer_id'] ?>">
-                    <?php }else{?>    
-                        <a data-toggle="modal" data-target="#notallowedModal">   
-                    <?php } ?>        
-                            <?= $task['c_username']?>
-                    </a>
-                </td>
-                <td><?= date("d.m.Y", $task['final_date']) ?></td>
-                <td><?= date("h:i d.m.Y", $task['created_at']) ?></td>
-                <td><?= $task['customers_price'] ?></td>
-            </tr>
-
-    <?php } ?>
- </tbody>
-</table>
-        <?php } ?>
         <div class="modal fade" id="notallowedModal" tabindex="-1" role="dialog" aria-labelledby="notallowedLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">

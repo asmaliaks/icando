@@ -69,6 +69,16 @@
                  </ul>
           </div>
           <div class="btn-group">
+                 <a class="btn dropdown-toggle blog-nav-item" data-toggle="dropdown" href="#">
+                     Настройки
+                 <span class="caret"></span>
+                 </a>
+                 <ul class="dropdown-menu">
+                   <li><a tabindex="-1" href="<?= $this->url(array('controller' => 'settings', 'action' => 'about'))?>">О проекте</a></li>
+                   <li><a tabindex="-1" href="<?= $this->url(array('controller' => 'settings', 'action' => 'contacts'))?>">Контакты</a></li>
+                 </ul>
+          </div>
+          <div class="btn-group">
                  <a class="btn dropdown-toggle blog-nav-item"  href="<?= $this->url(array('controller' => 'applications', 'action' => 'index'))?>">Заявки</a>
                  
           </div>

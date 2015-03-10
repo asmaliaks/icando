@@ -31,8 +31,14 @@
                 <td><a href="<?= $this->baseUrl().'/admin/customers/view/id/'.$customer['id'] ?>"><?=  $customer['username'].' '.$customer['surname'] ?></a></td>
                 <td><?=  $customer['phonenumber'] ?></td>
                 <td><?=  $customer['city'] ?></td>
-                <td>28</td>
-                <td>balans</td>
+                <td>
+                    <?php $unixAge = time() - $customer['birth_date'];
+                    $age = $unixAge/31556926;
+                    $age = floor($age);
+                    ?>
+                    <?= $age ?>
+                </td>
+                <td><?= $customer['balance'] ?></td>
                 <td>
                      <?php if($customer['banned'] == 0){?>
                            <button id="bann<?= $customer['id'] ?>" class="btn btn-primary btn-xs"  onclick="openModal(<?= $customer['id'] ?>)">Забанить</button>

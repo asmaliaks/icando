@@ -40,11 +40,42 @@
                     <input type="text" name="price" id="price" class="form-control" style="width: 100%">
                     <p id="price_error" class="text-danger" style="display: none">* Поле не может быть пустым</p>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-2">
                     <label>Дата выполнения</label>
                     <input type="text" name="final_date" id="final_date" class="form-control" style="width: 100%">
                     <p id="final_date_error" class="text-danger" style="display: none">* Поле не может быть пустым</p>
                 </div>
+                <div class="col-sm-2">
+                    <label>Время выполнения</label>
+                        
+                        <select  id="timepicker" name="time" class="form-control" style="width: 100%">
+                            <option value="0">00:00</option>
+                            <option value="1">01:00</option>
+                            <option value="2">02:00</option>
+                            <option value="3">03:00</option>
+                            <option value="4">04:00</option>
+                            <option value="5">05:00</option>
+                            <option value="6">06:00</option>
+                            <option value="7">07:00</option>
+                            <option value="8">08:00</option>
+                            <option value="9">09:00</option>
+                            <option value="10">10:00</option>
+                            <option value="11">11:00</option>
+                            <option value="12">12:00</option>
+                            <option value="13">13:00</option>
+                            <option value="14">14:00</option>
+                            <option value="15">15:00</option>
+                            <option value="16">16:00</option>
+                            <option value="17">17:00</option>
+                            <option value="18">18:00</option>
+                            <option value="19">19:00</option>
+                            <option value="20">20:00</option>
+                            <option value="21">21:00</option>
+                            <option value="22">22:00</option>
+                            <option value="23">23:00</option>
+                        
+                        </select>
+                </div> 
                 <div class="col-sm-4">
                     <label>Дата окончания предложения</label>
                     <input type="text" name="expiry_date" id="expiry_date" class="form-control" style="width: 100%">
@@ -133,6 +164,7 @@ function newTask(){
     var title = $('#title').val();
     var description = $('#description').val();
     var price = $('#price').val();
+    var time = $('#timepicker').val();
     var date = $('#final_date').val();
     var finishDate = $('#expiry_date').val();
     if($('#agree').is(':checked')){

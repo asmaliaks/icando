@@ -29,4 +29,9 @@ class CronApiController extends Zend_Controller_Action {
         $usersObj = new Admin_Model_DbTable_Users();
         $usersObj->unbannUsers();
     }
+    
+    public function removeNonTakenTasksAction(){
+        $tasksObj = new Performer_Model_DbTable_TasksModel();   
+        $tasksObj->removeNonTkenTasks();
+    }
 }

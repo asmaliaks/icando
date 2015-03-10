@@ -63,7 +63,7 @@ class Customer_TaskController extends Zend_Controller_Action{
         $request = $this->getRequest();
         if($request->isPost()){
             $params = $request->getParams();
-            $finalDateUnix = strtotime($params['final_date']);
+            $finalDateUnix = strtotime($params['time'].':00 '.$params['final_date']);
             $expiryDate  = strtotime($params['expiry_date']);
             $data = array(
                 'title'=>$params['title'],

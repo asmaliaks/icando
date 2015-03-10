@@ -203,7 +203,7 @@ class SocialAttachController extends Zend_Controller_Action{
         );
         
         $link = $url . '?' . urldecode(http_build_query($params));
- 
+
         $this->_redirect($link);
     } 
     

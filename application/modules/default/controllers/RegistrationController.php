@@ -216,7 +216,7 @@ class RegistrationController extends Zend_Controller_Action{
            $userId = $request->getParam('userId');
            $usersObj = new Performer_Model_DbTable_Users();
            $phoneVerifObj = new Default_Model_DbTable_PhoneVerification();
-           $data = array('phone_vefivied'=> 1);
+           $data = array('phone_verified'=> 1);
            $usersObj->editUser($data, $userId);
            $phoneVerifObj->removeNumber($userId);
            
