@@ -1,11 +1,31 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<!-- bxSlider Javascript file -->
+<script src="<?= $this->baseUrl() ?>/bxslider/jquery.bxslider.js"></script>
+<!-- bxSlider CSS file -->
+<link href="<?= $this->baseUrl() ?>/bxslider/jquery.bxslider.css" rel="stylesheet" />
+<script>
+$(document).ready(function(){
+
+  $('.slider2').bxSlider({
+    slideWidth: 290,
+    minSlides: 2,
+    maxSlides: 3,
+    slideMargin: 10
+  });
+ 
+
+
+});
+  </script>
 <div class="container main-container"> 
   
   <!-- Main component call to action -->
   
   <div class="morePost row featuredPostContainer style2 globalPaddingTop ">
-    <h3 class="section-title style2 text-center"><span>Последние задачи</span></h3>
+    <h3 class="section-title style2 text-center"><span>Архив задач</span></h3>
     <div class="container">
       <div class="row xsResponse">
+          
        <?php foreach($this->lastTasks as $lastTask){?>
         <!--/.item-->
         <div class="item col-lg-3 col-md-3 col-sm-4 col-xs-6">
@@ -34,6 +54,7 @@
           </div>
         </div>
        <?php }?>
+        
         <!--/.item--> 
       </div>
       <!-- /.row -->

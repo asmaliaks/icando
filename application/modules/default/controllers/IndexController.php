@@ -31,7 +31,7 @@ protected $user;
         }
         // get tasks for the list
         $tasksObj = new Default_Model_DbTable_TasksModel();
-        $lastTasks = $tasksObj->getLastTasks(12);
+        $lastTasks = $tasksObj->getLastTasks();
         // get main categories  
         $categoryObj = new Default_Model_DbTable_Categories();
         $mainCats = $categoryObj->getMainCats();

@@ -19,7 +19,7 @@ class Performer_PerformersController extends Zend_Controller_Action{
                 ->setCurrentPageNumber($this->getParam('page', 1));
         
         if($this->user){
-            $this->view->user = $user;
+            $this->view->user = $this->user;
         }
         $this->view->performers = $performers;
     }
