@@ -34,7 +34,7 @@
                   <h4>
                       
                         <a href="<?= $this->baseUrl().'/default/performers/view/id/'.$performer['id']  ?>">
-                            <?= $performer['username'].' '.substr($performer['surname'], 0, 1).'.' ?>
+                            <?= $performer['username'].' '.mb_substr($performer['surname'], 0, 1, 'utf-8').'.' ?>
                         </a>
                   </h4>
                   

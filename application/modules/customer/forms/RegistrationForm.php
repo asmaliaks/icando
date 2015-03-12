@@ -20,6 +20,12 @@ class Customer_Form_RegistrationForm extends Zend_Form{
    $surname->setLabel('Фамилия')
            ->setRequired()
            ->addErrorMessage('Поле обязательно для заполнения');
+   
+   $about = new Zend_Form_Element_Textarea('about');
+   $about->setLabel('Описание')
+           ->setRequired()
+           ->addErrorMessage('Поле обязательно для заполнения')
+           ->setAttribs(array('cols' => '60', 'rows'=>'10', 'calss'=> 'form-control'));
    $sex = new Zend_Form_Element_Select('sex');
    $sex->setLabel('Пол')
            ->setRequired()
@@ -78,8 +84,8 @@ class Customer_Form_RegistrationForm extends Zend_Form{
    
    $image = new Zend_Form_Element_File('image');
    $image->setLabel('Изображение')
-//         ->setDestination(DOCUMENT_ROOT.'/images/users_images/');  
-         ->setDestination($_SERVER['DOCUMENT_ROOT'].'/images/users_images/');  
+         ->setDestination(DOCUMENT_ROOT.'/images/users_images/');  
+//         ->setDestination($_SERVER['DOCUMENT_ROOT'].'/images/users_images/');  
    
    
    $pass = new Zend_Form_Element_Password('pass');
@@ -89,9 +95,10 @@ class Customer_Form_RegistrationForm extends Zend_Form{
 
    $submit = new Zend_Form_Element_Submit('submit');
    $submit->setLabel('Сохранить')
-          ->setAttrib('class', 'button2');
+          ->setAttrib('class', 'btn btn-primary');
    
-   $this->addElements(array($email, $name, $surname, $sex,  $phoneNumber, $city, $dayBirth, $monthBirth, $birthYear, $image, $pass,  $submit));
+   $this->addElements(array($email, $name, $surname, $sex,  $phoneNumber, $about , $city, $dayBirth, $monthBirth, $birthYear, $image, $pass,  $submit));
+   
    $this->setMethod('post');
    
    

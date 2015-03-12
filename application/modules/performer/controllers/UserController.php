@@ -72,6 +72,7 @@ class Performer_UserController extends Zend_Controller_Action{
                     'username'  => $form->getValue('username'),
                     'surname' => $form->getValue('surname'),
                     'sex' => $form->getValue('sex'),
+                    'about' => $form->getValue('about'),
                     'phonenumber' => '375'.$form->getValue('phonenumber'),
                     'city' => $form->getValue('city'),
                     'birth_date' => $birthDate,
@@ -104,6 +105,7 @@ class Performer_UserController extends Zend_Controller_Action{
         
         $form->getElement('email')->setValue($user['email']);
         $form->getElement('username')->setValue($user['username']);
+        $form->getElement('about')->setValue($user['about']);
         $form->getElement('surname')->setValue($user['surname']);
         $form->getElement('year_birth')->setValue($birthAr[2]);
         $form->getElement('month_birth')->setValue($birthAr[1]);

@@ -24,6 +24,18 @@ class Model_DbTable_Users extends Zend_Db_Table_Abstract{
        }
        
    } 
+      public function getUserBySnId($userId, $socialNetwork){
+       $select = $this->select()
+               ->from(array('u'=>'users'))
+               ->where('u.'.$socialNetwork.'=?',$userId);
+       $result = $this->fetchRow($select);
+       if($result){
+           return $result->toArray();
+       }else{
+           return false;
+       }
+       
+   } 
 
    public function attachAccount($data, $userId){
         $where = $this->getAdapter()->quoteInto('id = ?', $userId);

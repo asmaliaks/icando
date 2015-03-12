@@ -119,16 +119,16 @@ class SAuthController extends Zend_Controller_Action{
                     
                 }
             }else{
-                // if user registred
-                // authorizate new user
+                // if user registred or SN account attached authorize user with his regular credentials
                 $userInfo = $userInfo['response'][0];
-                $authAdapter = $this->getAuthAdapter('vk');
+                $authAdapter = $this->getAuthAdapter('email');
         
                 $userId = $userInfo['id'];
-                $pass = base64_encode($userInfo['id']);
-                $pass = $pass.SALT;
-                $authAdapter->setIdentity($userId)
-                    ->setCredential($pass);
+                // get user by vk_id
+                $vkUser = $userModel->getUserBySnId($userId, 'vk');
+                
+                $authAdapter->setIdentity($vkUser['email'])
+                    ->setCredential($vkUser['pass']);
         
                 $auth = Zend_Auth::getInstance();
                 $result = $auth->authenticate($authAdapter);
@@ -202,9 +202,9 @@ class SAuthController extends Zend_Controller_Action{
                 curl_close($curl);
                            // check id user exists with that user_id 
                 $userModel = new Model_DbTable_Users();
-                $user = $userModel->checkFbUser($userInfo['id']);
+                $user = $userModel->checkFbUser($userInfo['id']);//print_r($user);exit;
                 // if user is not registred
-                if(!$user){
+                if(!$user){//print_r('opa');exit;
                     $pass = base64_encode($userInfo['id']);
                     $pass = $pass.SALT;
                     if(empty($userInfo['birthday'])){
@@ -367,13 +367,13 @@ class SAuthController extends Zend_Controller_Action{
             }else{
                 // if user registred
                 // authorizate new user
-                $authAdapter = $this->getAuthAdapter('ok');
+                $authAdapter = $this->getAuthAdapter('email');
         
                 $userId = $userInfo['uid'];
-                $pass = base64_encode($userInfo['uid']);
-                $pass = $pass.SALT;
-                $authAdapter->setIdentity($userId)
-                    ->setCredential($pass);
+                $okUser = $userModel->getUserBySnId($userId, 'ok'); 
+                
+                $authAdapter->setIdentity($okUser['email'])
+                    ->setCredential($okUser['pass']);
         
                 $auth = Zend_Auth::getInstance();
                 $result = $auth->authenticate($authAdapter);

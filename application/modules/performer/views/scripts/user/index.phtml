@@ -249,7 +249,7 @@
             <?php foreach($this->acceptedTasks as $task){?>
                     <tr>
                         <td><a href="<?= $this->baseUrl().'/performer/task/view/id/'.$task['id'] ?>"><?= $task['title'] ?></a></td>
-                        <td><a href="<?= $this->baseUrl().'/performer/customer/view/id/'.$task['customer_id'] ?>"><?= $task['u_username'] ?></a></td>
+                        <td><a href="<?= $this->baseUrl().'/performer/customer/view/id/'.$task['customer_id'] ?>"><?= $task['u_username'].' '.mb_substr($task['u_username'], 0, 1, 'utf-8') ?></a></td>
                         <td><?= $task['customers_price'] ?></td>
                         <td><?= date('d.m.Y', $task['final_date']) ?></td>
                         <td>
@@ -284,7 +284,22 @@
         <tbody>
             <?php foreach($this->orders as $task){?>
             <tr id="tr<?= $task['id'] ?>">
-                <td><a href="<?= $this->baseUrl().'/performer/task/performers-view/id/'.$task['id']?>"><?= $task['title'] ?></a></td>
+                <?php  $tpObj = new Customer_Model_DbTable_TaskPrepositionModel();
+                       $prepositions = count($tpObj->getTasksPrepositionis($task['id']));
+                ?>
+                <td><a href="<?= $this->baseUrl().'/performer/task/performers-view/id/'.$task['id']?>">
+                        <?= $task['title'] ?>
+                    </a>
+                    <?php if($task['status']== 'non_taken'){?>
+                    
+                        <?php if($prepositions > 0){?>
+                            <span class="badge">
+                               <?= $prepositions ?>
+                           </span>
+                        <?php } ?>
+                    
+                    <?php } ?>
+                </td>
                 <td><?=  date('H:i d-m-Y', $task['created_at'])?></td>
                 <td><?= date('H:i d-m-Y', $task['final_date']) ?></td>
                 <td>
@@ -329,7 +344,7 @@
             <?php foreach($this->userPrepositions as $prep){?>
             <tr >
                 <td><a href="<?= $this->baseUrl().'/performer/task/view/id/'.$prep['t_id']?>"><?= $prep['t_title'] ?></a></td>
-                <td><a href="<?= $this->baseUrl().'/performer/customer/view/id/'.$prep['t_customer_id'] ?>"><?= $prep['cust_username'] ?></td>
+                <td><a href="<?= $this->baseUrl().'/performer/customer/view/id/'.$prep['t_customer_id'] ?>"><?= $prep['cust_username'].' '.mb_substr($prep['cust_surname'], 0, 1, 'utf-8') ?></td>
                 
             </tr>
             <?php } ?>

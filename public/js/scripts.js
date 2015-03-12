@@ -82,7 +82,13 @@ function register(){ console.log('register function');
       var sex = $('input[name=sex]:checked').val();
 
   var city = $('#city').val();
-  var birthday = $('#birthday').val();
+  var birth_month = $('#birth_мonth :selected').val();
+  console.log('da ifa : '+birth_month);
+  if(birth_month < 10){
+     birth_month = '0'+birth_month;
+  }console.log('posle ifa : '+birth_month);
+  var birthday = $('#birth_day :selected').val()+'.'+birth_month+'.'+$('#birth_year :selected').val();
+  
   var pass = $('#pass').val();
   var passConf = $('#passConf').val();
   $.ajax({

@@ -270,7 +270,7 @@
             <?php foreach($this->prepositions as $preposition){?>
             <tr id="tr<?= $preposition['u_id'] ?>">
                 <td>
-                    <a href="<?= $this->baseUrl()."/customer/performers/performer-view/id/".$preposition['performer_id'] ?>"><?= $preposition['u_username'].' '.substr($preposition['u_surname'], 0, 1).'.' ?></a>
+                    <a href="<?= $this->baseUrl()."/customer/performers/performer-view/id/".$preposition['performer_id'] ?>"><?= $preposition['u_username'].' '.mb_substr($preposition['u_surname'], 0, 1, 'utf-8').'.' ?></a>
                 </td>
                 <td>
                     <?= floor($preposition['rating']) ?>
@@ -431,7 +431,6 @@ function sendComment(){
         if(data === 'true'){
             $('#sendCommentPrel').hide();
             $('#sendCommentButton').show();
-            alert('Сообщение отправлено');
             var url = '<?= $this->baseUrl().'/customer/task/view/id/'.$this->task['id'] ?>';
             window.location.href = url;
         }

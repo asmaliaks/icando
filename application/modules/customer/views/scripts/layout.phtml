@@ -208,7 +208,7 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
           <div class="pull-right">
             <ul class="userMenu">
               <?php if(Zend_Auth::getInstance()->hasIdentity()){?>
-                <li> <a href="<?= $this->baseUrl().'/customer/office/'.$this->userId ?>"><span class="hidden-xs">Личный кабинет</span> <i class="glyphicon glyphicon-user hide visible-xs "></i></a> </li>
+                <li> <a href="<?= $this->baseUrl().'/customer/office/' ?>"><span class="hidden-xs">Личный кабинет</span> <i class="glyphicon glyphicon-user hide visible-xs "></i></a> </li>
                 <li> <a href="<?= $this->baseUrl().'/authentication/log-out/'.$this->userId ?>"  > <span class="hidden-xs">Выйти</span> <i class="glyphicon glyphicon-log-in hide visible-xs "></i> </a> </li>
               <?php }else{ ?>
                 <li> <a href="#"  data-toggle="modal" data-target="#ModalLogin"> <span class="hidden-xs">Войти</span> <i class="glyphicon glyphicon-log-in hide visible-xs "></i> </a> </li>
@@ -268,12 +268,12 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
   </div>
   <!--/.container -->
   
-  <div class="search-full text-right"> <a class="pull-right search-close"> <i class=" fa fa-times-circle"> </i> </a>
+<!--  <div class="search-full text-right"> <a class="pull-right search-close"> <i class=" fa fa-times-circle"> </i> </a>
     <div class="searchInputBox pull-right">
       <input type="search"  data-searchurl="search?=" name="q" placeholder="start typing and hit enter to search" class="search-input">
       <button class="btn-nobg search-btn" type="submit"> <i class="fa fa-search"> </i> </button>
     </div>
-  </div>
+  </div>-->
   <!--/.search-full--> 
   
 </div>

@@ -16,7 +16,7 @@
 
 <!-- add theme styles for this template -->
 <link id="pagestyle" rel="stylesheet" type="text/css" href="<?= $this->baseUrl() ?>/assets/css/skin-1.css">
-
+<script type="text/javascript" src="<?= $this->baseUrl() ?>/assets/js/jquery/1.8.3/jquery.js"></script>
 <!-- Custom styles for this template -->
 <link href="<?= $this->baseUrl() ?>/assets/css/style.css" rel="stylesheet">
 
@@ -205,8 +205,18 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
         </div>
         <div >
           <div >
-            <button onclick="login()"  class="btn  btn-block btn-lg btn-primary"  >Войти</button>
+            <button onclick="login()" id="loginButton" class="btn  btn-block btn-lg btn-primary"  >Войти</button>
           </div>
+            <script>
+            $(document).ready(function(){
+                $('#ModalLogin').keyup(function(e){
+                    if(e.keyCode == 13)
+                    {
+                        login();
+                    }
+    });
+            });
+            </script>
         </div>
         <div class="form-group">
             <h5 style="padding:10px 0 10px 0;" class="text-center"> ИЛИ </h5>
@@ -293,10 +303,64 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
           </div>
             <p class="text-danger" id="cityError" style="display: none" >* Проверьте вводимые данные</p>
         </div>
-        <div class="form-group reg-email">
-          <div >
-            <input name="birthDay" id="birthday"  class="form-control input"  size="20" placeholder="Дата рождения" type="text">
-          </div>
+        <div class="form-group reg-email" >
+            <div class="col-sm-12" style="text-align: center">
+                <label>Дата рождения</label>
+            </div>
+            <div class="col-sm-4" style="padding-bottom: 10px">
+                <div >
+                    <select name="birthYear" id="birth_year"  class="form-control select-list"   placeholder="Дата рождения">
+                        <?php for($year = 2010;$year > 1950; $year = $year - 1){?>
+                        <option value="<?= $year ?>"><?= $year ?></option>
+                        <?php } ?>
+                    </select>    
+                </div>
+            </div>    
+            <div class="col-sm-4" style="padding-bottom: 10px">
+                <div >
+                    <select name="birthMonth" id="birth_мonth"  class="form-control select-list"   placeholder="Дата рождения">
+                        <?php for($month = 1; $month < 13; $month++){?>
+                        <option value="<?= $month ?>">
+                                <?php if($month == 1){?>
+                                    январь 
+                                <?php }else if($month == 2){?>
+                                     февраль
+                                <?php }else if($month == 3){?>
+                                    март 
+                                <?php }else if($month == 4){?>
+                                     апрель
+                                <?php }else if($month == 5){?>
+                                     май 
+                                <?php }else if($month == 6){?>
+                                     июнь 
+                                <?php }else if($month == 7){?>
+                                     июль 
+                                <?php }else if($month == 8){?>
+                                     август 
+                                <?php }else if($month == 9){?>
+                                     сентябрь
+                                <?php }else if($month == 10){?>
+                                    октябрь 
+                                <?php }else if($month == 11){?>
+                                     ноябрь 
+                                <?php }else if($month == 12){?>
+                                    декабрь
+                                <?php } ?>
+                        </option>
+                        <?php } ?>
+                    </select>    
+                </div>
+            </div>    
+            <div class="col-sm-4" style="padding-bottom: 10px">
+                <div >
+                    <select name="birthDay" id="birth_day"  class="form-control select-list"   placeholder="Дата рождения" >
+                        <?php for($day = 1; $day < 32; $day++){?>
+                        <option value="<?= $day ?>"><?= $day ?></option>
+                        <?php } ?>
+                    </select>    
+                </div>
+            </div>    
+          
             <p class="text-danger" id="birthdayError" style="display: none" >* Проверьте вводимые данные</p>
         </div>
         <div class="form-group reg-password">
@@ -376,8 +440,9 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only"> Toggle navigation </span> <span class="icon-bar"> </span> <span class="icon-bar"> </span> <span class="icon-bar"> </span> </button>
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-cart"> <i class="fa fa-shopping-cart colorWhite"> </i> <span class="cartRespons colorWhite"> Cart ($210.00) </span> </button>
-      <a class="navbar-brand " href="/"> <img src="<?= $this->baseUrl() ?>/images/logo.png" alt="TSHOP"> </a> 
+
+      <a class="navbar-brand " href="/">
+          <img src="<?= $this->baseUrl() ?>/images/logo.png" alt="TSHOP"> </a> 
       
       <!-- this part for mobile -->
       <div class="search-box pull-right hidden-lg hidden-md hidden-sm">
@@ -416,12 +481,12 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
   </div>
   <!--/.container -->
   
-  <div class="search-full text-right"> <a class="pull-right search-close"> <i class=" fa fa-times-circle"> </i> </a>
+<!--  <div class="search-full text-right"> <a class="pull-right search-close"> <i class=" fa fa-times-circle"> </i> </a>
     <div class="searchInputBox pull-right">
       <input type="search"  data-searchurl="search?=" name="q" placeholder="start typing and hit enter to search" class="search-input">
       <button class="btn-nobg search-btn" type="submit"> <i class="fa fa-search"> </i> </button>
     </div>
-  </div>
+  </div>-->
   <!--/.search-full--> 
   
 </div>
@@ -514,7 +579,7 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
 ================================================== --> 
 
 <!-- Placed at the end of the document so the pages load faster --> 
-<script type="text/javascript" src="<?= $this->baseUrl() ?>/assets/js/jquery/1.8.3/jquery.js"></script>
+
 <script src="//cdn.ckeditor.com/4.4.7/full/ckeditor.js"></script>
 <script src="<?= $this->baseUrl() ?>/assets/bootstrap/js/bootstrap.min.js"></script> 
 
@@ -527,11 +592,9 @@ function test(){
     $('#ModalLogin').modal('show');
 }
   $(function() {
-    $( "#birthday" ).datepicker({
-        changeMonth: true,
-      changeYear: true
-    });
+
   }); 
+ 
  // this script required for subscribe modal
 $(window).load(function(){
  // full load

@@ -27,14 +27,14 @@
             <select onchange="changeSortOption()" class="form-control" id="orderSel" name="orderby" >
               <option selected="selected" value="default">По умолчанию</option>
               <?php if($this->sortOption != 'created_at DESC'){?>
-                <option value="created_at_ASC" >По дате</option>
-              <?php }else if($this->sortOption != 'created_at ASC'){?> 
                 <option value="created_at_DESC" >По дате</option>
+              <?php }else if($this->sortOption != 'created_at ASC'){?> 
+                <option value="created_at_ASC" >По дате</option>
               <?php } ?>
               <?php if($this->sortOption != 'customers_price DESC'){?>
-                <option value="customers_price_ASC">По цене</option>
-              <?php }else if($this->sortOption == 'customers_at ASC'){ ?>  
                 <option value="customers_price_DESC">По цене</option>
+              <?php }else if($this->sortOption != 'customers_at ASC'){ ?>  
+                <option value="customers_price_ASC">По цене</option>
               <?php } ?>
             </select>
           </div>
@@ -78,7 +78,7 @@
                         <a data-toggle="modal" data-target="#notallowedModal"></a> 
                       <?php } ?> 
                   </h4>
-                  <h3><?= $task['u_username'] ?></h3>
+                  <h3><?= $task['u_username'].' '.mb_substr($task['u_surname'],0,1,'utf-8').'.' ?></h3>
                     <div class="grid-description">
                         <p><?= $task['description'] ?></p>
                     </div>
@@ -146,7 +146,7 @@ $(document).ready(function(){
 });
 
 function changeSortOption(){
-    var sortOption = $('#orderSel :selected').val();
+    var sortOption = $('#orderSel :selected').val();console.log(sortOption);
     var category = $('#categorySelect :selected').val();
     window.location.href = '<?= $this->baseUrl() ?>/performer/index/tasks/sort_option/'+sortOption+'/category/'+category+'/';
     

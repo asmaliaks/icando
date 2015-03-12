@@ -53,6 +53,14 @@ class Performer_TaskController extends Zend_Controller_Action{
         if($unreadMessages){
             $this->view->unreadAmount = $unreadMessages;
         }
+        $usersObj = new Performer_Model_DbTable_Users();
+        $user = $usersObj->getUserById($this->user->id);
+        $freePoints = $user['balance'] - $amountOfReserves;
+        if($freePoints < 0){
+            $this->view->freePoints = 0;
+        }else{
+            $this->view->freePoints = $freePoints;
+        }
         $this->view->comments = $comments;
         $this->view->currentUser = $this->user;
         $this->view->task = $task;

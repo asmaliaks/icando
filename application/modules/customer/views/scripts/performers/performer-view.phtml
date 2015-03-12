@@ -4,7 +4,7 @@
       <ul class="breadcrumb">
           <li> <a href="<?= $this->baseUrl().'/customer/' ?>">Главная</a> </li>
           <li> <a href="<?= $this->baseUrl().'/customer/performers/' ?>">Список исполнителей</a> </li>
-        <li class="active"><?= $this->performer['username'].' '.substr($performer['surname'], 0, 1).'.' ?> </li>
+        <li class="active"><?= $this->performer['username'].' '.mb_substr($this->performer['surname'], 0, 1, 'utf-8').'.' ?> </li>
       </ul>
     </div>
   </div>
@@ -26,7 +26,7 @@
     
     <!-- right column -->
     <div class="col-lg-6 col-md-6 col-sm-5">
-      <h1 class="product-title"><?= $this->performer['username'].' '.substr($this->performer['surname'], 0, 1).'.' ?></h1>
+      <h1 class="product-title"><?= $this->performer['username'].' '.mb_substr($this->performer['surname'], 0, 1, 'utf-8').'.' ?></h1>
       <?php $sec = time()-$this->performer['birth_date'];
             $age = $sec/31556926;
             $age = floor($age);
@@ -53,17 +53,7 @@
                 } ?>
           </span>  
       </div>
-      <?php
-      if($this->closedTasks){
-         $closedTasksAmount = count($this->closedTasks);
-      
-      ?>
-      <?php if($closedTasksAmount){ ?>
-        <h3 class="product-code"> Выполненных работ: <span class="price-sales"><?= $closedTasksAmount ?></span> </h3>
-      <?php }else{ ?>
-        <h3 class="product-code"> Пользователь еще не завершил ни одного задания</h3>
-      <?php } 
-      } ?>
+
       <div class="details-description">
           <h3 class="product-code">Сферы деятельности :</h3>
           
@@ -72,6 +62,7 @@
               <?php } ?>
           
       </div>
+      <>
       <?php if($this->closedTasks){ ?>
       <div class="color-details"> <span class="selected-color"><strong>Рейтинг</strong></span>
         <ul class="swatches Color">
@@ -148,6 +139,12 @@
       <?php } ?>
       <!--/.product-share--> 
       
+    </div>
+    <div class="col-lg-12" style="padding-bottom: 10px">
+        <h3 class="block-title-3">
+                Дополнительная информация  
+        </h3>
+        <p><?= $this->prformer['about'] ?></p>
     </div>
     <!--/ right column end --> 
         <div class="col-lg-12" style="padding-bottom: 10px">

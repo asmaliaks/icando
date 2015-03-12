@@ -2,11 +2,22 @@
         <div class="col-lg-6">
             <h3><?= $this->task['title'] ?></h3><small><?= date("d.m.Y",$this->task['created_at']) ?></small>
         </div>
+ <?php 
+                $taskPoints = 15*$this->task['customers_price'];
+                $taskPoints = $taskPoints/100;
+            ?>
         <div class="col-lg-4">
             <?php switch ($this->task['status']){
                 case 'non_taken': ?>
                 <?php if(!$this->sentPrep){?>
-                    <button class="btn btn-primary btn-sm" id="propose<?= $this->task['id'] ?>" data-toggle="modal" data-target="#prepositionModal" >Предложить свою кандидатуру</button>
+                    <?php ?>
+                    <?php if($this->freePoints >= $taskPoints){?>
+                            <button class="btn btn-primary btn-sm" id="propose<?= $this->task['id'] ?>" data-toggle="modal" data-target="#prepositionModal" >
+                                Предложить свою кандидатуру
+                            </button>
+                    <?php }else{?>
+                            <p class="text-danger">Недостаточно баллов для предложения своей кандидатуры</p>
+                    <?php } ?>
                     <p id="propMessage<?= $this->task['id'] ?>" style="display:none" class="text-success">Заявка отправлена</p>
                 <?php }else{ ?>
                     <p   class="text-success">Заявка отправлена</p>
@@ -70,7 +81,7 @@
 <?php } ?>
         <div class="col-lg-12">
            <label>Пользователь : </label>
-           <a href="<?= $this->baseUrl().'/performer/customer/view/id/'.$this->task['customer_id'] ?>"><?= $this->task['u_username'].' '.$this->task['u_surname'] ?></a>
+           <a href="<?= $this->baseUrl().'/performer/customer/view/id/'.$this->task['customer_id'] ?>"><?= $this->task['u_username'].' '.mb_substr($this->task['u_surname'],0,1,'utf-8').'.' ?></a>
         </div>
         <div class="col-lg-12">
            <label>Описание</label>
@@ -96,14 +107,14 @@
                     <?php if($message['user_from'] == $this->currentUser->id){?>
                         <div class="list-group list-group-item">
                             <img src="<?= $this->baseUrl().'/images/users_images/'.$message['uf_image'] ?>" height="60" ></br>
-                             <h4 class="list-group-item-heading"><?= $this->currentUser->username ?> <?= $this->currentUser->surname ?></h4>
+                             <h4 class="list-group-item-heading"><?= $this->currentUser->username ?> <?= mb_substr($this->currentUser->surname, 0 ,1 ,'utf-8').'.' ?></h4>
                              <small><?= date("h:i d.m.Y",$message['created']) ?></small>
                              <p class="list-group-item-text"><?= $message['text'] ?></p>
                         </div>
                     <?php }else{?>
                         <div class="list-group list-group-item" style="text-align: -webkit-right;">
                             <img src="<?= $this->baseUrl().'/images/users_images/'.$message['uf_image'] ?>" height="60" ></br>
-                             <h4 class="list-group-item-heading"><?= $message['uf_username']." ".$message['uf_surname'] ?></h4>
+                             <h4 class="list-group-item-heading"><?= $message['uf_username']." ".mb_substr($message['uf_surname'], 0 , 'utf-8').'.' ?></h4>
                              <small><?= date("h:i d.m.Y",$message['created']) ?></small>
                              <p class="list-group-item-text"><?= $message['text']?></p>
                         </div>
@@ -214,7 +225,7 @@
                             <img src="<?= $this->baseUrl().'/images/users_images/'.$comment['u_image'] ?>" height="70">
                         </div>
                         <div class="col-sm-6">
-                            <h5><?= $comment['u_username'] ?></h5>
+                            <h5><?= $comment['u_username'].' '.mb_substr($comment['u_surname'],0,1,'utf-8') ?></h5>
                             <small><?= date("h:i d.m.y", $comment['created']); ?></small>
                             <p><?= $comment['text'] ?></p>
                         </div>
@@ -424,7 +435,7 @@ function sendComment(){
         if(data === 'true'){
             $('#sendCommentPrel').hide();
             $('#sendCommentButton').show();
-            alert('Сообщение отправлено');
+           
             var url = '<?= $this->baseUrl().'/performer/task/view/id/'.$this->task['id'] ?>';
             window.location.href = url;
         }

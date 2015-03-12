@@ -39,6 +39,7 @@ class Customer_OfficeController extends Zend_Controller_Action{
                     'sex' => $form->getValue('sex'),
                     'phonenumber' => '375'.$phonenumber,
                     'city' => $form->getValue('city'),
+                    'about' => $form->getValue('about'),
                     'birth_date' => $birthDate,
                 );
                 $data['phonenumber'] = (int)$data['phonenumber']; 
@@ -73,6 +74,7 @@ class Customer_OfficeController extends Zend_Controller_Action{
         $form->getElement('day_birth')->setValue($birthAr[0]);
         $form->getElement('sex')->setValue($user['sex']);
         $form->getElement('image')->setValue($user['image']);
+        $form->getElement('about')->setValue($user['about']);
         $form->getElement('phonenumber')->setValue(substr($user['phonenumber'], 3));
         $form->getElement('city')->setValue($user['city']);
         $this->view->form = $form;

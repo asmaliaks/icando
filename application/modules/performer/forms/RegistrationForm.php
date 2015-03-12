@@ -24,7 +24,11 @@ class Performer_Form_RegistrationForm extends Zend_Form{
            ->setRequired()
            ->addErrorMessage('Выберите пол');
 
-
+   $about = new Zend_Form_Element_Textarea('about');
+   $about->setLabel('Описание')
+           ->setRequired()
+           ->addErrorMessage('Поле обязательно для заполнения')
+           ->setAttribs(array('cols' => '60', 'rows'=>'10', 'class' => 'form-control'));
    
    $sex->addMultiOptions(array(
       'male' => 'М',
@@ -90,7 +94,7 @@ class Performer_Form_RegistrationForm extends Zend_Form{
    $submit->setLabel('Сохранить')
           ->setAttrib('class', 'button2');
    
-   $this->addElements(array($email, $name, $surname, $sex,  $phoneNumber, $city, $dayBirth, $monthBirth, $birthYear, $image, $pass,  $submit));
+   $this->addElements(array($email, $name, $surname, $sex, $about, $phoneNumber, $city, $dayBirth, $monthBirth, $birthYear, $image, $pass,  $submit));
 
    $this->setMethod('post');
    
