@@ -103,7 +103,7 @@ class Performer_TaskController extends Zend_Controller_Action{
         if($request->isPost()){
             $params = $request->getParams();
             $finalDateUnix = strtotime($params['time'].':00 '.$params['final_date']);
-            $expiryDate  = strtotime($params['expiry_date']);
+            $expiryDate  = strtotime($params['expiry_time'].':00 '.$params['expiry_date']);
             $data = array(
                 'title'=>$params['title'],
                 'customer_id'=>$this->user->id,

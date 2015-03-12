@@ -12,8 +12,8 @@ class Customer_TaskController extends Zend_Controller_Action{
     }
     
     public function newTaskAction(){
-        $this->view->title = 'Выбор категории';  
-        $this->view->headTitle('Выбор категории', 'APPEND');        
+        $this->view->title = 'Создание задачи';  
+        $this->view->headTitle('Создание задачи', 'APPEND');        
         // get categories
         $categoryObj = new Customer_Model_DbTable_Categories();
         $mainCategories = $categoryObj->getCategoryList();
@@ -64,7 +64,7 @@ class Customer_TaskController extends Zend_Controller_Action{
         if($request->isPost()){
             $params = $request->getParams();
             $finalDateUnix = strtotime($params['time'].':00 '.$params['final_date']);
-            $expiryDate  = strtotime($params['expiry_date']);
+            $expiryDate  = strtotime($params['expiry_time'].':00 '.$params['expiry_date']);
             $data = array(
                 'title'=>$params['title'],
                 'customer_id'=>$this->user->id,

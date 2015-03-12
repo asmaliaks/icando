@@ -1,0 +1,89 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<!-- bxSlider Javascript file -->
+<script src="<?= $this->baseUrl() ?>/bxslider/jquery.bxslider.js"></script>
+<!-- bxSlider CSS file -->
+<link href="<?= $this->baseUrl() ?>/bxslider/jquery.bxslider.css" rel="stylesheet" />
+<script>
+$(document).ready(function(){
+
+  $('.slider2').bxSlider({
+    slideWidth: 290,
+    minSlides: 2,
+    maxSlides: 3,
+    slideMargin: 10
+  });
+ 
+
+
+});
+  </script>
+<div class="container main-container"> 
+  
+  <!-- Main component call to action -->
+  
+  <div class="morePost row featuredPostContainer style2 globalPaddingTop ">
+    <h3 class="section-title style2 text-center"><span>Архив задач</span></h3>
+    <div class="container">
+      <div class="row xsResponse">
+          
+       <?php foreach($this->lastTasks as $lastTask){?>
+        <!--/.item-->
+        <div class="item col-lg-3 col-md-3 col-sm-4 col-xs-6">
+          <div class="product">
+         
+            <div class="image">  
+             <div class="quickview">
+              
+             </div>
+                <a href="#">
+                 <?php if($lastTask['task_image']){?>   
+                    <img src="<?= $this->baseUrl().'/images/task_images/'.$lastTask['task_image'] ?>" alt="img" class="img-responsive">
+                 <?php }else{ ?>
+                    <img src="<?= $this->baseUrl().'/images/task_images/no-image.png' ?>" alt="img" class="img-responsive">
+                 <?php } ?>   
+                </a>
+<!--              <div class="promotion"> <span class="new-product"> NEW</span> </div>-->
+            </div>
+            <div class="description">
+              <h4><a href="#"  ><?= $lastTask['title'] ?></a></h4>
+              <p><?= $lastTask['description']?> </p>
+<!--              <span class="size">XL / XXL / S </span> -->
+            </div>
+            <div class="price"> <span><?= $lastTask['price'] ?> .руб</span> </div>
+<!--            <div class="action-control"> <a href="#" > <span class="add2cart"> Подробнее </span> </a> </div>-->
+          </div>
+        </div>
+       <?php }?>
+        
+        <!--/.item--> 
+      </div>
+      <!-- /.row -->
+      
+      <div class="row">
+        <div class="load-more-block text-center">  </div>
+      </div>
+    </div>
+    <!--/.container--> 
+  </div>
+  <!--/.featuredPostContainer-->
+  
+  <hr class="no-margin-top">
+<div class="row subCategoryList clearfix">
+    <?php foreach($this->mainCats as $cat){?>
+    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4  text-center">
+      <div class="thumbnail equalheight" style="height: 133px;">
+          <a class="subCategoryThumb" href="#" data-toggle="modal" data-target="#ModalLogin" >
+              <img src="<?= $this->baseUrl().'/images/category_images/'.$cat['image'] ?>" class="img-rounded " alt="img">
+          </a>
+          <a class="subCategoryTitle" data-toggle="modal" data-target="#ModalLogin" >
+              <span><?= $cat['title'] ?></span>
+          </a>
+      </div>
+    </div>
+    <?php } ?>
+</div>
+  <!--/.section-block-->
+  
+ 
+  
+</div>

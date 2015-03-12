@@ -100,6 +100,7 @@ class Model_LibraryAcl extends Zend_Acl{
        // customer
        $this->allow('customer', 'default:authentication', 'log-out');
        $this->allow('customer', 'default:error');
+       $this->allow('customer', 'customer:index', 'index');
        $this->allow('customer', 'customer:performers', 'request-to-be-performer');
        $this->allow('customer', 'default:registration', 'activate-account-by-phone');
        $this->allow('customer', 'customer:settings', 'personal-data-edit');

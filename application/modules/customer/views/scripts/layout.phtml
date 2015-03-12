@@ -8,6 +8,8 @@
 
 <script type="text/javascript" src="<?= $this->baseUrl() ?>/assets/js/jquery/1.8.3/jquery.js"></script>
 <script src="<?= $this->baseUrl() ?>/datatable/js/datatable.js"></script>
+<script src="<?= $this->baseUrl() ?>/highslide/highslide-full.js"></script>
+<link href="<?= $this->baseUrl() ?>/highslide/highslide.css" rel="stylesheet">
 <link href="<?= $this->baseUrl() ?>/datatable/css/datatable.css" rel="stylesheet">
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?= $this->baseUrl() ?>/assets/ico/apple-touch-icon-144-precomposed.png">
 <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?= $this->baseUrl() ?>/assets/ico/apple-touch-icon-114-precomposed.png">
@@ -225,7 +227,7 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
   <div class="container">
     <div class="navbar-header">
 
-      <a class="navbar-brand " href="/"> <img src="<?= $this->baseUrl() ?>/images/logo.png" alt="TSHOP"> </a> 
+        <a class="navbar-brand " href="<?= $this->baseUrl().'/customer/index/' ?>"> <img src="<?= $this->baseUrl() ?>/images/logo.png" alt="TSHOP"> </a> 
       
       <!-- this part for mobile -->
       <div class="search-box pull-right hidden-lg hidden-md hidden-sm">
@@ -243,7 +245,7 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
           <?php if($user->phone_verified == 1){ ?>
-            <li > <a href="<?= $this->baseUrl().'/customer/task/new-task'?>">Создать задачу</a> </li>
+            <li > <a href="<?= $this->baseUrl().'/customer/task/new-task'?>">Заказать услугу</a> </li>
           <?php }else{?>
             <li > <a data-toggle="modal"  data-dismiss="modal" href="#ModalPhoneNotVerified">Создать задачу</a> </li>
           <?php } ?>
