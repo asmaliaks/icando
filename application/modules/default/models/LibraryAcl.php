@@ -55,6 +55,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->add(new Zend_Acl_Resource('performer:comments'), 'performer');
        $this->add(new Zend_Acl_Resource('performer:contacts'), 'performer');
        $this->add(new Zend_Acl_Resource('performer:about'), 'performer');
+       $this->add(new Zend_Acl_Resource('performer:portfolio'), 'performer');
        
 
        
@@ -189,6 +190,7 @@ class Model_LibraryAcl extends Zend_Acl{
        
        //guest
        $this->allow('guest', 'default:index', 'index');
+       $this->allow('guest', 'default:authentication', 'log-in');
        $this->allow('guest', 'default:s-auth', 'index');
        $this->allow('guest', 'default:s-auth', 'vk');
        $this->allow('guest', 'default:s-auth', 'vk-link');

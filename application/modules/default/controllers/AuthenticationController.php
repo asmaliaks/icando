@@ -35,16 +35,21 @@ class AuthenticationController extends Zend_Controller_Action
                     $authStorage->write($identity);
                     // redirect user according to his role
                     if($identity->role == 'admin'){
-                        echo 'admin';exit;
+                        $jsonArr = array('role'=>'admin');
+                        
                     }else if($identity->role == 'customer'){
-                        echo 'customer';exit;
+                        $jsonArr = array('role'=>'customer');
+                        
                     }else if($identity->role == 'performer'){
-                        echo 'performer';exit;
+                        $jsonArr = array('role'=>'performer');
+                        
                     }
       
         }else{
-            echo 'false';exit;
+            $jsonArr = array('role'=>'false');
         }
+        $jsonStr = json_encode($jsonArr);
+        print_r($jsonStr);exit;
         }  
     }
     

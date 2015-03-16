@@ -24,27 +24,23 @@ class Plugin_AccessCheck extends Zend_Controller_Plugin_Abstract {
         if(!$this->_acl->isAllowed($role, $module.':'.$resource, $action)){
 //            print_r($module.':'.$resource);exit;
             if(!Zend_Auth::getInstance()->hasIdentity()){
+                $request->setControllerName('index')
+                    ->setActionName('index'); 
+
+            }else{
                if($role == 'customer'){
-                   $request->setControllerName('оffice')
+                   $request->setModuleName($role)
+                           ->setControllerName('оffice')
                     ->setActionName('index'); 
                }else if($role == 'performer'){
-                   $request->setControllerName('user')
+                   $request->setModuleName($role)
+                           ->setControllerName('user')
                     ->setActionName('index'); 
                }else if($role == 'admin'){
-                   $request->setControllerName('tasks')
+                   $request->setModuleName($role)
+                           ->setControllerName('tasks')
                     ->setActionName('index');
                }
-            }else{
-//               if($role == 'customer'){
-//                   $request->setControllerName('оffice')
-//                    ->setActionName('index'); 
-//               }else if($role == 'performer'){
-//                   $request->setControllerName('user')
-//                    ->setActionName('index'); 
-//               }else if($role == 'admin'){
-//                   $request->setControllerName('tasks')
-//                    ->setActionName('index');
-//               }
             }   
         }
     }

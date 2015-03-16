@@ -10,9 +10,18 @@ class Customer_PerformersController extends Zend_Controller_Action{
        }
     }
     public function indexAction(){
-        /// get all comments for the task
+        $request = $this->getRequest();
+        $categoryId = $request->getParam('categoryId');
         $performersObj = new Default_Model_Performers();
-        $performesList = $performersObj->listPerformers();
+        $categoryObj = new Performer_Model_DbTable_Categories();
+        $mainCategories = $categoryObj->getCategoryList();
+        if(!$categoryId || $categoryId == 0){
+            $performesList = $performersObj->listPerformers();
+        }else{
+            $performesList = $performersObj->listPerformers($categoryId);
+            $this->view ->ctegoryId = $categoryId;
+        }
+        // get parent cats
             //   pagination    
         $performers = new Zend_Paginator(new Zend_Paginator_Adapter_DbSelect($performesList));
         $performers->setItemCountPerPage(12)
@@ -21,6 +30,7 @@ class Customer_PerformersController extends Zend_Controller_Action{
         if($this->user){
             $this->view->user = $user;
         }
+        $this->view->categories = $mainCategories;
         $this->view->performers = $performers;
     }
     

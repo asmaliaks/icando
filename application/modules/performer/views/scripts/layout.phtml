@@ -152,7 +152,226 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
 </div>-->
 
 <!-- /.Modal Login --> 
+<!-- Modal Login start -->
+<div class="modal signUpContent fade" id="ModalLogin" tabindex="-1" role="dialog" >
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
+        <h3 class="modal-title-site text-center" > Авторизация </h3>
+      </div>
+      <div class="modal-body">
+        <div class="form-group login-username">
+            <p id="authError" style="display: none" class="required">Неправильный логин и/или пароль</p>
+          <div >
+            <input name="username" id="login-user" value="" class="form-control input"  size="20" placeholder="Email" type="text">
+          </div>
+        </div>
+        <div class="form-group login-password">
+          <div >
+            <input name="pass" id="login-password" class="form-control input"  size="20" placeholder="Пароль" type="password">
+          </div>
+        </div>
+        <div >
+          <div >
+            <button onclick="login()" id="loginButton" class="btn  btn-block btn-lg btn-primary"  >Войти</button>
+          </div>
+            <script>
+            $(document).ready(function(){
+                $('#ModalLogin').keyup(function(e){
+                    if(e.keyCode == 13)
+                    {
+                        login();
+                    }
+    });
+            });
+            </script>
+        </div>
+        <div class="form-group">
+            <h5 style="padding:10px 0 10px 0;" class="text-center"> ИЛИ </h5>
+            <div class="control-group"> <a class="fb_button btn  btn-block btn-lg " href="<?= $this->baseUrl()?>/s-auth/vk-link/">  VK.COM </a> </div></br>
+            <div class="control-group"> <a class="fb_button btn  btn-block btn-lg " href="<?= $this->baseUrl()?>/s-auth/fb-link/">  FACEBOOK.COM </a> </div></br>
+            <div class="control-group"> <a class="fb_button btn  btn-block btn-lg " href="<?= $this->baseUrl()?>/s-auth/ok-link/">  OK.RU</a> </div></br>
+        </div>
+        
+        <!--userForm--> 
+        
+      </div>
+      <div class="modal-footer">
+        <p class="text-center"> Нет аккаунта? <a data-toggle="modal"  data-dismiss="modal" href="#ModalSignup">Зарегистрироваться</a> <br>
+            <a href="#ModalForgotPass" data-toggle="modal"  data-dismiss="modal" > Забыли пароль? </a> </p>
+      </div>
+    </div>
+    <!-- /.modal-content --> 
+    
+  </div>
+  <!-- /.modal-dialog --> 
+  
+</div>
+<!-- /.Modal Login --> 
 
+<!-- Modal Signup start -->
+<div class="modal signUpContent fade" id="ModalSignup" tabindex="-1" role="dialog" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
+        <h3 class="modal-title-site text-center" > Регистрация </h3>
+      </div>
+      <div class="modal-body">
+          <div class="control-group"> <a class="fb_button btn  btn-block btn-lg " href="<?= $this->baseUrl()?>/s-auth/vk-link/">  VK.COM </a> </div></br>
+        <div class="control-group"> <a class="fb_button btn  btn-block btn-lg " href="<?= $this->baseUrl()?>/s-auth/fb-link/">  FACEBOOK.COM </a> </div></br>
+        <div class="control-group"> <a class="fb_button btn  btn-block btn-lg " href="<?= $this->baseUrl()?>/s-auth/ok-link/">  OK.RU</a> </div></br>
+        <h5 style="padding:10px 0 10px 0;" class="text-center"> ИЛИ </h5>
+        
+        <div class="form-group reg-username">
+          <div >
+            <input name="username" id="username"  class="form-control input"  size="20" placeholder="Имя" type="text">
+          </div>
+            <p class="text-danger" id="usernameError" style="display: none" >* Проверьте вводимые данные</p>
+        </div>
+        <div class="form-group reg-username">
+          <div >
+            <input name="surname" id="surname" class="form-control input"  size="20" placeholder="Фамилия" type="text">
+          </div>
+            <p class="text-danger" id="surnameError" style="display: none" >* Проверьте вводимые данные</p>
+        </div>
+        <div class="form-group reg-email">
+          <div >
+            <input name="email" id="email" class="form-control input"  size="20" placeholder="Ваш Email" type="text">
+          </div>
+            <p class="text-danger" id="mailError" style="display: none">Данный E-mail занят</p>
+            <p class="text-danger" id="mailInvalid" style="display: none" >Неправильный email-адрес</p>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="radios">Пол</label>
+          <div class="col-md-4">
+              <input name="sex"  value="male"  type="radio" >
+              М
+          </div>
+          <div class="col-md-4">
+              <input name="sex" value="female" type="radio" >
+              Ж
+
+          </div>
+          <p class="text-danger" id="sexError" style="display: none" >* Проверьте вводимые данные</p>
+        </div>
+        <div>
+        <div class="form-group reg-email input-group" style="width: 100%">
+          
+              <span class="input-group-addon">+375</span>
+              <input id="phonenumber" name="phonenumber" class="form-control" placeholder="Номер телефона" type="text">
+           <p class="text-danger" id="phoneTaken" style="display: none" >* Данный номер телефона уже занят</p>
+            
+        </div>
+        <p class="text-danger" id="phoneError" style="display: none" >* Проверьте вводимые данные</p>
+        </div>
+        <div class="form-group reg-email">
+          <div >
+            <input name="city" id="city" class="form-control input" size="20" placeholder="Город" type="text">
+          </div>
+            <p class="text-danger" id="cityError" style="display: none" >* Проверьте вводимые данные</p>
+        </div>
+        <div class="form-group reg-email" >
+            <div class="col-sm-12" style="text-align: center">
+                <label>Дата рождения</label>
+            </div>
+            <div class="col-sm-4" style="padding-bottom: 10px">
+                <div >
+                    <select name="birthYear" id="birth_year"  class="form-control select-list"   placeholder="Дата рождения">
+                        <?php for($year = 2010;$year > 1950; $year = $year - 1){?>
+                        <option value="<?= $year ?>"><?= $year ?></option>
+                        <?php } ?>
+                    </select>    
+                </div>
+            </div>    
+            <div class="col-sm-4" style="padding-bottom: 10px">
+                <div >
+                    <select name="birthMonth" id="birth_мonth"  class="form-control select-list"   placeholder="Дата рождения">
+                        <?php for($month = 1; $month < 13; $month++){?>
+                        <option value="<?= $month ?>">
+                                <?php if($month == 1){?>
+                                    январь 
+                                <?php }else if($month == 2){?>
+                                     февраль
+                                <?php }else if($month == 3){?>
+                                    март 
+                                <?php }else if($month == 4){?>
+                                     апрель
+                                <?php }else if($month == 5){?>
+                                     май 
+                                <?php }else if($month == 6){?>
+                                     июнь 
+                                <?php }else if($month == 7){?>
+                                     июль 
+                                <?php }else if($month == 8){?>
+                                     август 
+                                <?php }else if($month == 9){?>
+                                     сентябрь
+                                <?php }else if($month == 10){?>
+                                    октябрь 
+                                <?php }else if($month == 11){?>
+                                     ноябрь 
+                                <?php }else if($month == 12){?>
+                                    декабрь
+                                <?php } ?>
+                        </option>
+                        <?php } ?>
+                    </select>    
+                </div>
+            </div>    
+            <div class="col-sm-4" style="padding-bottom: 10px">
+                <div >
+                    <select name="birthDay" id="birth_day"  class="form-control select-list"   placeholder="Дата рождения" >
+                        <?php for($day = 1; $day < 32; $day++){?>
+                        <option value="<?= $day ?>"><?= $day ?></option>
+                        <?php } ?>
+                    </select>    
+                </div>
+            </div>    
+          
+            <p class="text-danger" id="birthdayError" style="display: none" >* Проверьте вводимые данные</p>
+        </div>
+        <div class="form-group reg-password">
+          <div >
+            <input name="pass" id="pass" class="form-control input"  size="20" placeholder="Пароль" type="password">
+          </div>
+        </div>
+        <div class="form-group reg-password">
+          <div >
+            <input name="passConfirm" id="passConf"  class="form-control input"  size="20" placeholder="Подтвердите пароль" type="password">
+          </div>
+            <p class="text-danger" id="passError" style="display: none">Пароли не совпадают</p>
+        </div>
+        
+<!--        <div class="form-group">
+          <div >
+            <div class="checkbox login-remember">
+              <label>
+                <input name="rememberme" id="rememberme" value="forever" checked="checked" type="checkbox">
+                Remember Me </label>
+            </div>
+          </div>
+        </div>-->
+        <div >
+          <div >
+            <input name="submit" id="submitReg"  class="btn  btn-block btn-lg btn-primary" value="REGISTER" type="submit">
+            <img id="restrationPreloader" src="<?= $this->baseUrl.'/images/blue_preloader.gif' ?>" width="70" style="display: none" >
+          </div>
+        </div>
+        <!--userForm--> 
+        
+      </div>
+      <div class="modal-footer">
+        <p class="text-center"> Уже зарегестрированы? <a data-toggle="modal"  data-dismiss="modal" href="#ModalLogin"> Авторизируйтесь </a> </p>
+      </div>
+    </div>
+    <!-- /.modal-content --> 
+    
+  </div>
+  <!-- /.modal-dialog --> 
+  
+</div>
 
 <!-- /.ModalSignup End --> 
 

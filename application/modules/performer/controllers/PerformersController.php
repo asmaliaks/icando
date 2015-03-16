@@ -10,9 +10,18 @@ class Performer_PerformersController extends Zend_Controller_Action{
        }
     }
     public function indexAction(){
+        $request = $this->getRequest();
+        $categoryId = $request->getParam('categoryId');
+        
+        $categoryObj = new Performer_Model_DbTable_Categories();
+        $mainCategories = $categoryObj->getCategoryList();
         /// get all comments for the task
-        $performersObj = new Default_Model_Performers();
-        $performesList = $performersObj->listPerformers();
+        if(!$categoryId || $categoryId == 0){
+            $performesList = $performersObj->listPerformers();
+        }else{
+            $performesList = $performersObj->listPerformers($categoryId);
+            $this->view ->ctegoryId = $categoryId;
+        }
             //   pagination    
         $performers = new Zend_Paginator(new Zend_Paginator_Adapter_DbSelect($performesList));
         $performers->setItemCountPerPage(12)

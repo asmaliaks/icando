@@ -40,7 +40,7 @@ function checkEmail(email){
         }); 
 }
 
-function login(){
+function login(){ 
     $('#authError').hide();
   var login = $('#login-user').val();
   var pass = $('#login-password').val();
@@ -48,18 +48,21 @@ function login(){
     type: 'POST',
     url: '/authentication/log-in',
     data: {login: login, pass: pass},
-    success: function(data){
+    success: function(response){
+        data = JSON.parse(response);
+        //console.log('ok: '+response);
        var pathArray = location.href.split( '/' );
        var protocol = pathArray[0];
        var host = pathArray[2];
        var url = protocol + '//' + host;
-       if(data == 'admin'){
+       if(data.role == 'admin'){
+           
            window.location.href = url+'/admin/index/';
-       }else if(data == 'customer'){
+       }else if(data.role == 'customer'){
            window.location.href = url+'/customer/index/';
-       }else if(data == 'performer'){
+       }else if(data.role == 'performer'){
            window.location.href = url+'/performer/index/';
-       }else if(data == 'false'){
+       }else if(data.role == 'false'){
            $('#authError').show();
        }
     }

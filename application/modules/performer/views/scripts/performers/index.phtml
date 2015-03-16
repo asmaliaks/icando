@@ -8,7 +8,15 @@
  <?php if($this->performers){?>
       <div class="w100 productFilter clearfix">
         <div class="pull-right ">
-
+            <div class="change-order pull-left">
+              <select class="form-control selectpicker" onchange="changeSortOption()"  name="category" id="categorySelect">
+                <option value="0" selected="selected">Все категории</option>
+                  <?php foreach($this->categories as $category){?>
+                          <option value="<?= $category['id'] ?>" <?php if($this->ctegoryId == $category['id']){?> selected <?php } ?>><?= $category['title'] ?></option>
+                
+                <?php } ?> 
+              </select>
+            </div>
           <div class="change-view pull-right">
               <a href="#" title="Grid" class="grid-view">
                   <i class="fa fa-th-large"></i> </a>
@@ -34,7 +42,7 @@
                   <h4>
                       
                         <a href="<?= $this->baseUrl().'/performer/performers/performer-view/id/'.$performer['id']  ?>">
-                            <?= $performer['username'].' '.substr($performer['surname'], 0, 1).'.' ?>
+                            <?= $performer['username'].' '.mb_substr($performer['surname'], 0, 1, 'utf-8').'.' ?>
                         </a>
                   </h4>
                   
@@ -72,3 +80,10 @@
       </div>    
  <?php } ?>     
     </div>
+<script>
+function changeSortOption(){
+    var category = $('#categorySelect :selected').val();
+    window.location.href = '<?= $this->baseUrl() ?>/customer/performers/index/categoryId/'+category+'/';
+    
+}
+</script>
