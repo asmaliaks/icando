@@ -20,10 +20,7 @@
      </div>
 
  <?php } ?> 
-    <div class="col-sm-12" style="padding-bottom: 10px">
-        <label>Обо мне</label>
-        <textarea name="about" id="about" width="100%" class="form-control"></textarea>
-    </div>
+
     <div class="col-sm-12">
         <button class="btn btn-primary" id="custCatButton">Отправить заявку</button>
         <img src="<?= $this->baseUrl().'/images/blue_preloader.gif' ?>" widht="50" style="display: none">
@@ -61,14 +58,13 @@ function changeCategory(catId){
 }
 
 function applyPerformer(){
-    var about = $('#about').val();
     var url  = '/customer/performers/request-to-be-performer/';
     console.log(url);
     if(confirm('Отправить заявку?')){
         $.ajax({
           type: 'POST',
           url: '/customer/performers/request-to-be-performer/',
-          data: {id: 'id', about: about},
+          data: {id: 'id'},
           success: function(){
               alert('Ваша заявка отправлена администратору.');
               $('#sendApp').remove(500);

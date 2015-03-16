@@ -85,8 +85,8 @@ class Customer_PerformersController extends Zend_Controller_Action{
             
             // edit user
             $usersObj = new Performer_Model_DbTable_Users();
-            $about = array('about'=> $request->getParam('about'));
-            $usersObj->editUser($about, $id);
+//            $about = array('about'=> $request->getParam('about'));
+//            $usersObj->editUser($about, $id);
             
             // sending email to admin
             $smtpObj = new Default_Model_Smtp();
