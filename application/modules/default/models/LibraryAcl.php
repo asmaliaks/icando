@@ -29,6 +29,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->add(new Zend_Acl_Resource('admin:messages'), 'admin');
        $this->add(new Zend_Acl_Resource('admin:comments'), 'admin');
        $this->add(new Zend_Acl_Resource('admin:settings'), 'admin');
+       $this->add(new Zend_Acl_Resource('admin:main-banner'), 'admin');
        
        $this->add(new Zend_Acl_Resource('customer'));
        $this->add(new Zend_Acl_Resource('customer:index'), 'customer');
@@ -97,6 +98,10 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('admin', 'admin:comments', 'index');
        $this->allow('admin', 'admin:settings', 'edit-about');
        $this->allow('admin', 'admin:settings', 'edit-contacts');
+       $this->allow('admin', 'admin:main-banner', 'slider-list');
+       $this->allow('admin', 'admin:main-banner', 'add');
+       $this->allow('admin', 'admin:main-banner', 'remove-image');
+       $this->allow('admin', 'admin:main-banner', 'remove-slide');
        
        // customer
        $this->allow('customer', 'default:authentication', 'log-out');
@@ -151,6 +156,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('performer', 'default:error');
        $this->allow('performer', 'performer:user', 'index');
        $this->allow('performer', 'performer:index', 'tasks');
+       $this->allow('performer', 'performer:index', 'index');
        $this->allow('performer', 'default:registration', 'activate-account-by-phone');
        $this->allow('performer', 'performer:settings', 'add-user-category');
        $this->allow('performer', 'performer:settings', 'remove-users-category');

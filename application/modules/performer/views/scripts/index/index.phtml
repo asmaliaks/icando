@@ -17,6 +17,56 @@ $(document).ready(function(){
 
 });
   </script>
+<div class="banner" style="margin-top: -3% !important">
+  <div class="full-container">
+    <div class="slider-content">
+      <ul id="pager2" class="container">
+<!--        <span class="">•</span>-->
+      </ul>
+      <!-- prev/next links --> 
+      
+      <span class="prevControl sliderControl"> 
+          <i class="fa fa-angle-left fa-3x "></i>
+      </span> <span class="nextControl sliderControl"> 
+          <i class="fa fa-angle-right fa-3x "></i>
+      </span>
+      <div class="slider slider-v1" data-cycle-swipe="true" data-cycle-prev=".prevControl" data-cycle-next=".nextControl" data-cycle-loader="wait" style="overflow: hidden;">
+<!--          <div class="slider-item slider-item-img1 cycle-slide cycle-sentinel" style="visibility: hidden; position: static; top: 0px; left: 0px; z-index: 100; opacity: 1; display: block;"> 
+              <img src="images/slider/slider0.jpg" class="img-responsive parallaximg sliderImg" alt="img" style="visibility: hidden;"> 
+          </div>
+        -->
+        
+        <!--/.slider-item-->
+ <?php foreach($this->slides as $slide){?>
+        <div class="slider-item slider-item-img3  cycle-slide" style="visibility: hidden; position: absolute; top: 0px; left: 0px; z-index: 96; opacity: 1; display: block;">
+          <div class="sliderInfo">
+            <div class="container">
+              <div class="col-lg-5 col-md-4 col-sm-6 col-xs-8   pull-left sliderText white hidden-xs">
+                <div class="inner">
+                  <h1>Закажите услугу</h1>
+                  <h3 class="price ">
+                      Прямо сейчас
+                  </h3>
+                  
+                  <a href="<?= $this->baseUrl().'/performer/task/add/' ?>" class="btn btn-primary btn-lg">
+                      Заказать услугу
+                      <span class="arrowUnicode">►</span>
+                  </a> 
+                </div>
+              </div>
+            </div>
+          </div>
+          <img src="<?=  $this->baseUrl().'/images/main-banner/'.$slide['image'] ?>" class="img-responsive parallaximg sliderImg" alt="img"> 
+        </div>
+ <?php } ?>
+      </div>
+      <!--/.slider slider-v1--> 
+    </div>
+    <!--/.slider-content--> 
+  </div>
+  <!--/.full-container--> 
+</div>
+
 <div class="container main-container"> 
   
   <!-- Main component call to action -->

@@ -29,7 +29,7 @@ function checkEmail(email){
                       type: 'POST',
                       url: '/registration/send-pass-email',
                       data: {email: email},
-                      success: function(data){
+                      success: function(data){console.log('opa');
                          $('#submit').show();
                          $('#preloader').hide();
                          $('#success').show();

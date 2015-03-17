@@ -22,7 +22,11 @@ class Performer_IndexController extends Zend_Controller_Action {
         $categoryObj = new Default_Model_DbTable_Categories();
         $mainCats = $categoryObj->getMainCats();
 
-        
+        // get slides for main banner
+        $mainBannerObj = new Admin_Model_DbTable_MainBanner();
+        $slides = $mainBannerObj->getSliderList();
+
+        $this->view->slides = $slides; 
         $this->view->mainCats = $mainCats;
         $this->view->lastTasks = $lastTasks;
         

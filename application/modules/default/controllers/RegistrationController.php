@@ -157,7 +157,7 @@ class RegistrationController extends Zend_Controller_Action{
                     . "то просто проигнорируйте данное письмо.";
             $message = wordwrap($message, 70);
             $headers = 'From: no_reply@icando.by';
-            $smtpObj->send($data['email'], 'Восстановление пароля', $message, $headers);
+            $smtpObj->send($data['user_email'], 'Восстановление пароля', $message, $headers);
             echo 'true';exit;
         }
     }
