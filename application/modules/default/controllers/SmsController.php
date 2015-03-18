@@ -2,8 +2,14 @@
 
 class SmsController extends Zend_Controller_Action{
     
-    public function _init(){
-        
+    protected $user;
+    
+    public function init(){
+       $auth = Zend_Auth::getInstance();
+       if($auth->hasIdentity()){
+          $this->user = $auth->getIdentity();
+          
+       }        
     }
     
 
@@ -17,21 +23,27 @@ class SmsController extends Zend_Controller_Action{
         $request = $this->getRequest();
         if($request->isPost()){
             $smsCode = $this->makeSmsCode();
-            $phonenumber = $request->getParam('phoneNumber');
+            $phonenumber = (int)$request->getParam('phoneNumber');
             $userId = $request->getParam('userId');
             // insert code in the database
             $phoneVerifObj = new Default_Model_DbTable_PhoneVerification();
             $smsData = array(
                 'code' => $smsCode,
-                'phone_number' => '+375'.$phonenumber,
+                'phone_number' => $phonenumber,
                 'user_id' => $userId,
-            );
-            $phoneVerifObj->addCode($smsData);
+            );//print_r($smsData);exit;
+            
 
             $smsObj = new Default_Model_SmsModel();
-            $smsText = 'Код для верификации '.$smsCode;
-            $smsObj->sendSmsAction($smsData['phone_number'], $smsText);
-            print_r('true');exit;
+            $smsText = 'Verification code : '.$smsCode;
+            $smsStatus = $smsObj->sendSmsAction($smsData['phone_number'], $smsText, $this->user->email);
+            if($smsStatus >0){
+               $phoneVerifObj->addCode($smsData);
+               print_r('true');exit;
+            }else {
+                print_r($smsStatus);exit;
+            }
+            
         }
     }
     

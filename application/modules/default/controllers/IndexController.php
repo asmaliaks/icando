@@ -22,10 +22,10 @@ protected $user;
                 $this->_redirect('admin');
                 break;
             case 'customer': 
-                $this->_redirect('customer/office');
+                $this->_redirect('customer/index');
                 break;
             case 'performer':
-                $this->_redirect('performer/user');
+                $this->_redirect('performer/index');
                 break;
         }
         }

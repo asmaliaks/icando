@@ -43,6 +43,7 @@ class Customer_OfficeController extends Zend_Controller_Action{
                     'birth_date' => $birthDate,
                 );
                 $data['phonenumber'] = (int)$data['phonenumber']; 
+                
                 $image = $form->getValue('image');
                 if($image){
                     $data['image'] = $image;

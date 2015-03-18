@@ -132,5 +132,12 @@ class Admin_Model_DbTable_Tasks extends Zend_Db_Table_Abstract{
         }else{
             return false;
         }
-    }    
+    } 
+    
+    public function removeTask($id){
+        $where = $this->getAdapter()->quoteInto('id = ?', $id);
+        $this->delete($where);
+        return true;
+        
+    }
 }    

@@ -1,6 +1,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
 <div class="container">
     <div class="row">
+        
+        <div class="col-lg-12">
+            <img class="img-responsive" src="<?= $this->baseUrl().'/images/task_banner.jpg' ?>">
+        </div>
         <div class="col-lg-12">
             <h3>Создание задачи</h3>
         </div>
@@ -34,7 +39,7 @@
                     <label>Описание</label>
                     <textarea name="description" id="description" style="width: 100%" rows="10" class="form-control"></textarea>
                 </div>
-                <div class="col-sm-12">
+                <div class="">
                 <div class="col-sm-4">
                     <label>Стоимость</label>
                     <input type="text" name="price" id="price" class="form-control" style="width: 100%">
@@ -114,8 +119,11 @@
                 </div> 
                     </div>
                 <div class="col-sm-4">
+                    <div id="mainImgDiv">
                     <label>Изображение</label>
                     <input type="file" name="image" class="form-control" style="width: 100%">
+                    </div>
+                    <a href="javascript:addInput()">+ Добавить изображение</a>
                 </div>
                 <input type="hidden" value="0" name="docs" style="display: none">
                 <div class="col-sm-4">
@@ -182,6 +190,15 @@ $(document).ready(function(){
   $(function() {
     $( "#expiry_date" ).datepicker();
   }); 
+  
+function removeImgInput(id){
+    $('#'+id).remove();
+}  
+  
+function addInput(){
+    var id = Math.random().toString(36).substring(7);
+    $('#mainImgDiv').after('<div id="'+id+'"><input  type="file" name="image" class="form-control" style="width: 100%"><button href="javascript:removeImgInput('+id+')" class="btn btn-primary btn-xs">Удалить</button></div>');
+}  
   
 function newTask(){
     $('#sub_cat_error').hide();

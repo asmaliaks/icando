@@ -1,6 +1,7 @@
 <?php
 
 class Performer_PerformersController extends Zend_Controller_Action{
+    
     protected $user;
     public function init(){
        $auth = Zend_Auth::getInstance();
@@ -9,10 +10,11 @@ class Performer_PerformersController extends Zend_Controller_Action{
           
        }
     }
+    
     public function indexAction(){
         $request = $this->getRequest();
         $categoryId = $request->getParam('categoryId');
-        
+        $performersObj = new Default_Model_Performers();
         $categoryObj = new Performer_Model_DbTable_Categories();
         $mainCategories = $categoryObj->getCategoryList();
         /// get all comments for the task
@@ -22,7 +24,7 @@ class Performer_PerformersController extends Zend_Controller_Action{
             $performesList = $performersObj->listPerformers($categoryId);
             $this->view ->ctegoryId = $categoryId;
         }
-            //   pagination    
+        //   pagination    
         $performers = new Zend_Paginator(new Zend_Paginator_Adapter_DbSelect($performesList));
         $performers->setItemCountPerPage(12)
                 ->setCurrentPageNumber($this->getParam('page', 1));
@@ -30,6 +32,7 @@ class Performer_PerformersController extends Zend_Controller_Action{
         if($this->user){
             $this->view->user = $this->user;
         }
+        $this->view->categories = $mainCategories;
         $this->view->performers = $performers;
     }
     

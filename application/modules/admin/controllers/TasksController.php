@@ -35,4 +35,13 @@ class Admin_TasksController extends Zend_Controller_Action{
       $this->view->comments = $comments;
     }
     
+    public function removeTaskAction(){
+        $request = $this->getRequest();
+        if($request->isPost()){
+            $id = $request->getParam('id');
+            $taskObj = new Admin_Model_DbTable_Tasks();
+            $taskObj->removeTask($id);
+            print_r('true');exit;
+        }
+    }
 }

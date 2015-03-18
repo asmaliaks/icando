@@ -6,6 +6,7 @@
                 <th>Заказчик</th>
                 <th>Исполнитель</th>
                 <th>Статус</th>
+                <th>Удалить</th>
             </tr>
         </thead>    
  
@@ -16,6 +17,7 @@
                 <th>Заказчик</th>
                 <th>Исполнитель</th>
                 <th>Статус</th>
+                <th>Удалить</th>
             </tr>
         </tfoot>
         <tbody>
@@ -56,6 +58,10 @@
                break;
            }?>
        </td>
+       <td>
+           <button onclick="removeTask(<?= $task['id'] ?>)" id="removeBut<?= $task['id'] ?>" class="btn btn-primary btn-xs">Удалить</button>
+           <img id="preloader<?= $task['id'] ?>" src="<?= $this->baseUrl().'/images/blue_preloader.gif' ?>" style="display: none" width="50" >
+       </td>
      </tr>   
 <?php } ?>
  </tbody>
@@ -64,15 +70,15 @@
         $(document).ready(function(){
         $('#taskTable').DataTable();
     });
-function removeCategory(id){
+function removeTask(id){
     $('#removeBut'+id).remove();
     $('#preloader'+id).show();
 $.ajax({
   type: 'POST',
-  url: '<?= $this->baseUrl.'/admin/task/remove-task/'; ?>',
+  url: '<?= $this->baseUrl.'/admin/tasks/remove-task/'; ?>',
   data: {id: id},
   success: function(data){
-    $('#preloader'+id).remove();
+    
     $('#div'+id).remove();
   }
 });

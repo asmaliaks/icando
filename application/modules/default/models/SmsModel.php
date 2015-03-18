@@ -8,11 +8,13 @@ class Default_Model_SmsModel{
 
     }
 
-    public function sendSmsAction($phoneNumber, $message){
-        $mailObj = new Default_Model_Smtp();
+    public function sendSmsAction($phoneNumber, $message, $email = null){
 
-        $headers = 'From: no_reply@icando.by';
-        $mailObj->send('asmaliaks@gmail.com', 'Регистрация', $message, $headers);
-        return true;
+        $url = 'https://userarea.sms-assistent.by/api/v1/send_sms/plain?user=Aykendu&password=v4K818A8'
+                . '&recipient=+'.$phoneNumber.'&message='.$message.'&sender=ICANDO.BY';
+
+        $result = file_get_contents($url);
+        return $result;
+
     }
 }

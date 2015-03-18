@@ -48,49 +48,49 @@
         <ul class="swatches Color">
           <?php switch ($this->rating){
               case 1:?>
-            <li> <a style="background-color:#f1f40e"> </a> </li>
-            <li > <a style="background-color:#adadad"> </a> </li>
-            <li > <a style="background-color:#adadad"> </a> </li>
-            <li > <a style="background-color:#adadad"> </a> </li>
-            <li > <a style="background-color:#adadad"> </a> </li>
+            <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="37"> </li>
+            <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="37"> </li>
+            <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="37"> </li>
+            <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="37"> </li>
+            <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="37"> </li>
           <?php break;
               case 2:
       ?>
-            <li> <a style="background-color:#f1f40e"> </a> </li>
-            <li> <a style="background-color:#f1f40e"> </a> </li>
-            <li > <a style="background-color:#adadad"> </a> </li>
-            <li > <a style="background-color:#adadad"> </a> </li>
-            <li > <a style="background-color:#adadad"> </a> </li>
+            <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="37"> </li>
+            <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="37"> </li>
+            <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="37"> </li>
+            <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="37"> </li>
+            <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="37"> </li>
         <?php
         break;
         case 3: ?>  
-            <li> <a style="background-color:#f1f40e"> </a> </li>
-            <li> <a style="background-color:#f1f40e"> </a> </li>
-            <li> <a style="background-color:#f1f40e"> </a> </li>
-            <li > <a style="background-color:#adadad"> </a> </li>
-            <li > <a style="background-color:#adadad"> </a> </li>
+            <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="37"> </li>
+            <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="37"> </li>
+            <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="37"> </li>
+            <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="37"> </li>
+            <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="37"> </li>
         <?php break;
               case 4:
-    ?>      <li> <a style="background-color:#f1f40e"> </a> </li>
-            <li> <a style="background-color:#f1f40e"> </a> </li>
-            <li> <a style="background-color:#f1f40e"> </a> </li>
-            <li> <a style="background-color:#f1f40e"> </a> </li>
-            <li > <a style="background-color:#adadad"> </a> </li>
+    ?>      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="37"> </li>
+            <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="37"> </li>
+            <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="37"> </li>
+            <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="37"> </li>
+            <li> <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="37"> </li>
           <?php break;
               case 5:
-    ?>      <li> <a style="background-color:#f1f40e"> </a> </li>
-            <li> <a style="background-color:#f1f40e"> </a> </li>
-            <li> <a style="background-color:#f1f40e"> </a> </li>
-            <li> <a style="background-color:#f1f40e"> </a> </li>
-            <li> <a style="background-color:#f1f40e"> </a> </li>
+    ?>      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="37"> </li>
+            <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="37"> </li>
+            <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="37"> </li>
+            <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="37"> </li>
+             <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="37"> </li>
           <?php 
           break;
           default: ?>
-          <li > <a style="background-color:#adadad"> </a> </li>
-          <li > <a style="background-color:#adadad"> </a> </li>
-          <li > <a style="background-color:#adadad"> </a> </li>
-          <li > <a style="background-color:#adadad"> </a> </li>
-          <li > <a style="background-color:#adadad"> </a> </li>
+          <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="37"> </li>
+          <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="37"> </li>
+          <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="37"> </li>
+          <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="37"> </li>
+          <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="37"> </li>
           <?php }?>
         </ul>
       </div>
@@ -133,13 +133,15 @@
         <p> Верификация телефона </p>
         <img id="verificatePhone" style="display:none" data-toggle="tooltip" data-placement="left" title="Телефон верифецирован"  width="40px" src="<?= $this->baseUrl().'/ico/phone.png' ?>" >
         <div id="verifDiv" > 
-            <?php if(!$this->user['phone_verified']){?>
+            <?php if($this->user['phone_verified'] == 0){?>
                 
                 <?php if(!$this->user['pv_id']){?>
             <a id="verificatePhoneNum">
-                    <img  data-toggle="tooltip" data-placement="left" title="Нажмите для верификации телефона"  width="30px" src="<?= $this->baseUrl().'/ico/phone_wb.png' ?>" >
+                    <img id="phoneVerifImg" data-toggle="tooltip" data-placement="left" title="Нажмите для верификации телефона"  width="30px" src="<?= $this->baseUrl().'/ico/phone_wb.png' ?>" >
                     </a>
                     <img id="phoneVerifyPreloader" width="50" src="<?= $this->baseUrl().'/images/blue_preloader.gif' ?>" style="display: none">
+                    <p id="smsNumError" class="text-danger" style="display:none">Неправильный формат номера телефона</p>
+                    <p id="smsUnavError" class="text-danger" style="display:none">Сервис временно не работает</p>
                     <div  id="verificateDiv" style="display: none">
 
                     </div>
@@ -317,8 +319,8 @@ $.ajax({
     type: 'POST',
     url: '<?= $this->baseUrl.'/phone-activation/activate-account'; ?>',
     data: {phone: phone, code: code},
-    success: function(data){
-        data = JSON.parse(data);console.log(data);
+    success: function(data){console.log(phone);
+        data = JSON.parse(data);
         if(data.code != '1' || data.phone != '1'){
               if(data.code != '1'){
                   $('#codeError').show();
@@ -355,7 +357,20 @@ function sendSms(phoneNumber, userId){
         url: '<?= $this->baseUrl.'/sms/phone-verify'; ?>',
         data: {phoneNumber: phoneNumber, userId: userId},
         success: function(data){
-            location.reload();
+            if(data === 'true'){
+                location.reload();
+            }else if(data == -4){
+                $('#phoneVerifyPreloader').hide();
+                $('#smsNumError').show();
+                $('#smsNumError').fadeOut(1000);
+                $('#verificatePhoneNum').show();
+            }else if(data == -10){
+                $('#phoneVerifyPreloader').hide();
+                $('#smsUnavError').show();
+                $('#smsUnavError').fadeOut(1000);
+                $('#verificatePhoneNum').show();
+            }
+            
          }
      });
      }

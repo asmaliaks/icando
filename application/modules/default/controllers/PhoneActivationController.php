@@ -13,7 +13,7 @@ class PhoneActivationController extends Zend_Controller_Action{
             $params = $request->getParams();
             // check code
             $phoneVerifObj = new Default_Model_DbTable_PhoneVerification();
-            $checkPhone = $phoneVerifObj->checkPhone($params['phone']);
+            $checkPhone = $phoneVerifObj->checkPhone('375'.$params['phone']);
             $checkCode = $phoneVerifObj->checkCode($params['code']);
             if(!$checkPhone || !$checkCode){
                 if(!$checkPhone){

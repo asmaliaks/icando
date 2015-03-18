@@ -30,11 +30,11 @@ class Plugin_AccessCheck extends Zend_Controller_Plugin_Abstract {
             }else{
                if($role == 'customer'){
                    $request->setModuleName($role)
-                           ->setControllerName('оffice')
+                           ->setControllerName('index')
                     ->setActionName('index'); 
                }else if($role == 'performer'){
                    $request->setModuleName($role)
-                           ->setControllerName('user')
+                           ->setControllerName('index')
                     ->setActionName('index'); 
                }else if($role == 'admin'){
                    $request->setModuleName($role)

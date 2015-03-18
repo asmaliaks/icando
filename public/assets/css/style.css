@@ -2394,7 +2394,7 @@ h1.bolder-style.dark, h1.bolder-style.dark a {
 }
 .item.list-view .product {
 	padding-right: 20px;
-	min-height:260px;
+/*	min-height:100px;*/
 }
 .item:hover .action-control {
 	border-bottom-color: #fff;
@@ -2454,7 +2454,7 @@ h1.bolder-style.dark, h1.bolder-style.dark a {
 }
 .description {
 	margin: 0 4px 0 5px;
-	min-height: 107px;
+/*	min-height: 107px;*/
 }
 .promotion {
 	line-height: 18px;

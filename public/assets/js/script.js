@@ -167,7 +167,7 @@ $(document).ready(function() {
 
     // List view and Grid view 
 
-    $('.list-view').click(function(e) { //use a class, since your ID gets mangled
+    $('#listView').click(function(e) { //use a class, since your ID gets mangled
         e.preventDefault();
         $('.item').addClass("list-view"); //add the class to the clicked element
 		 $('.add-fav').attr("data-placement",$(this).attr("left"));

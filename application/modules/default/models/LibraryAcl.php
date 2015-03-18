@@ -83,6 +83,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('admin', 'admin:performers', 'view');
        $this->allow('admin', 'admin:tasks', 'index');
        $this->allow('admin', 'admin:tasks', 'view');
+       $this->allow('admin', 'admin:tasks', 'remove-task');
        $this->allow('admin', 'admin:customers', 'index');
        $this->allow('admin', 'admin:customers', 'remove');
        $this->allow('admin', 'admin:customers', 'bann');

@@ -116,18 +116,42 @@ class SocialAttachController extends Zend_Controller_Action{
             // check id user exists with that user_id 
             $userModel = new Model_DbTable_Users();
             $user = $userModel->getUserById($this->user->id);
-
-            $data = array(
-                'ok' => $userInfo['uid'],
-            );
-            $userModel->attachAccount($data, $this->user->id);
-            if($this->user->role == 'customer'){
-                $this->_redirect('/customer/office/');
-            }else if($this->user->role == 'performer'){
-                $this->_redirect('/performer/user/');
-            }
+            // check is sn account usedin  system
+            $snAccUsed = $userModel->getUserBySnId($userInfo['uid'], 'ok');
+            if(!$snAccUsed){
+                $data = array(
+                    'ok' => $userInfo['uid'],
+                );
+                $userModel->attachAccount($data, $this->user->id);
+                
+                $mailObj = new Default_Model_Smtp();
+                $message = "Уважаемый ".$this->user->username." Вы успешно привязали свой аккаунт OK.RU. ";
+                $message = wordwrap($message, 70);
+                $headers = 'From: no_reply@icando.by';
+                $mailObj->send($this->user->email, 'Привязка аккаунта', $message, $headers);
+                
+                if($this->user->role == 'customer'){
+                    $this->_redirect('/customer/office/');
+                }else if($this->user->role == 'performer'){
+                    $this->_redirect('/performer/user/');
+                }
+            }else{
+                $mailObj = new Default_Model_Smtp();
+                $message = "Уважаемый ".$this->user->username." Этот аккаунт vk.com не возможно привязать к аккаунту нашего сервиса"
+                        . " потому что указанный вами OK.RU аккаунт уже задействован в системе. ";
+                $message = wordwrap($message, 70);
+                $headers = 'From: no_reply@icando.by';
+                $mailObj->send($this->user->email, 'Привязка аккаунта', $message, $headers);
+                
+                if($this->user->role == 'customer'){
+                    $this->_redirect('/customer/office/');
+                }else if($this->user->role == 'performer'){
+                    $this->_redirect('/performer/user/');
+                }
+            
             }
         }
+    }
     }
     
     public function vkCompleteAction(){
@@ -171,24 +195,39 @@ class SocialAttachController extends Zend_Controller_Action{
 
             // if user is not registred
             $userInfo = $userInfo['response']['0'];
+            // check is vk account used for some account else
+            $ifAccUsed = $userModel->getUserBySnId($userInfo['id'], 'vk');
+            if(!$ifAccUsed){
+                $data = array(
+                    'vk' => $userInfo['id'],
+                );
+                $userModel->attachAccount($data, $this->user->id);
 
-            $data = array(
-                'vk' => $userInfo['id'],
-            );
-            $userModel->attachAccount($data, $this->user->id);
+                $mailObj = new Default_Model_Smtp();
+                $message = "Уважаемый ".$this->user->username." Вы успешно привязали свой аккаунт Вконтакте. ";
+                $message = wordwrap($message, 70);
+                $headers = 'From: no_reply@icando.by';
+                $mailObj->send($this->user->email, 'Привязка аккаунта', $message, $headers);
 
-            $mailObj = new Default_Model_Smtp();
-            $message = "Уважаемый ".$this->user->username." Вы успешно привязали свой аккаунт Вконтакте. ";
-            $message = wordwrap($message, 70);
-            $headers = 'From: no_reply@icando.by';
-            $mailObj->send($this->user->email, 'Привязка аккаунта', $message, $headers);
+                if($this->user->role == 'customer'){
+                    $this->_redirect('/customer/office/');
+                }else if($this->user->role == 'performer'){
+                    $this->_redirect('/performer/user/');
+                }
+            }else{
+                $mailObj = new Default_Model_Smtp();
+                $message = "Уважаемый ".$this->user->username." Этот аккаунт vk.com не возможно привязать к аккаунту нашего сервиса"
+                        . " потому что указанный вами VK аккаунт уже задействован в системе. ";
+                $message = wordwrap($message, 70);
+                $headers = 'From: no_reply@icando.by';
+                $mailObj->send($this->user->email, 'Привязка аккаунта', $message, $headers);
 
-            if($this->user->role == 'customer'){
-                $this->_redirect('/customer/office/');
-            }else if($this->user->role == 'performer'){
-                $this->_redirect('/performer/user/');
+                if($this->user->role == 'customer'){
+                    $this->_redirect('/customer/office/');
+                }else if($this->user->role == 'performer'){
+                    $this->_redirect('/performer/user/');
+                }
             }
-
            } 
     }
 
@@ -239,24 +278,39 @@ class SocialAttachController extends Zend_Controller_Action{
                 $userModel = new Model_DbTable_Users();
                 $user = $userModel->getUserById($this->user->id);
                 // if user is not registred
+                // check is fb-account used in the system
+                $snAccUsed = $userModel->getUserBySnId($userInfo['id'], 'fb');
+                if(!$snAccUsed ){
+                    $data = array(
+                        'fb' => $userInfo['id'],
+                    );
+                    $userModel->attachAccount($data, $user['id']);
 
-                $data = array(
-                    'fb' => $userInfo['id'],
-                );
-                $userModel->attachAccount($data, $user['id']);
-                
-                $mailObj = new Default_Model_Smtp();
-                $message = "Уважаемый ".$this->user->username." Вы успешно привязали свой аккаунт Facebook. ";
-                $message = wordwrap($message, 70);
-                $headers = 'From: no_reply@icando.by';
-                $mailObj->send($this->user->email, 'Привязка аккаунта', $message, $headers);
+                    $mailObj = new Default_Model_Smtp();
+                    $message = "Уважаемый ".$this->user->username." Вы успешно привязали свой аккаунт Facebook. ";
+                    $message = wordwrap($message, 70);
+                    $headers = 'From: no_reply@icando.by';
+                    $mailObj->send($this->user->email, 'Привязка аккаунта', $message, $headers);
 
-                if($this->user->role == 'customer'){
-                    $this->_redirect('/customer/office/');
-                }else if($this->user->role == 'performer'){
-                    $this->_redirect('/performer/user/');
+                    if($this->user->role == 'customer'){
+                        $this->_redirect('/customer/office/');
+                    }else if($this->user->role == 'performer'){
+                        $this->_redirect('/performer/user/');
+                    }
+                }else{
+                    $mailObj = new Default_Model_Smtp();
+                    $message = "Уважаемый ".$this->user->username." Этот аккаунт vk.com не возможно привязать к аккаунту нашего сервиса"
+                        . " потому что указанный вами FACEBOOK аккаунт уже задействован в системе. ";
+                    $message = wordwrap($message, 70);
+                    $headers = 'From: no_reply@icando.by';
+                    $mailObj->send($this->user->email, 'Привязка аккаунта', $message, $headers);
+
+                    if($this->user->role == 'customer'){
+                        $this->_redirect('/customer/office/');
+                    }else if($this->user->role == 'performer'){
+                        $this->_redirect('/performer/user/');
+                    }
                 }
-
         }
   }
     }    

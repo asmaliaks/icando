@@ -77,6 +77,10 @@ define("DOCUMENT_ROOT", "/var/www/skilus/data/www/dev.skilus.biz/icando/public/"
         define('OK_ATTACH_PUBLIC_KEY', 'CBAQKHAEEBABABABA');
         define('OK_ATTACH_SECRET_KEY', '09D7761682099DAE50FD6733');
         define("OK_ATTACH_REDIRECT_URI",'http://icando.dev.skilus.biz/social-attach/ok/');
+        
+    // sms constants
+        define('SMS_LOGIN', 'Aykendu');
+        define('SMS_PASS', 'v4K818A8');
 
 $application->bootstrap()
             ->run();

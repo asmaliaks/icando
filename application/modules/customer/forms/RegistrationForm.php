@@ -9,26 +9,21 @@ class Customer_Form_RegistrationForm extends Zend_Form{
 
      $email = new Zend_Form_Element_Text('email');
    $email->setLabel('Email')
-         ->setRequired()
          ->addErrorMessage('Поле обязательно для заполнения');
    
    $name = new Zend_Form_Element_Text('username');
    $name->setLabel('Имя')
-         ->setRequired()
          ->addErrorMessage('Поле обязательно для заполнения');
    $surname = new Zend_Form_Element_Text('surname');
    $surname->setLabel('Фамилия')
-           ->setRequired()
            ->addErrorMessage('Поле обязательно для заполнения');
    
    $about = new Zend_Form_Element_Textarea('about');
    $about->setLabel('Описание')
-           ->setRequired()
            ->addErrorMessage('Поле обязательно для заполнения')
            ->setAttribs(array('cols' => '60', 'rows'=>'10', 'calss'=> 'form-control'));
    $sex = new Zend_Form_Element_Select('sex');
    $sex->setLabel('Пол')
-           ->setRequired()
            ->addErrorMessage('Выберите пол');
    
 //   $birthday = new ZendX_JQuery_Form_Element_DatePicker('birthday');
@@ -84,7 +79,7 @@ class Customer_Form_RegistrationForm extends Zend_Form{
    
    $image = new Zend_Form_Element_File('image');
    $image->setLabel('Изображение')
-//         ->setDestination(DOCUMENT_ROOT.'/images/users_images/');  
+         //->setDestination(DOCUMENT_ROOT.'/images/users_images/');  
          ->setDestination($_SERVER['DOCUMENT_ROOT'].'/images/users_images/');  
    
    
@@ -100,6 +95,7 @@ class Customer_Form_RegistrationForm extends Zend_Form{
    $this->addElements(array($email, $name, $surname, $sex,  $phoneNumber, $about , $city, $dayBirth, $monthBirth, $birthYear, $image, $pass,  $submit));
    
    $this->setMethod('post');
+   $this->setAction(Zend_Controller_Front::getInstance()->getBaseUrl().'/customer/office/index');
    
    
         

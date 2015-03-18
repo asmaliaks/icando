@@ -83,6 +83,7 @@ class SAuthController extends Zend_Controller_Action{
                     $userInfo['bdate'] = null;
                 }else{
                     $userInfo['bdate'] = strtotime($userInfo['bdate']);
+                    $userInfo['bdate'] = $userInfo['bdate']+18000;
                 }
                 if(empty($userInfo['city'])){
                     $userInfo['city'] = null;
@@ -211,6 +212,7 @@ class SAuthController extends Zend_Controller_Action{
                         $userInfo['birthday'] = null;
                     }else{
                         $userInfo['birthday'] = strtotime($userInfo['birthday']);
+                        $userInfo['birthday'] = $userInfo['birthday']+18000;
                     }
                     if(empty($userInfo['city'])){
                         $userInfo['city'] = null;
@@ -332,6 +334,7 @@ class SAuthController extends Zend_Controller_Action{
                    $birthAr = array($birhtAr['2'], $birhtAr['1'], $birhtAr['0']);
                    $userInfo['birthday'] = implode(".", $birthAr);
                    $userInfo['birthday'] = strtotime($userInfo['birthday']);
+                   $userInfo['birthday'] = $userInfo['birthday']+18000;
                 }
                 $data = array(
                     'username'=> $userInfo['first_name'],

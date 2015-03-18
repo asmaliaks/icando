@@ -18,41 +18,44 @@
               </select>
             </div>
           <div class="change-view pull-right">
-              <a href="#" title="Grid" class="grid-view">
-                  <i class="fa fa-th-large"></i> </a>
-              <a href="#" title="List" class="list-view ">
+              <a href="#" title="List" id="listView" class="list-view">
                   <i class="fa fa-th-list"></i>
               </a> 
+              <a href="#" title="Grid" class="grid-view">
+                  <i class="fa fa-th-large"></i>
+              </a>
+              
           </div>
         </div>
       </div>
       <!--/.productFilter-->
       <div class="row  categoryProduct xsResponse clearfix">
+          <?php if(!empty($this->performers)){?>
         <?php foreach($this->performers as $performer){?>  
          
             <div class="item col-sm-4 col-lg-4 col-md-4 col-xs-6 list-view">
               <div class="product">
 
                 <div class="image">  
-                    <a href="<?= $this->baseUrl().'/performer/performers/performer-view/id/'.$performer['id']  ?>">
-                        <img src="<?= $this->baseUrl().'/images/users_images/'.$performer['image'] ?>" alt="img" class="img-responsive">
+                    <a href="<?= $this->baseUrl().'/customer/performers/performer-view/id/'.$performer['u_id']  ?>">
+                        <img src="<?= $this->baseUrl().'/images/users_images/'.$performer['u_image'] ?>" alt="img" style="max-height: 140px" class="img-responsive img-thumbnail">
                     </a>
                 </div>
                 <div class="description">
                   <h4>
                       
-                        <a href="<?= $this->baseUrl().'/performer/performers/performer-view/id/'.$performer['id']  ?>">
-                            <?= $performer['username'].' '.mb_substr($performer['surname'], 0, 1, 'utf-8').'.' ?>
+                        <a href="<?= $this->baseUrl().'/customer/performers/performer-view/id/'.$performer['u_id']  ?>">
+                            <?= $performer['u_username'].' '.mb_substr($performer['u_surname'], 0, 1, 'utf-8').'.' ?>
                         </a>
                   </h4>
                   
                     <div class="grid-description">
-                        <p><?= $performer['about'] ?></p>
+                        <p><?= $performer['u_about'] ?></p>
                     </div></div>
 <!--                <div class="price"> <span><? $this->task['customers_price'] ?> </span>руб </div>-->
                 <div class="action-control"> 
                     
-                        <a class="btn btn-primary" href="<?= $this->baseUrl().'/performer/performers/performer-view/id/'.$performer['id'] ?>"> 
+                        <a class="btn btn-primary" href="<?= $this->baseUrl().'/customer/performers/performer-view/id/'.$performer['u_id'] ?>"> 
                             <span class="add2cart">
                                 Подробнее
                             </span> 
@@ -60,6 +63,9 @@
                 </div>
               </div>
             </div>
+        <?php } ?>
+        <?php }else{ ?>
+          <h4>Исполнителей по данной категории пока нет</h4>
         <?php } ?>
         <!--/.item-->
       </div>
