@@ -2327,10 +2327,10 @@ h1.bolder-style.dark, h1.bolder-style.dark a {
 	max-height: none;
 }
 .item.list-view .grid-description {
-	display:none;
+	/*display:none;*/
 }
 .list-description {
-	display:none;
+/*	display:none;*/
 }
 .item.list-view .list-description {
 	display: block;
@@ -2362,7 +2362,7 @@ h1.bolder-style.dark, h1.bolder-style.dark a {
 .item.list-view .image a {
 	display: block;
 	max-height: 100%;
-	height: 100%;
+	/*height: 100%;*/
 	max-height: 100% !important;
 }
 .item.list-view .image img {

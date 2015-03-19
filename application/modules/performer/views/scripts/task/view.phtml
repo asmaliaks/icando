@@ -34,9 +34,17 @@ if (hs.addSlideshow) hs.addSlideshow({
                 <?php if(!$this->sentPrep){?>
                     <?php ?>
                     <?php if($this->freePoints >= $taskPoints){?>
-                            <button class="btn btn-primary btn-sm" id="propose<?= $this->task['id'] ?>" data-toggle="modal" data-target="#prepositionModal" >
-                                Предложить свою кандидатуру
-                            </button>
+                            <?php if($this->userHasCat){?>
+                                <button class="btn btn-primary btn-sm" id="propose<?= $this->task['id'] ?>" data-toggle="modal" data-target="#prepositionModal" >
+                                    Предложить свою кандидатуру
+                                </button>
+                            <?php }else{?>
+                                <p class="text-danger">
+                                    Ниодна из ваших сфер деятельности не совпадает с категорией данной задачи.
+                                    Пожалуйста прозведите настройки категорий в личном кабинете 
+                                    либо выберите другую задачу.
+                                </p>
+                            <?php }?>
                     <?php }else{?>
                             <p class="text-danger">Недостаточно баллов для предложения своей кандидатуры</p>
                     <?php } ?>
@@ -106,6 +114,10 @@ if (hs.addSlideshow) hs.addSlideshow({
         <div class="col-lg-12">
            <label>Пользователь : </label>
            <a href="<?= $this->baseUrl().'/performer/customer/view/id/'.$this->task['customer_id'] ?>"><?= $this->task['u_username'].' '.mb_substr($this->task['u_surname'],0,1,'utf-8').'.' ?></a>
+        </div>
+        <div class="col-lg-12">
+           <label>Категория : </label>
+           <?= $this->task['c_title'] ?>
         </div>
         <div class="col-lg-12">
            <label>Описание</label>

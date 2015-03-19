@@ -39,6 +39,7 @@ class Default_Model_Performers{
                            'u.balance as u_balance'
                            
                        ))
+               ->where('role=?', 'performer')
                ->group('u.id');
        if($category){
            $performers->where('c.id=?', $category);

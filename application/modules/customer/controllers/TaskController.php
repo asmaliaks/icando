@@ -225,9 +225,15 @@ class Customer_TaskController extends Zend_Controller_Action{
             $balanceReserveObj->blockBalance($blockBalance);
             $smtpObj = new Default_Model_Smtp();
             $message = "Заказчик ".$this->user->username." ".$this->user->surname." "
-                    . "принял вашу заявку на выполнение задачи ".$task['title'];
+                    . "принял вашу заявку на выполнение задачи ".$task['title']." .Вы можете с ним связаться"
+                    . " по телефону ".$this->user->phonenumber;
             $headers = 'From: no_reply@icando.by';
             $smtpObj->send($user['email'], 'Принятие вашей кандидатуры', $message, $headers);
+            
+            $smsObj = new Default_Model_SmsModel();
+            $message = "Задание №".$task['id'].", ".$user['phonenumber'].", заказчик ".$this->user->username;
+            $message = urlencode($message);
+            $smsObj->sendSmsAction($user['phonenumber'], $message);
             echo 'true';exit;
         }
     }

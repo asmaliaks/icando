@@ -47,6 +47,16 @@ class Default_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
         }
     }
     
+
+    
+    public function getPerformersTasks($customerId){
+        $row = $this->fetchAll($this->select()->where('performer_id = ?', $customerId));
+        if($row){
+            return $row->toArray();
+        }else{
+            return false;
+        }
+    }    
     
     public function getTasksYoungerThanHour(){
         $currentDate = time();

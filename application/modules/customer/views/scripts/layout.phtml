@@ -253,7 +253,7 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
           <li> <a href="<?= $this->baseUrl().'/customer/about/'?>">О проекте</a> </li>
           <li> <a href="<?= $this->baseUrl().'/customer/contacts/'?>">Контакты</a> </li>
 
-          <?php if($this->application['customer_id'] != $this->user['id'] || $this->application == 0){?>
+          <?php if( empty($this->application) || $this->application == 0){?>
           <li><a class="blog-nav-item"  href="<?= $this->baseUrl().'/customer/office/application' ?>"  >Стать исполнителем</a></li>
           <?php }?>
         <!-- change width of megamenu = use class > megamenu-fullwidth, megamenu-60width, megamenu-40width -->

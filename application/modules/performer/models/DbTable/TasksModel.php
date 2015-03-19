@@ -113,7 +113,7 @@ class Performer_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
         $select = $this->select()
                 ->from(array('t'=>'tasks'))
                 ->where('t.id=?', $taskId)
-                ->join(array('u'=>'users'),
+                ->joinLeft(array('u'=>'users'),
                         't.customer_id = u.id',
                         array('u.username as u_username',
                               'u.surname as u_surname',
@@ -126,6 +126,16 @@ class Performer_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
                             'u.ok as u_ok',
                             'u.fb as u_fb',
                             'u.image as u_image'
+                            )
+                        )
+                ->joinLeft(array('c'=>'categories'),
+                        't.category_id = c.id',
+                        array(
+                            'c.id as c_id',
+                            'c.title as c_title',
+                            'c.description as c_description',
+                            'c.parent_id as c_parent_id',
+                            'c.image as c_image'
                             )
                         )->setIntegrityCheck(false);
         $result = $this->fetchRow($select);

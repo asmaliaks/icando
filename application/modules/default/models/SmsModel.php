@@ -11,10 +11,11 @@ class Default_Model_SmsModel{
     public function sendSmsAction($phoneNumber, $message, $email = null){
 
         $url = 'https://userarea.sms-assistent.by/api/v1/send_sms/plain?user=Aykendu&password=v4K818A8'
-                . '&recipient=+'.$phoneNumber.'&message='.$message.'&sender=ICANDO.BY';
+                . '&recipient=+'.$phoneNumber.'&message='.$message.'&sender=CMC';
 
         $result = file_get_contents($url);
         return $result;
+
 
     }
 }

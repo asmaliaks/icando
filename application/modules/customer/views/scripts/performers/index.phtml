@@ -38,29 +38,87 @@
 
                 <div class="image">  
                     <a href="<?= $this->baseUrl().'/customer/performers/performer-view/id/'.$performer['u_id']  ?>">
-                        <img src="<?= $this->baseUrl().'/images/users_images/'.$performer['u_image'] ?>" style="max-height: 140px" class="img-responsive img-thumbnail" alt="img" >
+                        <img src="<?= $this->baseUrl().'/images/users_images/'.$performer['u_image'] ?>" style="max-height: 110px" class="img-responsive img-thumbnail" alt="img" >
                     </a>
+                    
                 </div>
                 <div class="description">
+                    <?php  
+                        $tasksObj = new Performer_Model_DbTable_TasksModel();
+                        $tasksAmount = count($tasksObj->getPerformersTasks($performer['id']));
+                        if($tasksAmount > 0){
+                            $feedbackObj = new Performer_Model_DbTable_FeedbackModel();
+                            $rating = $feedbackObj->countPerformersRating($performer['id']);       
+                    ?>
+                    <ul class="swatches Color">
+                    <?php switch ($rating){
+                        case 1:?>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <?php break;
+                        case 2:
+                ?>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                  <?php
+                  break;
+                  case 3: ?>  
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                  <?php break;
+                        case 4:
+              ?>      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <?php break;
+                        case 5:
+              ?>      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                       <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                    <?php 
+                    break;
+                    default: ?>
+                    <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                        <?php } }?>
+                  </ul>
                   <h4>
                       
                         <a href="<?= $this->baseUrl().'/customer/performers/performer-view/id/'.$performer['u_id']  ?>">
                             <?= $performer['u_username'].' '.mb_substr($performer['u_surname'], 0, 1, 'utf-8').'.' ?>
                         </a>
                   </h4>
+                    <small>Выполненных задач : <?= $tasksAmount ?></small>
                   
-                    <div class="grid-description">
+<!--                    <div class="grid-description">-->
                         <p><?= $performer['u_about'] ?></p>
-                    </div></div>
+<!--                    </div>-->
+              </div>
 <!--                <div class="price"> <span><? $this->task['customers_price'] ?> </span>руб </div>-->
-                <div class="action-control"> 
+<!--                <div class="action-control"> 
                     
                         <a class="btn btn-primary" href="<?= $this->baseUrl().'/customer/performers/performer-view/id/'.$performer['u_id'] ?>"> 
                             <span class="add2cart">
                                 Подробнее
                             </span> 
                         </a> 
-                </div>
+                </div>-->
               </div>
             </div>
         <?php } ?>

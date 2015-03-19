@@ -13,8 +13,7 @@ class Customer_IndexController extends Zend_Controller_Action
     
     public function indexAction(){
       $this->view->title = 'Главная';  
-      $this->view->headTitle('Главная', 'APPEND');
-
+//print_r($_SESSION['Zend_Auth']['storage']);exit;
         // get tasks for the list
         $tasksObj = new Default_Model_DbTable_TasksModel();
         $lastTasks = $tasksObj->getLastTasks();

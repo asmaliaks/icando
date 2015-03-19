@@ -70,5 +70,17 @@ class Performer_Model_DbTable_UserCategory extends Zend_Db_Table_Abstract{
                 return false;
             }
     }
+    
+    public function checkUserForCategory($userId, $catId){
+        $select = $this->select()
+                    ->where('user_id=?', $userId)
+                    ->where('category_id=?', $catId);
+        $result = $this->fetchRow($select);
+        if($result){
+                return $result->toArray();
+        }else{
+            return false;
+        }
+    }
 }
 

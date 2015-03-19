@@ -31,11 +31,13 @@ class SmsController extends Zend_Controller_Action{
                 'code' => $smsCode,
                 'phone_number' => $phonenumber,
                 'user_id' => $userId,
+                'created' => time(),
             );//print_r($smsData);exit;
             
 
             $smsObj = new Default_Model_SmsModel();
-            $smsText = 'Verification code : '.$smsCode;
+            $smsText = 'Код верификации : '.$smsCode;
+            $smsText = urlencode($smsText);
             $smsStatus = $smsObj->sendSmsAction($smsData['phone_number'], $smsText, $this->user->email);
             if($smsStatus >0){
                $phoneVerifObj->addCode($smsData);

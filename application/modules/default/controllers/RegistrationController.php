@@ -54,7 +54,7 @@ class RegistrationController extends Zend_Controller_Action{
                 'username'  => $request->getParam('username'),
                 'surname' => $request->getParam('surname'),
                 'sex' => $request->getParam('sex'),
-                'phonenumber' => '+375'.$phonenumber,
+                'phonenumber' => $phonenumber,
                 'city' => $request->getParam('city'),
                 'pass' => $pass,
                 'birth_date' => $birthDate,
@@ -74,30 +74,27 @@ class RegistrationController extends Zend_Controller_Action{
               
                 $mailObj = new Default_Model_Smtp();
                 $message = "Уважаемый ".$data['username']." Вы зарегестрировались на нашем сайте. "
-                        ." На указанный вами номер телефона выслана SMS  с кодом, "
-                        ." пожалуйста перейдите по указанной ниже ссылке и введите полученный в SMS код"
-                        ." для завершения регистрации вашей учетной записи. В случае неподтверждения номера телефона "
-                        ."в течение суток с момента регистрации ваша учетная запись будет удалена безвозвратно. "
-                        ." ".$_SERVER['HTTP_ORIGIN']."/sms/phone-activate/ "
+                        . "Пожалуйста верефицируйте свой телефон в личном кабинете, нажав на серую иконку "
+                        . "телефона. Получив смс с кодом, введите код и номер телефона в соответствующие поля."
                         ."Используйте свой email в качестве логина";
                 $message = wordwrap($message, 120);
                 $headers = 'From: no_reply@icando.by';
                 $mailObj->send($data['email'], 'Регистрация', $message, $headers);
                 
                 // generate SMS-code
-                $smsCode = $this->makeSmsCode();
-                // insert code in the database
-                $phoneVerifObj = new Default_Model_DbTable_PhoneVerification();
-                $smsData = array(
-                    'code' => $smsCode,
-                    'phone_number' => '+375'.$data['phonenumber'],
-                    'user_id' => $userId,
-                );
-                $phoneVerifObj->addCode($smsData);
+//                $smsCode = $this->makeSmsCode();
+//                // insert code in the database
+//                $phoneVerifObj = new Default_Model_DbTable_PhoneVerification();
+//                $smsData = array(
+//                    'code' => $smsCode,
+//                    'phone_number' => '+375'.$data['phonenumber'],
+//                    'user_id' => $userId,
+//                );
+//                $phoneVerifObj->addCode($smsData);
                 
-                $smsObj = new Default_Model_SmsModel();
-                $smsText = 'Код для верификации '.$smsCode;
-                $smsObj->sendSmsAction($smsData['phone_number'], $smsText);
+//                $smsObj = new Default_Model_SmsModel();
+//                $smsText = 'Код для верификации '.$smsCode;
+//                $smsObj->sendSmsAction($smsData['phone_number'], $smsText);
                 
                 
                 if($result->isValid()){
@@ -218,7 +215,7 @@ class RegistrationController extends Zend_Controller_Action{
            $phoneVerifObj = new Default_Model_DbTable_PhoneVerification();
            $data = array('phone_verified'=> 1);
            $usersObj->editUser($data, $userId);
-           $phoneVerifObj->removeNumber($userId);
+           //$phoneVerifObj->removeNumber($userId);
            
            print_r('true');exit;
         }
