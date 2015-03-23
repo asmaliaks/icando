@@ -45,10 +45,11 @@
                 <div class="description">
                     <?php  
                         $tasksObj = new Performer_Model_DbTable_TasksModel();
-                        $tasksAmount = count($tasksObj->getPerformersTasks($performer['id']));
+                        $performersTasks = $tasksObj->getPerformersTasks($performer['u_id']);
+                        $tasksAmount = count($performersTasks);
                         if($tasksAmount > 0){
                             $feedbackObj = new Performer_Model_DbTable_FeedbackModel();
-                            $rating = $feedbackObj->countPerformersRating($performer['id']);       
+                            $rating = $feedbackObj->countPerformersRating($performer['u_id']);       
                     ?>
                     <ul class="swatches Color">
                     <?php switch ($rating){

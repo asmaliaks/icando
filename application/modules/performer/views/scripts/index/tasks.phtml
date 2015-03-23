@@ -54,16 +54,16 @@
                 $taskPoints = 15*$task['customers_price'];
                 $taskPoints = $taskPoints/100;
             ?>
-            <div class="item col-sm-4 col-lg-4 col-md-4 col-xs-6">
+            <div class="item col-sm-4 col-lg-4 col-md-4 col-xs-6 list-view">
               <div class="product">
 
                 <div class="image">  
                     <?php if($this->freePoints >= $taskPoints){?>
-                        <a href="<?= $this->baseUrl().'/performer/task/view/id/'.$task['id'] ?>">
+                        <a href="<?= $this->baseUrl().'/performer/task/view/id/'.$task['id'] ?>" style="max-height: 250px !important;">
                             <img src="<?= $this->baseUrl().'/images/users_images/'.$task['u_image'] ?>" alt="img" class="img-responsive">
                         </a>
                     <?php }else{?>  
-                        <a data-toggle="modal" data-target="#notallowedModal">
+                        <a data-toggle="modal" data-target="#notallowedModal" style="max-height: 250px !important;">
                             <img src="<?= $this->baseUrl().'/images/users_images/'.$task['u_image'] ?>" alt="img" class="img-responsive">
                         </a>
                     <?php } ?> 
@@ -78,6 +78,8 @@
                         <a data-toggle="modal" data-target="#notallowedModal"></a> 
                       <?php } ?> 
                   </h4>
+                    <small>Дата исполнения: <?= date("h:00 d.m.y",$task['final_date']) ?></small></br>
+                    <small>Предложение действительно до: <?= date("h:00 d.m.y",$task['expiry_date']) ?></small>
                   <h3><?= $task['u_username'].' '.mb_substr($task['u_surname'],0,1,'utf-8').'.' ?></h3>
                     <div class="grid-description">
                         <p><?= $task['description'] ?></p>

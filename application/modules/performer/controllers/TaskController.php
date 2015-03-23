@@ -141,8 +141,35 @@ class Performer_TaskController extends Zend_Controller_Action{
                   $data['task_image'] = $_FILES['image']['name'];
                 }
             }
+          
             $tasksObj = new Customer_Model_DbTable_TasksModel();
             $taskId = $tasksObj->addTask($data);
+              if($_FILES['additionalImage']){
+                
+                    $dir = (int)is_dir($_SERVER['DOCUMENT_ROOT']."/images/task_images/additional_images/");
+                    if( !$dir ){					
+                            //die($_SERVER['DOCUMENT_ROOT'].$file_path.'/');				
+                            mkdir( $_SERVER['DOCUMENT_ROOT']."/images/task_images/additional_images/" );
+                            chmod( $_SERVER['DOCUMENT_ROOT']."/images/task_images/additional_images/", 0777 );				
+                    }
+                    $taskImagesObj = new Default_Model_DbTable_TaskImages();
+                    $n=0;
+                    foreach($_FILES["additionalImage"]["tmp_name"] as $tmpName){
+                        if(is_uploaded_file($tmpName))
+                            {
+        //                    copy($_FILES["image"]["tmp_name"], DOCUMENT_ROOT."/images/task_images/additional_images/".$_FILES["image"]["name"]);
+                              copy($tmpName, $_SERVER['DOCUMENT_ROOT']."/images/task_images/additional_images/".$_FILES["additional_image"]["name"][$n]);
+                              $dataAddImages = array(
+                                  'image'=>$_FILES['additionalImage']['name'][$n],
+                                  'task_id'=>$taskId,
+                                  'user_id'=>$this->user->id,
+                                  );
+                            }
+                            $taskImagesObj->addImages($dataAddImages);
+                            $n++;
+                    }
+                    
+            }
             // send mail to admin
             $smtpObj = new Default_Model_Smtp();
             $message = 'Пользователь '.$this->user->username.' '.$this->user->surmname.' '
@@ -152,11 +179,11 @@ class Performer_TaskController extends Zend_Controller_Action{
             $headers = 'From: no_reply@icando.by';
             $smtpObj->send(ADMIN_MAIL, 'Создана задача', $message, $headers);
             // send mail to customer
-            $message = 'Вы успешно создали задачу '.$_SERVER['HTTP_ORIGIN'].'/customer/task/view/id/'.$taskId.' '.$data['title'].' ';
+            $message = 'Вы успешно создали задачу '.$data['title'].' ';
             $message = wordwrap($message, 70);
             $headers = 'From: no_reply@icando.by';
             $smtpObj->send($this->user->email, 'Создана задача', $message, $headers);
-            $this->_redirect('/customer/office/index');
+            $this->_redirect('/performer/user/index');
         }
     }
     
@@ -303,7 +330,7 @@ class Performer_TaskController extends Zend_Controller_Action{
             $headers = 'From: no_reply@icando.by';
             $smtpObj->send($user['email'], 'Принятие вашей кандидатуры', $message, $headers);
             $smsObj = new Default_Model_SmsModel();
-            $message = "Задание №".$task['id'].", ".$user['phonenumber'].", заказчик ".$this->user->username;
+            $message = "Задание №".$task['id'].", ".$this->user->phonenumber.", заказчик ".$this->user->username;
             $message = urlencode($message);
             $smsObj->sendSmsAction($user['phonenumber'], $message);
             echo 'true';exit;

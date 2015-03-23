@@ -35,11 +35,7 @@
                 ?>
                 <?= $age;  ?> лет
       </h3>
-      <div class="product-price"> 
-          <input type="text" id="sum">
-          <button onclick="fillBalance()" id="balanceButton" class="btn btn-primary xs3Response">пополнить баланс</button>
-          <img id="balancePrel" src="<?= $this->baseUrl().'/images/blue_preloader.gif' ?>" width="60" style="display: none">
-      </div>
+      
       <div class="product-price"> 
           <span class="price-sales">
               Создано задач:  <?php $customersTasksAmount = count($this->customersTasks); ?></span> 
@@ -411,7 +407,26 @@ $(document).ready(function(){
     $('#table').DataTable();
 
     $( "#bi" ).datepicker();
- 
+
+$('#email_input').bind("keyup",function(){
+    
+    var emailVal = $('#email_input').val();
+    if(emailVal.indexOf('@') != -1){
+       // check if email taken
+        $.ajax({
+                type: 'POST',
+                url: '<?= $this->baseUrl.'/user/check-email-for-unique'; ?>',
+                data: {emailVal: emailVal},
+                success: function(data){$('#email_input').after('<p id="emailUnqErr" style="display:none" class="text-danger">Введенный email занят</p>');
+                    if(data === 'taken'){
+                        $('#emailUnqErr').show();
+                    }else if(data === 'free'){
+                        $('p#emailUnqErr').hide();
+                    }
+              }
+            });
+    }
+});
 
 }); 
 
@@ -419,27 +434,7 @@ $(function () {
   $('[data-toggle="tooltip"]').tooltip();
 }); 
 
-function fillBalance(){
-    $('#balanceButton').hide();
-    $('#balancePrel').show();
- var userId = '<?= $this->user->id ?>'; 
- var sum = $('#sum').val();
-    $.ajax({
-      type: 'POST',
-      url: '<?= $this->baseUrl.'/performer/balance/fill-ajax'; ?>',
-      data: {
-          sum: sum,
-          userId: userId
-      },
-      success: function(data){
-          $('#sum').val('');
-          $('#balSpan').text(data);
-          $('#balancePrel').hide();
-          $('#balanceButton').show();
-          
-      }
-    });
-}
+
 
 function changeCategory(catId){ 
     if($('#check'+catId).is(':checked')){

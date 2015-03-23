@@ -59,11 +59,11 @@
           <h3 class="product-code">Сферы деятельности :</h3>
           
               <?php foreach($this->usersCategories as $cat){?>
-                <p><?= $cat['c_title'].' '; ?></p>
+                <small><?= $cat['c_title'].' '; ?></small></br>
               <?php } ?>
           
       </div>
-      <>
+      
       <?php if($this->closedTasks){ ?>
       <div class="color-details"> <span class="selected-color"><strong>Рейтинг</strong></span>
                 <ul class="swatches Color">
@@ -141,13 +141,16 @@
       <!--/.product-share--> 
       
     </div>
-    <div class="col-lg-12" style="padding-bottom: 10px">
-        <h3 class="block-title-3">
-                Дополнительная информация  
-        </h3>
-        <p><?= $this->performer['about'] ?></p>
-    </div>
+    <?php if($this->performer['about']){?>
+        <div class="col-lg-12" style="padding-bottom: 10px">
+            <h3 class="block-title-3">
+                    Дополнительная информация  
+            </h3>
+            <p><?= $this->performer['about'] ?></p>
+        </div>
+    <?php } ?>
     <!--/ right column end --> 
+    <?php if($this->feedbacks){?>
         <div class="col-lg-12" style="padding-bottom: 10px">
             <h3 class="block-title-3">
                 Отзывы  
@@ -223,6 +226,7 @@
             <?php } ?>
             <?=  $this->paginationControl($this->feedbacks, 'Sliding', 'pagination.phtml') ?>
         </div>
+    <?php } ?>
   </div>
 <?php }else{ ?>
 <div class="row">

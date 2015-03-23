@@ -2,8 +2,13 @@
 
 class RegistrationController extends Zend_Controller_Action{
     
-    public function _init(){
-        
+    protected $user;
+    public function init(){
+       $auth = Zend_Auth::getInstance();
+       if($auth->hasIdentity()){
+          $this->user = $auth->getIdentity();
+          
+       } 
     }
     
     public function indexAction(){
@@ -206,6 +211,31 @@ class RegistrationController extends Zend_Controller_Action{
                 }
         }
     }
+    public function checkPhoneUniqAction(){
+        $request = $this->getRequest();
+        if($request->isPost()){
+            $phone = $request->getParam('phonenumber');
+            $usersObj = new Model_DbTable_Users();
+            $phoneUniq = $usersObj->checkPhoneForUniq($phone);
+            if(!$phoneUniq){
+                print_r('true');exit;
+            }else{
+                print_r('false');exit;
+            }
+        }
+    }
+    
+    public function editUserAction(){
+        $request = $this->getRequest();
+        if($request->isPost()){
+            $phone = $request->getParam('phoneNumber');
+            $userId = $request->getParam('userId');
+            $usersObj = new Model_DbTable_Users();
+            $data = array('phonenumber' => '375'.$phone);
+            $usersObj->editUser($data, $userId);
+            print_r('true');exit;
+        }
+    }
     
     public function activateAccountByPhoneAction(){
         $request = $this->getRequest();
@@ -215,6 +245,9 @@ class RegistrationController extends Zend_Controller_Action{
            $phoneVerifObj = new Default_Model_DbTable_PhoneVerification();
            $data = array('phone_verified'=> 1);
            $usersObj->editUser($data, $userId);
+           $_SESSION['Zend_Auth']['storage']->phone_verified = 1;
+           // change session parametr phone-verified
+           
            //$phoneVerifObj->removeNumber($userId);
            
            print_r('true');exit;
@@ -235,7 +268,7 @@ class RegistrationController extends Zend_Controller_Action{
         }
     }
     
-    
+
     private function makeSmsCode(){
     	$s = substr(str_shuffle(str_repeat("0123456789", 15)), 0, 6);
         $recoveryObj = new Default_Model_DbTable_PasswordRecovery();

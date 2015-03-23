@@ -8,6 +8,7 @@ class Default_Model_TaskList{
        $tasks = new Zend_Db_Select($db);
        $tasks->from(array('t'=>'tasks'))
                 ->where('t.status = ?', 'non_taken')
+                ->where('t.final_date > ?', time())
                ->order($order)
                 ->joinLeft(array('u'=>'users'),
                         't.customer_id = u.id',

@@ -71,6 +71,24 @@ class Model_DbTable_Users extends Zend_Db_Table_Abstract{
             return false;
         }
     }
+    public function checkMailForUniq($userId,$mail){
+ 
+        $row = $this->fetchRow($this->select()->where('email = ?', $mail)->where('id NOT LIKE ?', $userId));
+        if($row){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public function checkPhoneForUniq($phone){
+ 
+        $row = $this->fetchRow($this->select()->where('phonenumber = ?', '375'.$phone));
+        if($row){
+            return true;
+        }else{
+            return false;
+        }
+    }
     public function checkPhone($phone){
  
         $row = $this->fetchRow($this->select()->where('email = ?', $phone));

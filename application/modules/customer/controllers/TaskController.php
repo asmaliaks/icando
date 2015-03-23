@@ -17,6 +17,10 @@ class Customer_TaskController extends Zend_Controller_Action{
         // get categories
         $categoryObj = new Customer_Model_DbTable_Categories();
         $mainCategories = $categoryObj->getCategoryList();
+        $userId = $this->user->id;
+        
+        $usersObj = new Model_DbTable_Users();
+        $user = $usersObj->getUserById($userId);
         // get sub categories
         $n=0;
         foreach($mainCategories as $mainCat){
@@ -37,7 +41,16 @@ class Customer_TaskController extends Zend_Controller_Action{
             $n++;
         }
        
+        $phoneVerifObj = new Default_Model_DbTable_PhoneVerification();
+        if($user['phonenumber']){
+            $hasCode = $phoneVerifObj->checkIfNumberHasCode($user['phonenumber']);
+        }
+        if($hasCode){
+            $this->view->hasCode = $hasCode;
+        }
+        
         // sending data to the view
+        $this->view->user = $user;
         $this->view->categories = $categories;
     }
    public function getSubcatsAction(){
@@ -97,6 +110,32 @@ class Customer_TaskController extends Zend_Controller_Action{
             }
             $tasksObj = new Customer_Model_DbTable_TasksModel();
             $taskId = $tasksObj->addTask($data);
+                          if($_FILES['additionalImage']){
+                
+                    $dir = (int)is_dir($_SERVER['DOCUMENT_ROOT']."/images/task_images/additional_images/");
+                    if( !$dir ){					
+                            //die($_SERVER['DOCUMENT_ROOT'].$file_path.'/');				
+                            mkdir( $_SERVER['DOCUMENT_ROOT']."/images/task_images/additional_images/" );
+                            chmod( $_SERVER['DOCUMENT_ROOT']."/images/task_images/additional_images/", 0777 );				
+                    }
+                    $taskImagesObj = new Default_Model_DbTable_TaskImages();
+                    $n=0;
+                    foreach($_FILES["additionalImage"]["tmp_name"] as $tmpName){
+                        if(is_uploaded_file($tmpName))
+                            {
+        //                    copy($_FILES["image"]["tmp_name"], DOCUMENT_ROOT."/images/task_images/additional_images/".$_FILES["image"]["name"]);
+                              copy($tmpName, $_SERVER['DOCUMENT_ROOT']."/images/task_images/additional_images/".$_FILES["additional_image"]["name"][$n]);
+                              $dataAddImages = array(
+                                  'image'=>$_FILES['additionalImage']['name'][$n],
+                                  'task_id'=>$taskId,
+                                  'user_id'=>$this->user->id,
+                                  );
+                            }
+                            $taskImagesObj->addImages($dataAddImages);
+                            $n++;
+                    }
+                    
+            }
             // send mail to admin
             $smtpObj = new Default_Model_Smtp();
             $message = 'Пользователь '.$this->user->username.' '.$this->user->surmname.' '
@@ -106,7 +145,7 @@ class Customer_TaskController extends Zend_Controller_Action{
             $headers = 'From: no_reply@icando.by';
             $smtpObj->send(ADMIN_MAIL, 'Создана задача', $message, $headers);
             // send mail to customer
-            $message = 'Вы успешно создали задачу '.$_SERVER['HTTP_ORIGIN'].'/customer/task/view/id/'.$taskId.' '.$data['title'].' ';
+            $message = 'Вы успешно создали задачу  '.$data['title'].' ';
             $message = wordwrap($message, 70);
             $headers = 'From: no_reply@icando.by';
             $smtpObj->send($this->user->email, 'Создана задача', $message, $headers);
@@ -189,6 +228,12 @@ class Customer_TaskController extends Zend_Controller_Action{
         if($feedback){
             $this->view->feedback = $feedback;  
         }
+        // get additional images
+        $additionalImgObj = new Default_Model_DbTable_TaskImages();
+        $addImages = $additionalImgObj->getTaskImages($taskId);
+        if($addImages){
+            $this->view->addImages = $addImages;
+        }
         $this->view->comments = $comments;
         $this->view->currentUser = $this->user;
         $this->view->task = $task;
@@ -231,7 +276,7 @@ class Customer_TaskController extends Zend_Controller_Action{
             $smtpObj->send($user['email'], 'Принятие вашей кандидатуры', $message, $headers);
             
             $smsObj = new Default_Model_SmsModel();
-            $message = "Задание №".$task['id'].", ".$user['phonenumber'].", заказчик ".$this->user->username;
+            $message = "Задание №".$task['id'].", ".$this->user->phonenumber.", заказчик ".$this->user->username;
             $message = urlencode($message);
             $smsObj->sendSmsAction($user['phonenumber'], $message);
             echo 'true';exit;

@@ -9,7 +9,8 @@ class Customer_Form_RegistrationForm extends Zend_Form{
 
      $email = new Zend_Form_Element_Text('email');
    $email->setLabel('Email')
-         ->addErrorMessage('Поле обязательно для заполнения');
+         ->addErrorMessage('Поле обязательно для заполнения')
+         ->setAttrib('id', 'email_input');
    
    $name = new Zend_Form_Element_Text('username');
    $name->setLabel('Имя')
@@ -79,7 +80,7 @@ class Customer_Form_RegistrationForm extends Zend_Form{
    
    $image = new Zend_Form_Element_File('image');
    $image->setLabel('Изображение')
-         //->setDestination(DOCUMENT_ROOT.'/images/users_images/');  
+//         ->setDestination(DOCUMENT_ROOT.'/images/users_images/');  
          ->setDestination($_SERVER['DOCUMENT_ROOT'].'/images/users_images/');  
    
    

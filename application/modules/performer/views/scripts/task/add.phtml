@@ -123,7 +123,8 @@
                     <label>Изображение</label>
                     <input type="file" name="image" class="form-control" style="width: 100%">
                     </div>
-<!--                    <a href="javascript:addInput()">+ Добавить изображение</a>-->
+                    
+                    <a onclick="addInput()">+ Добавить изображение</a>
                 </div>
                 <input type="hidden" value="0" name="docs" style="display: none">
                 <div class="col-sm-4">
@@ -183,6 +184,9 @@ $(document).ready(function(){
     $('#terms').bind("click", function(){
         $('#agreementDiv').toggle(400);
     });
+  
+
+    
 });
     
   $(function() {
@@ -192,13 +196,24 @@ $(document).ready(function(){
     $( "#expiry_date" ).datepicker();
   }); 
   
-function removeImgInput(id){
-    $('#'+id).remove();
+function removeImgInput(id){console.log(id);
+    $('#div'+id).remove();
+
+} 
+function makeid()
+{
+    var text = "";
+    var possible = "123456789";
+
+    for( var i=0; i < 9; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
 }  
-  
 function addInput(){
-    var id = Math.random().toString(36).substring(7);
-    $('#mainImgDiv').after('<div id="'+id+'"><input  type="file" name="image" class="form-control" style="width: 100%"><button href="javascript:removeImgInput('+id+')" class="btn btn-primary btn-xs">Удалить</button></div>');
+    var id = makeid();
+
+    $('#mainImgDiv').append('<div style="padding-top: 5px" id="div'+id+'"><input  type="file" name="additionalImage[]" class="form-control" style="width: 100%"><a onclick="removeImgInput('+id+')" class="btn btn-primary btn-xs">Удалить</a></div>');
 }  
   
 function newTask(){

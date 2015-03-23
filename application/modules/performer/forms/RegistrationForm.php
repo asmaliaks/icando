@@ -8,25 +8,21 @@ class Performer_Form_RegistrationForm extends Zend_Form{
 
    $email = new Zend_Form_Element_Text('email');
    $email->setLabel('Email')
-         ->setRequired()
+           ->setAttrib("id", "email_input")
          ->addErrorMessage('Поле обязательно для заполнения');
    
    $name = new Zend_Form_Element_Text('username');
    $name->setLabel('Имя')
-         ->setRequired()
          ->addErrorMessage('Поле обязательно для заполнения');
    $surname = new Zend_Form_Element_Text('surname');
    $surname->setLabel('Фамилия')
-           ->setRequired()
            ->addErrorMessage('Поле обязательно для заполнения');
    $sex = new Zend_Form_Element_Select('sex');
    $sex->setLabel('Пол')
-           ->setRequired()
            ->addErrorMessage('Выберите пол');
 
    $about = new Zend_Form_Element_Textarea('about');
    $about->setLabel('Описание')
-           ->setRequired()
            ->addErrorMessage('Поле обязательно для заполнения')
            ->setAttribs(array('cols' => '60', 'rows'=>'10', 'class' => 'form-control'));
    
@@ -92,7 +88,8 @@ class Performer_Form_RegistrationForm extends Zend_Form{
 
    $submit = new Zend_Form_Element_Submit('submit');
    $submit->setLabel('Сохранить')
-          ->setAttrib('class', 'button2');
+          ->setAttrib('class', 'button2')
+          ->setAttrib('class', 'btn btn-primary');
    
    $this->addElements(array($email, $name, $surname, $sex, $about, $phoneNumber, $city, $dayBirth, $monthBirth, $birthYear, $image, $pass,  $submit));
 

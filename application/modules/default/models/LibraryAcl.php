@@ -18,6 +18,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->add(new Zend_Acl_Resource('default:performers'), 'default'); 
        $this->add(new Zend_Acl_Resource('default:about'), 'default'); 
        $this->add(new Zend_Acl_Resource('default:contacts'), 'default'); 
+       $this->add(new Zend_Acl_Resource('default:user'), 'default'); 
        
        $this->add(new Zend_Acl_Resource('admin'));
        $this->add(new Zend_Acl_Resource('admin:index'), 'admin');
@@ -103,13 +104,17 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('admin', 'admin:main-banner', 'add');
        $this->allow('admin', 'admin:main-banner', 'remove-image');
        $this->allow('admin', 'admin:main-banner', 'remove-slide');
+       $this->allow('admin', 'performer:balance', 'fill-ajax');
        
        // customer
        $this->allow('customer', 'default:authentication', 'log-out');
        $this->allow('customer', 'default:error');
+       $this->allow('customer', 'default:user', 'check-email-for-unique');
        $this->allow('customer', 'customer:index', 'index');
        $this->allow('customer', 'customer:performers', 'request-to-be-performer');
        $this->allow('customer', 'default:registration', 'activate-account-by-phone');
+       $this->allow('customer', 'default:registration', 'check-phone-uniq');
+       $this->allow('customer', 'default:registration', 'edit-user');
        $this->allow('customer', 'customer:settings', 'personal-data-edit');
        $this->allow('customer', 'customer:settings', 'index');
        $this->allow('customer', 'customer:settings', 'social');
@@ -145,6 +150,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('customer', 'default:sms', 'phone-activate');
        $this->allow('customer', 'default:sms', 'phone-verify');
        $this->allow('customer', 'default:phone-activation', 'activate-account');
+       $this->allow('customer', 'default:phone-activation', 'activate');
        $this->allow('customer', 'customer:messages', 'send-message');
        $this->allow('customer', 'customer:messages', 'mark-read');
        $this->allow('customer', 'customer:messages', 'get-unread-messages');
@@ -155,6 +161,7 @@ class Model_LibraryAcl extends Zend_Acl{
        // performer
        $this->allow('performer', 'default:authentication', 'log-out');
        $this->allow('performer', 'default:error');
+       $this->allow('performer', 'default:user', 'check-email-for-unique');
        $this->allow('performer', 'performer:user', 'index');
        $this->allow('performer', 'performer:index', 'tasks');
        $this->allow('performer', 'performer:index', 'index');

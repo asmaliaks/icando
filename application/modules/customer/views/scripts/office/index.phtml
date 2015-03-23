@@ -1,4 +1,4 @@
-                    
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>                  
     <div class="row">
         <div class="breadcrumbDiv col-lg-12">
               <ul class="breadcrumb">
@@ -148,32 +148,25 @@
                 <?php }else{?>
                      
                         <div  id="verificateDiv">
-                        <form class="form-inline">
+                        <div class="form-inline">
 
                           <div class="form-group" style="padding-bottom: 15px">
                             <p id="codeError" style="display: none" class="text-danger">Неверный код</p>
                             <div class="input-group">
-                              <input type="text" class="form-control" id="code" placeholder="код">
+                              <input type="text" class="form-control" id="code" placeholder="SMS-код">
 
                             </div>
                           </div>
                 </br>
 
-                          <div class="form-group">
-                            <p id="phoneVerificationError" style="display: none" class="text-danger">Нет такого номера</p>
-                            <div class="input-group">
-                              <div class="input-group-addon">+375</div>
-                              <input  type="text" class="form-control" id="phoneNum" placeholder="телефон">
-
-                            </div>
-                          </div>
                         <div style="padding-top: 10px">
-                            <button class="btn btn-primary" id="activation">Активация</button>
+                            <a class="btn btn-primary" id="activation">Активация</a>
                             <img id="activatePrel" src="<?= $this->baseUrl().'/images/blue_preloader.gif' ?>" width="60" style="display: none">
                           
-                            </form>
+<!--                            </form>-->
 
                           </div>
+                </div>
                           </div>
                 <?php }?>
             <?php }else{ ?>
@@ -279,12 +272,12 @@
 <!--------------------------->
 
 <script>
-$(document).ready(function(){
+$(document).ready(function(){ 
     $('#tasksTable').DataTable({
     });
 
 
-    $('#verificatePhoneNum').bind('click', function(){  console.log('opa');
+    $('#verificatePhoneNum').bind('click', function(){  
         
             $('#verificatePhoneNum').hide();
             $('#phoneVerifyPreloader').show();
@@ -294,23 +287,45 @@ $(document).ready(function(){
 
     $('#activation').bind("click", function(e){
         e.preventDefault();
-        var phone = $('#phoneNum').val();
         var code = $('#code').val();
-        if(phone == ''){
-            $('#phoneVerificationError').show();
-        }
+        
         if(code == ''){
             $('#codeError').show();
         }
-        if(code != '' && phone != ''){
-            activatePhone(phone, code);
+        if(code != ''){
+            activatePhone( code);
         }
+    $('#code').keyup(function(e){
+     if(e.keyCode == 13)
+     {
+         activatePhone(code);
+     }
+    });     
+        
     });
 
-
+$('#email_input').bind("keyup",function(){
+    
+    var emailVal = $('#email_input').val();
+    if(emailVal.indexOf('@') != -1){
+       // check if email taken
+        $.ajax({
+                type: 'POST',
+                url: '<?= $this->baseUrl.'/user/check-email-for-unique'; ?>',
+                data: {emailVal: emailVal},
+                success: function(data){$('#email_input').after('<p id="emailUnqErr" style="display:none" class="text-danger">Введенный email занят</p>');
+                    if(data === 'taken'){
+                        $('#emailUnqErr').show();
+                    }else if(data === 'free'){
+                        $('p#emailUnqErr').hide();
+                    }
+              }
+            });
+    }
+});
 });
 
-function activatePhone(phone, code){
+function activatePhone(code){
 $('#codeError').hide();
 $('#phoneVerificationError').hide();
 $('#activation').hide();  
@@ -318,16 +333,13 @@ $('#activatePrel').show();
 $.ajax({
     type: 'POST',
     url: '<?= $this->baseUrl.'/phone-activation/activate-account'; ?>',
-    data: {phone: phone, code: code},
-    success: function(data){console.log(phone);
+    data: { code: code},
+    success: function(data){
         data = JSON.parse(data);
-        if(data.code != '1' || data.phone != '1'){
-              if(data.code != '1'){
+        if(data.code != '1'){
                   $('#codeError').show();
-                }    
-              if(data.phone != '1'){
-                  $('#phoneVerificationError').show();
-                }  
+                   
+               
                 $('#activation').show();  
                 $('#activatePrel').hide();
         }else{
@@ -337,13 +349,11 @@ $.ajax({
                 url: '<?= $this->baseUrl.'/registration/activate-account-by-phone'; ?>',
                 data: {userId: data.user_id},
                 success: function(data){
-//                    $('#activation').show();  
-                    $('#verifDiv').hide();
-                    $('#verificatePhone').show();
+                    location.reload();
               }
             });
         }
-  }
+        }
 });
 }
 

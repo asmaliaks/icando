@@ -11,6 +11,17 @@ class Default_Model_DbTable_PhoneVerification extends Zend_Db_Table_Abstract{
         $this->insert($data);
     }
  
+    public function removeCode($code){
+         $where = $this->getAdapter()->quoteInto('code = ?', $code);
+         $this->delete($where);
+         return true;
+    }
+    public function removeCodeCol($code, $phone){
+         $where = $this->getAdapter()->quoteInto('code = '.$code. ' AND phone_number =?', $phone);
+         $this->delete($where);
+         return true;
+    }
+    
     public function rewriteSmsCode($phonenumber){
         $where = $this->getAdapter()->quoteInto('phone_number = ?', $phonenumber);
         $code = $this->makeSmsCode();
@@ -51,10 +62,9 @@ class Default_Model_DbTable_PhoneVerification extends Zend_Db_Table_Abstract{
          }
     }
     
-    public function getUserIdByCodeAndPhone($code, $phone){
+    public function getUserIdByCodeAndPhone($code){
          $where = $this->select()
-                 ->where('code = ?', $code)
-                 ->where('phone_number = ?', $phone);
+                 ->where('code = ?', $code);
          $row = $this->fetchRow($where);
          if($row == null){
              return false;

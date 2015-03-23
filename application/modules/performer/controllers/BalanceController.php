@@ -14,8 +14,9 @@ class Performer_BalanceController extends Zend_Controller_Action{
         $request = $this->getRequest();
         if($request->isPost()){
             $sum = $request->getParam('sum');
+            $userId = $request->getParam('userId');
             $usersObj = new Performer_Model_DbTable_Users();
-            $finalSum = $usersObj->fillBalance($this->user->id, $sum);
+            $finalSum = $usersObj->fillBalance($userId, $sum);
             
             print_r($finalSum);exit;
         }

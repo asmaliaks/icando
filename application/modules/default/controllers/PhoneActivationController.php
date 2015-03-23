@@ -13,7 +13,7 @@ class PhoneActivationController extends Zend_Controller_Action{
             $params = $request->getParams();
             // check code
             $phoneVerifObj = new Default_Model_DbTable_PhoneVerification();
-            $checkPhone = $phoneVerifObj->checkPhone('375'.$params['phone']);
+            $checkPhone = true;
             $checkCode = $phoneVerifObj->checkCode($params['code']);
             if(!$checkPhone || !$checkCode){
                 if(!$checkPhone){
@@ -27,7 +27,7 @@ class PhoneActivationController extends Zend_Controller_Action{
                     $codeForJson = array('code'=>'1');
                 }
             }else if($checkPhone && $checkCode){
-                $user = $phoneVerifObj->getUserIdByCodeAndPhone($params['code'], $params['phone']);
+                $user = $phoneVerifObj->getUserIdByCodeAndPhone($params['code']);
                 $codeForJson = array('code'=>'1');
                 $phoneForJson = array('phone' => '1'); 
                 if($user){
@@ -40,6 +40,20 @@ class PhoneActivationController extends Zend_Controller_Action{
             $arrayForJson = array_merge($codeForJson,$phoneForJson, $userForJson);
             $jsonStr = json_encode($arrayForJson);
             print_r($jsonStr);exit;
+        }
+    }
+    
+    public function activateAction(){
+        $request = $this->getRequest();
+        if($request->isPost()){
+            $code = $request->getParam('code');
+            $phoneVeriObj = new Default_Model_DbTable_PhoneVerification();
+            $user = $phoneVeriObj->getUserIdByCodeAndPhone($code);
+            $usersObj = new Model_DbTable_Users();
+            $data = array('phone_verified'=>1);
+            $usersObj->editUser($data, $user['user_id']);
+            $phoneVeriObj->removeCodeCol($user['code'], $user['phone_number']);
+            print_r('true');exit;
         }
     }
     

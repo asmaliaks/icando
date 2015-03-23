@@ -94,7 +94,6 @@ class SAuthController extends Zend_Controller_Action{
                     'sex' => $userInfo['sex'],
                     'role' => 'customer',
                     'birth_date'=> $userInfo['bdate'],
-                    'email' => $userInfo['domain'].'@vkmessenger.com',
                     'vk' => $userInfo['id'],
                     'city' => $userInfo['city']['title'],
                     'pass' => $pass,

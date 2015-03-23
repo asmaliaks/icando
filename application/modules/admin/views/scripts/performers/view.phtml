@@ -50,7 +50,16 @@
                     </div>
                 <?php } ?>
             </div>
+            <div class="col-lg-12"> 
+                <input type="text" id="sum">
+                <button onclick="fillBalance()" id="balanceButton" class="btn btn-primary xs3Response">пополнить баланс</button>
+                <img id="balancePrel" src="<?= $this->baseUrl().'/images/blue_preloader.gif' ?>" width="60" style="display: none">
+            </div>
+            <div class="col-lg-12">
+               Баланс: <span id="balSpan"><?= $this->user['balance'] ?></span>
+            </div>
             <?php if($this->customersRating){?>
+            
             <div class="col-lg-12">
                Рейтинг исполнителя: <?= $this->customersRating ?>
             </div>
@@ -304,5 +313,27 @@
               $('#unbannButton').hide();
           }
         });       
-    }    
+    }  
+    function fillBalance(){
+    $('#balanceButton').hide();
+    $('#balancePrel').show();
+ var userId = '<?= $this->user['id'] ?>'; 
+ var sum = $('#sum').val();
+    $.ajax({
+      type: 'POST',
+      url: '<?= $this->baseUrl.'/performer/balance/fill-ajax'; ?>',
+      data: {
+          sum: sum,
+          userId: userId
+      },
+      success: function(data){
+          console.log(data);
+          $('#sum').val('');
+          $('#balSpan').text(data);
+          $('#balancePrel').hide();
+          $('#balanceButton').show();
+          
+      }
+    });
+}
 </script>    

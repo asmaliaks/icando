@@ -9,10 +9,10 @@ class Performer_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
        return $id;
     }
     
-    public function getPerformersTasks($customerId){
-        $row = $this->fetchAll($this->select()->where('performer_id = ?', $customerId));
-        if($row){
-            return $row->toArray();
+    public function getPerformersTasks($id){
+        $result = $this->fetchAll($this->select()->where('performer_id = ?', $id));
+        if($result){
+            return $result->toArray();
         }else{
             return false;
         }
