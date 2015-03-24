@@ -30,7 +30,24 @@ class Default_Model_DbTable_PhoneVerification extends Zend_Db_Table_Abstract{
          );
          $this->update($data, $where);
     }
+    public function rewriteUsersCode($userId, $phone, $code){
+        $where = $this->getAdapter()->quoteInto('user_id = ?', $userId);
+         $data = array(
+             'code' => $code,
+             'phone_number' => $phone,
+         );
+         $this->update($data, $where);
+    }
     
+    public function checkIfUserHasCode($userId){
+         $where = $this->select()->where('user_id = ?', $userId);
+         $row = $this->fetchRow($where);
+         if(!$row){
+             return false;
+         }else{
+             return true;
+         }
+    }
     public function checkIfNumberHasCode($phonenumber){
          $where = $this->select()->where('phone_number = ?', $phonenumber);
          $row = $this->fetchRow($where);

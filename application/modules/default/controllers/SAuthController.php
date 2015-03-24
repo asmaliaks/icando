@@ -37,7 +37,7 @@ class SAuthController extends Zend_Controller_Action{
             'code'=>$_GET['code'],
             'redirect_uri'=>VK_REDIRECT_URI,
         );
-        $uri = urldecode(http_build_query($params));
+        //$uri = urldecode(http_build_query($params));
         //$access_token = file_get_contents('https://oauth.vk.com/access_token?'. urldecode(http_build_query($params)));
         
         #access_token through CURL
@@ -118,16 +118,16 @@ class SAuthController extends Zend_Controller_Action{
                     $this->_redirect('customer/index');
                     
                 }
-            }else{
+            }else{ 
                 // if user registred or SN account attached authorize user with his regular credentials
                 $userInfo = $userInfo['response'][0];
-                $authAdapter = $this->getAuthAdapter('email');
+                $authAdapter = $this->getAuthAdapter('vk');
         
                 $userId = $userInfo['id'];
                 // get user by vk_id
                 $vkUser = $userModel->getUserBySnId($userId, 'vk');
                 
-                $authAdapter->setIdentity($vkUser['email'])
+                $authAdapter->setIdentity($vkUser['vk'])
                     ->setCredential($vkUser['pass']);
         
                 $auth = Zend_Auth::getInstance();

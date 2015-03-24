@@ -33,15 +33,21 @@ class SmsController extends Zend_Controller_Action{
                 'user_id' => $userId,
                 'created' => time(),
             );//print_r($smsData);exit;
-            
+            // check if user has code, if yes -> rewrite the code
 
+            
+            
             $smsObj = new Default_Model_SmsModel();
             $smsText = 'Код верификации : '.$smsCode;
             $smsText = urlencode($smsText);
             $smsStatus = $smsObj->sendSmsAction($smsData['phone_number'], $smsText, $this->user->email);
             if($smsStatus >0){
-               $phoneVerifObj->addCode($smsData);
-               print_r('true');exit;
+                if($phoneVerifObj->checkIfUserHasCode($userId)){
+                    $phoneVerifObj->rewriteUsersCode($userId, $phonenumber, $smsCode);
+                }else{
+                    $phoneVerifObj->addCode($smsData);
+                    print_r('true');exit;
+                }
             }else {
                 print_r($smsStatus);exit;
             }

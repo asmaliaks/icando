@@ -529,10 +529,16 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
                   <li > <a href="<?= $this->baseUrl().'/customer/task/new-task'?>">Заказать услугу</a> </li>
             <?php }else{ ?>
                   <li > <a data-toggle="modal"  data-dismiss="modal" href="#ModalLogin">Заказать услугу</a> </li>
-            <?php } ?>      
-          <li> <a href="<?= $this->baseUrl().'/customer/performers/'?>">Исполнители</a> </li>
-          <li> <a href="<?= $this->baseUrl().'/customer/about/'?>">О проекте</a> </li>
-          <li> <a href="<?= $this->baseUrl().'/customer/contacts/'?>">Контакты</a> </li>
+            <?php } ?> 
+           <?php if(Zend_Auth::getInstance()->hasIdentity()){?>       
+                <li> <a href="<?= $this->baseUrl().'/customer/performers/'?>">Исполнители</a> </li>
+                <li> <a href="<?= $this->baseUrl().'/customer/about/'?>">О проекте</a> </li>
+                <li> <a href="<?= $this->baseUrl().'/customer/contacts/'?>">Контакты</a> </li>
+           <?php }else{?>
+                <li> <a href="<?= $this->baseUrl().'/performers/'?>">Исполнители</a> </li>
+                <li> <a href="<?= $this->baseUrl().'/about/'?>">О проекте</a> </li>
+                <li> <a href="<?= $this->baseUrl().'/contacts/'?>">Контакты</a> </li>
+           <?php }?>
           <?php if(Zend_Auth::getInstance()->hasIdentity()){?>
             <?php if( empty($this->application) || $this->application == 0){?>
                   <?php if($user->phone_verified == 1){ ?>

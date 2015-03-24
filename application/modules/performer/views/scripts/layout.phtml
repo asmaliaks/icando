@@ -427,11 +427,18 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
     
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-          <li> <a href="<?= $this->baseUrl()?>/performer/task/add">Заказать услугу</a> </li>
-          <li> <a href="<?= $this->baseUrl()?>/performer/index/tasks">Задачи </a> </li>
-          <li> <a href="<?= $this->baseUrl()?>/performer/performers/">Исполнители </a> </li>
-          <li> <a href="<?= $this->baseUrl()?>/performer/about/">О проекте</a> </li>
-          <li> <a href="<?= $this->baseUrl()?>/performer/contacts">Контакты</a> </li>
+          <?php if(Zend_Auth::getInstance()->hasIdentity()){?>
+            <li> <a href="<?= $this->baseUrl()?>/performer/task/add">Заказать услугу</a> </li>
+            <li> <a href="<?= $this->baseUrl()?>/performer/index/tasks">Задачи </a> </li>
+            <li> <a href="<?= $this->baseUrl()?>/performer/performers/">Исполнители </a> </li>
+            <li> <a href="<?= $this->baseUrl()?>/performer/about/">О проекте</a> </li>
+            <li> <a href="<?= $this->baseUrl()?>/performer/contacts">Контакты</a> </li>
+          <?php }else{ ?>
+            <li> <a href="#"  data-toggle="modal" data-target="#ModalLogin">Заказать услугу</a> </li>
+            <li> <a href="<?= $this->baseUrl()?>/performers/">Исполнители </a> </li>
+            <li> <a href="<?= $this->baseUrl()?>/about/">О проекте</a> </li>
+            <li> <a href="<?= $this->baseUrl()?>/contacts">Контакты</a> </li>
+          <?php } ?>
       </ul>
       <!--/.navbar-nav hidden-xs--> 
     </div>

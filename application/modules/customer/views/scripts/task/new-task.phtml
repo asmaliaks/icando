@@ -1,4 +1,29 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<!-- if phone is not verified -->
+<div class="modal signUpContent fade" id="ModalSmsCode" tabindex="-1" role="dialog" >
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
+        <h3 class="modal-title-site text-center" > SMS код </h3>
+      </div>
+      <div class="modal-body">
+          <p>
+             Для подтверждения вашего номера введите код полученный в SMS
+          </p>
+          <input type="text" id="smsCode"><p class="text-danger" id="modalCodeError" style="display: none">Неверный код</p></br>
+          <img id="smsModalPreloader" style="display: none" src="<?= $this->baseUrl().'/images/blue_preloader.gif' ?>" width="50"></br>
+          
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Закрыть</button>
+        <button id="takeCode" class="btn btn-primary" disabled >Подтвердить</button>
+      </div>
+    </div>
+    <!-- /.modal-content --> 
+    
+  </div>
+  </div>
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
@@ -80,13 +105,13 @@
                         </select>
                 </div>    
                 <div class="col-sm-4 ">
-                    <?php if(!$this->user['phonenumber']){?>
+                    <?php if($this->user['phone_verified'] == 0){?>
                     <div class="form-group " id="sendSmsForm">
                        <label class="sr-only" for="phonenumber">Номер телефона</label>
                        <label >Номер телефона</label></br>
                        <div class="input-group">
                          <div class="input-group-addon">+375</div>
-                         <input type="text" class="form-control" id="phonenumberInp"  placeholder="телефон">
+                         <input type="text" class="form-control" id="phonenumberInp" value="<?= mb_substr($this->user['phonenumber'], 3, 10,'utf-8')?>"  placeholder="телефон">
                          <div id="sendSmsButton" style="display: none; background-color:#4ec67f" class="input-group-addon btn">Верификация</div>
                        </div>
                        <p class="text-danger" id="phoneErrorTaken" style="display: none">Номер занят</p>
@@ -106,41 +131,11 @@
                                </div>
                     <img id="smsPreloader" src="<?= $this->baseUrl().'/images/blue_preloader.gif' ?>" width="50" style="display:none">
                     <?php }else{?>
-                        <?php if($this->user['phone_verified'] == 0){?>
-                            <?php if(!$this->hasCode){?>
-                               <div id="getSms">
-                                <label>Верефицировать телефон</label></br>
-                                <button id="getSmsButton" class="btn btn-primary">Получить смс-код</button>
-                                </div>
-                    <div class="form-group " id="sendCode" style="display: none">
-                                  <label class="sr-only" for="phonenumber">Введите код</label>
-                                  <label >Введите код</label></br>
-                                  <div class="input-group">
-                                    <input type="text" class="form-control" id="codeInp"  placeholder="sms-код">
-                                    <div id="sendCodeButton" style="display: none; background-color:#4ec67f" class="input-group-addon btn">Верификация</div>
-                                  </div>
-                                  <p class="text-danger" id="codeError" style="display: none">Неверный код</p>
-                                </div>
-                    <img id="smsPreloader" src="<?= $this->baseUrl().'/images/blue_preloader.gif' ?>" width="50" style="display:none">
-                            <?php }else{?>
-                                <div class="form-group " id="sendCode">
-                                  <label class="sr-only" for="phonenumber">Введите код</label>
-                                  <label >Введите код</label></br>
-                                  <div class="input-group">
-                                    <input type="text" class="form-control" id="codeInp"  placeholder="sms-код">
-                                    <div id="sendCodeButton" style="display: none; background-color:#4ec67f" class="input-group-addon btn">Верификация</div>
-                                  </div>
-                                  <p class="text-danger" id="codeError" style="display: none">Неверный код</p>
-                                </div>
-                               <img id="smsPreloader" src="<?= $this->baseUrl().'/images/blue_preloader.gif' ?>" width="50" style="display:none">
-                               <div id="phoneVerified" style="display: none">
+                        <div id="phoneVerified" style="display: none">
                                    <label>Верификация телефона</label>
                                     <p class="text-success ">Телефон верифицирован</p>
-                               </div>
-                            <?php }?>
-                        <?php }else{?>
-                            
-                        <?php } ?>
+                        
+                        </div>
                     <?php } ?>
                 </div>
                 
@@ -412,7 +407,20 @@ $(document).ready(function(){
     $('#terms').bind("click", function(){
         $('#agreementDiv').toggle(400);
     });
-
+    
+    var phonenumber = $('#phonenumberInp').val();
+    var numberLng = phonenumber.length;
+    if(numberLng == 9){
+        $('#sendSmsButton').show();
+    }else{
+       $('#sendSmsButton').hide(); 
+    }
+    $('#smsCode').bind('keyup', function(){
+        var codeLng = $('#smsCode').val().length;
+        if(codeLng == 6){
+            $('#takeCode').removeAttr("disabled");
+        }
+    });
     $('#phonenumberInp').bind("keyup", function(){
         
         var phonenumber = $('#phonenumberInp').val();
@@ -426,8 +434,8 @@ $(document).ready(function(){
     });
     
     $('#sendSmsButton').bind('click', function(e){
-        $('#sendSmsForm').hide();
-        $('#smsPreloader').show();
+//        $('#sendSmsForm').hide();
+//        $('#smsPreloader').show();
         e.preventDefault();
         var phoneNumber  = $('#phonenumberInp').val();
         var userId = <?= $this->user['id'] ?>;
@@ -442,6 +450,7 @@ $(document).ready(function(){
         sendSms(phoneNumber, userId);
     });
     $('#codeInp').bind("keyup", function(){
+        $('#modalCodeError').hide();
         var code = $('#codeInp').val();
         var codeLng = code.length;
         if(codeLng == 6){
@@ -451,10 +460,9 @@ $(document).ready(function(){
         }
     });
     
-    $('#sendCodeButton').bind('click', function(){
-        var code = $('#codeInp').val();
-        $('#sendCode').hide();
-        $('#smsPreloader').show();
+    $('#takeCode').bind('click', function(){
+        var code = $('#smsCode').val();
+        $('#smsModalPreloader').show();
         verifyPhone(code);
     });
 });
@@ -467,17 +475,18 @@ function verifyPhone(code){
         success: function(data){
            data = JSON.parse(data);
            if(data.code == 'false'){
-               $('#smsPreloader').hide();
-               $('#sendCode').show();
-               $('#codeError').show();
+               $('#smsModalPreloader').hide();
+               $('#modalCodeError').show();
            }else if(data.code == '1'){
                 $.ajax({
                         type: 'POST',
                         url: '<?= $this->baseUrl.'/phone-activation/activate'; ?>',
                         data: {code: code},
                         success: function(data){
-                            $('#smsPreloader').hide();
+                            $('#smsModalPreloader').hide();
+                            $('#ModalSmsCode').modal("hide");
                             $('#phoneVerified').show();
+                            $('#sendSmsForm').hide();
                             $('#submitTask').removeAttr("disabled");
                          }
                      });
@@ -515,18 +524,20 @@ function editUser(phoneNumber, userId){
         data: {phoneNumber: phoneNumber, userId: userId},
         success: function(data){
             if(data === 'true'){
+                
+//                $('#smsPreloader').hide();
+//                $('#sendCode').show();
+                $('#ModalSmsCode').modal('show');
                 sendSms('375'+phoneNumber, userId);
-                $('#smsPreloader').hide();
-                $('#sendCode').show();
             }
             
          }
      });
      }
 function sendSms(phoneNumber, userId){
-console.log(phoneNumber, userId);
-$('#sendSmsForm').hide();
-$('#smsPreloader').show();
+//console.log(phoneNumber, userId);
+//$('#sendSmsForm').hide();
+//$('#smsPreloader').show();
 //send sms
     $.ajax({
         type: 'POST',
@@ -535,8 +546,8 @@ $('#smsPreloader').show();
         success: function(data){
             if(data === 'true'){
                 // if good show code input
-                $('#sendSmsForm').hide();
-                $('#sendCode').show();
+//                $('#sendSmsForm').hide();
+//                $('#sendCode').show();
             }
             
          }
@@ -598,7 +609,7 @@ function newTask(){
         var agree = '0';
     }
 var priceNan = isNaN(price);
- if(catId === '0' || title === '' || price === '' || date === '' || finishDate === '' || description === '' || agree === '0' || priceNan){
+ if(catId === '0' || title === '' || price === '' || date === '' || description === '' || agree === '0' || priceNan){
 //    if( title === '' || price === '' || date === '' || finishDate === '' || agree === '0'){
         if(catId === '0'){
             $('#sub_cat_error').show();
