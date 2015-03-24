@@ -12,7 +12,15 @@ class Customer_Model_DbTable_UserCategory extends Zend_Db_Table_Abstract{
                             array('c.id as c_id',
                                 'c.title as c_title',
                                 'c.parent_id as c_parent_id',
-                                'c.image as c_image'))->setIntegrityCheck(false);
+                                'c.image as c_image'))
+                    ->joinLeft(array('mc'=>'categories'),
+                            'c.parent_id = mc.id',
+                            array(
+                                'mc.title as mc_title',
+                                'mc.image as mc_image'
+                            ))
+                            ->group('mc.id')
+                            ->setIntegrityCheck(false);
 
             $result = $this->fetchAll($select);
             if($result){

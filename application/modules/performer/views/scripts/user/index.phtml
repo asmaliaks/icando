@@ -22,8 +22,14 @@
 
     </div>
     </div>
+        <div class="col-sm-8" style="text-align: center">
+            <a style="text-decoration: underline" onclick="$('#imageInput').click();return false;">Сменить фото</a>
+        </div>
     </div><!--/ left column end -->
-    
+    <form   enctype="multipart/form-data" id="avatarForm" method="post" action="/performer/user/change-avatar">
+        <input type="hidden" name="userId" value="<?= $this->user['id'] ?>">
+        <input type="file" style="display:none" id="imageInput" name="image">
+    </form>
     
     <!-- right column -->
     <div class="col-lg-6 col-md-6 col-sm-5">
@@ -407,7 +413,9 @@ $(document).ready(function(){
     $('#table').DataTable();
 
     $( "#bi" ).datepicker();
-
+$('#imageInput').change(function(){
+   $('#avatarForm').submit();
+});
 $('#email_input').bind("keyup",function(){
     
     var emailVal = $('#email_input').val();

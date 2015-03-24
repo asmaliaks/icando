@@ -95,6 +95,32 @@ class Customer_OfficeController extends Zend_Controller_Action{
         $this->view->user = $user;
     }
     
+public function changeAvatarAction(){
+    $request = $this->getRequest();
+    if($request->isPost()){
+        $userId = $request->getParam('userId');
+        if($_FILES['image']){
+            $dir = (int)is_dir(DOCUMENT_ROOT."/images/users_images/");
+            if( !$dir ){					
+                    //die($_SERVER['DOCUMENT_ROOT'].$file_path.'/');				
+                    mkdir( $_SERVER['DOCUMENT_ROOT']."/images/users_images/" );
+                    chmod( $_SERVER['DOCUMENT_ROOT']."/images/users_images/", 0777 );				
+            }
+            if(is_uploaded_file($_FILES["image"]["tmp_name"]))
+            {
+
+              copy($_FILES["image"]["tmp_name"], DOCUMENT_ROOT."/images/users_images/".$_FILES["image"]["name"]);
+//                  copy($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT']."/images/users_images/".$_FILES["image"]["name"]);
+              $data['image'] = $_FILES['image']['name'];
+              // edit user's data
+              $usersObj = new Model_DbTable_Users();
+              $usersObj->editUser($data, $userId);
+              $this->_redirect('/customer/office/');
+            }
+        }
+    }
+}    
+    
 public function applicationAction(){
         $this->view->title = 'Настройка категорий';  
         $this->view->headTitle('Настройка категорий', 'APPEND');

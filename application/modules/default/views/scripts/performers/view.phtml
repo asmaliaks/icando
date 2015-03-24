@@ -11,7 +11,7 @@
   <div class="row transitionfx"> 
     
     <!-- left column -->
-    <div class="col-lg-6 col-md-6 col-sm-6"> 
+    <div class="col-lg-4 col-md-4 col-sm-4"> 
       <!-- product Image and Zoom -->
       
       <div class="main-image sp-wrap col-lg-12 no-padding style3" style="display: inline-block;">
@@ -25,45 +25,13 @@
     <!--/ left column end --> 
     
     <!-- right column -->
-    <div class="col-lg-6 col-md-6 col-sm-5">
+    <div class="col-lg-8 col-md-8 col-sm-8">
+        <div class="col-sm-4">
       <h1 class="product-title"><?= $this->performer['username'].' '.mb_substr($this->performer['surname'], 0, 1, 'utf-8').'.' ?></h1>
-      <?php $sec = time()-$this->performer['birth_date'];
-            $age = $sec/31556926;
-            $age = floor($age);
-      ?>
-      <h3 class="product-code">Возраст : <?= $age; ?> лет</h3>
-          <div class="product-price"> 
-          <span class="price-sales">
-              Создано задач:  <?php $customersTasksAmount = count($this->customersTasks); ?>
-              <?= $customersTasksAmount; ?>
-          </span>  
       </div>
-      <div class="product-price"> 
-          <span class="price-sales">
-            <?php
-            if($this->closedTasks){
-               $closedTasksAmount = count($this->closedTasks);
-
-            ?>
-            <?php if($closedTasksAmount){ ?>
-               Выполненных работ: <?= $closedTasksAmount ?>
-            <?php }else{ ?>
-               Пользователь еще не завершил ни одного задания
-            <?php } 
-            } ?>
-          </span>  
-      </div>
-
-      <div class="details-description">
-          <h3 class="product-code">Сферы деятельности :</h3>
-          
-              <?php foreach($this->usersCategories as $cat){?>
-                <p><?= $cat['c_title'].' '; ?></p>
-              <?php } ?>
-          
-      </div>
-      <?php if($this->closedTasks){ ?>
-      <div class="color-details"> <span class="selected-color"><strong>Рейтинг</strong></span>
+        <div class="col-sm-8">
+          <?php if($this->closedTasks){ ?>
+      
         <ul class="swatches Color">
           <?php switch ($this->rating){
               case 1:?>
@@ -112,8 +80,47 @@
           <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="37"> </li>
           <?php }?>
         </ul>
-      </div>
+      
       <?php } ?>
+            </div>
+      <?php $sec = time()-$this->performer['birth_date'];
+            $age = $sec/31556926;
+            $age = floor($age);
+      ?>
+        <div class="col-sm-12">
+      <h3 class="product-code">Возраст : <?= $age; ?> лет</h3>
+          <div class="product-price"> 
+          <span class="price-sales">
+              Создано задач:  <?php $customersTasksAmount = count($this->customersTasks); ?>
+              <?= $customersTasksAmount; ?>
+          </span>  
+      </div>
+      </div>
+      <div class="product-price col-sm-12"> 
+          <span class="price-sales">
+            <?php
+            if($this->closedTasks){
+               $closedTasksAmount = count($this->closedTasks);
+
+            ?>
+            <?php if($closedTasksAmount){ ?>
+               Выполненных работ: <?= $closedTasksAmount ?>
+            <?php }else{ ?>
+               Пользователь еще не завершил ни одного задания
+            <?php } 
+            } ?>
+          </span>  
+      </div>
+
+      <div class="details-description col-sm-12">
+          <h3 class="product-code">Сферы деятельности :</h3>
+          
+              <?php foreach($this->usersCategories as $cat){?>
+                <small><?= $cat['mc_title'].'.  '; ?></small>
+              <?php } ?>
+          
+      </div>
+
       <!--/.color-details-->
 
       
@@ -123,7 +130,7 @@
       
       <div style="clear:both"></div>
       <?php if($this->performer['vk'] || $this->performer['ok'] || $this->performer['fb']){?>
-      <div class="product-share clearfix">
+      <div class="product-share clearfix col-sm-12">
         <p> Привязка к соцсетям </p>
         <div class="socialIcon">
             <?php if($this->performer['vk']){?>

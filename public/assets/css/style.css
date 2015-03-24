@@ -4578,3 +4578,12 @@ h1.x2large {
  overflow: hidden !important;
 }
 }
+.textAlignLeftImportant{
+    text-align: left !important;
+}
+.floatLeftImportant{
+    float: left !important;
+}
+.uploadImage{
+    background-image: url('/public/images/upload.png');
+}

@@ -122,6 +122,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('customer', 'customer:office', 'application');
        $this->allow('customer', 'customer:office', 'add-user-category');
        $this->allow('customer', 'customer:office', 'remove-users-category');
+       $this->allow('customer', 'customer:office', 'change-avatar');
        $this->allow('customer', 'customer:task', 'new-task');
        $this->allow('customer', 'customer:task', 'select-category');
        $this->allow('customer', 'customer:task', 'add-task');
@@ -163,6 +164,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('performer', 'default:error');
        $this->allow('performer', 'default:user', 'check-email-for-unique');
        $this->allow('performer', 'performer:user', 'index');
+       $this->allow('performer', 'performer:user', 'change-avatar');
        $this->allow('performer', 'performer:index', 'tasks');
        $this->allow('performer', 'performer:index', 'index');
        $this->allow('performer', 'default:registration', 'activate-account-by-phone');
