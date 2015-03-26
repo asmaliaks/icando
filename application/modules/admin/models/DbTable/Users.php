@@ -20,10 +20,10 @@ class Admin_Model_DbTable_Users extends Zend_Db_Table_Abstract{
     
     public function getBalanceSmaller($userId, $price){
         $user = $this->getUserById($userId);
-        $percentage = $price*15;
-        $percentage = $percentage*100;
+        $percentage = $price*10;
+        $percentage = $percentage/100;
         $finalBalance = $user['balance']-$percentage;
-        $data = array('balnce' => $finalBalance);
+        $data = array('balance' => $finalBalance);
        
         $where = $this->getAdapter()->quoteInto('id = ?', $userId);
         $this->update($data, $where);

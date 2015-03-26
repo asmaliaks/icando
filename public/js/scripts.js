@@ -69,8 +69,12 @@ function login(){
  }); 
 };
 
-function register(){ console.log('register function');
+function register(){ 
     $('#mailInvalid').hide();
+    $('#usernameError').hide();
+    $('#surnameError').hide();
+    $('#mailInvalid').hide();
+    $('#sexError').hide();
     $('#phoneTaken').hide();
     $('#phoneError').hide();
     $('#mailError').hide();

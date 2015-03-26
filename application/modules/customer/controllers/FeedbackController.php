@@ -87,7 +87,7 @@ class Customer_FeedbackController extends Zend_Controller_Action{
                         $smtpObj->send($performer['email'], 'Статус задачи', $message, $headers);
                         
                         //  get ballance from performer
-                        $usersObj->getBalanceSmaller($task['customer_id'], $task['customers_price']);
+                        $usersObj->getBalanceSmaller($task['performer_id'], $task['customers_price']);
                         // remove balance reserve
                         $balanceReserveObj  = new Default_Model_DbTable_BalanceReserve();
                         $balanceReserveObj->removeReserve($task['id'],$task['performer_id']);

@@ -3,8 +3,8 @@
     <div class="breadcrumbDiv col-lg-12">
       <ul class="breadcrumb">
           <li> <a href="<?= $this->baseUrl().'/performer/' ?>">Главная</a> </li>
-          <li> <a href="<?= $this->baseUrl().'/performer/user/' ?>">Личный кабинет</a> </li>
-        <li class="active"><?= $this->performer['username'].' '.$this->performer['surname'] ?> </li>
+          <li> <a href="<?= $this->baseUrl().'/performer/performers/' ?>">Список исполнителей</a> </li>
+        <li class="active"><?= $this->performer['username'].' '.mb_substr($this->performer['surname'], 0, 1,'utf-8').'.' ?> </li>
       </ul>
     </div>
   </div>
@@ -27,14 +27,14 @@
     <!-- right column -->
     <div class="col-lg-8 col-md-8 col-sm-8">
         <div class="col-sm-4">
-            <h1 class="product-title"><?= $this->performer['username'].' '.$this->performer['surname'] ?></h1>
+            <h1 class="product-title"><?= $this->performer['username'].' '.mb_substr($this->performer['surname'], 0, 1,'utf-8').'.' ?></h1>
         </div>
               <?php $sec = time()-$this->performer['birth_date'];
             $age = $sec/31556926;
             $age = floor($age);
       ?>
         <div class="col-sm-8">
-  <?php if($closedTasksAmount){ ?>
+  <?php if($this->closedTasks){ ?>
                        <ul class="swatches Color">
           <?php switch ($this->rating){
               case 1:?>
@@ -109,7 +109,7 @@
           <h3 class="product-code">Сферы деятельности :</h3>
           
               <?php foreach($this->usersCategories as $cat){?>
-                <small><?= $cat['c_title'].' '; ?></small></br>
+                <small><?= $cat['mc_title'].'. '; ?></small>
               <?php } ?>
           
       </div>
@@ -217,7 +217,7 @@
                 <img class="img-thumbnail" width="100%" src="<?= $this->baseUrl().'/images/users_images/'.$feedback['u_image'] ?>">
             </div>
             <div class="col-lg-7"> 
-                <h2><?=  $feedback['u_username']?></h2>
+                <h2><?=  $feedback['u_username'].' '.mb_substr($feedback['u_username'], 0, 1, 'utf-8').'.' ?></h2>
                     <p><?= $feedback['text'] ?></p>
                     <h3 class="product-code"><?= date("d.m.Y",$feedback['created']); ?></h3>
             </div>

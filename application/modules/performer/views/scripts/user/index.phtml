@@ -10,7 +10,7 @@
     <div class="row transitionfx">
   
    <!-- left column -->
-    <div class="col-lg-6 col-md-6 col-sm-6">
+    <div class="col-lg-4 col-md-4 col-sm-4">
     	<!-- product Image and Zoom -->
 
     <div class="main-image sp-wrap col-lg-12 no-padding style2 style2look2" style="display: inline-block;"> 
@@ -32,7 +32,7 @@
     </form>
     
     <!-- right column -->
-    <div class="col-lg-6 col-md-6 col-sm-5">
+    <div class="col-lg-8 col-md-8 col-sm-8">
     
       <h1 class="product-title"><?= $this->user['username']." ".$this->user['surname']?></h1>
       <h3 class="product-code">Возраст : <?php $unixAge = time() - $this->user['birth_date'];
@@ -50,6 +50,12 @@
       </div>
       <div class="product-price"> 
           <span class="price-sales">
+              Выполнено задач:  <?php $performersTasksAmount = count($this->performersTasks); ?>
+              <?= $performersTasksAmount; ?>
+          </span>  
+      </div>
+      <div class="product-price"> 
+          <span class="price-sales">
               Статус:</span> 
             <?php if($this->user['banned']){?>
              Забанен до <?= date('d.m.y', $this->user['banned']); ?> 
@@ -58,18 +64,15 @@
             <?php } ?> 
            
       </div>
+
       <div class="product-price"> 
           <span class="price-sales">
               Баланс:</span> 
               <span id="balSpan"><?= $this->user['balance']; ?></span> баллов
+              <a class="btn btn-primary btn-xs" href="<?= $this->baseUrl().'/performer/payment/index/' ?>">Пополнить баланс</a>
            
       </div>
-      <div class="product-price"> 
-          <span class="price-sales">
-              Выполнено задач:  <?php $performersTasksAmount = count($this->performersTasks); ?>
-              <?= $performersTasksAmount; ?>
-          </span>  
-      </div>
+
 <!--      <div class="color-details"> -->
 
       <?php if($this->customersRating){ ?>
@@ -244,7 +247,7 @@
                     <tr>
                         <th>Задача</th>
                         <th>Заказчик</th>
-                        <th>Стоимость заказчика</th>
+                        <th>Стоимость</th>
                         <th>Дата окончания</th>
                         <th>Статус</th>
                     </tr>
@@ -254,15 +257,21 @@
                     <tr>
                         <td><a href="<?= $this->baseUrl().'/performer/task/view/id/'.$task['id'] ?>"><?= $task['title'] ?></a></td>
                         <td><a href="<?= $this->baseUrl().'/performer/customer/view/id/'.$task['customer_id'] ?>"><?= $task['u_username'].' '.mb_substr($task['u_username'], 0, 1, 'utf-8') ?></a></td>
-                        <td><?= $task['customers_price'] ?></td>
+                        <td><?= $task['customers_price'] ?> бел. рублей</td>
                         <td><?= date('d.m.Y', $task['final_date']) ?></td>
                         <td>
-                            <?php switch ($task['status']){ 
-                                 case 'taken': 
-                                echo 'В работе';
-                                break;
-                                ?>
-                            <?php } ?>
+                            <?php switch($task['status']){
+                         case "non_taken":
+                             echo 'ожидание';
+                             break;
+                         case 'closed':
+                             echo "закрыта";
+                             break;
+                         default : 
+                             echo "не известен";
+                             break;
+                  }
+                  ?>
                         </td>
                     </tr>
 
@@ -311,8 +320,11 @@
                          case "non_taken":
                              echo 'ожидание';
                              break;
-                         case "closed":
+                         case 'closed':
                              echo "закрыта";
+                             break;
+                         default : 
+                             echo "не известен";
                              break;
                   }
                   ?>

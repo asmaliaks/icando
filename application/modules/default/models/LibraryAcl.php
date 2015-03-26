@@ -46,6 +46,7 @@ class Model_LibraryAcl extends Zend_Acl{
        
        $this->add(new Zend_Acl_Resource('performer'));
        $this->add(new Zend_Acl_Resource('performer:index'), 'performer');
+       $this->add(new Zend_Acl_Resource('performer:payment'), 'performer');
        $this->add(new Zend_Acl_Resource('performer:messages'), 'performer');
        $this->add(new Zend_Acl_Resource('performer:user'), 'performer');
        $this->add(new Zend_Acl_Resource('performer:settings'), 'performer');
@@ -111,6 +112,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('customer', 'default:error');
        $this->allow('customer', 'default:user', 'check-email-for-unique');
        $this->allow('customer', 'customer:index', 'index');
+       $this->allow('customer', 'customer:index', 'task-view');
        $this->allow('customer', 'customer:performers', 'request-to-be-performer');
        $this->allow('customer', 'default:registration', 'activate-account-by-phone');
        $this->allow('customer', 'default:registration', 'check-phone-uniq');
@@ -167,6 +169,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('performer', 'performer:user', 'change-avatar');
        $this->allow('performer', 'performer:index', 'tasks');
        $this->allow('performer', 'performer:index', 'index');
+       $this->allow('performer', 'performer:index', 'task-view');
        $this->allow('performer', 'default:registration', 'activate-account-by-phone');
        $this->allow('performer', 'performer:settings', 'add-user-category');
        $this->allow('performer', 'performer:settings', 'remove-users-category');
@@ -202,7 +205,11 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('performer', 'performer:comments', 'send-comment');
        $this->allow('performer', 'performer:about', 'index');
        $this->allow('performer', 'performer:contacts', 'index');
+       $this->allow('performer', 'performer:payment', 'index');
+       $this->allow('performer', 'performer:payment', 'success');
+       $this->allow('performer', 'performer:payment', 'unsuccess');
        $this->allow('performer', 'customer:comments', 'send-comment');
+       $this->allow('performer', 'performer:payment', 'notify');
        
        //guest
        $this->allow('guest', 'default:index', 'index');
@@ -226,6 +233,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('guest', 'default:registration', 'activate-account-by-phone');
        $this->allow('guest', 'default:phone-activation', 'activate-account');
        $this->allow('guest', 'default:tasks', 'index');
+       $this->allow('guest', 'default:tasks', 'view');
        $this->allow('guest', 'default:error');
        $this->allow('guest', 'default:cron-api', 'new-tasks-send-mail');
        $this->allow('guest', 'default:cron-api', 'unbann');
@@ -234,5 +242,6 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('guest', 'default:performers', 'view');
        $this->allow('guest', 'default:about', 'index');
        $this->allow('guest', 'default:contacts', 'index');
+       $this->allow('guest', 'performer:payment', 'notyfy');
     }
 }

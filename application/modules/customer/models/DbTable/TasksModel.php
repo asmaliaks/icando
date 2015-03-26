@@ -47,7 +47,32 @@ class Customer_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
     public function getTaskById($taskId){
         $select = $this->select()
                 ->from(array('t'=>'tasks'))
-                ->where('t.id=?', $taskId);
+                ->where('t.id=?', $taskId)
+                ->joinLeft(array('u'=>'users'),
+                        't.performer_id = u.id',
+                        array('u.username as u_username',
+                              'u.surname as u_surname',
+                            'u.email as u_email',
+                              'u.id as u_id',
+                            'u.sex as u_sex',
+                            'u.city as u_city',
+                            'u.birth_date as u_birth_date',
+                            'u.vk as u_vk',
+                            'u.ok as u_ok',
+                            'u.fb as u_fb',
+                            'u.image as u_image'
+                            )
+                        )
+                ->joinLeft(array('c'=>'categories'),
+                        't.category_id = c.id',
+                        array(
+                            'c.id as c_id',
+                            'c.title as c_title',
+                            'c.description as c_description',
+                            'c.parent_id as c_parent_id',
+                            'c.image as c_image'
+                            )
+                        )->setIntegrityCheck(false);
         $result = $this->fetchRow($select);
         if($result){
             return $result->toArray();

@@ -25,7 +25,7 @@ if (hs.addSlideshow) hs.addSlideshow({
             <h3><?= $this->task['title'] ?></h3><small><?= date("d.m.Y",$this->task['created_at']) ?></small>
         </div>
  <?php 
-                $taskPoints = 15*$this->task['customers_price'];
+                $taskPoints = 10*$this->task['customers_price'];
                 $taskPoints = $taskPoints/100;
             ?>
         <div class="col-lg-4">
@@ -45,8 +45,10 @@ if (hs.addSlideshow) hs.addSlideshow({
                                     либо выберите другую задачу.
                                 </p>
                             <?php }?>
-                    <?php }else{?>
-                            <p class="text-danger">Недостаточно баллов для предложения своей кандидатуры</p>
+                    <?php }else if($this->freePoints < $taskPoints){?>
+                            <button class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#notallowedModal" >
+                                    Предложить свою кандидатуру
+                                </button>
                     <?php } ?>
                     <p id="propMessage<?= $this->task['id'] ?>" style="display:none" class="text-success">Заявка отправлена</p>
                 <?php }else{ ?>
@@ -112,28 +114,34 @@ if (hs.addSlideshow) hs.addSlideshow({
     <div role="tabpanel" class="tab-pane active" id="home">
 <?php } ?>
         <div class="col-lg-12">
-           <label>Пользователь : </label>
+           <label>Заказчик : </label>
            <a href="<?= $this->baseUrl().'/performer/customer/view/id/'.$this->task['customer_id'] ?>"><?= $this->task['u_username'].' '.mb_substr($this->task['u_surname'],0,1,'utf-8').'.' ?></a>
+        </div>
+        <div class="col-lg-12">
+           <label>Стоимость : </label>
+           <?= $this->task['customers_price'] ?> бел. рублей
         </div>
         <div class="col-lg-12">
            <label>Категория : </label>
            <?= $this->task['c_title'] ?>
         </div>
         <div class="col-lg-12">
-           <label>Описание</label>
-        </div>   
-        <div class="col-lg-12">
-           <?= $this->task['description'] ?>
+            <label>Документы для оформления расписки : </label>
+           <?php if($this->task['docs'] == 1){?>
+                 требуются
+           <?php }else{?>
+                 не требуются
+           <?php }?> 
         </div>
+
         <div class="col-lg-12">
            <label>Дата исполнения : </label>
            <?= date(" h:00 d.m.Y",$this->task['final_date']) ?>
         </div>
-
         <div class="col-lg-12">
-           <label>Стоимость предложенная заказчиком : </label>
-           <?= $this->task['customers_price'] ?> рублей
-        </div>    
+            <label>Описание : </label>
+           <?= $this->task['description'] ?>
+        </div>  
     </div>
     <?php if($this->task['status'] == 'taken' && $this->currentUser->banned == 0){?>
       <div role="tabpanel" class="tab-pane" id="messages">
@@ -183,53 +191,53 @@ if (hs.addSlideshow) hs.addSlideshow({
                         <p class="text-success">Положительный</p>
                         <span class="selected-color"><strong>Оценка</strong></span>
                         <ul class="swatches Color">
-                            <?php switch ($this->tasksFeedback['rating']){
-                                case 1:?>
-                              <li> <a style="background-color:#f1f40e"> </a> </li>
-                              <li > <a style="background-color:#adadad"> </a> </li>
-                              <li > <a style="background-color:#adadad"> </a> </li>
-                              <li > <a style="background-color:#adadad"> </a> </li>
-                              <li > <a style="background-color:#adadad"> </a> </li>
-                            <?php break;
-                                case 2:
-                        ?>
-                              <li> <a style="background-color:#f1f40e"> </a> </li>
-                              <li> <a style="background-color:#f1f40e"> </a> </li>
-                              <li > <a style="background-color:#adadad"> </a> </li>
-                              <li > <a style="background-color:#adadad"> </a> </li>
-                              <li > <a style="background-color:#adadad"> </a> </li>
-                          <?php
-                          break;
-                          case 3: ?>  
-                              <li> <a style="background-color:#f1f40e"> </a> </li>
-                              <li> <a style="background-color:#f1f40e"> </a> </li>
-                              <li> <a style="background-color:#f1f40e"> </a> </li>
-                              <li > <a style="background-color:#adadad"> </a> </li>
-                              <li > <a style="background-color:#adadad"> </a> </li>
-                          <?php break;
-                                case 4:
-                      ?>      <li> <a style="background-color:#f1f40e"> </a> </li>
-                              <li> <a style="background-color:#f1f40e"> </a> </li>
-                              <li> <a style="background-color:#f1f40e"> </a> </li>
-                              <li> <a style="background-color:#f1f40e"> </a> </li>
-                              <li > <a style="background-color:#adadad"> </a> </li>
-                            <?php break;
-                                case 5:
-                      ?>      <li> <a style="background-color:#f1f40e"> </a> </li>
-                              <li> <a style="background-color:#f1f40e"> </a> </li>
-                              <li> <a style="background-color:#f1f40e"> </a> </li>
-                              <li> <a style="background-color:#f1f40e"> </a> </li>
-                              <li> <a style="background-color:#f1f40e"> </a> </li>
-                            <?php 
-                            break;
-                            default: ?>
-                            <li > <a style="background-color:#adadad"> </a> </li>
-                            <li > <a style="background-color:#adadad"> </a> </li>
-                            <li > <a style="background-color:#adadad"> </a> </li>
-                            <li > <a style="background-color:#adadad"> </a> </li>
-                            <li > <a style="background-color:#adadad"> </a> </li>
-                            <?php }?>
-                                          </ul>
+                    <?php switch ($this->tasksFeedback['rating']){
+                        case 1:?>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <?php break;
+                        case 2:
+                ?>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                  <?php
+                  break;
+                  case 3: ?>  
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                  <?php break;
+                        case 4:
+              ?>      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <?php break;
+                        case 5:
+              ?>      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                       <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                    <?php 
+                    break;
+                    default: ?>
+                    <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                        <?php } ?>
+                  </ul>
                                   <?php } ?>
 
             </div>
@@ -386,13 +394,14 @@ if (hs.addSlideshow) hs.addSlideshow({
                 <h4 class="modal-title" id="myModalLabel">Предложить стоимость</h4>
               </div>
               <div class="modal-body">
-                  <form>
+                  <p> Подтвердите свое предложение </p>
+                  <form style="display: none">
                       
                       <input type="hidden" id="customers_price" name="customers_price" value="<?= $this->task['customers_price'] ?>">
                       <div>
                             <input type="hidden" name="customers_check" value="0">
                             <label>Согласиться с ценой заказчика</label>
-                            <input type="checkbox" id="check_price" name="customers_check" value="1">
+                            <input type="checkbox" id="check_price" name="customers_check" checked value="1">
                       </div>
                       <div id="priceDiv" >
                             <label>Предложить свою цену</label>
@@ -402,12 +411,30 @@ if (hs.addSlideshow) hs.addSlideshow({
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-                <button type="button" onclick="propose()" id="propBut" class="btn btn-primary">Предложить</button>
+                <button type="button" onclick="propose()" id="propBut" class="btn btn-primary">Подтвердить</button>
                 <img style="display: none" id="prel" src="<?= $this->baseUrl()?>/images/blue_preloader.gif" width="70">
               </div>
             </div>
           </div>
         </div>        
+        <div class="modal fade" id="notallowedModal" tabindex="-1" role="dialog" aria-labelledby="notallowedLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Недостаточно количество баллов</h4>
+              </div>
+              <div class="modal-body">
+                  <p>
+                      У вас недостаточно баллов для отправки заявки по этой задаче.
+                  </p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Отмена</button>
+              </div>
+            </div>
+          </div>
+        </div>      
  <script>
  $(document).ready(function(){
      $('#check_price').change(function(){

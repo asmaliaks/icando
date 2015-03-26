@@ -40,6 +40,7 @@ class Default_Model_Smtp{
     */
     function send($mailTo, $subject, $message, $headers) {
 //$mailTo = "asmaliaks@gmail.com";
+        $headers = 'From: '.SMTP_FROM;
         
         $contentMail = "Date: " . date("D, d M Y H:i:s") . " UT\r\n";
         $contentMail .= 'Subject: =?' . $this->smtp_charset . '?B?'  . base64_encode($subject) . "=?=\r\n";

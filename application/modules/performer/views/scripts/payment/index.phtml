@@ -1,0 +1,27 @@
+<form action="https://sandbox.webpay.by" method="post">
+<input type="hidden" name="*scart">
+<input type="hidden" name="wsb_version" value="2">
+<input type="hidden" name="wsb_language_id" value="russian">
+<input type="hidden" name="wsb_storeid" value="<?= $this->wsb_storied ?>" >
+<input type="hidden" name="wsb_store" value="<?= $this->wsb_store ?>" >
+<input type="hidden" name="wsb_order_num" value="<?= $this->wsb_order_num ?>" >
+<input type="hidden" name="wsb_test" value="1" >
+<input type="hidden" name="wsb_currency_id" value="BYR" >
+<input type="hidden" name="wsb_seed" value="<?= $this->wsb_seed ?>">
+<input type="hidden" name="wsb_return_url" value="<?= $this->wsb_return_ur ?>">
+<input type="hidden" name="wsb_cancel_return_url" value="<?= $this->wsb_cancel_return_url ?>">
+<input type="hidden" name="wsb_notify_url" value="<?= $this->baseUrl().'/performer/payment/notify'; ?>">
+<input type="hidden" name="wsb_email" value="<?= 1 ?>" >
+<input type="hidden" name="wsb_phone" value="<?= 1 ?>" >
+<input type="hidden" name="wsb_invoice_item_name[]" value="Товар 1">
+<input type="hidden" name="wsb_invoice_item_quantity[]" value="2">
+<input type="text" class="form-control" name="wsb_invoice_item_price[]" >
+<input type="hidden" name="wsb_total" value="21950" >
+<input type="hidden" name="wsb_signature" value="40aa8af3ce7a1f7c3635ac2227475094a59d574c" >
+<input type="hidden" name="wsb_tax" value="1050">
+<input type="hidden" name="wsb_shipping_name" value="Стоимость доставки" >
+<input type="hidden" name="wsb_shipping_price" value="980" >
+<input type="hidden" name="wsb_discount_name" value="Скидка на товар" >
+<input type="hidden" name="wsb_discount_price" value="580" >
+<input type="submit" value="Купить">
+</form>

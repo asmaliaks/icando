@@ -53,8 +53,13 @@ class Performer_TaskController extends Zend_Controller_Action{
         if($unreadMessages){
             $this->view->unreadAmount = $unreadMessages;
         }
+        $balanceResObj = new Default_Model_DbTable_BalanceReserve();
+        $amountOfReserves = $balanceResObj->countUsersReserves($this->user->id);
         $usersObj = new Performer_Model_DbTable_Users();
         $user = $usersObj->getUserById($this->user->id);
+        if(!$amountOfReserves){
+            $amountOfReserves = 0;
+        }
         $freePoints = $user['balance'] - $amountOfReserves;
         if($freePoints < 0){
             $this->view->freePoints = 0;
@@ -119,7 +124,6 @@ class Performer_TaskController extends Zend_Controller_Action{
                 'category_id'=>$params['cat'],
                 'description'=>$params['description'],
                 'final_date'=>$finalDateUnix,
-                'expiry_date'=>$expiryDate,
                 'status'=>'non_taken',
                 'created_at'=>time(),
                 'docs' => $params['docs'],
@@ -280,15 +284,27 @@ class Performer_TaskController extends Zend_Controller_Action{
                 $message = wordwrap($message, 70);
                 $headers = 'From: no_reply@icando.by';
                 $smtpObj->send($task['u_email'], 'Предложение кандидатуры', $message, $headers);
+                // send sms
+                $smsObj = new Default_Model_SmsModel();
+                $smsMessage = "На Ваше задание откликнулся исполнитель, ознакомьтесь в лич кабинете";
+                $smsMessage = urlencode($smsMessage);
+                $smsObj->sendSmsAction($this->user->phonenumber, $smsMessage);
+                
                 echo 'true';
             }else{
                 $taskPrepObj->addPreposition($post['taskId'], $this->user->id, $post['perfPrice']);
                 // send email to the customer
                 $smtpObj = new Default_Model_Smtp();
-                $message = "Пользователь ".$this->user->username." ".$this->user->surname." "
+                $message = "Пользователь ".$this->user->username." ".mb_substr($this->user->surname, 0, 1, 'utf-8').". "
                         . "предлагает ".$post['perfPrice']." рублей за выполнение задания ".$task['title'];
                 $headers = 'From: no_reply@icando.by';
                 $smtpObj->send($task['u_email'], 'Предложение кандидатуры', $message, $headers);
+                // send sms
+                $smsObj = new Default_Model_SmsModel();
+                $smsMessage = "На Ваше задание откликнулся исполнитель, ознакомьтесь в лич кабинете";
+                $smsMessage = urlencode($smsMessage);
+                $smsObj->sendSmsAction($this->user->phonenumber, $smsMessage);
+                
                 echo 'true';
             }
             

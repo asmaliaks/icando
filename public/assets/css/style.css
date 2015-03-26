@@ -4587,3 +4587,25 @@ h1.x2large {
 .uploadImage{
     background-image: url('/public/images/upload.png');
 }
+.additionalBlockTask{
+    border: solid 1px;
+    border-color: #A1A6A9;
+}
+.snBlock{
+    padding: 5px;
+    background-color: #CCDDD7;
+    border: solid 1px;
+    border-color: #AAA9A9;
+    padding-bottom: 5px;
+}
+.orange{
+    background: #f93;
+    color: #FFFFFF;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+}
+.orange:hover{
+    background: #f14f00;
+    color: #ffffff
+}

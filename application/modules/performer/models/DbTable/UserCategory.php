@@ -53,15 +53,22 @@ class Performer_Model_DbTable_UserCategory extends Zend_Db_Table_Abstract{
     public function getUsersCategories($userId){
                     $select = $this->select()
                     ->from(array('uc'=>'user_category'),
-                            array('uc.id as uc_id',
-                                'uc.category_id as category_id'))
+                            array('uc.id'))
                     ->where('uc.user_id=?', $userId)
                     ->joinLeft(array('c' => 'categories'),
                     'uc.category_id = c.id',
-                            array(
+                            array('c.id as c_id',
                                 'c.title as c_title',
                                 'c.parent_id as c_parent_id',
-                                'c.image as c_image'))->setIntegrityCheck(false);
+                                'c.image as c_image'))
+                    ->joinLeft(array('mc'=>'categories'),
+                            'c.parent_id = mc.id',
+                            array(
+                                'mc.title as mc_title',
+                                'mc.image as mc_image'
+                            ))
+                            ->group('mc.id')
+                            ->setIntegrityCheck(false);
 
             $result = $this->fetchAll($select);
             if($result){

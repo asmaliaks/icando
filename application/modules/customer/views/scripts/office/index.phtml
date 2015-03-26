@@ -10,7 +10,7 @@
     <div class="row transitionfx">
   
    <!-- left column -->
-    <div class="col-lg-6 col-md-6 col-sm-6">
+    <div class="col-lg-4 col-md-4 col-sm-4">
     	<!-- product Image and Zoom -->
 
     <div class="main-image sp-wrap col-lg-12 no-padding style2 style2look2" style="display: inline-block;"> 
@@ -32,25 +32,13 @@
     </form>
     
     <!-- right column -->
-    <div class="col-lg-6 col-md-6 col-sm-5">
-    
+    <div class="col-lg-8 col-md-8 col-sm-8">
+    <div class="col-sm-8">
       <h1 class="product-title"><?= $this->user['username']." ".$this->user['surname']?></h1>
-      <h3 class="product-code">Возраст : <?php $unixAge = time() - $this->user['birth_date'];
-                $unixYears = $unixAge/31536000;
-                $age = floor($unixYears);
-                ?>
-                <?= $age;  ?> лет
-      </h3>
-      <div class="product-price"> 
-          <span class="price-sales">
-              Создано задач:  <?php $tasksAmount = count($this->customersTasks); ?>
-              <?= $tasksAmount; ?>
-          </span>  
-      </div>
-<!--      <div class="color-details"> -->
-
+    </div>
+    <div class="col-sm-4">
       <?php if($this->closedTasks){ ?>
-      <div class="color-details"> <span class="selected-color"><strong>Рейтинг</strong></span>
+      
         <ul class="swatches Color">
           <?php switch ($this->rating){
               case 1:?>
@@ -99,8 +87,24 @@
           <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="37"> </li>
           <?php }?>
         </ul>
-      </div>
+      
       <?php } ?>
+    </div>
+      <h3 class="product-code">Возраст : <?php $unixAge = time() - $this->user['birth_date'];
+                $unixYears = $unixAge/31536000;
+                $age = floor($unixYears);
+                ?>
+                <?= $age;  ?> лет
+      </h3>
+      <div class="product-price"> 
+          <span class="price-sales">
+              Создано задач:  <?php $tasksAmount = count($this->customersTasks); ?>
+              <?= $tasksAmount; ?>
+          </span>  
+      </div>
+<!--      <div class="color-details"> -->
+
+     
       
       <div class="clear"></div>
 

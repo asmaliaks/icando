@@ -47,7 +47,7 @@ $(document).ready(function(){
                 <div class="inner">
                   <h1>Закажите услугу</h1>
                   <h3 class="price ">
-                      Прямо сейчас
+                      Мы быстро найдем исполнителя для Вашего задания
                   </h3>
                   
                   <a href="<?= $this->baseUrl().'/performer/task/add' ?>" class="btn btn-primary btn-lg">
@@ -102,7 +102,7 @@ $(document).ready(function(){
              <div class="quickview">
               
              </div>
-                <a href="#"   >
+                <a href="<?= $this->baseUrl().'/performer/index/task-view/id/'.$lastTask['id'] ?>"   >
                  <?php if($lastTask['task_image']){?>   
                     <img src="<?= $this->baseUrl().'/images/task_images/'.$lastTask['task_image'] ?>" alt="img" class="img-responsive">
                  <?php }else{ ?>
@@ -112,12 +112,16 @@ $(document).ready(function(){
 <!--              <div class="promotion"> <span class="new-product"> NEW</span> </div>-->
             </div>
             <div class="description">
-              <h4><a href="#"  ><?= $lastTask['title'] ?></a></h4>
+              <h4><a href="<?= $this->baseUrl().'/performer/index/task-view/id/'.$lastTask['id'] ?>"  ><?= $lastTask['title'] ?></a></h4>
               <p><?= $lastTask['description']?> </p>
 <!--              <span class="size">XL / XXL / S </span> -->
             </div>
             <div class="price"> <span><?= $lastTask['price'] ?> .руб</span> </div>
-            <div class="action-control">  </div>
+            <div class="action-control">
+                <a class="btn btn-primary" href="<?= $this->baseUrl().'/performer/index/task-view/id/'.$lastTask['id'] ?>"> 
+                    <span class="add2cart"> Подробнее </span> 
+                </a>
+            </div>
           </div>
         </div>
        <?php }?>

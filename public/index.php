@@ -28,15 +28,16 @@ $application = new Zend_Application(
 define('ADMIN_MAIL','asmaliaks@gmail.com');
 
 
-define('SMTP_USERNAME','asmaliaks@gmail.com');
-define('SMTP_HOST','ssl://smtp.gmail.com');
+define('SMTP_USERNAME','no-reply@helpyou.by');
+define('SMTP_HOST','mail.helpyou.by');
+//define('SMTP_HOST','ssl://smtp.gmail.com');
 
-define('SMTP_PORT','465');
+define('SMTP_PORT','587');
 define('SMTP_DEBUG','true');
 
-define('SMTP_PASS','asmalouski5233');
+define('SMTP_PASS','iHaLnRMK37a2');
 define('SMTP_CHARSET','UTF-8');
-define('SMTP_FROM','no_reply@icando.by');
+define('SMTP_FROM','no-reply@helpyou.by');
 
 //define('SMTP_USERNAME','no_reply@eatpbank.ru');
 //define('SMTP_HOST','ssl://mail.nic.ru');
@@ -81,6 +82,15 @@ define("DOCUMENT_ROOT", "/var/www/skilus/data/www/dev.skilus.biz/icando/public/"
     // sms constants
         define('SMS_LOGIN', 'Aykendu');
         define('SMS_PASS', 'v4K818A8');
+        
+   // webPay settings
+        define("WSB_STORIED", "776455369");
+        define("WSB_STORE", "Тестовый магазин");
+        define("WSB_SECRET_KEY", "3Y7r0A6c");
+        define("WSB_RETURN_URL", $_SERVER['SERVER_NAME']."/performer/payment/success/");
+        define("WSB_CANCEL_RETURN_URL", $_SERVER['SERVER_NAME']."/performer/payment/unsuccess/");
+        define("WSB_PHONE", "375297496120");
+        define("WSB_EMAIL", "no-reply@helpyou.by");
 
 $application->bootstrap()
             ->run();

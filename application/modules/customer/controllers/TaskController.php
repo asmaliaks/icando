@@ -142,12 +142,12 @@ class Customer_TaskController extends Zend_Controller_Action{
                     . 'создал задачу '.$_SERVER['HTTP_ORIGIN'].'/admin/tasks/view/id/'.$taskId.' '.$data['title'].' ';
             
             $message = wordwrap($message, 70);
-            $headers = 'From: no_reply@icando.by';
+            $headers = 'From: '.SMTP_FROM;
             $smtpObj->send(ADMIN_MAIL, 'Создана задача', $message, $headers);
             // send mail to customer
             $message = 'Вы успешно создали задачу  '.$data['title'].' ';
             $message = wordwrap($message, 70);
-            $headers = 'From: no_reply@icando.by';
+            $headers = 'From: '.SMTP_FROM;
             $smtpObj->send($this->user->email, 'Создана задача', $message, $headers);
             $this->_redirect('/customer/office/index');
         }

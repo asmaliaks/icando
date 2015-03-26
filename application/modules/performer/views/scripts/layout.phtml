@@ -158,7 +158,7 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
-        <h3 class="modal-title-site text-center" > Авторизация </h3>
+        <h3 class="modal-title-site text-center" > Вход </h3>
       </div>
       <div class="modal-body">
         <div class="form-group login-username">
@@ -191,7 +191,7 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
             <h5 style="padding:10px 0 10px 0;" class="text-center"> ИЛИ </h5>
             <div class="control-group"> <a class="fb_button btn  btn-block btn-lg " href="<?= $this->baseUrl()?>/s-auth/vk-link/">  VK.COM </a> </div></br>
             <div class="control-group"> <a class="fb_button btn  btn-block btn-lg " href="<?= $this->baseUrl()?>/s-auth/fb-link/">  FACEBOOK.COM </a> </div></br>
-            <div class="control-group"> <a class="fb_button btn  btn-block btn-lg " href="<?= $this->baseUrl()?>/s-auth/ok-link/">  OK.RU</a> </div></br>
+            <div class="control-group"> <a class="btn  btn-block btn-lg orange" href="<?= $this->baseUrl()?>/s-auth/ok-link/">  OK.RU</a> </div></br>
         </div>
         
         <!--userForm--> 
@@ -218,12 +218,18 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
         <h3 class="modal-title-site text-center" > Регистрация </h3>
       </div>
+      <div class="modal-footer">
+        <p class="text-center"> Уже зарегистрированы? <a data-toggle="modal"  data-dismiss="modal" href="#ModalLogin"> Войти </a> </p>
+      </div>
       <div class="modal-body">
-          <div class="control-group"> <a class="fb_button btn  btn-block btn-lg " href="<?= $this->baseUrl()?>/s-auth/vk-link/">  VK.COM </a> </div></br>
-        <div class="control-group"> <a class="fb_button btn  btn-block btn-lg " href="<?= $this->baseUrl()?>/s-auth/fb-link/">  FACEBOOK.COM </a> </div></br>
-        <div class="control-group"> <a class="fb_button btn  btn-block btn-lg " href="<?= $this->baseUrl()?>/s-auth/ok-link/">  OK.RU</a> </div></br>
-        <h5 style="padding:10px 0 10px 0;" class="text-center"> ИЛИ </h5>
-        
+        <h5 style="padding:10px 0 10px 0;" class="text-center"> Быстрая регистрация через : </h5>
+        <div class="snBlock">
+            <div class="control-group"> <a class="fb_button btn  btn-block btn-lg " href="<?= $this->baseUrl()?>/s-auth/vk-link/">  VK.COM </a> </div></br>
+            <div class="control-group"> <a class="fb_button btn  btn-block btn-lg " href="<?= $this->baseUrl()?>/s-auth/fb-link/">  FACEBOOK.COM </a> </div></br>
+            <div class="control-group"> <a class=" btn  btn-block btn-lg orange" href="<?= $this->baseUrl()?>/s-auth/ok-link/">  OK.RU</a> </div></br>
+        </div>
+        <h5 style="padding:10px 0 10px 0;" class="text-center"> или через email  </h5>
+        <div class="snBlock">
         <div class="form-group reg-username">
           <div >
             <input name="username" id="username"  class="form-control input"  size="20" placeholder="Имя" type="text">
@@ -343,6 +349,7 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
           </div>
             <p class="text-danger" id="passError" style="display: none">Пароли не совпадают</p>
         </div>
+        </div>
         
 <!--        <div class="form-group">
           <div >
@@ -355,16 +362,14 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
         </div>-->
         <div >
           <div >
-            <input name="submit" id="submitReg"  class="btn  btn-block btn-lg btn-primary" value="REGISTER" type="submit">
+            <input name="submit" id="submitReg"  class="btn  btn-block btn-lg btn-primary" value="ЗАРЕГИСТРИРОВАТЬСЯ" type="submit">
             <img id="restrationPreloader" src="<?= $this->baseUrl.'/images/blue_preloader.gif' ?>" width="70" style="display: none" >
           </div>
         </div>
         <!--userForm--> 
         
       </div>
-      <div class="modal-footer">
-        <p class="text-center"> Уже зарегестрированы? <a data-toggle="modal"  data-dismiss="modal" href="#ModalLogin"> Авторизируйтесь </a> </p>
-      </div>
+
     </div>
     <!-- /.modal-content --> 
     
@@ -429,7 +434,7 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
       <ul class="nav navbar-nav">
           <?php if(Zend_Auth::getInstance()->hasIdentity()){?>
             <li> <a href="<?= $this->baseUrl()?>/performer/task/add">Заказать услугу</a> </li>
-            <li> <a href="<?= $this->baseUrl()?>/performer/index/tasks">Задачи </a> </li>
+            <li> <a href="<?= $this->baseUrl()?>/performer/index/tasks">Актуальные задания</a> </li>
             <li> <a href="<?= $this->baseUrl()?>/performer/performers/">Исполнители </a> </li>
             <li> <a href="<?= $this->baseUrl()?>/performer/about/">О проекте</a> </li>
             <li> <a href="<?= $this->baseUrl()?>/performer/contacts">Контакты</a> </li>

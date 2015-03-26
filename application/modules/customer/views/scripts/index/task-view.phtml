@@ -1,0 +1,247 @@
+<script>
+hs.graphicsDir = <?= $this->baseUrl() ?>'/highslide/graphics/';
+hs.align = 'center';
+hs.transitions = ['expand', 'crossfade'];
+hs.outlineType = 'glossy-dark';
+hs.wrapperClassName = 'dark';
+hs.fadeInOut = true;
+//hs.dimmingOpacity = 0.75;
+
+// Add the controlbar
+if (hs.addSlideshow) hs.addSlideshow({
+	//slideshowGroup: 'group1',
+	interval: 5000,
+	repeat: false,
+	useControls: true,
+	fixedControls: 'fit',
+	overlayOptions: {
+		opacity: .6,
+		position: 'bottom center',
+		hideOnMouseOut: true
+	}
+});
+</script>    
+        <div class="col-lg-6">
+            <h3><?= $this->task['title'] ?></h3><small><?= date("d.m.Y",$this->task['created_at']) ?></small>
+        </div>
+ <?php 
+                $taskPoints = 10*$this->task['customers_price'];
+                $taskPoints = $taskPoints/100;
+            ?>
+        <div class="col-lg-4">
+
+                    <p   class="text-success">Задача закрыта</p>
+
+            
+            <img id="prel<?= $this->task['id'] ?>" style="display:none" src="<?= $this->baseUrl() ?>/images/blue_preloader.gif" width="45">
+        </div>
+        <div class="col-lg-2">
+           
+        </div>
+        <?php if($this->task['task_image']){?>
+        <div class="col-lg-12">
+            <a href="<?= $this->baseUrl().'/images/task_images/'.$this->task['task_image'] ?>" class="highslide" onclick="return hs.expand(this)">
+                <img src="<?= $this->baseUrl().'/images/task_images/'.$this->task['task_image'] ?>" class="img-thumbnail" width="200px">
+            </a>
+        </div>
+        
+<div role="tabpanel" style="padding-top: 10px">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Детали</a></li>
+
+        
+    <?php if($this->tasksFeedback){?>
+        <li role="presentation"><a href="#feedback" aria-controls="feedback" role="tab" data-toggle="tab">Отзывы</a></li>
+    <?php } ?>    
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="home">
+<?php } ?>
+        <div class="col-lg-12">
+           <label>Заказчик : </label>
+           <?= $this->task['u_username'].' '.mb_substr($this->task['u_surname'],0,1,'utf-8').'.' ?>
+        </div>
+        <div class="col-lg-12">
+           <label>Стоимость : </label>
+           <?= $this->task['customers_price'] ?> бел. рублей
+        </div>
+        <div class="col-lg-12">
+           <label>Категория : </label>
+           <?= $this->task['c_title'] ?>
+        </div>
+        <div class="col-lg-12">
+            <label>Документы для оформления расписки : </label>
+           <?php if($this->task['docs'] == 1){?>
+                 требуются
+           <?php }else{?>
+                 не требуются
+           <?php }?> 
+        </div>
+
+        <div class="col-lg-12">
+           <label>Дата исполнения : </label>
+           <?= date(" h:00 d.m.Y",$this->task['final_date']) ?>
+        </div>
+        <div class="col-lg-12">
+            <label>Описание : </label>
+           <?= $this->task['description'] ?>
+        </div>  
+    </div>
+
+    <?php if($this->tasksFeedback){?>
+        <div role="tabpanel" class="tab-pane" id="feedback">
+        <div class="col-lg-12" style="padding-bottom: 10px">
+            <h3 class="block-title-3">
+                Отзыв  от заказчика
+            </h3>
+            <div class="col-lg-3"> 
+                <?php if($this->tasksFeedback['kind'] == 'negative'){ ?>
+                        <p class="text-danger">Отрицательный</p>
+                <?php }else{?>
+                        <p class="text-success">Положительный</p>
+                        <span class="selected-color"><strong>Оценка</strong></span>
+                        <ul class="swatches Color">
+                    <?php switch ($this->tasksFeedback['rating']){
+                        case 1:?>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <?php break;
+                        case 2:
+                ?>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                  <?php
+                  break;
+                  case 3: ?>  
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                  <?php break;
+                        case 4:
+              ?>      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <?php break;
+                        case 5:
+              ?>      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                       <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                    <?php 
+                    break;
+                    default: ?>
+                    <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                        <?php } ?>
+                  </ul>
+                                  <?php } ?>
+
+            </div>
+            <div class="col-lg-2">
+                <img class="img-thumbnail" width="100%" src="<?= $this->baseUrl().'/images/users_images/'.$this->tasksFeedback['u_image'] ?>">
+            </div>
+            <div class="col-lg-7"> 
+                    <h3 class="product-code"><?= $this->tasksFeedback['u_username'].' '.mb_substr($this->tasksFeedback['u_username'], 0, 1, 'utf-8').'.' ?></h3>
+                    <p><?= $this->tasksFeedback['text'] ?></p>
+                    <h3 class="product-code"><?= date("d.m.Y",$this->tasksFeedback['created']); ?></h3>
+            </div>
+        </div>
+        <div class="col-lg-12" style="padding-bottom: 10px">
+            <h3 class="block-title-3">
+                Отзыв  от исполнителя
+            </h3>
+            <div class="col-lg-3"> 
+                <?php if($this->feedback['kind'] == 'negative'){ ?>
+                        <p class="text-danger">Отрицательный</p>
+                <?php }else{?>
+                        <p class="text-success">Положительный</p>
+                        <span class="selected-color"><strong>Оценка</strong></span>
+                        <ul class="swatches Color">
+                    <?php switch ($this->feedback['rating']){
+                        case 1:?>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <?php break;
+                        case 2:
+                ?>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                  <?php
+                  break;
+                  case 3: ?>  
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                  <?php break;
+                        case 4:
+              ?>      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <?php break;
+                        case 5:
+              ?>      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                       <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                    <?php 
+                    break;
+                    default: ?>
+                    <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                        <?php } ?>
+                  </ul>
+                                  <?php } ?>
+
+            </div>
+            <div class="col-lg-2">
+                <img class="img-thumbnail" width="100%" src="<?= $this->baseUrl().'/images/users_images/'.$this->tasksFeedback['u_image'] ?>">
+            </div>
+            <div class="col-lg-7"> 
+                    <h3 class="product-code"><?= $this->feedback['u_username'].' '.mb_substr($this->feedback['u_username'], 0, 1, 'utf-8').'.' ?></h3>
+                    <p><?= $this->feedback['text'] ?></p>
+                    <h3 class="product-code"><?= date("d.m.Y",$this->feedback['created']); ?></h3>
+            </div>
+        </div>
+        </div>
+    <?php } ?> 
+
+      </div>
+  </div>
+
+</div>
+
+  
+</div>
+        

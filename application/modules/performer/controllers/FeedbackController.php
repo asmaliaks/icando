@@ -88,6 +88,9 @@ class Performer_FeedbackController extends Zend_Controller_Action{
                         $smtpObj->send($customer['email'], 'Статус задачи', $message, $headers);
                         //  get ballance from performer
                         $usersObj->getBalanceSmaller($this->user->id, $task['customers_price']);
+                        
+                        $balanceReserveObj  = new Default_Model_DbTable_BalanceReserve();
+                        $balanceReserveObj->removeReserve($task['id'],$this->user->id);
                         // remove balance reserve
                         $balanceReserveObj  = new Default_Model_DbTable_BalanceReserve();
                         $balanceReserveObj->removeReserve($task['id'],$this->user->id);
@@ -170,6 +173,11 @@ public function leaveFeedbackAsCustomerAction(){
                         // if feedback is positive change task's status to closed
                         $taskObj = new Customer_Model_DbTable_TasksModel();
                         $taskObj->changeStatus($post['taskId'], 'closed');
+                        $usersObj->getBalanceSmaller($task['performer_id'], $task['customers_price']);
+                        
+                        $balanceReserveObj  = new Default_Model_DbTable_BalanceReserve();
+                        $balanceReserveObj->removeReserve($task['id'],$task['performer_id']);
+                        
                         $message = "Статус задачи ".$task['title']." на \"Закрыта\"";
                         $headers = 'From: no_reply@icando.by';
                         $smtpObj->send($performer['email'], 'Статус задачи', $message, $headers);

@@ -225,7 +225,7 @@
                 <img class="img-thumbnail" width="100%" src="<?= $this->baseUrl().'/images/users_images/'.$feedback['u_image'] ?>">
             </div>
             <div class="col-lg-7"> 
-                <h2><?=  $feedback['u_username']?></h2>
+                <h2><?=  $feedback['u_username'].' '.mb_substr($feedback['u_username'], 0, 1, 'utf-8').'.'?></h2>
                     <p><?= $feedback['text'] ?></p>
                     <h3 class="product-code"><?= date("d.m.Y",$feedback['created']); ?></h3>
             </div>

@@ -31,6 +31,7 @@ class Performer_Model_DbTable_FeedbackModel extends Zend_Db_Table_Abstract{
             $n++;
         }
         $mark = $rating/$n;
+        $mark = floor($mark);
         return $mark;
         }else{
             return 0;
@@ -51,6 +52,7 @@ class Performer_Model_DbTable_FeedbackModel extends Zend_Db_Table_Abstract{
             $n++;
         }
         $mark = $rating/$n;
+        $mark = floor($mark);
         return $mark;
         }else{
             return 0;

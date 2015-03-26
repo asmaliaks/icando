@@ -53,6 +53,7 @@ class PhoneActivationController extends Zend_Controller_Action{
             $data = array('phone_verified'=>1);
             $usersObj->editUser($data, $user['user_id']);
             $phoneVeriObj->removeCodeCol($user['code'], $user['phone_number']);
+            $_SESSION['Zend_Auth']['storage']->phone_verified = 1;
             print_r('true');exit;
         }
     }
