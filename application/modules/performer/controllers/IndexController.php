@@ -60,7 +60,7 @@ class Performer_IndexController extends Zend_Controller_Action {
                     break;
             }
         }else{
-            $sortOption = 'created_at ASC';
+            $sortOption = 'created_at DESC';
         }
         /// get all comments for the task
         $tasksObj = new Default_Model_TaskList();

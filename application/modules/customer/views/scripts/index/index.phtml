@@ -94,35 +94,40 @@ $(document).ready(function(){
       <div class="row xsResponse">
           
        <?php foreach($this->lastTasks as $lastTask){?>
-        <!--/.item-->
-        <div class="item col-lg-3 col-md-3 col-sm-4 col-xs-6 list-view">
-          <div class="product">
-         
-            <div class="image">  
-             <div class="quickview">
-              
-             </div>
-                <a href="<?= $this->baseUrl().'/customer/idex/task-view/id/'.$lastTask['id'] ?>"  >
-                 <?php if($lastTask['task_image']){?>   
-                    <img src="<?= $this->baseUrl().'/images/task_images/'.$lastTask['task_image'] ?>" alt="img" class="img-responsive">
-                 <?php }else{ ?>
-                    <img src="<?= $this->baseUrl().'/images/task_images/no-image.png' ?>" alt="img" class="img-responsive">
-                 <?php } ?>   
-                </a>
-<!--              <div class="promotion"> <span class="new-product"> NEW</span> </div>-->
+      <!--/.item-->
+        <div class="item col-lg-3 col-md-3 col-sm-4 col-xs-6 productBlock list-view">
+
+            <div class="col-sm-2">
+               <a href="<?= $this->baseUrl().'/customer/task/view/id/'.$lastTask['id'] ?>" >
+               <?php if($lastTask['task_image']){?> 
+                   <div style="background: center no-repeat url(<?= $this->baseUrl().'/images/task_images/'.$lastTask['task_image'] ?>); height:122px; width: 160px; background-size: contain; margin-top: 21px" src="" alt="img" class="img-thumbnail img-responsive"></div>     
+                  
+               <?php }else{ ?>
+                   <div style="background: center no-repeat url(<?= $this->baseUrl().'/images/task_images/no-image.png' ?>); height:122px; width: 160px; background-size: contain; margin-top: 21px" src="" alt="img" class="img-thumbnail img-responsive"></div>     
+               <?php } ?>   
+              </a>
             </div>
-            <div class="description">
-              <h4><a href="<?= $this->baseUrl().'/customer/index/task-view/id/'.$lastTask['id'] ?>"  ><?= $lastTask['title'] ?></a></h4>
-              <p><?= $lastTask['description']?> </p>
-<!--              <span class="size">XL / XXL / S </span> -->
-            </div>
-            <div class="price"> <span><?= $lastTask['price'] ?> бел. рублей</span> </div>
-            <div class="action-control">
-                <a class="btn btn-primary" href="<?= $this->baseUrl().'/customer/index/task-view/id/'.$lastTask['id'] ?>"> 
-                    <span class="add2cart"> Подробнее </span> 
-                </a> 
-            </div>
-          </div>
+            <div class="col-sm-10">
+                <div class="col-sm-9">                
+                    <h4 style="margin-top: 15px !important"><a href="<?= $this->baseUrl().'/customer/task/view/id/'.$lastTask['id'] ?>" ><?= $lastTask['title'] ?></a></h4>
+                </div>
+                <div class="col-sm-3">                
+                    <h4 style="margin-top: 15px !important"> <span><?= $lastTask['price'] ?> бел. рублей</h4>
+                </div>
+                <div class="col-sm-12"> 
+                    <small>Дата исполнения: <?= date( "d.m.Y" ,$lastTask['final_date']) ?> </small>
+                </div>
+                <div class="col-sm-12"> 
+                    <p><?= $lastTask['description']?> </p>
+                </div>
+            
+                <div class="col-sm-9"> 
+                    </div>
+                <div class="col-sm-3"> 
+                    <div class="action-control"> <a class="btn btn-primary" href="<?= $this->baseUrl().'/customer/task/view/id/'.$lastTask['id'] ?>"> <span class="add2cart"> Подробнее </span> </a> </div>
+                </div>
+              </div>
+
         </div>
        <?php }?>
         

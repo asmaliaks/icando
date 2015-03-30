@@ -40,8 +40,32 @@ class Default_Model_Smtp{
     */
     function send($mailTo, $subject, $message, $headers) {
 //$mailTo = "asmaliaks@gmail.com";
-        $headers = 'From: '.SMTP_FROM;
+        $headers = 'From: '.$this->smtp_from . "\r\n" .
+    'X-Mailer: PHP/' . phpversion(); 
+        $headers  .= 'MIME-Version: 1.0' . "\r\n";
+$headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
         
+        $message = '
+              <div class="contrainer">
+                <div class="row">
+                <div class="col-sm-12">
+                  <img src="http://helpyou.by/images/forLetter.jpg">
+                </div>
+                    <div class="col-sm-12">
+                      <h3>Здравствуйте</h3> 
+                    </div>
+                    <div class="col-sm-12">'.$message.'</div>
+                    <div class="col-sm-12">
+                    <p>Спасибо, что пользуетесь нашим сервисом!
+                        С уважением,
+                        команда <a href="http://helpyou.by">HelpYou</a>! 
+                        
+
+                        Это сообщение было отправлено автоматически. Пожалуйста, не отвечайте на него.</p>
+                    </div>    
+                </div>
+              </div>';
+
         $contentMail = "Date: " . date("D, d M Y H:i:s") . " UT\r\n";
         $contentMail .= 'Subject: =?' . $this->smtp_charset . '?B?'  . base64_encode($subject) . "=?=\r\n";
         $contentMail .= $headers . "\r\n";

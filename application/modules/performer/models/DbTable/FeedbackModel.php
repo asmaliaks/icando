@@ -148,7 +148,7 @@ class Performer_Model_DbTable_FeedbackModel extends Zend_Db_Table_Abstract{
                             'f.kind',
                             'f.text',
                             'f.created'))
-                ->where('f.user_to=?', $performerId)
+                ->where('f.user_from=?', $performerId)
                 ->where('f.task_id=?', $taskId)
                 ->joinLeft(array('u' => 'users'),
                 'f.user_from = u.id',

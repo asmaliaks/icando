@@ -31,6 +31,7 @@ class Performer_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
         $select = $this->select()
                 ->from(array('t'=>'tasks'))
                 ->where('t.performer_id = ?', $performerId)
+                ->order('created_at DESC')
                 ->join(array('u'=>'users'),
                         't.customer_id = u.id',
                         array('u.username as u_username',
@@ -118,6 +119,7 @@ class Performer_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
                         array('u.username as u_username',
                               'u.surname as u_surname',
                             'u.email as u_email',
+                            'u.phonenumber as u_phonenumber',
                               'u.id as u_id',
                             'u.sex as u_sex',
                             'u.city as u_city',
@@ -126,6 +128,22 @@ class Performer_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
                             'u.ok as u_ok',
                             'u.fb as u_fb',
                             'u.image as u_image'
+                            )
+                        )
+                ->joinLeft(array('up'=>'users'),
+                        't.performer_id = up.id',
+                        array('up.username as up_username',
+                              'up.surname as up_surname',
+                            'up.email as up_email',
+                            'up.phonenumber as up_phonenumber',
+                              'up.id as up_id',
+                            'up.sex as up_sex',
+                            'up.city as up_city',
+                            'up.birth_date as up_birth_date',
+                            'up.vk as up_vk',
+                            'up.ok as up_ok',
+                            'up.fb as up_fb',
+                            'up.image as up_image'
                             )
                         )
                 ->joinLeft(array('c'=>'categories'),

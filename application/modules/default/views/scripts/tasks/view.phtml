@@ -66,6 +66,10 @@ if (hs.addSlideshow) hs.addSlideshow({
            <?= $this->task['u_username'].' '.mb_substr($this->task['u_surname'],0,1,'utf-8').'.' ?>
         </div>
         <div class="col-lg-12">
+           <label>Исполнитель : </label>
+           <?= $this->task['up_username'].' '.mb_substr($this->task['up_surname'],0,1,'utf-8').'.' ?>
+        </div>
+        <div class="col-lg-12">
            <label>Стоимость : </label>
            <?= $this->task['customers_price'] ?> бел. рублей
         </div>
@@ -226,7 +230,7 @@ if (hs.addSlideshow) hs.addSlideshow({
 
             </div>
             <div class="col-lg-2">
-                <img class="img-thumbnail" width="100%" src="<?= $this->baseUrl().'/images/users_images/'.$this->tasksFeedback['u_image'] ?>">
+                <img class="img-thumbnail" width="100%" src="<?= $this->baseUrl().'/images/users_images/'.$this->feedback['u_image'] ?>">
             </div>
             <div class="col-lg-7"> 
                     <h3 class="product-code"><?= $this->feedback['u_username'].' '.mb_substr($this->feedback['u_username'], 0, 1, 'utf-8').'.' ?></h3>

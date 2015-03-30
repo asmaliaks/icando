@@ -138,14 +138,14 @@ class Customer_TaskController extends Zend_Controller_Action{
             }
             // send mail to admin
             $smtpObj = new Default_Model_Smtp();
-            $message = 'Пользователь '.$this->user->username.' '.$this->user->surmname.' '
-                    . 'создал задачу '.$_SERVER['HTTP_ORIGIN'].'/admin/tasks/view/id/'.$taskId.' '.$data['title'].' ';
-            
+            $message = '<p>Пользователь '.$this->user->username.' '.$this->user->surmname.' '
+                    . 'создал  задачу <a href="http://helpyou.by/admin/tasks/view/id/'.$taskId.'">'.$data['title'].'</a></p> ';
+
             $message = wordwrap($message, 70);
             $headers = 'From: '.SMTP_FROM;
             $smtpObj->send(ADMIN_MAIL, 'Создана задача', $message, $headers);
             // send mail to customer
-            $message = 'Вы успешно создали задачу  '.$data['title'].' ';
+            $message = '<p>Вы успешно создали задачу  <a href="http://helpyou.by/customer/task/view/id/'.$taskId.'">'.$data['title'].'</a> </p>';
             $message = wordwrap($message, 70);
             $headers = 'From: '.SMTP_FROM;
             $smtpObj->send($this->user->email, 'Создана задача', $message, $headers);
@@ -188,10 +188,11 @@ class Customer_TaskController extends Zend_Controller_Action{
         $taskPrepObj = new Customer_Model_DbTable_TaskPrepositionModel();
         $prepositions = $taskPrepObj->getTasksPrepositionis($taskId);
          // get task's feedback from the performer
-        $feedbackObj = new Customer_Model_DbTable_FeedbackModel();
-        $feedback = $feedbackObj->getCustomersFeedbackByTaskId($taskId, $this->user->id);
-        $tasksFeedback = $feedbackObj->getTasksFeedbackByPerformer($taskId, $this->user->id);
-        
+        $feedbackObj = new Performer_Model_DbTable_FeedbackModel();
+        $feedback = $feedbackObj->getTasksFeedbackByCustomer($taskId, $task['customer_id']);
+        if($task['performer_id']){
+            $tasksFeedback = $feedbackObj->getTasksFeedbackByCustomer($taskId, $task['performer_id']);
+        }
         /// get all comments for the task
         $commentsObj = new Default_Model_Comments();
         $commentsList = $commentsObj->getCommentsByTaskId($taskId);

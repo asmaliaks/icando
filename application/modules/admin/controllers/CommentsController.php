@@ -16,4 +16,14 @@ class Admin_CommentsController extends Zend_Controller_Action{
         
         $this->view->comments = $comments;
     }
+    
+    public function removeCommentAction(){
+        $request = $this->getRequest();
+        if($request->isPost()){
+            $commentId = $request->getParam('id');
+            $commentsObj = new Default_Model_DbTable_Comments();
+            $commentsObj->removeComment($commentId);
+            exit;
+        }
+    }
 }

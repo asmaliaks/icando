@@ -8,7 +8,7 @@
           <?php }else{ ?>
           <div class="col-sm-12"> 
               <?php foreach($this->comments as $comment){?>
-                <div class="col-sm-12" style="padding-bottom: 10px">
+                <div class="col-sm-12" style="padding-bottom: 10px" id="div<?= $comment['id'] ?>">
 
                     <div class="col-sm-3">
                         <img src="<?= $this->baseUrl().'/images/users_images/'.$comment['u_image'] ?>" height="70">
@@ -23,10 +23,27 @@
                         <small><?= date("h:i d.m.y", $comment['created']); ?></small>
                         <p><?= $comment['text'] ?></p>
                     </div>
-                    <div class="col-sm-3"></div>
+                    <div class="col-sm-3">
+                        <button id="button<?= $comment['id'] ?>" onclick="removeComment(<?= $comment['id'] ?>)" class="btn btn-xs btn-primary" >Удалить</button>
+                        <img id="prel<?= $comment['id'] ?>" src="<?= $this->baseUrl().'/images/blue_preloader.gif' ?>" style="display: none" width="50">
+                    </div>
                  </div>
               <?php } ?> 
           </div>
           <?=  $this->paginationControl($this->comments, 'Sliding', 'pagination.phtml') ?>
           <?php } ?>
 </div>
+<script>
+function removeComment(id){
+    $('#button'+id).hide();
+    $('#prel'+id).show();
+    $.ajax({
+    type: 'POST',
+    url: '<?= $this->baseUrl.'/admin/comments/remove-comment/'; ?>',
+    data: {id: id},
+    success: function(){
+        $('#div'+id).remove();
+    }
+  });
+}
+</script>

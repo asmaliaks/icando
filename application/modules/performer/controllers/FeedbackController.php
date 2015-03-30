@@ -36,13 +36,13 @@ class Performer_FeedbackController extends Zend_Controller_Action{
                 $customer = $usersObj->getUserById($post['custId']);
                 // mail for admin
                 $smtpObj = new Default_Model_Smtp();
-                $message = "Исполнитель ".$this->user->username." ".$this->user->surname." "
+                $message = "Исполнитель ".$this->user->username." ".mb_substr($this->user->surname, 0, 1, 'utf-8')." "
                         . "оставил отрицательный отзыв по задаче ".$task['title']." "
                         . " исполнителю ".$customer['username']." ".$customer['surname'];
                 $headers = 'From: no_reply@icando.by';
                 $smtpObj->send(ADMIN_EMAIL, 'Отрицательный отзыв', $message, $headers);
                 // mail for the customer
-                $message = "Исполнитель ".$this->user->username." ".$this->user->surname." "
+                $message = "Исполнитель ".$this->user->username." ".mb_substr($this->user->surname, 0, 1, 'utf-8')." "
                         . "оставил отрицательный отзыв по задаче ".$task['title'];
                 $headers = 'From: no_reply@icando.by';
                 $smtpObj->send($customer['email'], 'Отрицательный отзыв', $message, $headers);
@@ -71,7 +71,7 @@ class Performer_FeedbackController extends Zend_Controller_Action{
                 $usersObj = new Admin_Model_DbTable_Users();
                 $performer = $usersObj->getUserById($post['custId']);
                 $smtpObj = new Default_Model_Smtp();
-                $message = "Заказчик ".$this->user->username." ".$this->user->surname." "
+                $message = "Заказчик ".$this->user->username." ".mb_substr($this->user->surname, 0, 1, 'utf-8')." "
                         . "оставил Положительный отзыв по задаче ".$task['title'];
                 $headers = 'From: no_reply@icando.by';
                 $smtpObj->send($customer['email'], 'Положительный отзыв', $message, $headers);
@@ -129,13 +129,13 @@ public function leaveFeedbackAsCustomerAction(){
                 $usersObj = new Admin_Model_DbTable_Users();
                 $performer = $usersObj->getUserById($post['perfId']);
                 $smtpObj = new Default_Model_Smtp();
-                $message = "Заказчик ".$this->user->username." ".$this->user->surname." "
+                $message = "Заказчик ".$this->user->username." ".mb_substr($this->user->surname, 0, 1, 'utf-8')." "
                         . "оставил отрицательный отзыв по задаче ".$task['title']." "
                         . " исполнителю ".$performer['username']." ".$performer['surname'];
                 $headers = 'From: no_reply@icando.by';
                 $smtpObj->send(ADMIN_MAIL, 'Отрицательный отзыв', $message, $headers);
                 // make notification fot the performer
-                $message = "Заказчик ".$this->user->username." ".$this->user->surname." "
+                $message = "Заказчик ".$this->user->username." ".mb_substr($this->user->surname, 0, 1, 'utf-8')." "
                         . "оставил отрицательный отзыв по задаче ".$task['title'];
                 $smtpObj->send($performer['email'], 'Отрицательный отзыв', $message, $headers);
                 echo 'true';
@@ -162,7 +162,7 @@ public function leaveFeedbackAsCustomerAction(){
                 $usersObj = new Admin_Model_DbTable_Users();
                 $performer = $usersObj->getUserById($post['perfId']);
                 $smtpObj = new Default_Model_Smtp();
-                $message = "Заказчик ".$this->user->username." ".$this->user->surname." "
+                $message = "Заказчик ".$this->user->username." ".mb_substr($this->user->surname, 0, 1, 'utf-8')." "
                         . "оставил Положительный отзыв по задаче ".$task['title']." "
                         . " исполнителю ".$performer['username']." ".$performer['surname'];
                 $headers = 'From: no_reply@icando.by';

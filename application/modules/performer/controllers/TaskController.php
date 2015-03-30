@@ -20,9 +20,10 @@ class Performer_TaskController extends Zend_Controller_Action{
         $task = $taskObj->getTaskById($taskId);
         // get task's feedback from the performer
         $feedbackObj = new Performer_Model_DbTable_FeedbackModel();
-        $feedback = $feedbackObj->getPerformersFeedbackByTaskId($taskId, $this->user->id);
-        $tasksFeedback = $feedbackObj->getTasksFeedbackByCustomer($taskId, $this->user->id);
-
+        $feedback = $feedbackObj->getTasksFeedbackByCustomer($taskId, $task['customer_id']);
+        if($task['performer_id']){
+            $tasksFeedback = $feedbackObj->getTasksFeedbackByCustomer($taskId, $task['performer_id']);
+        }
         /// get all comments for the task
         $commentsObj = new Default_Model_Comments();
         $commentsList = $commentsObj->getCommentsByTaskId($taskId);
@@ -176,14 +177,14 @@ class Performer_TaskController extends Zend_Controller_Action{
             }
             // send mail to admin
             $smtpObj = new Default_Model_Smtp();
-            $message = 'Пользователь '.$this->user->username.' '.$this->user->surmname.' '
-                    . 'создал задачу '.$_SERVER['HTTP_ORIGIN'].'/admin/tasks/view/id/'.$taskId.' '.$data['title'].' ';
+            $message = '<p>Пользователь '.$this->user->username.' '.$this->user->surmname.' '
+                    . 'создал задачу <a href="http://helpyou.by/admin/tasks/view/id/'.$taskId.'"> '.$data['title'].'</a></p> ';
             
             $message = wordwrap($message, 70);
-            $headers = 'From: no_reply@icando.by';
+            $headers = 'From: no_reply@helpyou.by';
             $smtpObj->send(ADMIN_MAIL, 'Создана задача', $message, $headers);
             // send mail to customer
-            $message = 'Вы успешно создали задачу '.$data['title'].' ';
+            $message = '<p>Вы успешно создали задачу <a href="http://helpyou.by/performer/task/view/id/'.$task['id'].'">'.$data['title'].'</a></p>';
             $message = wordwrap($message, 70);
             $headers = 'From: no_reply@icando.by';
             $smtpObj->send($this->user->email, 'Создана задача', $message, $headers);
@@ -278,9 +279,9 @@ class Performer_TaskController extends Zend_Controller_Action{
                 $task = $taskObj->getTaskById($post['taskId']);
                 // send email to the customer
                 $smtpObj = new Default_Model_Smtp();
-                $message = "Пользователь ".$this->user->username." ".$this->user->surname." "
-                        . "готов выполнить задание ".$task['title']." "
-                        . "за предложенную Вами сумму.";
+                $message = 'Пользователь '.$this->user->username.' '.mb_substr($this->user->surname, 0, 1, 'utf-8').' '
+                        . 'готов выполнить задание '.$task['title'].' '
+                        . 'за предложенную Вами сумму.';
                 $message = wordwrap($message, 70);
                 $headers = 'From: no_reply@icando.by';
                 $smtpObj->send($task['u_email'], 'Предложение кандидатуры', $message, $headers);
@@ -288,24 +289,24 @@ class Performer_TaskController extends Zend_Controller_Action{
                 $smsObj = new Default_Model_SmsModel();
                 $smsMessage = "На Ваше задание откликнулся исполнитель, ознакомьтесь в лич кабинете";
                 $smsMessage = urlencode($smsMessage);
-                $smsObj->sendSmsAction($this->user->phonenumber, $smsMessage);
+                $smsObj->sendSmsAction($task['u_phonenumber'], $smsMessage);
                 
                 echo 'true';
             }else{
-                $taskPrepObj->addPreposition($post['taskId'], $this->user->id, $post['perfPrice']);
-                // send email to the customer
-                $smtpObj = new Default_Model_Smtp();
-                $message = "Пользователь ".$this->user->username." ".mb_substr($this->user->surname, 0, 1, 'utf-8').". "
-                        . "предлагает ".$post['perfPrice']." рублей за выполнение задания ".$task['title'];
-                $headers = 'From: no_reply@icando.by';
-                $smtpObj->send($task['u_email'], 'Предложение кандидатуры', $message, $headers);
-                // send sms
-                $smsObj = new Default_Model_SmsModel();
-                $smsMessage = "На Ваше задание откликнулся исполнитель, ознакомьтесь в лич кабинете";
-                $smsMessage = urlencode($smsMessage);
-                $smsObj->sendSmsAction($this->user->phonenumber, $smsMessage);
-                
-                echo 'true';
+//                $taskPrepObj->addPreposition($post['taskId'], $this->user->id, $post['perfPrice']);
+//                // send email to the customer
+//                $smtpObj = new Default_Model_Smtp();
+//                $message = "Пользователь ".$this->user->username." ".mb_substr($this->user->surname, 0, 1, 'utf-8').". "
+//                        . "предлагает ".$post['perfPrice']." рублей за выполнение задания ".$task['title'];
+//                $headers = 'From: no_reply@icando.by';
+//                $smtpObj->send($task['u_email'], 'Предложение кандидатуры', $message, $headers);
+//                // send sms
+//                $smsObj = new Default_Model_SmsModel();
+//                $smsMessage = "На Ваше задание откликнулся исполнитель, ознакомьтесь в лич кабинете";
+//                $smsMessage = urlencode($smsMessage);
+//                $smsObj->sendSmsAction($this->user->phonenumber, $smsMessage);
+//                
+//                echo 'true';
             }
             
         }
@@ -339,10 +340,10 @@ class Performer_TaskController extends Zend_Controller_Action{
             $usersObj = new Admin_Model_DbTable_Users();
             $user = $usersObj->getUserById($performerId);
             $smtpObj = new Default_Model_Smtp();
-            $message = "Заказчик ".$this->user->username." ".$this->user->surname." "
-                    . "принял вашу заявку на выполнение задачи ".$task['title']." "
-                    . "Вы можете с ним связаться"
-                    . " по телефону ".$this->user->phonenumber;
+            $message = '<p>Заказчик <a href="http://helpyou.by/performer/customer/view/id/'.$this->user->id.'">'.$this->user->username.' '.mb_substr($this->user->surname, 0, 1, 'utf-8').'</a> '
+                    . 'принял вашу заявку на выполнение задачи <a href="http://helpyou.by/performer/task/view/id/'.$task['id'].'">'.$task['title'].'</a> '
+                    . 'Вы можете с ним связаться'
+                    . ' по телефону '.$this->user->phonenumber.'</p>';
             $headers = 'From: no_reply@icando.by';
             $smtpObj->send($user['email'], 'Принятие вашей кандидатуры', $message, $headers);
             $smsObj = new Default_Model_SmsModel();

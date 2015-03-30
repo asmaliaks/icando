@@ -104,9 +104,7 @@ if (hs.addSlideshow) hs.addSlideshow({
         </li>
     <?php } ?>
         <li role="presentation" id="commentsTab"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Комментарии</a></li>
-    <?php if($this->tasksFeedback){?>
-        <li role="presentation"><a href="#feedback" aria-controls="feedback" role="tab" data-toggle="tab">Отзыв</a></li>
-    <?php } ?>    
+   
   </ul>
 
   <!-- Tab panes -->
@@ -117,6 +115,12 @@ if (hs.addSlideshow) hs.addSlideshow({
            <label>Заказчик : </label>
            <a href="<?= $this->baseUrl().'/performer/customer/view/id/'.$this->task['customer_id'] ?>"><?= $this->task['u_username'].' '.mb_substr($this->task['u_surname'],0,1,'utf-8').'.' ?></a>
         </div>
+        <?php if($this->task['performer_id']){?>
+        <div class="col-lg-12">
+           <label>Исполнитель : </label>
+           <a href="<?= $this->baseUrl().'/performer/performers/performer-view/id/'.$this->task['performer_id'] ?>"><?= $this->task['up_username'].' '.mb_substr($this->task['up_surname'],0,1,'utf-8').'.' ?></a>
+        </div>
+        <?php } ?>
         <div class="col-lg-12">
            <label>Стоимость : </label>
            <?= $this->task['customers_price'] ?> бел. рублей
@@ -142,47 +146,84 @@ if (hs.addSlideshow) hs.addSlideshow({
             <label>Описание : </label>
            <?= $this->task['description'] ?>
         </div>  
-    </div>
-    <?php if($this->task['status'] == 'taken' && $this->currentUser->banned == 0){?>
-      <div role="tabpanel" class="tab-pane" id="messages">
-            <div id="messagesArea" style="height: 300px; overflow-y:scroll">
-                <?php if($this->taskMessages){?>
-                <?php foreach($this->taskMessages as $message){?>
-                    <?php if($message['user_from'] == $this->currentUser->id){?>
-                        <div class="list-group list-group-item">
-                            <img src="<?= $this->baseUrl().'/images/users_images/'.$message['uf_image'] ?>" height="60" ></br>
-                             <h4 class="list-group-item-heading"><?= $this->currentUser->username ?> <?= mb_substr($this->currentUser->surname, 0 ,1 ,'utf-8').'.' ?></h4>
-                             <small><?= date("h:i d.m.Y",$message['created']) ?></small>
-                             <p class="list-group-item-text"><?= $message['text'] ?></p>
-                        </div>
-                    <?php }else{?>
-                        <div class="list-group list-group-item" style="text-align: -webkit-right;">
-                            <img src="<?= $this->baseUrl().'/images/users_images/'.$message['uf_image'] ?>" height="60" ></br>
-                             <h4 class="list-group-item-heading"><?= $message['uf_username']." ".mb_substr($message['uf_surname'], 0 , 'utf-8').'.' ?></h4>
-                             <small><?= date("h:i d.m.Y",$message['created']) ?></small>
-                             <p class="list-group-item-text"><?= $message['text']?></p>
-                        </div>
-                    <?php } ?>
+              <?php if($this->feedback){?>
 
-                <?php }?>
-                <?php }else{?>
-                    Отправте первое сообщение
-                <?php }?>
-            </div> 
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Сообщение</label>
-                    <input type="text" id="message" class="form-control" placeholder="Текст...">
-                </div>            
-                <button id="senMessageBut" class="btn btn-primary" onclick="sendMessage(<?= $this->task['id'] ?>, <?= $this->task['performer_id'] ?>,<?= $this->task['customer_id'] ?>)">Послать</button>  
-                <img style="display: none" id="messagePrel" src="<?= $this->baseUrl()?>/images/blue_preloader.gif" width="50">            
-            <h3 class="block-title-3"></h3>
-      </div>
-    <?php } ?>
-    <?php if($this->tasksFeedback){?>
-        <div role="tabpanel" class="tab-pane" id="feedback">
-        <div class="col-lg-12" style="padding-bottom: 10px">
+        <div class="col-lg-12">
             <h3 class="block-title-3">
-                Отзыв  
+                Отзыв от заказчика
+            </h3>
+            <div class="col-lg-3"> 
+                <?php if($this->feedback['kind'] == 'negative'){ ?>
+                        <p class="text-danger">Отрицательный</p>
+                <?php }else{?>
+                        <p class="text-success">Положительный</p>
+                        <span class="selected-color"><strong>Оценка</strong></span>
+                        <ul class="swatches Color">
+                    <?php switch ($this->feedback['rating']){
+                        case 1:?>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <?php break;
+                        case 2:
+                ?>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                  <?php
+                  break;
+                  case 3: ?>  
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                  <?php break;
+                        case 4:
+              ?>      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <?php break;
+                        case 5:
+              ?>      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                       <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                    <?php 
+                    break;
+                    default: ?>
+                    <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                        <?php } ?>
+                  </ul>
+                                  <?php } ?>
+
+            </div>
+            <div class="col-lg-2">
+                <img class="img-thumbnail" width="100%" src="<?= $this->baseUrl().'/images/users_images/'.$this->feedback['u_image'] ?>">
+            </div>
+            <div class="col-lg-7"> 
+                    <h3 class="product-code"><?= $this->feedback['u_username'].' '.mb_substr($this->feedback['u_username'], 0, 1, 'utf-8').'.' ?></h3>
+                    <p><?= $this->feedback['text'] ?></p>
+                    <h3 class="product-code"><?= date("d.m.Y",$this->feedback['created']); ?></h3>
+            </div>
+        </div>
+        <?php } ?>
+        <?php if($this->tasksFeedback){?>
+
+        <div class="col-lg-12">
+            <h3 class="block-title-3">
+                Отзыв от исполнителя
             </h3>
             <div class="col-lg-3"> 
                 <?php if($this->tasksFeedback['kind'] == 'negative'){ ?>
@@ -245,13 +286,49 @@ if (hs.addSlideshow) hs.addSlideshow({
                 <img class="img-thumbnail" width="100%" src="<?= $this->baseUrl().'/images/users_images/'.$this->tasksFeedback['u_image'] ?>">
             </div>
             <div class="col-lg-7"> 
-                
+                <h3 class="product-code"><?= $this->tasksFeedback['u_username'].' '.mb_substr($this->tasksFeedback['u_username'], 0, 1, 'utf-8').'.' ?></h3>
                     <p><?= $this->tasksFeedback['text'] ?></p>
                     <h3 class="product-code"><?= date("d.m.Y",$this->tasksFeedback['created']); ?></h3>
             </div>
         </div>
-        </div>
-    <?php } ?> 
+        <?php } ?>
+    </div>
+    <?php if($this->task['status'] == 'taken' && $this->currentUser->banned == 0){?>
+      <div role="tabpanel" class="tab-pane" id="messages">
+            <div id="messagesArea" style="height: 300px; overflow-y:scroll">
+                <?php if($this->taskMessages){?>
+                <?php foreach($this->taskMessages as $message){?>
+                    <?php if($message['user_from'] == $this->currentUser->id){?>
+                        <div class="list-group list-group-item">
+                            <img src="<?= $this->baseUrl().'/images/users_images/'.$message['uf_image'] ?>" height="60" ></br>
+                             <h4 class="list-group-item-heading"><?= $this->currentUser->username ?> <?= mb_substr($this->currentUser->surname, 0 ,1 ,'utf-8').'.' ?></h4>
+                             <small><?= date("h:i d.m.Y",$message['created']) ?></small>
+                             <p class="list-group-item-text"><?= $message['text'] ?></p>
+                        </div>
+                    <?php }else{?>
+                        <div class="list-group list-group-item" style="text-align: -webkit-right;">
+                            <img src="<?= $this->baseUrl().'/images/users_images/'.$message['uf_image'] ?>" height="60" ></br>
+                             <h4 class="list-group-item-heading"><?= $message['uf_username']." ".mb_substr($message['uf_surname'], 0 , 'utf-8').'.' ?></h4>
+                             <small><?= date("h:i d.m.Y",$message['created']) ?></small>
+                             <p class="list-group-item-text"><?= $message['text']?></p>
+                        </div>
+                    <?php } ?>
+
+                <?php }?>
+                <?php }else{?>
+                    Отправте первое сообщение
+                <?php }?>
+            </div> 
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Сообщение</label>
+                    <input type="text" id="message" class="form-control" placeholder="Текст...">
+                </div>            
+                <button id="senMessageBut" class="btn btn-primary" onclick="sendMessage(<?= $this->task['id'] ?>, <?= $this->task['performer_id'] ?>,<?= $this->task['customer_id'] ?>)">Послать</button>  
+                <img style="display: none" id="messagePrel" src="<?= $this->baseUrl()?>/images/blue_preloader.gif" width="50">            
+            <h3 class="block-title-3"></h3>
+      </div>
+    <?php } ?>
+ 
             <div role="tabpanel" class="tab-pane" id="comments">
                 <?php if(!$this->comments){?>
                    <div class="col-sm-12">

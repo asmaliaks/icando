@@ -10,7 +10,7 @@ class Customer_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
     }
     
     public function getCustomersTasks($customerId){
-        $row = $this->fetchAll($this->select()->where('customer_id = ?', $customerId));
+        $row = $this->fetchAll($this->select()->where('customer_id = ?', $customerId)->order('created_at DESC'));
         if($row){
             return $row->toArray();
         }else{
@@ -20,6 +20,7 @@ class Customer_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
     public function getCustomersTasksForOffice($customerId){
         $select = $this->select()
                 ->from(array('t'=>'tasks'))
+                ->order('t.created_at DESC')
                 ->where('customer_id='.$customerId.' AND status NOT LIKE ?', 'closed');
         $result= $this->fetchAll($select);
         if($result){
@@ -61,6 +62,21 @@ class Customer_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
                             'u.ok as u_ok',
                             'u.fb as u_fb',
                             'u.image as u_image'
+                            )
+                        )
+                ->joinLeft(array('uc'=>'users'),
+                        't.customer_id = uc.id',
+                        array('uc.username as uc_username',
+                              'uc.surname as uc_surname',
+                            'uc.email as uc_email',
+                              'uc.id as uc_id',
+                            'uc.sex as uc_sex',
+                            'uc.city as uc_city',
+                            'uc.birth_date as uc_birth_date',
+                            'uc.vk as uc_vk',
+                            'uc.ok as uc_ok',
+                            'uc.fb as uc_fb',
+                            'uc.image as uc_image'
                             )
                         )
                 ->joinLeft(array('c'=>'categories'),

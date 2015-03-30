@@ -50,34 +50,34 @@ define('SMTP_FROM','no-reply@helpyou.by');
 //define('SMTP_FROM','no_reply@eatpbank.ru');
 
 define("SALT", "3Y7r0A6c");
-define("DOCUMENT_ROOT", "/var/www/skilus/data/www/dev.skilus.biz/icando/public/");
+define("DOCUMENT_ROOT", "/home/helpyoub/public_html/public/");
         // definding social networks constants
             // vk.com
         define("VK_CLIENT_ID", '4741291');
         define("VK_CLIENT_SECRET", 'uirEdl2WgSbr6fw8VKt7');
-        define("VK_REDIRECT_URI", 'http://icando.dev.skilus.biz/s-auth/vk-complete/');
+        define("VK_REDIRECT_URI", 'http://helpyou.by/s-auth/vk-complete/');
            // vk.com attach account
         define("VK_ATTACH_CLIENT_ID", '4791731');
         define("VK_ATTACH_CLIENT_SECRET", 'GmghmK5ivL0OUti2jW2W');
-        define("VK_ATTACH_REDIRECT_URI", 'http://icando.dev.skilus.biz/social-attach/vk-complete/');
+        define("VK_ATTACH_REDIRECT_URI", 'http://helpyou.by/social-attach/vk-complete/');
             // facebook
         define("FB_CLIENT_ID", '783021221773947');
         define('FB_CLIENT_SECRET', 'd6fc08faf3ca501b6d94bd3b9202f8d7');
-        define("FB_REDIRECT_URI",'http://icando.dev.skilus.biz/s-auth/fb-complete/');
+        define("FB_REDIRECT_URI",'http://helpyou.by/s-auth/fb-complete/');
            // facebook attach account
         define("FB_ATTACH_CLIENT_ID", '1593224424224258');
         define('FB_ATTACH_CLIENT_SECRET', '98e267c9a530262ecf87bea0544f39b0');
-        define("FB_ATTACH_REDIRECT_URI",'http://icando.dev.skilus.biz/social-attach/fb-complete/');
+        define("FB_ATTACH_REDIRECT_URI",'http://helpyou.by/social-attach/fb-complete/');
             // ok.com
-        define("OK_CLIENT_ID", '1123001088');
-        define('OK_PUBLIC_KEY', 'CBAEKQODEBABABABA');
-        define('OK_SECRET_KEY', '4156FCB4B32651F1C6FC0096');
-        define("OK_REDIRECT_URI",'http://icando.dev.skilus.biz/s-auth/ok/');
+        define("OK_CLIENT_ID", '1130729728');
+        define('OK_PUBLIC_KEY', 'CBACJGGEEBABABABA');
+        define('OK_SECRET_KEY', 'CF6D7A6D3FF06F085224FE6D');
+        define("OK_REDIRECT_URI",'http://helpyou.by/s-auth/ok/');
             //
         define("OK_ATTACH_CLIENT_ID", '1124511488');
         define('OK_ATTACH_PUBLIC_KEY', 'CBAQKHAEEBABABABA');
         define('OK_ATTACH_SECRET_KEY', '09D7761682099DAE50FD6733');
-        define("OK_ATTACH_REDIRECT_URI",'http://icando.dev.skilus.biz/social-attach/ok/');
+        define("OK_ATTACH_REDIRECT_URI",'http://helpyou.by/social-attach/ok/');
         
     // sms constants
         define('SMS_LOGIN', 'Aykendu');

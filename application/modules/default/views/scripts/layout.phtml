@@ -5,11 +5,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Fav and touch icons -->
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?= $this->baseUrl() ?>/assets/ico/apple-touch-icon-144-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?= $this->baseUrl() ?>/assets/ico/apple-touch-icon-114-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?= $this->baseUrl() ?>/assets/ico/apple-touch-icon-72-precomposed.png">
-<link rel="apple-touch-icon-precomposed" href="<?= $this->baseUrl() ?>/ico/apple-touch-icon-57-precomposed.html">
-<link rel="shortcut icon" href="<?= $this->baseUrl() ?>/assets/ico/favicon.png">
+<!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="<? $this->baseUrl() ?>/assets/ico/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="<? $this->baseUrl() ?>/assets/ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="<? $this->baseUrl() ?>/assets/ico/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed" href="<?= $this->baseUrl() ?>/ico/apple-touch-icon-57-precomposed.html">-->
+<link rel="shortcut icon" href="<?= $this->baseUrl() ?>/favicon.ico">
 <?php echo $this->headTitle(); ?>
 <!-- Bootstrap core CSS -->
 <link href="<?= $this->baseUrl() ?>/assets/bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -419,8 +419,8 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
         <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6">
           <div class="pull-left ">
             <ul class="userMenu ">
-              <li> <a href="#"> <span class="hidden-xs">Телефон поддержки</span><i class="glyphicon glyphicon-info-sign hide visible-xs "></i> </a> </li>
-              <li class="phone-number"> <a  href="callto:+8801680531352"> <span> <i class="glyphicon glyphicon-phone-alt "></i></span> <span class="hidden-xs" style="margin-left:5px"> 5552525</span> </a> </li>
+<!--              <li> <a href="#"> <span class="hidden-xs">Телефон поддержки</span><i class="glyphicon glyphicon-info-sign hide visible-xs "></i> </a> </li>
+              <li class="phone-number"> <a  href="callto:+8801680531352"> <span> <i class="glyphicon glyphicon-phone-alt "></i></span> <span class="hidden-xs" style="margin-left:5px"> +375(29)960-79-48, +375(29)960</span> </a> </li>-->
             </ul>
           </div>
         </div>
@@ -447,13 +447,16 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only"> Toggle navigation </span> <span class="icon-bar"> </span> <span class="icon-bar"> </span> <span class="icon-bar"> </span> </button>
 
-      <a class="navbar-brand " href="/">
-          <img src="<?= $this->baseUrl() ?>/images/logo.png" alt="TSHOP"> </a> 
+      <a class="navbar-brand " href="<?= $this->baseUrl() ?>/">
+          <img src="<?= $this->baseUrl().'/images/imgo.jpg' ?>">
+      </a>
       
       <!-- this part for mobile -->
       <div class="search-box pull-right hidden-lg hidden-md hidden-sm">
         <div class="input-group">
-          <button class="btn btn-nobg getFullSearch" type="button"> <i class="fa fa-search"> </i> </button>
+<!--          <button class="btn btn-nobg getFullSearch" type="button">
+              <i class="fa fa-search"> </i> 
+          </button>-->
         </div>
         <!-- /input-group --> 
         
@@ -465,12 +468,12 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
     
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-          <li > <a href="<?= $this->baseUrl()?>/tasks/index">Актуальные задания </a> </li>
+          <li > <a href="#"  data-toggle="modal" data-target="#ModalSignup">Заказать услугу </a> </li>
           <li > <a href="<?= $this->baseUrl()?>/default/performers/index">Исполнители </a> </li>
 
         <!-- change width of megamenu = use class > megamenu-fullwidth, megamenu-60width, megamenu-40width -->
         <li > 
-            <a  href="<?= $this->baseUrl().'/about/' ?>"> О проекте</a>
+            <a  href="<?= $this->baseUrl().'/about/' ?>"> Как это работает</a>
 
         </li>
         <li >
@@ -499,6 +502,7 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
 <!-- /.Fixed navbar  -->
 <div class="container main-container headerOffset">
      <?php echo $this->layout()->content; ?>
+
 </div>
 
 <footer>
@@ -510,8 +514,9 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
           <ul>
             <li class="supportLi">
               <p> При любом вопросе свяжитесь с нами </p>
-              <h4> <a class="inline" > <strong> <i class="fa fa-phone"> </i> 88 01680 531352 </strong> </a> </h4>
-              <h4> <a class="inline" href="mailto:help@icando.by"> <i class="fa fa-envelope-o"> </i> help@icando.by</a> </h4>
+              <h4> <a class="inline" > <strong> <i class="fa fa-phone"> </i> +375(29)960-79-48 </strong> </a> </h4>
+              <h4> <a class="inline" > <strong> <i class="fa fa-phone"> </i> +375(33)690-79-48 </strong> </a> </h4>
+              <h4> <a class="inline" href="mailto:mail@helpyou.by"> <i class="fa fa-envelope-o"> </i> mail@helpyou.by</a> </h4>
             </li>
           </ul>
         </div>
@@ -521,8 +526,8 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
           <ul>
               <li> <a href="#"  data-toggle="modal" data-target="#ModalLogin"> Кабинет </a> </li>
             <li> <a href="#"  data-toggle="modal" data-target="#ModalLogin"> Создать задачу </a> </li>
-            <li> <a href="<?= $this->baseUrl().'/performers/' ?>"> Исполнители </a> </li>
-            <li> <a href="<?= $this->baseUrl().'/about/' ?>"> О проекте</a> </li>
+            <li> <a href="<?= $this->baseUrl().'/terms/' ?>">Правила сервиса</a> </li>
+            <li> <a href="<?= $this->baseUrl().'/about/' ?>"> Как это работает</a> </li>
             <li> <a href="<?= $this->baseUrl().'/contacts/' ?>"> Контакты </a> </li>
           </ul>
         </div>
@@ -530,13 +535,14 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
         <div class="col-lg-4  col-md-12 col-sm-12 col-xs-12">
           <h3> Мы в социальных сетях</h3>
           
-          <ul class="social">
-            <li> <a href="http://facebook.com/"> <i class=" fa fa-facebook"> &nbsp; </i> </a> </li>
-            <li> <a href="http://twitter.com/"> <i class="fa fa-twitter"> &nbsp; </i> </a> </li>
-            <li> <a href="https://plus.google.com/"> <i class="fa fa-google-plus"> &nbsp; </i> </a> </li>
-            <li> <a href="http://youtube.com/"> <i class="fa fa-pinterest"> &nbsp; </i> </a> </li>
-            <li> <a href="http://youtube.com/"> <i class="fa fa-youtube"> &nbsp; </i> </a> </li>
-          </ul>
+                <script type="text/javascript" src="//vk.com/js/api/openapi.js?116"></script>
+
+            <!-- VK Widget -->
+            <div id="vk_groups" style="padding-top: 5px"></div>
+            <script type="text/javascript">
+            VK.Widgets.Group("vk_groups", {mode: 0, width: "300", height: "250", color1: 'FFFFFF', color2: '2B587A', color3: '5B7FA6'}, 17806341);
+
+            </script>
         </div>
           
       </div>
@@ -548,7 +554,7 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
   
   <div class="footer-bottom">
     <div class="container">
-      <p class="pull-left"> &copy; ICANDO.BY 2014. All right reserved. </p>
+      <p class="pull-left"> &copy; HELPYOU.BY. All right reserved. </p>
       <div class="pull-right paymentMethodImg"> </div>
     </div>
   </div>

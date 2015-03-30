@@ -65,12 +65,21 @@ class Default_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
                 ->from(array('t'=>'tasks'))
                 ->where('status=?', 'non_taken')
                 ->where('created_at > ?', $curTimeMinusHour)
-                ->joinLeft(array('u' => 'u'),
+                ->joinLeft(array('u' => 'users'),
                     't.customer_id = u.id',
                             array(
                                 'u.id as u_id',
                                 'u.username as u_username',
-                                'u.email as u_email'))->setIntegrityCheck(false);
+                                'u.email as u_email'))
+                ->joinLeft(array('cat' => 'categories'),
+                        't.category_id = cat.id',
+                        array(
+                            'cat.id as cat_id',
+                            'cat.title as cat_title',
+                            'cat.parent_id as cat_parent_id',
+                            'cat.image as cat_image'
+                        ))
+                ->setIntegrityCheck(false);
         $result = $this->fetchAll($select);
         if($result){
             return $result->toArray();

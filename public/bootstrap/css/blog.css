@@ -163,3 +163,7 @@ h6, .h6 {
 .blog-footer p:last-child {
   margin-bottom: 0;
 }
+.paginationElement{
+    border: solid 1px;
+    border-coclor: blue;
+}

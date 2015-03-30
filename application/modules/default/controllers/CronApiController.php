@@ -15,8 +15,9 @@ class CronApiController extends Zend_Controller_Action {
             $userList = $usersObj->getUsersByCategoryId($task['category_id']);
             foreach($userList as $user){
                 $message = 'Пользователь '.$task['username'].' '
-                    . 'создал задачу '.$_SERVER['HTTP_ORIGIN'].'/performer/task/view/id/'.$task['id'].' '.$task['title'].' ';
-            
+                    . 'создал задачу http://helpyou.by/performer/task/view/id/'.$task['id'].' '.$task['title'].' ';
+                $message = 'Здравствуйте, в категории '
+                        . ' '.$task['cat_title'].' было создано новое задание, Вы можете просмотреть его в списке Актуальных заданий';
                 $message = wordwrap($message, 70);
                 $headers = 'From: no_reply@icando.by';
                 $smtpObj->send($user['u_email'], 'Создана задача', $message, $headers);

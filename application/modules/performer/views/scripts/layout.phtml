@@ -5,27 +5,24 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Fav and touch icons -->
-
-<script type="text/javascript" src="<?= $this->baseUrl() ?>/assets/js/jquery/1.8.3/jquery.js"></script>
-<script src="<?= $this->baseUrl() ?>/datatable/js/datatable.js"></script>
-<script src="<?= $this->baseUrl() ?>/highslide/highslide-full.js"></script>
-<link href="<?= $this->baseUrl() ?>/highslide/highslide.css" rel="stylesheet">
-<link href="<?= $this->baseUrl() ?>/datatable/css/datatable.css" rel="stylesheet">
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?= $this->baseUrl() ?>/assets/ico/apple-touch-icon-144-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?= $this->baseUrl() ?>/assets/ico/apple-touch-icon-114-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?= $this->baseUrl() ?>/assets/ico/apple-touch-icon-72-precomposed.png">
-<link rel="apple-touch-icon-precomposed" href="<?= $this->baseUrl() ?>/ico/apple-touch-icon-57-precomposed.html">
-<link rel="shortcut icon" href="<?= $this->baseUrl() ?>/assets/ico/favicon.png">
+<!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="<? $this->baseUrl() ?>/assets/ico/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="<? $this->baseUrl() ?>/assets/ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="<? $this->baseUrl() ?>/assets/ico/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed" href="<? $this->baseUrl() ?>/ico/apple-touch-icon-57-precomposed.html">-->
+<link rel="shortcut icon" href="<?= $this->baseUrl() ?>/favicon.ico">
 <?php echo $this->headTitle(); ?>
 <!-- Bootstrap core CSS -->
 <link href="<?= $this->baseUrl() ?>/assets/bootstrap/css/bootstrap.css" rel="stylesheet">
 
 <!-- add theme styles for this template -->
 <link id="pagestyle" rel="stylesheet" type="text/css" href="<?= $this->baseUrl() ?>/assets/css/skin-1.css">
-
+<script type="text/javascript" src="<?= $this->baseUrl() ?>/assets/js/jquery/1.8.3/jquery.js"></script>
 <!-- Custom styles for this template -->
 <link href="<?= $this->baseUrl() ?>/assets/css/style.css" rel="stylesheet">
-
+<link href="<?= $this->baseUrl() ?>/datatable/css/datatable.css" rel="stylesheet">
+<script type="text/javascript"  src="<?= $this->baseUrl() ?>/highslide/highslide.js"></script>
+<!-- include mCustomScrollbar plugin //Custom Scrollbar  --> 
+<link href="<?= $this->baseUrl() ?>/highslide/highslide.css" rel="stylesheet">
 <!-- css3 animation effect for this template -->
 <link href="<?= $this->baseUrl() ?>/assets/css/animate.min.css" rel="stylesheet">
 
@@ -56,6 +53,7 @@
 </script>
 <script src="<?= $this->baseUrl() ?>/assets/js/pace.min.js"></script>
      <script type="text/javascript">
+
 function swapStyleSheet(sheet){
 document.getElementById('pagestyle').setAttribute('href', sheet);
 }
@@ -134,24 +132,61 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
 <body >
 <!--    <div class="themeControll">
 <h3 style="width: 60px; font-size: 10px; line-height: 12px;" class="uppercase color-white text-center"> Choose your colour </h3>
-<a onclick="swapStyleSheet(<?= $this->baseUrl() ?>'/assets/css/skin-1.css')" style="background:#4ec67f;border-top: 12px solid #27AE60;"> </a>
-<a onclick="swapStyleSheet(<?= $this->baseUrl() ?>'/assets/css/skin-8.css')" style="background:#3BCA95;border-top: 12px solid #34BC8A"> </a>
-<a onclick="swapStyleSheet(<?= $this->baseUrl() ?>'/assets/css/skin-2.css')" style="background:#1ABC9C;border-top: 12px solid #16A085"> </a>
-<a onclick="swapStyleSheet(<?= $this->baseUrl() ?>'/assets/css/skin-3.css')" style="background:#3498DB;border-top: 12px solid #2980B9"> </a>
-<a onclick="swapStyleSheet(<?= $this->baseUrl() ?>'/assets/css/skin-4.css')" style="background:#9B59B6;border-top: 12px solid #9149AF"> </a>
-<a onclick="swapStyleSheet(<?= $this->baseUrl() ?>'/assets/css/skin-5.css')" style="background:#E74C3C;border-top: 12px solid #C0392B"> </a>
-<a onclick="swapStyleSheet(<?= $this->baseUrl() ?>'/assets/css/skin-7.css')" style="background:#95A5A6;border-top: 12px solid #7F8C8D"> </a>
-<a onclick="swapStyleSheet(<?= $this->baseUrl() ?>'/assets/css/skin-9.css')" style="background:#F7B529;border-top: 12px solid #E78E00"> </a>
-<a onclick="swapStyleSheet(<?= $this->baseUrl() ?>'/assets/css/skin-10.css')" style="background:#F17370;border-top: 12px solid #F26663"> </a>
-<a onclick="swapStyleSheet(<?= $this->baseUrl() ?>'/assets/css/skin-11.css')" style="background:#273646;border-top: 12px solid #2ECC71"> </a>
-<a onclick="swapStyleSheet(<?= $this->baseUrl() ?>'/assets/css/skin-6.css')" style="background:#34495E;border-top: 12px solid #283949"> </a>
+<a onclick="swapStyleSheet('assets/css/skin-1.css')" style="background:#4ec67f;border-top: 12px solid #27AE60;"> </a>
+<a onclick="swapStyleSheet('assets/css/skin-8.css')" style="background:#3BCA95;border-top: 12px solid #34BC8A"> </a>
+<a onclick="swapStyleSheet('assets/css/skin-2.css')" style="background:#1ABC9C;border-top: 12px solid #16A085"> </a>
+<a onclick="swapStyleSheet('assets/css/skin-3.css')" style="background:#3498DB;border-top: 12px solid #2980B9"> </a>
+<a onclick="swapStyleSheet('assets/css/skin-4.css')" style="background:#9B59B6;border-top: 12px solid #9149AF"> </a>
+<a onclick="swapStyleSheet('assets/css/skin-5.css')" style="background:#E74C3C;border-top: 12px solid #C0392B"> </a>
+<a onclick="swapStyleSheet('assets/css/skin-7.css')" style="background:#95A5A6;border-top: 12px solid #7F8C8D"> </a>
+<a onclick="swapStyleSheet('assets/css/skin-9.css')" style="background:#F7B529;border-top: 12px solid #E78E00"> </a>
+<a onclick="swapStyleSheet('assets/css/skin-10.css')" style="background:#F17370;border-top: 12px solid #F26663"> </a>
+<a onclick="swapStyleSheet('assets/css/skin-11.css')" style="background:#273646;border-top: 12px solid #2ECC71"> </a>
+<a onclick="swapStyleSheet('assets/css/skin-6.css')" style="background:#34495E;border-top: 12px solid #283949"> </a>
 <h3 style="width: 60px; font-size: 10px; line-height: 12px;" class="uppercase color-white text-center">
 <br>
  <a style="color:#fff" href="http://codepeoples.com/tanimdesign.net/thsop-v-1.3/index.html"><i class="fa fa-angle-double-left"></i> Theme Chooser </a> </h3>
 <p class="tbtn">  <i class="fa fa-angle-double-left"></i></p>
 </div>-->
 
-<!-- /.Modal Login --> 
+
+<!-- Modal Forgot start -->
+<div class="modal signUpContent fade" id="ModalForgotPass" tabindex="-1" role="dialog" >
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
+        <h3 class="modal-title-site text-center" > Восстановление пароля </h3>
+      </div>
+      <div class="modal-body">
+        <div class="form-group login-username">
+            <p id="error" style="display: none" class="text-danger">Пользователь с таким адресом не зарегестрирован</p>
+            <p id="success" style="display: none" class="text-success">Проверьте ваш почтовый ящик</p>
+          <div >
+            <input type="text" class="form-control" id="emailRec" placeholder="Email">
+          </div>
+        </div>
+        <div >
+          <div >
+            <button id="submit"  onclick="checkEmail()" class="btn  btn-block btn-primary">Восстановить</button>
+            <img id="preloader" style="display:none" src="<?= $this->baseUrl() ?>/images/blue_preloader.gif" width="55">
+          </div>
+        </div>
+        <!--userForm--> 
+        
+      </div>
+      <div class="modal-footer">
+        <p class="text-center"> Нет аккаунта? <a data-toggle="modal"  data-dismiss="modal" href="#ModalSignup">Зарегистрироваться</a> <br>
+        
+      </div>
+    </div>
+    <!-- /.modal-content --> 
+    
+  </div>
+  <!-- /.modal-dialog --> 
+  
+</div>
+
 <!-- Modal Login start -->
 <div class="modal signUpContent fade" id="ModalLogin" tabindex="-1" role="dialog" >
   <div class="modal-dialog ">
@@ -377,7 +412,6 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
   <!-- /.modal-dialog --> 
   
 </div>
-
 <!-- /.ModalSignup End --> 
 
 <!-- Fixed navbar start -->
@@ -388,17 +422,18 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
         <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6">
           <div class="pull-left ">
             <ul class="userMenu ">
-              <li> <a href="#"> <span class="hidden-xs">Служба поддержки</span><i class="glyphicon glyphicon-info-sign hide visible-xs "></i> </a> </li>
-              <li class="phone-number"> <a  href="callto:+8801680531352"> <span> <i class="glyphicon glyphicon-phone-alt "></i></span> <span class="hidden-xs" style="margin-left:5px"> 5552525 </span> </a> </li>
+<!--              <li> <a href="#"> <span class="hidden-xs">Телефон поддержки</span><i class="glyphicon glyphicon-info-sign hide visible-xs "></i> </a> </li>
+              <li class="phone-number"> <a  href="callto:+8801680531352"> <span> <i class="glyphicon glyphicon-phone-alt "></i></span> <span class="hidden-xs" style="margin-left:5px"> +375(29)960-79-48, +375(29)960</span> </a> </li>-->
             </ul>
           </div>
         </div>
         <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6 no-margin no-padding">
           <div class="pull-right">
             <ul class="userMenu">
+                
               <?php if(Zend_Auth::getInstance()->hasIdentity()){?>
                 <li> <a href="<?= $this->baseUrl().'/performer/user/' ?>"><span class="hidden-xs">Личный кабинет</span> <i class="glyphicon glyphicon-user hide visible-xs "></i></a> </li>
-                <li> <a href="<?= $this->baseUrl().'/authentication/log-out/'.$this->userId ?>"  > <span class="hidden-xs">Выйти</span> <i class="glyphicon glyphicon-log-in hide visible-xs "></i> </a> </li>
+                <li> <a href="<?= $this->baseUrl().'/authentication/log-out/' ?>"  > <span class="hidden-xs">Выйти</span> <i class="glyphicon glyphicon-log-in hide visible-xs "></i> </a> </li>
               <?php }else{ ?>
                 <li> <a href="#"  data-toggle="modal" data-target="#ModalLogin"> <span class="hidden-xs">Войти</span> <i class="glyphicon glyphicon-log-in hide visible-xs "></i> </a> </li>
                 <li class="hidden-xs"> <a href="#"  data-toggle="modal" data-target="#ModalSignup"> Регистрация </a> </li>
@@ -413,21 +448,25 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
   
   <div class="container">
     <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only"> Toggle navigation </span> <span class="icon-bar"> </span> <span class="icon-bar"> </span> <span class="icon-bar"> </span> </button>
 
-      
-        <a class="navbar-brand " href="<?= $this->baseUrl().'/performer/index/' ?>"> <img src="<?= $this->baseUrl() ?>/images/logo.png" alt="TSHOP"> </a> 
+      <a class="navbar-brand " href="<?= $this->baseUrl() ?>/">
+          <img src="<?= $this->baseUrl().'/images/imgo.jpg' ?>">
+      </a>
       
       <!-- this part for mobile -->
       <div class="search-box pull-right hidden-lg hidden-md hidden-sm">
         <div class="input-group">
-          <button class="btn btn-nobg getFullSearch" type="button"> <i class="fa fa-search"> </i> </button>
+<!--          <button class="btn btn-nobg getFullSearch" type="button">
+              <i class="fa fa-search"> </i> 
+          </button>-->
         </div>
         <!-- /input-group --> 
         
       </div>
     </div>
     
-
+ 
     <!--/.navbar-cart-->
     
     <div class="navbar-collapse collapse">
@@ -436,33 +475,35 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
             <li> <a href="<?= $this->baseUrl()?>/performer/task/add">Заказать услугу</a> </li>
             <li> <a href="<?= $this->baseUrl()?>/performer/index/tasks">Актуальные задания</a> </li>
             <li> <a href="<?= $this->baseUrl()?>/performer/performers/">Исполнители </a> </li>
-            <li> <a href="<?= $this->baseUrl()?>/performer/about/">О проекте</a> </li>
+            <li> <a href="<?= $this->baseUrl()?>/performer/about/">Как это работает</a> </li>
             <li> <a href="<?= $this->baseUrl()?>/performer/contacts">Контакты</a> </li>
           <?php }else{ ?>
             <li> <a href="#"  data-toggle="modal" data-target="#ModalLogin">Заказать услугу</a> </li>
             <li> <a href="<?= $this->baseUrl()?>/performers/">Исполнители </a> </li>
-            <li> <a href="<?= $this->baseUrl()?>/about/">О проекте</a> </li>
+            <li> <a href="<?= $this->baseUrl()?>/about/">Как это работает</a> </li>
             <li> <a href="<?= $this->baseUrl()?>/contacts">Контакты</a> </li>
           <?php } ?>
       </ul>
       <!--/.navbar-nav hidden-xs--> 
     </div>
     <!--/.nav-collapse --> 
+    
   </div>
   <!--/.container -->
   
-  <div class="search-full text-right"> <a class="pull-right search-close"> <i class=" fa fa-times-circle"> </i> </a>
+<!--  <div class="search-full text-right"> <a class="pull-right search-close"> <i class=" fa fa-times-circle"> </i> </a>
     <div class="searchInputBox pull-right">
       <input type="search"  data-searchurl="search?=" name="q" placeholder="start typing and hit enter to search" class="search-input">
       <button class="btn-nobg search-btn" type="submit"> <i class="fa fa-search"> </i> </button>
     </div>
-  </div>
+  </div>-->
   <!--/.search-full--> 
   
 </div>
 <!-- /.Fixed navbar  -->
 <div class="container main-container headerOffset">
      <?php echo $this->layout()->content; ?>
+
 </div>
 
 <footer>
@@ -474,8 +515,9 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
           <ul>
             <li class="supportLi">
               <p> При любом вопросе свяжитесь с нами </p>
-              <h4> <a class="inline" > <strong> <i class="fa fa-phone"> </i> 88 01680 531352 </strong> </a> </h4>
-              <h4> <a class="inline" href="mailto:help@icando.by"> <i class="fa fa-envelope-o"> </i> help@icando.by</a> </h4>
+              <h4> <a class="inline" > <strong> <i class="fa fa-phone"> </i> +375(29)960-79-48 </strong> </a> </h4>
+              <h4> <a class="inline" > <strong> <i class="fa fa-phone"> </i> +375(33)690-79-48 </strong> </a> </h4>
+              <h4> <a class="inline" href="mailto:mail@helpyou.by"> <i class="fa fa-envelope-o"> </i> mail@helpyou.by</a> </h4>
             </li>
           </ul>
         </div>
@@ -483,10 +525,10 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
         <div class="col-lg-4  col-md-12 col-sm-12 col-xs-12">
           <h3> Меню </h3>
           <ul>
-              <li> <a href="<?= $this->baseUrl().'/performer/user/' ?>"> Кабинет </a> </li>
-            <li> <a href="<?= $this->baseUrl().'/performer/task/add'?>"> Создать задачу </a> </li>
-            <li> <a href="<?= $this->baseUrl().'/performer/performers/' ?>"> Исполнители </a> </li>
-            <li> <a href="<?= $this->baseUrl().'/performer/about/' ?>"> О проекте</a> </li>
+              
+            <li> <a href="<?= $this->baseUrl().'/performer/terms/'?>" > Правила сервиса</a> </li>
+            
+            <li> <a href="<?= $this->baseUrl().'/performer/about/' ?>"> Как это работает</a> </li>
             <li> <a href="<?= $this->baseUrl().'/performer/contacts/' ?>"> Контакты </a> </li>
           </ul>
         </div>
@@ -494,13 +536,14 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
         <div class="col-lg-4  col-md-12 col-sm-12 col-xs-12">
           <h3> Мы в социальных сетях</h3>
           
-          <ul class="social">
-            <li> <a href="http://facebook.com/"> <i class=" fa fa-facebook"> &nbsp; </i> </a> </li>
-            <li> <a href="http://twitter.com/"> <i class="fa fa-twitter"> &nbsp; </i> </a> </li>
-            <li> <a href="https://plus.google.com/"> <i class="fa fa-google-plus"> &nbsp; </i> </a> </li>
-            <li> <a href="http://youtube.com/"> <i class="fa fa-pinterest"> &nbsp; </i> </a> </li>
-            <li> <a href="http://youtube.com/"> <i class="fa fa-youtube"> &nbsp; </i> </a> </li>
-          </ul>
+                <script type="text/javascript" src="//vk.com/js/api/openapi.js?116"></script>
+
+            <!-- VK Widget -->
+            <div id="vk_groups" style="padding-top: 5px"></div>
+            <script type="text/javascript">
+            VK.Widgets.Group("vk_groups", {mode: 0, width: "300", height: "250", color1: 'FFFFFF', color2: '2B587A', color3: '5B7FA6'}, 17806341);
+
+            </script>
         </div>
           
       </div>
@@ -512,8 +555,8 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
   
   <div class="footer-bottom">
     <div class="container">
-      <p class="pull-left"> &copy; ICANDO.BY 2014. All right reserved. </p>
-      <div class="pull-right paymentMethodImg"></div>
+      <p class="pull-left"> &copy; HELPYOU.BY. All right reserved. </p>
+      <div class="pull-right paymentMethodImg"> </div>
     </div>
   </div>
   <!--/.footer-bottom--> 
@@ -548,13 +591,21 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
 <!-- Le javascript
 ================================================== --> 
 
+<!-- Placed at the end of the document so the pages load faster --> 
 
+<script src="//cdn.ckeditor.com/4.4.7/full/ckeditor.js"></script>
 <script src="<?= $this->baseUrl() ?>/assets/bootstrap/js/bootstrap.min.js"></script> 
 
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<script src="<?= $this->baseUrl() ?>/jquery-ui-1.11.2/jquery-ui.js"></script>
 <script>
 
+
+
+  $(function() {
+
+  }); 
+ 
  // this script required for subscribe modal
 $(window).load(function(){
  // full load
@@ -575,8 +626,8 @@ $(window).load(function(){
 
 <!-- optionally include helper plugins --> 
 <script type="text/javascript"  src="<?= $this->baseUrl() ?>/assets/js/helper-plugins/jquery.mousewheel.min.js"></script> 
+<script type="text/javascript"  src="<?= $this->baseUrl() ?>/datatable/js/datatable.js"></script>
 
-<!-- include mCustomScrollbar plugin //Custom Scrollbar  --> 
 
 <script type="text/javascript" src="<?= $this->baseUrl() ?>/assets/js/jquery.mCustomScrollbar.js"></script> 
 

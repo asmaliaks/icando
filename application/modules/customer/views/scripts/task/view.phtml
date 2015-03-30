@@ -126,6 +126,16 @@ if (hs.addSlideshow) hs.addSlideshow({
            <?= $this->task['c_title'] ?>
         </div>
         <div class="col-lg-12">
+            <label>Заказчик : </label>
+           <?= $this->task['uc_username'].' '.mb_substr($this->task['uc_surname'], 0, 1, 'utf-8') ?>
+        </div>
+        <?php if($this->task['performer_id']){?>
+        <div class="col-lg-12">
+            <label>Исполнитель : </label>
+            <a href="<?= $this->baseUrl().'/customer/performers/performer-view/id/'.$this->task['u_id'] ?>"><?= $this->task['u_username'].' '.mb_substr($this->task['u_surname'], 0, 1, 'utf-8') ?></a>
+        </div>
+        <?php } ?>
+        <div class="col-lg-12">
             <label>Документы для оформления расписки : </label>
            <?php if($this->task['docs'] == 1){?>
                  требуются
@@ -147,11 +157,84 @@ if (hs.addSlideshow) hs.addSlideshow({
             <label>Описание : </label>
            <?= $this->task['description'] ?>
         </div>
+        <?php if($this->feedback){?>
+
+        <div class="col-lg-12">
+            <h3 class="block-title-3">
+                Отзыв от заказчика
+            </h3>
+            <div class="col-lg-3"> 
+                <?php if($this->feedback['kind'] == 'negative'){ ?>
+                        <p class="text-danger">Отрицательный</p>
+                <?php }else{?>
+                        <p class="text-success">Положительный</p>
+                        <span class="selected-color"><strong>Оценка</strong></span>
+                        <ul class="swatches Color">
+                    <?php switch ($this->feedback['rating']){
+                        case 1:?>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <?php break;
+                        case 2:
+                ?>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                  <?php
+                  break;
+                  case 3: ?>  
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                      <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                  <?php break;
+                        case 4:
+              ?>      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <?php break;
+                        case 5:
+              ?>      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                       <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="27"> </li>
+                    <?php 
+                    break;
+                    default: ?>
+                    <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                    <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="27"> </li>
+                        <?php } ?>
+                  </ul>
+                                  <?php } ?>
+
+            </div>
+            <div class="col-lg-2">
+                <img class="img-thumbnail" width="100%" src="<?= $this->baseUrl().'/images/users_images/'.$this->feedback['u_image'] ?>">
+            </div>
+            <div class="col-lg-7"> 
+                    <h3 class="product-code"><?= $this->feedback['u_username'].' '.mb_substr($this->feedback['u_username'], 0, 1, 'utf-8').'.' ?></h3>
+                    <p><?= $this->feedback['text'] ?></p>
+                    <h3 class="product-code"><?= date("d.m.Y",$this->feedback['created']); ?></h3>
+            </div>
+        </div>
+        <?php } ?>
         <?php if($this->tasksFeedback){?>
 
         <div class="col-lg-12">
             <h3 class="block-title-3">
-                Отзыв  
+                Отзыв от исполнителя
             </h3>
             <div class="col-lg-3"> 
                 <?php if($this->tasksFeedback['kind'] == 'negative'){ ?>
@@ -214,7 +297,7 @@ if (hs.addSlideshow) hs.addSlideshow({
                 <img class="img-thumbnail" width="100%" src="<?= $this->baseUrl().'/images/users_images/'.$this->tasksFeedback['u_image'] ?>">
             </div>
             <div class="col-lg-7"> 
-                
+                <h3 class="product-code"><?= $this->tasksFeedback['u_username'].' '.mb_substr($this->tasksFeedback['u_username'], 0, 1, 'utf-8').'.' ?></h3>
                     <p><?= $this->tasksFeedback['text'] ?></p>
                     <h3 class="product-code"><?= date("d.m.Y",$this->tasksFeedback['created']); ?></h3>
             </div>
@@ -274,8 +357,9 @@ if (hs.addSlideshow) hs.addSlideshow({
     
       <?php if($this->task['status'] == 'taken' && $this->currentUser->banned == 0){?>
             <div role="tabpanel" class="tab-pane" id="messages" >
+                 <div id="messagesArea" style="height: 300px; overflow-y:scroll">
                 <?php if($this->taskMessages){?>
-                    <div id="messagesArea" style="height: 300px; overflow-y:scroll">
+                   
                         <?php foreach($this->taskMessages as $message){?>
                             <?php if($message['user_from'] == $this->currentUser->id){?>
                                 <div class="list-group list-group-item">
@@ -294,12 +378,11 @@ if (hs.addSlideshow) hs.addSlideshow({
                             <?php } ?>
 
                         <?php }?>
-                    </div>
+                    
                 <?php }else{ ?>
-                    <div class="list-group list-group-item">
-                         <h3 class="list-group-item-heading">Сообщений пока нет</h3>
-                    </div>
+                    Сообщений пока нет
                 <?php } ?>
+                     </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Сообщение</label>
                     <input type="text" id="message" class="form-control" placeholder="Текст...">

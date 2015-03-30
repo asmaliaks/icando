@@ -11,9 +11,9 @@
  <?php
  foreach($this->pagesInRange as $page){
     if($this->current != $page){
-       echo '<li><a href="'.$this->url(array('page' => $page)).'" >'.$page.'</a></li>';
+       echo '<li><a style="width: 30px" href="'.$this->url(array('page' => $page)).'" >'.$page.'</a></li>';
     }else{
-        echo '<li><a href="#" class="active">'.$page.'</a></li>';
+        echo '<li><a style="width: 30px" href="#" class="active">'.$page.'</a></li>';
     }     
  }
 //if(isset($this->next)){

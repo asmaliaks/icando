@@ -22,7 +22,7 @@ class Performer_Form_RegistrationForm extends Zend_Form{
            ->addErrorMessage('Выберите пол');
 
    $about = new Zend_Form_Element_Textarea('about');
-   $about->setLabel('Описание')
+   $about->setLabel('Личная информация')
            ->addErrorMessage('Поле обязательно для заполнения')
            ->setAttribs(array('cols' => '60', 'rows'=>'10', 'class' => 'form-control'));
    
@@ -77,8 +77,8 @@ class Performer_Form_RegistrationForm extends Zend_Form{
    
    $image = new Zend_Form_Element_File('image');
    $image->setLabel('Изображение')
-//         ->setDestination(DOCUMENT_ROOT.'/images/users_images/');  
-         ->setDestination($_SERVER['DOCUMENT_ROOT'].'/images/users_images/');  
+         ->setDestination(DOCUMENT_ROOT.'/images/users_images/');  
+//         ->setDestination($_SERVER['DOCUMENT_ROOT'].'/images/users_images/');  
    
    
    $pass = new Zend_Form_Element_Password('pass');

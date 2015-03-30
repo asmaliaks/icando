@@ -605,10 +605,13 @@ legend {
 .brandWrap {
 }
 .navbar-brand {
-	padding: 10px;
-	color: #FFFFFF;
-	font-size: 28px;
-	font-weight: bold;
+
+    padding: 10px;
+    color: #FFFFFF;
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: -5px;
+
 }
 .navbar .navbar-top {
 	height: 30px;
@@ -1626,7 +1629,7 @@ h1.bolder-style.dark, h1.bolder-style.dark a {
 	font-size: 16px;
 }
 .sliderText {
-	margin-top: 15%;
+	margin-top: 29%;
 }
 .sliderText.dark {
 	color: #ddd;
@@ -4608,4 +4611,19 @@ h1.x2large {
 .orange:hover{
     background: #f14f00;
     color: #ffffff
+}
+.productBlock{
+    border: solid 1px;
+    border-color: #dddddd
+}
+.productBlock:hover{
+    border: solid 1px;
+    border-color: #4EC67F
+}
+.productBlock:hover img{
+   transform: scale(1.15) rotate(-1.5deg); 
+-webkit-transform: scale(1.1) rotate(-1.5deg);
+-moz-transform: scale(1.1) rotate(-1.5deg);
+-ms-transform: scale(1.1) rotate(-1.5deg);
+-o-transform: scale(1.1) rotate(-1.5deg);
 }
