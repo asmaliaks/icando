@@ -108,6 +108,8 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('admin', 'admin:comments', 'remove-comment');
        $this->allow('admin', 'admin:settings', 'edit-about');
        $this->allow('admin', 'admin:settings', 'edit-contacts');
+       $this->allow('admin', 'admin:settings', 'edit-terms');
+       $this->allow('admin', 'admin:settings', 'edit-become-performer');
        $this->allow('admin', 'admin:main-banner', 'slider-list');
        $this->allow('admin', 'admin:main-banner', 'add');
        $this->allow('admin', 'admin:main-banner', 'remove-image');
@@ -247,6 +249,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('guest', 'default:tasks', 'view');
        $this->allow('guest', 'default:error');
        $this->allow('guest', 'default:cron-api', 'new-tasks-send-mail');
+       $this->allow('guest', 'default:cron-api', 'remove-non-taken-tasks');
        $this->allow('guest', 'default:cron-api', 'unbann');
        $this->allow('guest', 'default:sms', 'phone-activate');
        $this->allow('guest', 'default:performers', 'index');

@@ -39,12 +39,12 @@ class Performer_FeedbackController extends Zend_Controller_Action{
                 $message = "Исполнитель ".$this->user->username." ".mb_substr($this->user->surname, 0, 1, 'utf-8')." "
                         . "оставил отрицательный отзыв по задаче ".$task['title']." "
                         . " исполнителю ".$customer['username']." ".$customer['surname'];
-                $headers = 'From: no_reply@icando.by';
+                $headers = 'From: no_reply@helpyou.by';
                 $smtpObj->send(ADMIN_EMAIL, 'Отрицательный отзыв', $message, $headers);
                 // mail for the customer
                 $message = "Исполнитель ".$this->user->username." ".mb_substr($this->user->surname, 0, 1, 'utf-8')." "
                         . "оставил отрицательный отзыв по задаче ".$task['title'];
-                $headers = 'From: no_reply@icando.by';
+                $headers = 'From: no_reply@helpyou.by';
                 $smtpObj->send($customer['email'], 'Отрицательный отзыв', $message, $headers);
                 echo 'true';
             }else if($post['kind']=='positive'){
@@ -73,7 +73,7 @@ class Performer_FeedbackController extends Zend_Controller_Action{
                 $smtpObj = new Default_Model_Smtp();
                 $message = "Заказчик ".$this->user->username." ".mb_substr($this->user->surname, 0, 1, 'utf-8')." "
                         . "оставил Положительный отзыв по задаче ".$task['title'];
-                $headers = 'From: no_reply@icando.by';
+                $headers = 'From: no_reply@helpyou.by';
                 $smtpObj->send($customer['email'], 'Положительный отзыв', $message, $headers);
                 
                 if($customersFeedback){
@@ -84,7 +84,7 @@ class Performer_FeedbackController extends Zend_Controller_Action{
                         $taskObj->changeStatus($post['taskId'], 'closed');
                         
                         $message = "Статус задачи ".$task['title']." на \"Закрыта\"";
-                        $headers = 'From: no_reply@icando.by';
+                        $headers = 'From: no_reply@helpyou.by';
                         $smtpObj->send($customer['email'], 'Статус задачи', $message, $headers);
                         //  get ballance from performer
                         $usersObj->getBalanceSmaller($this->user->id, $task['customers_price']);
@@ -132,7 +132,7 @@ public function leaveFeedbackAsCustomerAction(){
                 $message = "Заказчик ".$this->user->username." ".mb_substr($this->user->surname, 0, 1, 'utf-8')." "
                         . "оставил отрицательный отзыв по задаче ".$task['title']." "
                         . " исполнителю ".$performer['username']." ".$performer['surname'];
-                $headers = 'From: no_reply@icando.by';
+                $headers = 'From: no_reply@helpyou.by';
                 $smtpObj->send(ADMIN_MAIL, 'Отрицательный отзыв', $message, $headers);
                 // make notification fot the performer
                 $message = "Заказчик ".$this->user->username." ".mb_substr($this->user->surname, 0, 1, 'utf-8')." "
@@ -165,7 +165,7 @@ public function leaveFeedbackAsCustomerAction(){
                 $message = "Заказчик ".$this->user->username." ".mb_substr($this->user->surname, 0, 1, 'utf-8')." "
                         . "оставил Положительный отзыв по задаче ".$task['title']." "
                         . " исполнителю ".$performer['username']." ".$performer['surname'];
-                $headers = 'From: no_reply@icando.by';
+                $headers = 'From: no_reply@helpyou.by';
                 $smtpObj->send($performer['email'], 'Положительный отзыв', $message, $headers);
                 if($performersFeedback){
                     // if performer left feedback
@@ -179,7 +179,7 @@ public function leaveFeedbackAsCustomerAction(){
                         $balanceReserveObj->removeReserve($task['id'],$task['performer_id']);
                         
                         $message = "Статус задачи ".$task['title']." на \"Закрыта\"";
-                        $headers = 'From: no_reply@icando.by';
+                        $headers = 'From: no_reply@helpyou.by';
                         $smtpObj->send($performer['email'], 'Статус задачи', $message, $headers);
                     }
                 }

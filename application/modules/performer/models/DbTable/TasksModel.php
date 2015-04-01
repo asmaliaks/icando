@@ -60,10 +60,10 @@ class Performer_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
         return true;
     }
     
-    public function removeNonTkenTasks(){
+    public function removeNonTakenTasks(){
         $currentDate = time();
-        $where = $this->getAdapter()->quoteInto('expiry_date < ?', $currentDate);
-        $this->delete($where);
+        $where = $this->getAdapter()->quoteInto('final_date < ?', $currentDate);
+        $this->delete($where.' AND status = non_taken');
         return true;
     }
     

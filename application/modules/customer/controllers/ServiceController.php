@@ -5,7 +5,7 @@ class ServiceController extends Zend_Controller_Action{
         
     }
     public function indexAction(){
-        echo 'servise index';
+        echo 'servise inx';
     }
     public function listOfServicesAction(){
       $this->view->title = 'Услуги';  

@@ -72,7 +72,7 @@ class Admin_Model_DbTable_Tasks extends Zend_Db_Table_Abstract{
         $select = $this->select()
          ->from(array('t' => 'tasks'))
          ->where('t.id=?',$taskId)      
-         ->orWhere('t.status=?','non_taken')   
+//         ->orWhere('t.status=?','non_taken')   
                 ->joinLeft(array('cust' => 'users'),
                 't.customer_id = cust.id',
                         array(

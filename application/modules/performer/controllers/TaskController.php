@@ -106,8 +106,10 @@ class Performer_TaskController extends Zend_Controller_Action{
         }
             $n++;
         }
-
+        $termsObj = new Default_Model_DbTable_TermsModel();
+        $terms = $termsObj->getTerms();
         // sending data to the view
+        $this->view->terms = $terms;
         $this->view->categories = $categories;      
     }
     
@@ -186,7 +188,7 @@ class Performer_TaskController extends Zend_Controller_Action{
             // send mail to customer
             $message = '<p>Вы успешно создали задачу <a href="http://helpyou.by/performer/task/view/id/'.$task['id'].'">'.$data['title'].'</a></p>';
             $message = wordwrap($message, 70);
-            $headers = 'From: no_reply@icando.by';
+            $headers = 'From: no_reply@helpyou.by';
             $smtpObj->send($this->user->email, 'Создана задача', $message, $headers);
             $this->_redirect('/performer/user/index');
         }
@@ -283,7 +285,7 @@ class Performer_TaskController extends Zend_Controller_Action{
                         . 'готов выполнить задание '.$task['title'].' '
                         . 'за предложенную Вами сумму.';
                 $message = wordwrap($message, 70);
-                $headers = 'From: no_reply@icando.by';
+                $headers = 'From: no_reply@helpyou.by';
                 $smtpObj->send($task['u_email'], 'Предложение кандидатуры', $message, $headers);
                 // send sms
                 $smsObj = new Default_Model_SmsModel();
@@ -298,7 +300,7 @@ class Performer_TaskController extends Zend_Controller_Action{
 //                $smtpObj = new Default_Model_Smtp();
 //                $message = "Пользователь ".$this->user->username." ".mb_substr($this->user->surname, 0, 1, 'utf-8').". "
 //                        . "предлагает ".$post['perfPrice']." рублей за выполнение задания ".$task['title'];
-//                $headers = 'From: no_reply@icando.by';
+//                $headers = 'From: no_reply@helpyou.by';
 //                $smtpObj->send($task['u_email'], 'Предложение кандидатуры', $message, $headers);
 //                // send sms
 //                $smsObj = new Default_Model_SmsModel();
@@ -344,7 +346,7 @@ class Performer_TaskController extends Zend_Controller_Action{
                     . 'принял вашу заявку на выполнение задачи <a href="http://helpyou.by/performer/task/view/id/'.$task['id'].'">'.$task['title'].'</a> '
                     . 'Вы можете с ним связаться'
                     . ' по телефону '.$this->user->phonenumber.'</p>';
-            $headers = 'From: no_reply@icando.by';
+            $headers = 'From: no_reply@helpyou.by';
             $smtpObj->send($user['email'], 'Принятие вашей кандидатуры', $message, $headers);
             $smsObj = new Default_Model_SmsModel();
             $message = "Задание №".$task['id'].", ".$this->user->phonenumber.", заказчик ".$this->user->username;

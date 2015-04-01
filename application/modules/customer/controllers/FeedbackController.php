@@ -41,7 +41,7 @@ class Customer_FeedbackController extends Zend_Controller_Action{
                 $message = "Заказчик ".$this->user->username." ".mb_substr($this->user->surname, 0, 1, 'utf-8')." "
                         . "оставил отрицательный отзыв по задаче ".$task['title']." "
                         . " исполнителю ".$performer['username']." ".$performer['surname'];
-                $headers = 'From: no_reply@icando.by';
+                $headers = 'From: no_reply@helpyou.by';
                 $smtpObj->send(ADMIN_MAIL, 'Отрицательный отзыв', $message, $headers);
                 // make notification fot the performer
                 $message = "Заказчик ".$this->user->username." ".mb_substr($this->user->surname, 0, 1, 'utf-8')." "
@@ -74,7 +74,7 @@ class Customer_FeedbackController extends Zend_Controller_Action{
                 $message = "Заказчик ".$this->user->username." ".mb_substr($this->user->surname, 0, 1, 'utf-8')." "
                         . "оставил Положительный отзыв по задаче ".$task['title']." "
                         . " исполнителю ".$performer['username']." ".$performer['surname'];
-                $headers = 'From: no_reply@icando.by';
+                $headers = 'From: no_reply@helpyou.by';
                 $smtpObj->send($performer['email'], 'Положительный отзыв', $message, $headers);
                 if($performersFeedback){
                     // if performer left feedback
@@ -83,7 +83,7 @@ class Customer_FeedbackController extends Zend_Controller_Action{
                         $taskObj = new Customer_Model_DbTable_TasksModel();
                         $taskObj->changeStatus($post['taskId'], 'closed');
                         $message = "Статус задачи ".$task['title']." на \"Закрыта\"";
-                        $headers = 'From: no_reply@icando.by';
+                        $headers = 'From: no_reply@helpyou.by';
                         $smtpObj->send($performer['email'], 'Статус задачи', $message, $headers);
                         
                         //  get ballance from performer

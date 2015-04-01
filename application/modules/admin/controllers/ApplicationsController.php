@@ -35,7 +35,7 @@ class Admin_ApplicationsController extends Zend_Controller_Action{
             $user = $usersObj->getUserById($customerId);
             $message = "Администратор отклонил вашу заявку";
             $message = wordwrap($message, 70);
-            $headers = 'From: no_reply@icando.by';
+            $headers = 'From: no_reply@helpyou.by';
             $smtpObj->send($user['email'], 'Заявка отклонена', $message, $headers);
             echo 'true';
         }
@@ -60,7 +60,7 @@ class Admin_ApplicationsController extends Zend_Controller_Action{
             $smtpObj = new Default_Model_Smtp();
             $message = "Администратор подтвердил изменение статуса вашей учетной записи на \"Исполнитель\".";
             $message = wordwrap($message, 70);
-            $headers = 'From: no_reply@icando.by';
+            $headers = 'From: no_reply@helpyou.by';
             $smtpObj->send($user['email'], 'Статус изменен', $message, $headers);
             echo 'true';
         }

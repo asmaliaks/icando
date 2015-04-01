@@ -39,15 +39,16 @@ define('SMTP_PASS','iHaLnRMK37a2');
 define('SMTP_CHARSET','UTF-8');
 define('SMTP_FROM','no-reply@helpyou.by');
 
-//define('SMTP_USERNAME','no_reply@eatpbank.ru');
-//define('SMTP_HOST','ssl://mail.nic.ru');
+//define('SMTP_USERNAME','asmaliaks@gmail.com');
+//define('SMTP_HOST','ssl://smtp.gmail.com');
 //
 //define('SMTP_PORT','465');
 //define('SMTP_DEBUG','true');
 //
-//define('SMTP_PASS','M5yEdA73JZDQY');
+//define('SMTP_PASS','asmalouski5233');
 //define('SMTP_CHARSET','UTF-8');
-//define('SMTP_FROM','no_reply@eatpbank.ru');
+//define('SMTP_FROM','asmaliaks@gmail.com');
+
 
 define("SALT", "3Y7r0A6c");
 define("DOCUMENT_ROOT", "/home/helpyoub/public_html/public/");

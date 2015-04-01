@@ -91,7 +91,7 @@
     <?php foreach($this->tasks as $task){?>
             <tr>
                 <td><a href="<?= $this->baseUrl().'/admin/tasks/view/id/'.$task['id'] ?>"><?=  $task['title']?></a></td>
-                <td><?=  date("i:h d.m.y",$task['created_at']) ?></td>
+                <td><?=  date("d.m.y",$task['created_at']) ?> <?= ' '.date("h:i",$task['created_at']) ?></td>
                 <td><?=  $task['status'] ?></td>
                 <td>
                     <?php if($task['performer_id']){?>

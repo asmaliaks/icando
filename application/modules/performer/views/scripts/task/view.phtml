@@ -52,12 +52,14 @@ if (hs.addSlideshow) hs.addSlideshow({
                     <?php } ?>
                     <p id="propMessage<?= $this->task['id'] ?>" style="display:none" class="text-success">Заявка отправлена</p>
                 <?php }else{ ?>
+                    <?php if($this->task['status'] == 'non_taken'){?>
                     <p   class="text-success">Заявка отправлена</p>
+                    <?php }?>
                 <?php } ?>
                 <?php break; 
                 case 'taken': ?>
                     <?php if($this->task['performer_id'] == $this->userId){?>
-                      <?php if(!$this->feedback){?>
+                      <?php if(!$this->taskFeedback){?>
                         <button class="btn btn-primary btn-sm" id="markDoneBut" data-toggle="modal" data-target="#feedbackModal"  >Оставить отзыв</button>
                         <p id="markedDone" style="display: none" class="text-success">Оставлен отзыв</p> 
                       <?php }else{?>

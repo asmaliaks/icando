@@ -1,12 +1,9 @@
 <?php
-class CronApiController extends Zend_Controller_Action {
+
+class Default_Model_CronModel{
     
-
-    public function init(){
-
-    }
-
     public function newTasksSendMailAction(){
+        $smtpObj = new Default_Model_Smtp();
         $usersObj = new Performer_Model_DbTable_UserCategory();
         $tasksObj = new Default_Model_DbTable_TasksModel();
         $newTasks = $tasksObj->getTasksYoungerThanHour();
@@ -14,7 +11,7 @@ class CronApiController extends Zend_Controller_Action {
             $userList = $usersObj->getUsersByCategoryId($task['category_id']);
             foreach($userList as $user){
                 $message = 'Пользователь '.$task['username'].' '
-                    . 'создал задачу <a href="http://helpyou.by/performer/task/view/id/'.$task['id'].'"> '.$task['title'].'</a> ';
+                    . 'создал задачу http://helpyou.by/performer/task/view/id/'.$task['id'].' '.$task['title'].' ';
                 $message = 'Здравствуйте, в категории '
                         . ' '.$task['cat_title'].' было создано новое задание, Вы можете просмотреть его в списке Актуальных заданий';
                 $message = wordwrap($message, 70);

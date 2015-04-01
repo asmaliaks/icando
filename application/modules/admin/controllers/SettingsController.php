@@ -58,4 +58,48 @@ class Admin_SettingsController extends Zend_Controller_Action{
             $this->view->contacts = $contacts;  
     }
 }
+    public function editTermsAction(){
+        // caal contacts model
+        $termsObj = new Admin_Model_DbTable_TermsModel();
+        $request = $this->getRequest();
+        if($request->isPost()){
+            $data = array(
+                'content' => $request->getParam('content'),
+            );
+            $termsObj->editTerms($data);
+            $message = new Zend_Session_Namespace('message');
+            $message->success = 'Информация изменена';
+            $message->setExpirationHops(1);
+            $this->_redirect('admin/settings/edit-terms');
+        }else{
+            $terms = $termsObj->getContacts();
+            $message = new Zend_Session_Namespace('message');
+            if($message->success){
+                $this->view->successMes = $message->success;
+            }
+            $this->view->terms = $terms;  
+    }
+}
+    public function editBecomePerformerAction(){
+
+        $pageObj = new Default_Model_DbTable_BecomePerformerModel();
+        $request = $this->getRequest();
+        if($request->isPost()){
+            $data = array(
+                'text' => $request->getParam('content'),
+            );
+            $pageObj->editPage($data);
+            $message = new Zend_Session_Namespace('message');
+            $message->success = 'Информация изменена';
+            $message->setExpirationHops(1);
+            $this->_redirect('admin/settings/edit-become-performer');
+        }else{
+            $page = $pageObj->getPage();
+            $message = new Zend_Session_Namespace('message');
+            if($message->success){
+                $this->view->successMes = $message->success;
+            }
+            $this->view->page = $page;  
+    }
+}
 }

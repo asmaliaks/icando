@@ -48,8 +48,10 @@ class Customer_TaskController extends Zend_Controller_Action{
         if($hasCode){
             $this->view->hasCode = $hasCode;
         }
-        
+        $termsObj = new Default_Model_DbTable_TermsModel();
+        $terms = $termsObj->getTerms();
         // sending data to the view
+        $this->view->terms = $terms;
         $this->view->user = $user;
         $this->view->categories = $categories;
     }
@@ -273,11 +275,12 @@ class Customer_TaskController extends Zend_Controller_Action{
             $message = "Заказчик ".$this->user->username." ".$this->user->surname." "
                     . "принял вашу заявку на выполнение задачи ".$task['title']." .Вы можете с ним связаться"
                     . " по телефону ".$this->user->phonenumber;
-            $headers = 'From: no_reply@icando.by';
+            $headers = 'From: no_reply@helpyou.by';
             $smtpObj->send($user['email'], 'Принятие вашей кандидатуры', $message, $headers);
             
             $smsObj = new Default_Model_SmsModel();
-            $message = "Задание №".$task['id'].", ".$this->user->phonenumber.", заказчик ".$this->user->username;
+            $customer = $usersObj->getUserById($this->user->id);
+            $message = "Задание №".$task['id'].", ".$customer['phonenumber'].", заказчик ".$this->user->username;
             $message = urlencode($message);
             $smsObj->sendSmsAction($user['phonenumber'], $message);
             echo 'true';exit;

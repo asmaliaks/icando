@@ -127,7 +127,7 @@ class SocialAttachController extends Zend_Controller_Action{
                 $mailObj = new Default_Model_Smtp();
                 $message = "Уважаемый ".$this->user->username." Вы успешно привязали свой аккаунт OK.RU. ";
                 $message = wordwrap($message, 70);
-                $headers = 'From: no_reply@icando.by';
+                $headers = 'From: no_reply@helpyou.by';
                 $mailObj->send($this->user->email, 'Привязка аккаунта', $message, $headers);
                 
                 if($this->user->role == 'customer'){
@@ -140,7 +140,7 @@ class SocialAttachController extends Zend_Controller_Action{
                 $message = "Уважаемый ".$this->user->username." Этот аккаунт vk.com не возможно привязать к аккаунту нашего сервиса"
                         . " потому что указанный вами OK.RU аккаунт уже задействован в системе. ";
                 $message = wordwrap($message, 70);
-                $headers = 'From: no_reply@icando.by';
+                $headers = 'From: no_reply@helpyou.by';
                 $mailObj->send($this->user->email, 'Привязка аккаунта', $message, $headers);
                 
                 if($this->user->role == 'customer'){
@@ -206,7 +206,7 @@ class SocialAttachController extends Zend_Controller_Action{
                 $mailObj = new Default_Model_Smtp();
                 $message = "Уважаемый ".$this->user->username." Вы успешно привязали свой аккаунт Вконтакте. ";
                 $message = wordwrap($message, 70);
-                $headers = 'From: no_reply@icando.by';
+                $headers = 'From: no_reply@helpyou.by';
                 $mailObj->send($this->user->email, 'Привязка аккаунта', $message, $headers);
 
                 if($this->user->role == 'customer'){
@@ -219,7 +219,7 @@ class SocialAttachController extends Zend_Controller_Action{
                 $message = "Уважаемый ".$this->user->username." Этот аккаунт vk.com не возможно привязать к аккаунту нашего сервиса"
                         . " потому что указанный вами VK аккаунт уже задействован в системе. ";
                 $message = wordwrap($message, 70);
-                $headers = 'From: no_reply@icando.by';
+                $headers = 'From: no_reply@helpyou.by';
                 $mailObj->send($this->user->email, 'Привязка аккаунта', $message, $headers);
 
                 if($this->user->role == 'customer'){
@@ -289,7 +289,7 @@ class SocialAttachController extends Zend_Controller_Action{
                     $mailObj = new Default_Model_Smtp();
                     $message = "Уважаемый ".$this->user->username." Вы успешно привязали свой аккаунт Facebook. ";
                     $message = wordwrap($message, 70);
-                    $headers = 'From: no_reply@icando.by';
+                    $headers = 'From: no_reply@helpyou.by';
                     $mailObj->send($this->user->email, 'Привязка аккаунта', $message, $headers);
 
                     if($this->user->role == 'customer'){
@@ -302,7 +302,7 @@ class SocialAttachController extends Zend_Controller_Action{
                     $message = "Уважаемый ".$this->user->username." Этот аккаунт vk.com не возможно привязать к аккаунту нашего сервиса"
                         . " потому что указанный вами FACEBOOK аккаунт уже задействован в системе. ";
                     $message = wordwrap($message, 70);
-                    $headers = 'From: no_reply@icando.by';
+                    $headers = 'From: no_reply@helpyou.by';
                     $mailObj->send($this->user->email, 'Привязка аккаунта', $message, $headers);
 
                     if($this->user->role == 'customer'){

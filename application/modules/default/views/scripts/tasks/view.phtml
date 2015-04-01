@@ -50,11 +50,9 @@ if (hs.addSlideshow) hs.addSlideshow({
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Детали</a></li>
-
-        
-    <?php if($this->tasksFeedback){?>
-        <li role="presentation"><a href="#feedback" aria-controls="feedback" role="tab" data-toggle="tab">Отзывы</a></li>
-    <?php } ?>    
+    <?php if(!empty($this->comments)){?>
+    <li role="presentation" id="commentsTab"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Комментарии </a></li>
+    <?php }?>
   </ul>
 
   <!-- Tab panes -->
@@ -67,7 +65,7 @@ if (hs.addSlideshow) hs.addSlideshow({
         </div>
         <div class="col-lg-12">
            <label>Исполнитель : </label>
-           <?= $this->task['up_username'].' '.mb_substr($this->task['up_surname'],0,1,'utf-8').'.' ?>
+           <a href="<?= $this->baseUrl().'/default/performers/view/id/'.$this->task['up_id'] ?>"><?= $this->task['up_username'].' '.mb_substr($this->task['up_surname'],0,1,'utf-8').'.' ?></a>
         </div>
         <div class="col-lg-12">
            <label>Стоимость : </label>
@@ -94,11 +92,7 @@ if (hs.addSlideshow) hs.addSlideshow({
             <label>Описание : </label>
            <?= $this->task['description'] ?>
         </div>  
-    </div>
-
-    <?php if($this->tasksFeedback){?>
-        <div role="tabpanel" class="tab-pane" id="feedback">
-        <div class="col-lg-12" style="padding-bottom: 10px">
+          <div class="col-lg-12" style="padding-bottom: 10px">
             <h3 class="block-title-3">
                 Отзыв  от заказчика
             </h3>
@@ -238,9 +232,49 @@ if (hs.addSlideshow) hs.addSlideshow({
                     <h3 class="product-code"><?= date("d.m.Y",$this->feedback['created']); ?></h3>
             </div>
         </div>
-        </div>
-    <?php } ?> 
+    </div>
+      <div role="tabpanel" class="tab-pane" id="comments" >
+          <?php if(!$this->comments){?>
+          <div class="col-sm-12">
+            <div class="list-group list-group-item">
+              <h3 class="list-group-item-heading">Сообщений пока нет</h3>
+            </div>
+          </div>
+          <?php }else{ ?>
+          <div class="col-sm-12"> 
+              <?php foreach($this->comments as $comment){?>
+              <div class="col-sm-12" style="padding-bottom: 10px">
+                 
+                    <?php if($comment['user_from'] == $this->currentUser->id){?>
+                        <div class="col-sm-3">
+                            <img src="<?= $this->baseUrl().'/images/users_images/'.$comment['u_image'] ?>" height="70">
+                        </div>
+                        <div class="col-sm-6">
+                            <h5><?= $comment['username'] ?></h5>
+                            <small><?= date("h:i d.m.y", $comment['created']); ?></small>
+                            <p><?= $comment['text'] ?></p>
+                        </div>
+                        <div class="col-sm-3"></div>
+                    <?php }else{?>
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-6">
+                            <h5><a href="<?= $this->baseUrl().'/customer/performers/performer-view/id/'.$comment['u_id'] ?>"><?= $comment['u_username'] ?></a></h5>
+                            <small><?= date("h:i d.m.y", $comment['created']); ?></small>
+                            <p><?= $comment['text'] ?></p>
+                        </div>
+                        <div class="col-sm-3">
+                            <img src="<?= $this->baseUrl().'/images/users_images/'.$comment['u_image'] ?>" height="70">
+                        </div>
+                        
+                    <?php }?>
+                       
+                        </div>
+              <?php } ?> 
+          </div>
+          <?=  $this->paginationControl($this->comments, 'Sliding', 'pagination.phtml') ?>
+          <?php } ?>
 
+      </div>
       </div>
   </div>
 

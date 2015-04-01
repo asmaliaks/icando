@@ -109,7 +109,7 @@
     <?php foreach($this->performersTasks as $task){?>
             <tr>
                 <td><a href="<?= $this->baseUrl().'/admin/tasks/view/id/'.$task['id'] ?>"><?=  $task['title']?></a></td>
-                <td><?=  date("i:h d.m.y",$task['created_at']) ?></td>
+                <td><?=  date("h:i d.m.y",$task['created_at']) ?></td>
                 <td><?=  $task['status'] ?></td>
                 <td><a href="<?= $this->baseUrl().'/admin/customers/view/id/'.$task['customer_id'] ?>"><?= $task['u_username'].' '.$task['u_surname'] ?></a></td>
                 

@@ -11,6 +11,9 @@ class Performer_AboutController extends Zend_Controller_Action{
        } 
     }
 public function indexAction(){
+      $this->view->title = 'Как это работает';  
+      $this->view->headTitle('Как это работает', 'APPEND');
+    
     $aboutObj = new Customer_Model_DbTable_AboutModel();
     $about = $aboutObj->getAbout();
     $this->view->about = $about;

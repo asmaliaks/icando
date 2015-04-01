@@ -83,7 +83,7 @@ class RegistrationController extends Zend_Controller_Action{
                         . "телефона. Получив смс с кодом, введите код и номер телефона в соответствующие поля."
                         ."Используйте свой email в качестве логина";
                 $message = wordwrap($message, 120);
-                $headers = 'From: no_reply@icando.by';
+                $headers = 'From: no_reply@helpyou.by';
                 $mailObj->send($data['email'], 'Регистрация', $message, $headers);
                 
                 // generate SMS-code
@@ -158,7 +158,7 @@ class RegistrationController extends Zend_Controller_Action{
                     . "перейдите по этой ссылке http://".$_SERVER['SERVER_NAME']."/registration/hash/hash/".$hash." . Если вы не отправляли заявку на восстановление пароля, "
                     . "то просто проигнорируйте данное письмо.";
             $message = wordwrap($message, 70);
-            $headers = 'From: no_reply@icando.by';
+            $headers = 'From: no_reply@helpyou.by';
             $smtpObj->send($data['user_email'], 'Восстановление пароля', $message, $headers);
             echo 'true';exit;
         }
