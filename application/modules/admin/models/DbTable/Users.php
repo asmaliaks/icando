@@ -93,7 +93,7 @@ class Admin_Model_DbTable_Users extends Zend_Db_Table_Abstract{
     public function changeCustomerToPerformer($userId){
         $data = array(
             'role' => 'performer',
-            'balance' => 10,
+            'balance' => 50000,
             );
        
         $where = $this->getAdapter()->quoteInto('id = ?', $userId);

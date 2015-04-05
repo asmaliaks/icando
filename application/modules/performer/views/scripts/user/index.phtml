@@ -13,12 +13,12 @@
     <div class="col-lg-4 col-md-4 col-sm-4">
     	<!-- product Image and Zoom -->
 
-    <div class="main-image sp-wrap col-lg-12 no-padding style2 style2look2" style="display: inline-block;"> 
+    <div class="main-image sp-wrap col-lg-12 no-padding style3" style="display: inline-block;"> 
          
         
          
-    <div class="sp-large" style="left: 0px; top: 0px;">
-            <img width="100%" src="<?= $this->baseUrl() ?>/images/users_images/<?= $this->user['image'] ?>" class="img-responsive" alt="img" />
+    <div class="sp-large" >
+            <img  src="<?= $this->baseUrl() ?>/images/users_images/<?= $this->user['image'] ?>" class="img-responsive" alt="img" />
 
     </div>
     </div>
@@ -42,20 +42,20 @@
                 <?= $age;  ?> лет
       </h3>
       
-      <div class="product-price"> 
-          <span class="price-sales">
+      <div class="product-code"> 
+          <span class="product-code">
               Создано задач:  <?php $customersTasksAmount = count($this->customersTasks); ?></span> 
               <?= $customersTasksAmount; ?>
            
       </div>
-      <div class="product-price"> 
-          <span class="price-sales">
+      <div class="product-code"> 
+          <span class="product-code">
               Выполнено задач:  <?php $performersTasksAmount = count($this->performersTasks); ?>
               <?= $performersTasksAmount; ?>
           </span>  
       </div>
-      <div class="product-price"> 
-          <span class="price-sales">
+      <div class="product-code"> 
+          <span class="product-code">
               Статус:</span> 
             <?php if($this->user['banned']){?>
              Забанен до <?= date('d.m.y', $this->user['banned']); ?> 
@@ -65,8 +65,8 @@
            
       </div>
 
-      <div class="product-price"> 
-          <span class="price-sales">
+      <div class="product-code"> 
+          <span class="product-code">
               Баланс:</span> 
               <span id="balSpan"><?= $this->user['balance']; ?></span> баллов
 <!--              <a class="btn btn-primary btn-xs" href="<? $this->baseUrl().'/performer/payment/index/' ?>">Пополнить баланс</a>-->
@@ -255,7 +255,7 @@
                 <tbody>
             <?php foreach($this->acceptedTasks as $task){?>
                     <tr>
-                        <td><a href="<?= $this->baseUrl().'/performer/task/view/id/'.$task['id'] ?>"><?= $task['title'] ?></a></td>
+                        <td><a style="font-weight: bold" href="<?= $this->baseUrl().'/performer/task/view/id/'.$task['id'] ?>"><?= $task['title'] ?></a></td>
                         <td><a href="<?= $this->baseUrl().'/performer/customer/view/id/'.$task['customer_id'] ?>"><?= $task['u_username'].' '.mb_substr($task['u_username'], 0, 1, 'utf-8') ?></a></td>
                         <td><?= $task['customers_price'] ?> бел. рублей</td>
                         <td><?= date('d.m.Y', $task['final_date']) ?></td>
@@ -300,7 +300,7 @@
                 <?php  $tpObj = new Customer_Model_DbTable_TaskPrepositionModel();
                        $prepositions = count($tpObj->getTasksPrepositionis($task['id']));
                 ?>
-                <td><a href="<?= $this->baseUrl().'/performer/task/performers-view/id/'.$task['id']?>">
+                <td><a style="font-weight: bold" href="<?= $this->baseUrl().'/performer/task/performers-view/id/'.$task['id']?>">
                         <?= $task['title'] ?>
                     </a>
                     <?php if($task['status']== 'non_taken'){?>
@@ -330,7 +330,7 @@
                   ?>
                 </td>
                 <td>
-                    <?php if($task['status'] == 'non_taken' || $task['status'] == 'closed'){?>
+                    <?php if($task['status'] == 'non_taken' ){?>
                     <button onclick="removeTask(<?= $task['id'] ?>)">Удалить</button>
                     <img style="display: none" id="remPrel<?= $task['id'] ?>" src="<?= $this->baseUrl()?>/images/blue_preloader.gif" width="50">
                      <?php } ?>

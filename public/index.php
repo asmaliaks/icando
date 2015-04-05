@@ -1,6 +1,6 @@
 <?php
 
-// Define path to application directory
+// Define path to application directory 
 defined('APPLICATION_PATH')
     || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application/'));
 
@@ -25,7 +25,7 @@ $application = new Zend_Application(
 // for uploading files
 
 // SMTP constants definding
-define('ADMIN_MAIL','asmaliaks@gmail.com');
+define('ADMIN_MAIL','helpu0315@gmail.com');
 
 
 define('SMTP_USERNAME','no-reply@helpyou.by');
@@ -66,9 +66,13 @@ define("DOCUMENT_ROOT", "/home/helpyoub/public_html/public/");
         define('FB_CLIENT_SECRET', 'd6fc08faf3ca501b6d94bd3b9202f8d7');
         define("FB_REDIRECT_URI",'http://helpyou.by/s-auth/fb-complete/');
            // facebook attach account
-        define("FB_ATTACH_CLIENT_ID", '1593224424224258');
-        define('FB_ATTACH_CLIENT_SECRET', '98e267c9a530262ecf87bea0544f39b0');
+        define("FB_ATTACH_CLIENT_ID", '783021221773947');
+        define('FB_ATTACH_CLIENT_SECRET', 'd6fc08faf3ca501b6d94bd3b9202f8d7');
         define("FB_ATTACH_REDIRECT_URI",'http://helpyou.by/social-attach/fb-complete/');
+//           // facebook attach account
+//        define("FB_ATTACH_CLIENT_ID", '1593224424224258');
+//        define('FB_ATTACH_CLIENT_SECRET', '98e267c9a530262ecf87bea0544f39b0');
+//        define("FB_ATTACH_REDIRECT_URI",'http://helpyou.by/social-attach/fb-complete/');
             // ok.com
         define("OK_CLIENT_ID", '1130729728');
         define('OK_PUBLIC_KEY', 'CBACJGGEEBABABABA');

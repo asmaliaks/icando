@@ -21,6 +21,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->add(new Zend_Acl_Resource('default:user'), 'default'); 
        $this->add(new Zend_Acl_Resource('default:become-performer'), 'default'); 
        $this->add(new Zend_Acl_Resource('default:terms'), 'default'); 
+       $this->add(new Zend_Acl_Resource('default:safety'), 'default'); 
        
        $this->add(new Zend_Acl_Resource('admin'));
        $this->add(new Zend_Acl_Resource('admin:index'), 'admin');
@@ -47,6 +48,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->add(new Zend_Acl_Resource('customer:contacts'), 'customer');
        $this->add(new Zend_Acl_Resource('customer:become-performer'), 'customer');
        $this->add(new Zend_Acl_Resource('customer:terms'), 'customer');
+       $this->add(new Zend_Acl_Resource('customer:safety'), 'customer');
        
        $this->add(new Zend_Acl_Resource('performer'));
        $this->add(new Zend_Acl_Resource('performer:index'), 'performer');
@@ -65,6 +67,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->add(new Zend_Acl_Resource('performer:portfolio'), 'performer');
        $this->add(new Zend_Acl_Resource('performer:become-performer'), 'performer');
        $this->add(new Zend_Acl_Resource('performer:terms'), 'performer');
+       $this->add(new Zend_Acl_Resource('performer:safety'), 'performer');
        
 
        
@@ -110,6 +113,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('admin', 'admin:settings', 'edit-contacts');
        $this->allow('admin', 'admin:settings', 'edit-terms');
        $this->allow('admin', 'admin:settings', 'edit-become-performer');
+       $this->allow('admin', 'admin:settings', 'edit-safety');
        $this->allow('admin', 'admin:main-banner', 'slider-list');
        $this->allow('admin', 'admin:main-banner', 'add');
        $this->allow('admin', 'admin:main-banner', 'remove-image');
@@ -171,6 +175,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('customer', 'customer:contacts', 'index');
        $this->allow('customer', 'customer:become-performer', 'index');
        $this->allow('customer', 'customer:terms', 'index');
+       $this->allow('customer', 'customer:safety', 'index');
       
        // performer
        $this->allow('performer', 'default:authentication', 'log-out');
@@ -223,6 +228,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('performer', 'performer:payment', 'notify');
        $this->allow('performer', 'performer:become-performer', 'index');
        $this->allow('performer', 'performer:terms', 'index');
+       $this->allow('performer', 'performer:safety', 'index');
        
        //guest
        $this->allow('guest', 'default:index', 'index');
@@ -259,5 +265,6 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('guest', 'performer:payment', 'notyfy');
        $this->allow('guest', 'default:become-performer', 'index');
        $this->allow('guest', 'default:terms', 'index');
+       $this->allow('guest', 'default:safety', 'index');
     }
 }

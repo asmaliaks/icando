@@ -1,4 +1,29 @@
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>                  
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>  
+  <!-- if phone is not verified -->
+<div class="modal signUpContent fade" id="ModalSmsCode" tabindex="-1" role="dialog" >
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
+        <h3 class="modal-title-site text-center" > SMS код </h3>
+      </div>
+      <div class="modal-body">
+          <p>
+             Для подтверждения вашего номера введите код полученный в SMS
+          </p>
+          <input type="text" id="smsCode"><p class="text-danger" id="modalCodeError" style="display: none">Неверный код</p></br>
+          <img id="smsModalPreloader" style="display: none" src="<?= $this->baseUrl().'/images/blue_preloader.gif' ?>" width="50"></br>
+          
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Закрыть</button>
+        <button id="takeCode" class="btn btn-primary" disabled >Подтвердить</button>
+      </div>
+    </div>
+    <!-- /.modal-content --> 
+    
+  </div>
+  </div>
     <div class="row">
         <div class="breadcrumbDiv col-lg-12">
               <ul class="breadcrumb">
@@ -13,7 +38,7 @@
     <div class="col-lg-4 col-md-4 col-sm-4">
     	<!-- product Image and Zoom -->
 
-    <div class="main-image sp-wrap col-lg-12 no-padding style2 style2look2" style="display: inline-block;"> 
+    <div class="main-image sp-wrap col-lg-12 no-padding style3" style="display: inline-block;"> 
          
         
          
@@ -90,25 +115,27 @@
       
       <?php } ?>
     </div>
+    <div class="col-sm-12">
       <h3 class="product-code">Возраст : <?php $unixAge = time() - $this->user['birth_date'];
                 $unixYears = $unixAge/31536000;
                 $age = floor($unixYears);
                 ?>
                 <?= $age;  ?> лет
       </h3>
-      <div class="product-price"> 
-          <span class="price-sales">
+    </div>
+    <div class="col-sm-12">
+      <h3 class="product-code"> 
               Создано задач:  <?php $tasksAmount = count($this->customersTasks); ?>
-              <?= $tasksAmount; ?>
-          </span>  
-      </div>
+              <?= $tasksAmount; ?> 
+      </h3>
+    </div>
 <!--      <div class="color-details"> -->
 
      
       
       <div class="clear"></div>
 
-      
+     <div class="col-sm-12"> 
       <div style="clear:both"></div>
       <div class="product-share clearfix">
         <p> Привязка к соцсетям </p>
@@ -136,59 +163,110 @@
             <?php } ?>
         </div>
       </div>
+      </div>
+      
       <div class="product-share clearfix">
         <?php if(!$this->user['phonenumber']){?>
-                  <p class="text-danger">Введите свой номер телефона в настройках аккаунта</p>
+          <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group " id="sendSmsForm">
+               <label class="sr-only" for="phonenumber">Ваш контактный номер телефона</label>
+               <label >Ваш контактный номер телефона</label></br>
+               <div class="input-group">
+                 <div class="input-group-addon">+375</div>
+                 <input type="text" class="form-control" id="phonenumberInp" <?php if($this->user['phonenumber']){?>value="<?= mb_substr($this->user['phonenumber'], 3, 10,'utf-8')?>" <?php } ?>  placeholder="Введите ваш номер телефона...">
+                 <div id="sendSmsButton" style="display: none; background-color:#4ec67f" class="input-group-addon btn">Получить код</div>
+               </div>
+               <img id="smsPreloader" style="display: none" src="<?= $this->baseUrl().'/images/blue_preloader.gif' ?>" width="50">
+               <p class="text-danger" id="phoneErrorTaken" style="display: none">Номер занят</p>
+               <p class="text-danger" id="phoneErrorInvalid" style="display: none">Неверный номер</p>
+             </div>
+             </div><div class="col-sm-3"></div>
+             <div class="col-sm-3"></div>
+                 
+          </div>
+             <div class="col-sm-3"><button style="display: none" class="btn btn-primary btn-xs"  id="enterCodeBut">Ввести код</button></div>
         <?php }else{?>
-        <p> Верификация телефона </p>
-        <img id="verificatePhone" style="display:none" data-toggle="tooltip" data-placement="left" title="Телефон верифецирован"  width="40px" src="<?= $this->baseUrl().'/ico/phone.png' ?>" >
-        <div id="verifDiv" > 
+
             <?php if($this->user['phone_verified'] == 0){?>
                 
                 <?php if(!$this->user['pv_id']){?>
-            <a id="verificatePhoneNum">
-                    <img id="phoneVerifImg" data-toggle="tooltip" data-placement="left" title="Нажмите для верификации телефона"  width="30px" src="<?= $this->baseUrl().'/ico/phone_wb.png' ?>" >
-                    </a>
-                    <img id="phoneVerifyPreloader" width="50" src="<?= $this->baseUrl().'/images/blue_preloader.gif' ?>" style="display: none">
-                    <p id="smsNumError" class="text-danger" style="display:none">Неправильный формат номера телефона</p>
-                    <p id="smsUnavError" class="text-danger" style="display:none">Сервис временно не работает</p>
-                    <div  id="verificateDiv" style="display: none">
+                     <div class="row">
+                        <div class="col-sm-6">
+                          <div class="form-group " id="sendSmsForm">
+                             <label class="sr-only" for="phonenumber">Ваш контактный номер телефона</label>
+                             <label >Ваш контактный номер телефона</label></br>
+                             <div class="input-group">
+                               <div class="input-group-addon">+375</div>
+                               <input type="text" class="form-control" id="phonenumberInp" <?php if($this->user['phonenumber']){?>value="<?= mb_substr($this->user['phonenumber'], 3, 10,'utf-8')?>" <?php } ?> placeholder="Введите ваш номер телефона...">
+                               <div id="sendSmsButton" style="display: none; background-color:#4ec67f" class="input-group-addon btn">Получить код</div>
+                             </div>
+                             <img id="smsPreloader" style="display: none" src="<?= $this->baseUrl().'/images/blue_preloader.gif' ?>" width="50">
+                             <p class="text-danger" id="phoneErrorTaken" style="display: none">Номер занят</p>
+                             <p class="text-danger" id="phoneErrorInvalid" style="display: none">Неверный номер</p>
+                           </div>
+                           </div><div class="col-sm-3"></div>
+                           <div class="col-sm-3"></div>
 
                     </div>
+                    <div class="col-sm-3"><button style="display: none" class="btn btn-primary btn-xs" id="enterCodeBut" >Ввести код</button></div>
                 <?php }else{?>
-                     
-                        <div  id="verificateDiv">
-                        <div class="form-inline">
+                     <div class="row">
+                        <div class="col-sm-6">
+                          <div class="form-group " id="sendSmsForm">
+                             <label class="sr-only" for="phonenumber">Ваш контактный номер телефона</label>
+                             <label >Ваш контактный номер телефона</label></br>
+                             <div class="input-group">
+                               <div class="input-group-addon">+375</div>
+                               <input type="text" class="form-control" id="phonenumberInp" <?php if($this->user['phonenumber']){?>value="<?= mb_substr($this->user['phonenumber'], 3, 10,'utf-8')?>" <?php } ?> placeholder="Введите ваш номер телефона...">
+                               <div id="sendSmsButton" style="display: none; background-color:#4ec67f" class="input-group-addon btn">Получить код</div>
+                             </div>
+                             <img id="smsPreloader" style="display: none" src="<?= $this->baseUrl().'/images/blue_preloader.gif' ?>" width="50">
+                             <p class="text-danger" id="phoneErrorTaken" style="display: none">Номер занят</p>
+                             <p class="text-danger" id="phoneErrorInvalid" style="display: none">Неверный номер</p>
+                           </div>
+                           </div><div class="col-sm-3"></div>
+                           <div class="col-sm-3"></div>
 
-                          <div class="form-group" style="padding-bottom: 15px">
-                            <p id="codeError" style="display: none" class="text-danger">Неверный код</p>
-                            <div class="input-group">
-                              <input type="text" class="form-control" id="code" placeholder="SMS-код">
-
-                            </div>
-                          </div>
-                </br>
-
-                        <div style="padding-top: 10px">
-                            <a class="btn btn-primary" id="activation">Активация</a>
-                            <img id="activatePrel" src="<?= $this->baseUrl().'/images/blue_preloader.gif' ?>" width="60" style="display: none">
-                          
-<!--                            </form>-->
-
-                          </div>
-                </div>
-                          </div>
+                    </div>
+                    <div class="col-sm-3"><button style="display: none"  class="btn btn-primary btn-xs" id="enterCodeBut" >Ввести код</button></div>
                 <?php }?>
             <?php }else{ ?>
-                <img id="verificatePhone" data-toggle="tooltip" data-placement="left" title="Телефон верифецирован"  width="40px" src="<?= $this->baseUrl().'/ico/phone.png' ?>" >
+                <img id="verificatePhone" data-toggle="tooltip" data-placement="left" title="Телефон верифицирован"  width="40px" src="<?= $this->baseUrl().'/ico/phone.png' ?>" >
+                <a id="changePhoneLink">Сменить номер телефона</a>
+                
+                <div id="divChangePhone" style="display: none">
+                    <div class="row">
+                        <div class="col-sm-6">
+                          <div class="form-group " id="sendSmsForm">
+                             <label class="sr-only" for="phonenumber">Ваш контактный номер телефона</label>
+                             <label >Ваш контактный номер телефона</label></br>
+                             <div class="input-group">
+                               <div class="input-group-addon">+375</div>
+                               <input type="text" class="form-control" id="phonenumberInp" <?php if($this->user['phonenumber']){?>value="<?= mb_substr($this->user['phonenumber'], 3, 10,'utf-8')?>" <?php } ?> placeholder="Введите ваш номер телефона...">
+                               <div id="sendSmsButton" style="display: none; background-color:#4ec67f" class="input-group-addon btn">Получить код</div>
+                             </div>
+                             <img id="smsPreloader" style="display: none" src="<?= $this->baseUrl().'/images/blue_preloader.gif' ?>" width="50">
+                             <p class="text-danger" id="phoneErrorTaken" style="display: none">Номер занят</p>
+                             <p class="text-danger" id="phoneErrorInvalid" style="display: none">Неверный номер</p>
+                           </div>
+                           </div><div class="col-sm-3"></div>
+                           <div class="col-sm-3"></div>
+
+                    </div>
+                    <div class="col-sm-3">
+                        <button style="display: none" class="btn btn-primary btn-xs" id="enterCodeBut" >Ввести код</button>
+                    </div>
+                </div>
             <?php } ?>
-        </div>
+        
         <?php } ?>
+              </div>  
       </div>
       
     </div><!--/ right column end -->
 
-  </div>
+<!--  </div>-->
     <div class="row">
         <div calss="col-lg-12" style="padding-bottom: 5px">
 <div role="tabpanel">
@@ -255,7 +333,7 @@
                   ?>
                 </td>
                 <td>
-                    <?php if($task['status'] == 'non_taken' || $task['status'] == 'closed'){?>
+                    <?php if($task['status'] == 'non_taken'){?>
                     <button onclick="removeTask(<?= $task['id'] ?>)">Удалить</button>
                     <img style="display: none" id="remPrel<?= $task['id'] ?>" src="<?= $this->baseUrl()?>/images/blue_preloader.gif" width="50">
                      <?php } ?>
@@ -281,24 +359,94 @@
 
 <!--------------------------->
 <?php if(!$this->user['phonenumber']){
+
     $this->user['phonenumber'] = 0;
 }
 ?>
 <script>
 $(document).ready(function(){ 
+    
+   $('#changePhoneLink').bind('click', function(){
+       
+       $('#verificatePhone').toggle();
+       $('#divChangePhone').toggle();
+   }); 
+   
+ 
+    
+   $('#enterCodeBut').bind("click",function(){
+       $('#smsModalPreloader').hide();
+       $('#modalCodeError').hide();
+       $('#smsCode').val('');
+       $('#ModalSmsCode').modal('show');
+   });
+       $('#smsCode').bind('keyup', function(){
+        var codeLng = $('#smsCode').val().length;
+        if(codeLng == 6){
+            $('#takeCode').removeAttr("disabled");
+        }
+    });
+    
+    $('#takeCode').bind('click', function(){
+        var code = $('#smsCode').val();
+        $('#smsModalPreloader').show();
+        verifyPhone(code);
+    });    
+    
     $('#tasksTable').DataTable({
     });
+    var phonenumber = $('#phonenumberInp').val();
+    var numberLng = phonenumber.length;
+    if(numberLng == 9){
+        $('#sendSmsButton').show();
+        $('#enterCodeBut').show();
+    }else{
+        $('#sendSmsButton').hide();
+        $('#enterCodeBut').hide();
+    }
+    $('#phonenumberInp').bind("keyup", function(){
+        var phonenumber = $('#phonenumberInp').val();
+        var numberLng = phonenumber.length;
+        if(numberLng == 9){
+//           checkPhoneForUniq(phonenumber);
+            $('#sendSmsButton').show();
+            $('#enterCodeBut').show();
+    
+        }else{
+            $('#sendSmsButton').hide();
+            $('#enterCodeBut').hide();
+        }
+    });
+    
+    $('#smsModalPreloader').bind('click', function(){
+        
+    });
+//setTimeout(function() {
+//      $('#smsAgain').removeAttr("disabled");
+//}, 60000);  
+
+$('#smsAgain').bind("click", function(){
+    $(this).hide();
+    $('#activatePrel').show();
+    var phoneVal = $('#phonenumberInp').val();
+    editUser(phoneVal, <?= $this->user['id'] ?>);
+    sendSms('375'+phoneVal, <?= $this->user['id'] ?>);
+    
+});
+
 $('#imageInput').change(function(){
    $('#avatarForm').submit();
 });
 
-    $('#verificatePhoneNum').bind('click', function(){  
-        
-            $('#verificatePhoneNum').hide();
-            $('#phoneVerifyPreloader').show();
-            sendSms(<?= $this->user['phonenumber'] ?>, <?= $this->user['id'] ?>);
-            
-    });
+$('#sendSmsButton').bind('click', function(){  
+
+        $('#sendSmsButton').hide();
+        $('#smsPreloader').show();
+        var phoneVal = $('#phonenumberInp').val();
+        editUser(phoneVal, <?= $this->user['id'] ?>);
+        sendSms('375'+phoneVal, <?= $this->user['id'] ?>);
+
+});
 
     $('#activation').bind("click", function(e){
         e.preventDefault();
@@ -340,6 +488,44 @@ $('#email_input').bind("keyup",function(){
 });
 });
 
+function verifyPhone(code){
+    $.ajax({
+        type: 'POST',
+        url: '<?= $this->baseUrl.'/phone-activation/activate-account'; ?>',
+        data: {code: code},
+        success: function(data){
+           data = JSON.parse(data);
+           if(data.code == 'false'){
+               $('#smsModalPreloader').hide();
+               $('#modalCodeError').show();
+           }else if(data.code == '1'){
+                $.ajax({
+                        type: 'POST',
+                        url: '<?= $this->baseUrl.'/phone-activation/activate'; ?>',
+                        data: {code: code},
+                        success: function(data){
+                            location.reload();
+                         }
+                     });
+           }
+         }
+     });
+}
+
+function editUser(phoneNumber, userId){
+
+    $.ajax({
+        type: 'POST',
+        url: '<?= $this->baseUrl.'/registration/edit-user'; ?>',
+        data: {phoneNumber: phoneNumber, userId: userId},
+        success: function(data){console.log(phoneNumber);
+            if(data === 'true'){
+
+            }
+            
+         }
+     });
+     }
 function activatePhone(code){
 $('#codeError').hide();
 $('#phoneVerificationError').hide();
@@ -382,18 +568,19 @@ function sendSms(phoneNumber, userId){
         url: '<?= $this->baseUrl.'/sms/phone-verify'; ?>',
         data: {phoneNumber: phoneNumber, userId: userId},
         success: function(data){
-            if(data === 'true'){
-                location.reload();
+            if(data == 'true'){
+                $('#ModalSmsCode').modal('show');
+                $('#smsPreloader').hide();
             }else if(data == -4){
-                $('#phoneVerifyPreloader').hide();
-                $('#smsNumError').show();
-                $('#smsNumError').fadeOut(1000);
-                $('#verificatePhoneNum').show();
+                $('#smsPreloader').hide();
+                $('#phoneErrorInvalid').show();
+                $('#phoneErrorInvalid').fadeOut(3000);
+                $('#sendSmsButton').show();
             }else if(data == -10){
-                $('#phoneVerifyPreloader').hide();
-                $('#smsUnavError').show();
-                $('#smsUnavError').fadeOut(1000);
-                $('#verificatePhoneNum').show();
+                $('#smsPreloader').hide();
+                $('#phoneError').show();
+                $('#phoneError').fadeOut(1000);
+                $('#sendSmsButton').show();
             }
             
          }

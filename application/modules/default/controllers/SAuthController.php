@@ -198,13 +198,13 @@ class SAuthController extends Zend_Controller_Action{
                 curl_setopt($curl, CURLOPT_URL, $url);
                 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($curl, CURLOPT_HEADER, false);
-                $userInfo = json_decode(curl_exec($curl),true);
+                $userInfo = json_decode(curl_exec($curl),true);//print_r($userInfo);exit;
                 curl_close($curl);
                            // check id user exists with that user_id 
                 $userModel = new Model_DbTable_Users();
-                $user = $userModel->checkFbUser($userInfo['id']);//print_r($user);exit;
+                $user = $userModel->checkFbUser($userInfo['id']);
                 // if user is not registred
-                if(!$user){//print_r('opa');exit;
+                if(!$user){
                     $pass = base64_encode($userInfo['id']);
                     $pass = $pass.SALT;
                     if(empty($userInfo['birthday'])){
@@ -252,10 +252,10 @@ class SAuthController extends Zend_Controller_Action{
                     $authAdapter = $this->getAuthAdapter('fb');
 
                     $userId = $userInfo['id'];
-                    $pass = base64_encode($userInfo['id']);
-                    $pass = $pass.SALT;
-                    $authAdapter->setIdentity($userId)
-                        ->setCredential($pass);
+                    $fbUser = $userModel->getUserBySnId($userId, 'fb');
+                    
+                    $authAdapter->setIdentity($fbUser['fb'])
+                    ->setCredential($fbUser['pass']);
 
                     $auth = Zend_Auth::getInstance();
                     $result = $auth->authenticate($authAdapter);

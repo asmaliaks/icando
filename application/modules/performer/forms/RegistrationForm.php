@@ -67,18 +67,15 @@ class Performer_Form_RegistrationForm extends Zend_Form{
        $birthYear->addMultiOption($year, $year);
        $y++;
    }
-           
-   $phoneNumber = new Zend_Form_Element_Text('phonenumber');
-   $phoneNumber->setLabel('Номер телефона +375')
-           ->addValidator('alnum');
+
    
    $city = new Zend_Form_Element_Text('city');
    $city->setLabel('Город');
    
-   $image = new Zend_Form_Element_File('image');
-   $image->setLabel('Изображение')
-         ->setDestination(DOCUMENT_ROOT.'/images/users_images/');  
-//         ->setDestination($_SERVER['DOCUMENT_ROOT'].'/images/users_images/');  
+//   $image = new Zend_Form_Element_File('image');
+//   $image->setLabel('Изображение')
+//         ->setDestination(DOCUMENT_ROOT.'/images/users_images/');  
+////         ->setDestination($_SERVER['DOCUMENT_ROOT'].'/images/users_images/');  
    
    
    $pass = new Zend_Form_Element_Password('pass');
@@ -91,7 +88,7 @@ class Performer_Form_RegistrationForm extends Zend_Form{
           ->setAttrib('class', 'button2')
           ->setAttrib('class', 'btn btn-primary');
    
-   $this->addElements(array($email, $name, $surname, $sex, $about, $phoneNumber, $city, $dayBirth, $monthBirth, $birthYear, $image, $pass,  $submit));
+   $this->addElements(array($email, $name, $surname, $sex, $about,  $city, $dayBirth, $monthBirth, $birthYear,  $pass,  $submit));
 
    $this->setMethod('post');
    

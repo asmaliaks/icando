@@ -70,6 +70,7 @@ class Default_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
                             array(
                                 'u.id as u_id',
                                 'u.username as u_username',
+                                'u.surname as u_surname',
                                 'u.email as u_email'))
                 ->joinLeft(array('cat' => 'categories'),
                         't.category_id = cat.id',

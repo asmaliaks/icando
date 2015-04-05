@@ -12,7 +12,7 @@ class Model_DbTable_Users extends Zend_Db_Table_Abstract{
                ->from(array('u'=>'users'))
                ->where('u.id=?',$userId)
                ->joinLeft(array('pv' => 'phone_verification'),
-                    'pv.user_id = u.id',
+                    'pv.phone_number = u.phonenumber',
                             array('pv.id as pv_id',
                                 'pv.phone_number as pv_phone_number',
                                 'pv.code as pv_code'))->setIntegrityCheck(false);

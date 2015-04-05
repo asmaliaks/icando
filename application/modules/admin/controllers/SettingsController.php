@@ -80,6 +80,28 @@ class Admin_SettingsController extends Zend_Controller_Action{
             $this->view->terms = $terms;  
     }
 }
+    public function editSafetyAction(){
+        // caal contacts model
+        $safetyObj = new Admin_Model_DbTable_SafetyModel();
+        $request = $this->getRequest();
+        if($request->isPost()){
+            $data = array(
+                'text' => $request->getParam('content'),
+            );
+            $safetyObj->editSafety($data);
+            $message = new Zend_Session_Namespace('message');
+            $message->success = 'Информация изменена';
+            $message->setExpirationHops(1);
+            $this->_redirect('admin/settings/edit-safety');
+        }else{
+            $safety= $safetyObj->getSafety();
+            $message = new Zend_Session_Namespace('message');
+            if($message->success){
+                $this->view->successMes = $message->success;
+            }
+            $this->view->safety = $safety;  
+    }
+}
     public function editBecomePerformerAction(){
 
         $pageObj = new Default_Model_DbTable_BecomePerformerModel();

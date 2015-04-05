@@ -127,7 +127,6 @@ h3 code {
 	margin: 0 0 15px;
 	padding: 10px 0 0;
 	position: relative;
-	text-transform: uppercase;
 }
 .block-title-3 {
 	border-bottom: 1px solid #CECECE;
@@ -135,7 +134,6 @@ h3 code {
 	margin: 0 0 15px;
 	padding: 10px 0 10px;
 	position: relative;
-	text-transform: uppercase;
 }
 .block-title-4 {
 	display: inline;
@@ -144,7 +142,6 @@ h3 code {
 	letter-spacing: 0.2em;
 	margin: 0 auto;
 	padding: 0 12px;
-	text-transform: uppercase;
 }
 .block-title-5 {
 	display: block;
@@ -153,7 +150,6 @@ h3 code {
 	font-weight: 700;
 	letter-spacing: 0.2em;
 	padding: 0;
-	text-transform: uppercase;
 }
 .border-title {
 	border-bottom: 1px solid #CECECE;
@@ -2374,7 +2370,7 @@ h1.bolder-style.dark, h1.bolder-style.dark a {
 }
 .item.list-view h4 {
 	height: auto;
-	margin: 45px 0 5px;
+	margin: 15px 0 5px;
 	font-size:24px;
 }
 .item.list-view h4 a {
@@ -2486,7 +2482,7 @@ h1.bolder-style.dark, h1.bolder-style.dark a {
 }
 .item h4 {
 	margin: 0;
-	min-height: 45px;
+	min-height: 30px;
 	max-height: 80px;
 	overflow: hidden;
 	display: block;
@@ -2495,11 +2491,11 @@ h1.bolder-style.dark, h1.bolder-style.dark a {
 	padding: 0;
 }
 .item h4 a {
-	color: #2c3e50;
+	color: #0099FF;
 	font-family: Oswald, Arial, Helvetica, sans-serif;
 	font-weight: 600;
 	text-decoration: none;
-	text-transform: uppercase;
+/*	text-transform: uppercase;*/
 }
 .description p {
 	color: #7F8C8D;
@@ -3192,7 +3188,7 @@ h5.parallaxSubtitle {
 	letter-spacing: 0.25px;
 	line-height: 1;
 	margin-bottom: 0;
-	text-transform: uppercase;
+/*	text-transform: uppercase;*/
 }
 .product-price {
 	font-size: 28px;
@@ -3206,13 +3202,13 @@ h5.parallaxSubtitle {
 	text-decoration: line-through;
 }
 .product-code {
-	font-family: oswald, Helvetica Neue, Arial, sans-serif;
-	font-size: 14px;
+	font-family: Helvetica Neue, Arial, sans-serif;
+	font-size: 18px;
 	font-weight:  lighter;
 	letter-spacing: 1px;
 	margin: 0 0 5px;
 	padding: 0;
-	text-transform: uppercase;
+/*	text-transform: uppercase;*/
 }
 /*------- product tab ------- */
 
@@ -3227,10 +3223,8 @@ h5.parallaxSubtitle {
 .nav-tabs li a {
 	font-family: 'Oswald', sans-serif;
 	font-size: 14px;
-	font-weight: 200;
-	letter-spacing: 2px;
+	font-weight: 600;
 	margin: 0 0 0 0;
-	text-transform: uppercase;
 }
 .color-details {
 	margin-top: 14px;
@@ -4626,4 +4620,7 @@ h1.x2large {
 -moz-transform: scale(1.1) rotate(-1.5deg);
 -ms-transform: scale(1.1) rotate(-1.5deg);
 -o-transform: scale(1.1) rotate(-1.5deg);
+}
+.errors li{
+    color: red;
 }

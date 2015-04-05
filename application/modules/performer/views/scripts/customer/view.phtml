@@ -10,78 +10,25 @@
     <div class="row transitionfx">
   
    <!-- left column -->
-    <div class="col-lg-6 col-md-6 col-sm-6">
+    <div class="col-lg-4 col-md-4 col-sm-4">
     	<!-- product Image and Zoom -->
 
-    <div class="main-image sp-wrap col-lg-12 no-padding style2 style2look2" style="display: inline-block;"> 
-         
-        
-         
-    <div class="sp-large" style="left: 0px; top: 0px;">
-            <img width="100%" src="<?= $this->baseUrl() ?>/images/users_images/<?= $this->user['image'] ?>" class="img-responsive" alt="img" />
-
-    </div>
-    </div>
+      <div class="main-image sp-wrap col-lg-12 no-padding style3" style="display: inline-block;">
+          <div class="sp-large">
+                  <img src="<?= $this->baseUrl().'/images/users_images/'.$this->user['image'] ?>" class="img-responsive" alt="img">
+          </div>
+      </div>
     </div><!--/ left column end -->
     
     
     <!-- right column -->
-    <div class="col-lg-6 col-md-6 col-sm-5">
-    
-      <h1 class="product-title"><?= $this->user['username']." ".mb_substr($this->user['surname'], 0, 1, 'utf-8').'.'?></h1>
-      <h3 class="product-code">Возраст : <?php $unixAge = time() - $this->user['birth_date'];
-                $unixYears = $unixAge/31536000;
-                $age = floor($unixYears);
-                ?>
-                <?= $age;  ?> лет
-      </h3>
-      <h3 class="product-code">Пол :
-            <?php if($this->user["sex"] == 'male'){?>
-                   М
-            <?php }else if($this->user['sex'] == 'female'){ ?>
-                   Ж
-            <?php } ?>
-      </h3>
-      <h3 class="product-code">Город :
-            <?= $this->user['city'] ?>
-      </h3>
-      <div class="product-price"> 
-          <span class="price-sales">
-              Создано задач:  <?php $customersTasksAmount = count($this->tasks); ?>
-              <?= $customersTasksAmount; ?>
-          </span>  
-      </div>
-      <?php if($this->user['fb'] || $this->user['ok'] || $this->user['vk']){?>
-      <div class="product-share clearfix">
-        <p> Привязка к соцсетям </p>
-        <div class=""> 
-            <?php if($this->user['fb']){?>
-                <img data-toggle="tooltip" data-placement="left" title="Аккаунт привязан" width="40px" src="<?= $this->baseUrl().'/ico/fb.png' ?>" >
-            <?php } ?>
-            <?php if($this->user['ok']){?>
-                <img data-toggle="tooltip" data-placement="left" title="Аккаунт привязан" width="40px" src="<?= $this->baseUrl().'/ico/ok.png' ?>" >
-            <?php } ?>
-            <?php if($this->user['vk']){?>
-                <img data-toggle="tooltip" data-placement="left" title="Аккаунт привязан"  width="40px" src="<?= $this->baseUrl().'/ico/vk.png' ?>" >
-            <?php } ?>
+    <div class="col-lg-8 col-md-8 col-sm-8">
+        <div class="col-sm-12">
+            <h1 class="product-title"><?= $this->user['username']." ".mb_substr($this->user['surname'], 0, 1, 'utf-8').'.'?></h1>
         </div>
-      </div>
-      <?php } ?>
-
-  
-      
-      <div class="clear"></div>
-
-      
-      <div style="clear:both"></div>
-
-      
-      <div class="clear"></div>
-
-      
-    
-    <?php if($this->customersRating){ ?>
-      <div class="color-details"> <span class="selected-color"><strong>Рейтинг</strong></span>
+     
+ <?php if($this->customersRating){ ?>
+      <div class="col-sm-12">
         <ul class="swatches Color">
             <?php switch ($this->customersRating){
                 case 1:?>
@@ -130,8 +77,68 @@
             <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="37"> </li>
             <?php }?>
           </ul>
+     </div>    
+      <?php } ?>
+       <div class="col-sm-12">
+            <h3 class="product-code">Возраст : <?php $unixAge = time() - $this->user['birth_date'];
+                      $unixYears = $unixAge/31536000;
+                      $age = floor($unixYears);
+                      ?>
+                      <?= $age;  ?> лет
+            </h3>
+      </div>
+        <div class="col-sm-12">
+      <h3 class="product-code">Пол :
+            <?php if($this->user["sex"] == 'male'){?>
+                   М
+            <?php }else if($this->user['sex'] == 'female'){ ?>
+                   Ж
+            <?php } ?>
+      </h3>
+      </div>
+    <div class="col-sm-12">
+      <h3 class="product-code">Город :
+            <?= $this->user['city'] ?>
+      </h3>
+    </div>
+    <div class="col-sm-12">
+      <h3 class="product-code">
+              Создано задач:  <?php $customersTasksAmount = count($this->tasks); ?>
+              <?= $customersTasksAmount; ?>
+      </h3>
+    </div>
+      <?php if($this->user['fb'] || $this->user['ok'] || $this->user['vk']){?>
+        <div class="col-sm-12">
+      <div class="product-share clearfix">
+        <p> Привязка к соцсетям </p>
+        <div class=""> 
+            <?php if($this->user['fb']){?>
+                <img data-toggle="tooltip" data-placement="left" title="Аккаунт привязан" width="40px" src="<?= $this->baseUrl().'/ico/fb.png' ?>" >
+            <?php } ?>
+            <?php if($this->user['ok']){?>
+                <img data-toggle="tooltip" data-placement="left" title="Аккаунт привязан" width="40px" src="<?= $this->baseUrl().'/ico/ok.png' ?>" >
+            <?php } ?>
+            <?php if($this->user['vk']){?>
+                <img data-toggle="tooltip" data-placement="left" title="Аккаунт привязан"  width="40px" src="<?= $this->baseUrl().'/ico/vk.png' ?>" >
+            <?php } ?>
+        </div>
+      </div>
       </div>
       <?php } ?>
+
+  
+      
+      <div class="clear"></div>
+
+      
+      <div style="clear:both"></div>
+
+      
+      <div class="clear"></div>
+
+      
+    
+
     </div><!--/ right column end -->
 
   </div>

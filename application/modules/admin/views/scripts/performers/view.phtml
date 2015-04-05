@@ -26,6 +26,21 @@
             <div class="col-lg-12">
                 <strong>Возраст :</strong><?= $this->age ?>
             </div>
+            <?php if($this->user['vk']){?>
+            <div class="col-lg-12">
+                <a href="http://vk.com/id<?= $this->user['vk'] ?>">vk.com</a>
+            </div>
+            <?php } ?>
+            <?php if($this->user['ok']){?>
+            <div class="col-lg-12">
+                <a href="http://ok.ru/profile/<?= $this->user['ok'] ?>">ok.ru</a>
+            </div>
+            <?php } ?>
+            <?php if($this->user['fb']){?>
+            <div class="col-lg-12">
+                <a href="https://www.facebook.com/<?= $this->user['fb'] ?>">facebook.com</a>
+            </div>
+            <?php } ?>
             <?php if($this->user['banned']){?>
             <div class="col-lg-12">
                 <strong>Забанен до :</strong><?= date('d.m.y', $this->user['banned']) ?>
@@ -109,7 +124,7 @@
     <?php foreach($this->performersTasks as $task){?>
             <tr>
                 <td><a href="<?= $this->baseUrl().'/admin/tasks/view/id/'.$task['id'] ?>"><?=  $task['title']?></a></td>
-                <td><?=  date("h:i d.m.y",$task['created_at']) ?></td>
+                <td><?=  date("H:i d.m.y",$task['created_at']) ?></td>
                 <td><?=  $task['status'] ?></td>
                 <td><a href="<?= $this->baseUrl().'/admin/customers/view/id/'.$task['customer_id'] ?>"><?= $task['u_username'].' '.$task['u_surname'] ?></a></td>
                 
@@ -155,7 +170,7 @@
                     <?php foreach($this->customersTasks as $task){?>
                             <tr>
                                 <td><a href="<?= $this->baseUrl().'/admin/tasks/view/id/'.$task['id'] ?>"><?=  $task['title']?></a></td>
-                                <td><?=  date("i:h d.m.y",$task['created_at']) ?></td>
+                                <td><?=  date("H:i d.m.y",$task['created_at']) ?></td>
                                 <td><?=  $task['status'] ?></td>
                                 <td><a href="<?= $this->baseUrl().'/admin/performers/view/id/'.$task['customer_id'] ?>"><?= $task['u_username'].' '.$task['u_surname'] ?></a></td>
 
@@ -214,7 +229,7 @@
                                         <?= $feedback['text'] ?>
                                     </td>
                                     <td>
-                                        <?= date("h:i d.m.y",$feedback['created']) ?>
+                                        <?= date("H:i d.m.y",$feedback['created']) ?>
                                     </td>
                                 </tr>
                         <?php } ?>

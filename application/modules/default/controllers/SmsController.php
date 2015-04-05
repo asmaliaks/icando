@@ -44,6 +44,7 @@ class SmsController extends Zend_Controller_Action{
             if($smsStatus >0){
                 if($phoneVerifObj->checkIfUserHasCode($userId)){
                     $phoneVerifObj->rewriteUsersCode($userId, $phonenumber, $smsCode);
+                    print_r('true');exit;
                 }else{
                     $phoneVerifObj->addCode($smsData);
                     print_r('true');exit;

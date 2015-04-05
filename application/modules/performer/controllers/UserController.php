@@ -73,14 +73,12 @@ class Performer_UserController extends Zend_Controller_Action{
                     'surname' => $form->getValue('surname'),
                     'sex' => $form->getValue('sex'),
                     'about' => $form->getValue('about'),
-                    'phonenumber' => '375'.$form->getValue('phonenumber'),
                     'city' => $form->getValue('city'),
                     'birth_date' => $birthDate,
                 );
                 if($image){
                     $data['image'] = $image;
                 }
-                $data['phonenumber'] = (int)$data['phonenumber'];
                 $passStr = $form->getValue('pass');
                 
                 if($passStr != ''){
@@ -112,7 +110,6 @@ class Performer_UserController extends Zend_Controller_Action{
         $form->getElement('day_birth')->setValue($birthAr[0]);
         $form->getElement('sex')->setValue($user['sex']);
         $form->getElement('image')->setValue($user['image']);
-        $form->getElement('phonenumber')->setValue(substr($user['phonenumber'], 3));
         $form->getElement('city')->setValue($user['city']);
         $this->view->form = $form;
     }      

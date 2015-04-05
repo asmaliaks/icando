@@ -1,4 +1,14 @@
+
+    
 <form action="https://sandbox.webpay.by" method="post">
+<div class="row">
+    <div class="col-sm-4">
+        <label>Введите сумму</label>
+        <input type="text" class="form-control" name="wsb_invoice_item_price[]" >
+    </div>
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4"></div>
+</div>
 <input type="hidden" name="*scart">
 <input type="hidden" name="wsb_version" value="2">
 <input type="hidden" name="wsb_language_id" value="russian">
@@ -15,13 +25,21 @@
 <input type="hidden" name="wsb_phone" value="<?= 1 ?>" >
 <input type="hidden" name="wsb_invoice_item_name[]" value="Товар 1">
 <input type="hidden" name="wsb_invoice_item_quantity[]" value="2">
-<input type="text" class="form-control" name="wsb_invoice_item_price[]" >
+
+
 <input type="hidden" name="wsb_total" value="21950" >
-<input type="hidden" name="wsb_signature" value="40aa8af3ce7a1f7c3635ac2227475094a59d574c" >
+<input type="hidden" name="wsb_signature" value="<?= $this->wsb_signature ?>" >
 <input type="hidden" name="wsb_tax" value="1050">
 <input type="hidden" name="wsb_shipping_name" value="Стоимость доставки" >
 <input type="hidden" name="wsb_shipping_price" value="980" >
 <input type="hidden" name="wsb_discount_name" value="Скидка на товар" >
 <input type="hidden" name="wsb_discount_price" value="580" >
-<input type="submit" value="Купить">
+<div class="row">
+<div class="col-sm-4">
+    <input type="submit" value="Купить" class="btn btn-primary">
+</div>
+<div class="col-sm-4"></div>
+<div class="col-sm-4"></div>
+</div>
 </form>
+</div>

@@ -34,8 +34,8 @@ class Performer_Model_DbTable_UserCategory extends Zend_Db_Table_Abstract{
                             'uc.user_id as uc_user_id',
                                 'uc.category_id as category_id'))
                     ->where('uc.category_id=?', $catId)
-                    ->where('u.banned=?', NUll)
-                    ->joinLeft(array('u' => 'u'),
+                    //->where('u.banned=?', NUll)
+                    ->joinLeft(array('u' => 'users'),
                     'uc.user_id = u.id',
                             array(
                                 'u.surname as u_surname',

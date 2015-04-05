@@ -253,6 +253,8 @@ $(document).ready(function(){
 //        $('#sendSmsForm').hide();
 //        $('#smsPreloader').show();
         e.preventDefault();
+        $('#smsCode').val('');
+        $('#modalCodeError').hide();
         var phoneNumber  = $('#phonenumberInp').val();
         var userId = <?= $this->user['id'] ?>;
         editUser(phoneNumber, userId);
@@ -455,8 +457,8 @@ function newTask(){
            $('#agree_error').show(); 
         }
     }else{
-        $('#submitTask').hide()
-        $('#taskSubmPrel').show()
+        $('#submitTask').hide();
+        $('#taskSubmPrel').show();
         $('#task_form').submit();
     }
     

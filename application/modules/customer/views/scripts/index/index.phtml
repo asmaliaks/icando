@@ -100,10 +100,10 @@ $(document).ready(function(){
             <div class="col-sm-2">
                <a href="<?= $this->baseUrl().'/customer/task/view/id/'.$lastTask['id'] ?>" >
                <?php if($lastTask['task_image']){?> 
-                   <div style="background: center no-repeat url(<?= $this->baseUrl().'/images/task_images/'.$lastTask['task_image'] ?>); height:122px; width: 160px; background-size: contain; margin-top: 21px" src="" alt="img" class="img-thumbnail img-responsive"></div>     
+                   <div style="background: center no-repeat url('<?= $this->baseUrl().'/images/task_images/'.$lastTask['task_image'] ?>'); height:122px; width: 160px; background-size: contain; margin-top: 15px" src="" alt="img" class="img-thumbnail img-responsive"></div>     
                   
                <?php }else{ ?>
-                   <div style="background: center no-repeat url(<?= $this->baseUrl().'/images/task_images/no-image.png' ?>); height:122px; width: 160px; background-size: contain; margin-top: 21px" src="" alt="img" class="img-thumbnail img-responsive"></div>     
+                   <div style="background: center no-repeat url('<?= $this->baseUrl().'/images/task_images/no-image.png' ?>'); height:122px; width: 160px; background-size: contain; margin-top: 15px" src="" alt="img" class="img-thumbnail img-responsive"></div>     
                <?php } ?>   
               </a>
             </div>
