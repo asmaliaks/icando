@@ -41,10 +41,10 @@ class Customer_OfficeController extends Zend_Controller_Action{
                     'birth_date' => $birthDate,
                 );
                 
-                $image = $form->getValue('image');
-                if($image){
-                    $data['image'] = $image;
-                }
+//                $image = $form->getValue('image');
+//                if($image){
+//                    $data['image'] = $image;
+//                }
                 if($passStr != ''){
                     $passHash = base64_encode($passStr);
                     $passHash = $passHash.SALT;
@@ -71,7 +71,7 @@ class Customer_OfficeController extends Zend_Controller_Action{
         $form->getElement('month_birth')->setValue($birthAr[1]);
         $form->getElement('day_birth')->setValue($birthAr[0]);
         $form->getElement('sex')->setValue($user['sex']);
-        $form->getElement('image')->setValue($user['image']);
+//        $form->getElement('image')->setValue($user['image']);
         $form->getElement('about')->setValue($user['about']);
         $form->getElement('city')->setValue($user['city']);
         $this->view->form = $form;
