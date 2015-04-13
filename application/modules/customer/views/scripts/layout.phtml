@@ -195,7 +195,7 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
       </div>
       <div class="modal-body">
         
-        <p>Для подачи заявки введите и верефицируйте свой телефон в личном кабинете</p> 
+          <p>Для подачи заявки необходимо заполнить все поля в Вашем профиле в личном кабинете, загрузить фотографию с Вашим изображением, а также подтвердить телефон и привязать хотя бы одну личную страницу из социальных сетей. Подробнее на странице <a target="_blank" style="text-decoration: underline" href="<?= $this->baseUrl().'/customer/become-performer/' ?>">как стать исполнителем</a></p> 
         
       </div>
       <div class="modal-footer">
@@ -500,6 +500,7 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
                   <li > <a data-toggle="modal"  data-dismiss="modal" href="#ModalLogin">Заказать услугу</a> </li>
             <?php } ?> 
            <?php if(Zend_Auth::getInstance()->hasIdentity()){?>       
+                <li> <a href="<?= $this->baseUrl().'/customer/index/tasks/'?>">Актуальные задачи</a> </li>
                 <li> <a href="<?= $this->baseUrl().'/customer/performers/'?>">Исполнители</a> </li>
                 <li> <a href="<?= $this->baseUrl().'/customer/about/'?>">Как это работает</a> </li>
            <?php }else{?>
@@ -509,9 +510,13 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
                 <?php $user = Zend_Auth::getInstance()->getIdentity();  ?>
           <?php if(Zend_Auth::getInstance()->hasIdentity()){?>
             <?php if( empty($this->application) || $this->application == 0){?>
-                  <?php if($user->phone_verified == 1){ ?>
-                      <li><a class="blog-nav-item"  href="<?= $this->baseUrl().'/customer/office/application' ?>"  >Стать исполнителем</a></li>
-                  <?php }else{?>
+                  <?php if($user->phone_verified == 1 && $user->username && $user->surname && $user->city && $user->about && $user->birth_date){ ?>
+                        <?php if($user->vk || $user->fb || $user->ok){?>
+                            <li><a class="blog-nav-item"  href="<?= $this->baseUrl().'/customer/office/application' ?>"  >Стать исполнителем</a></li>
+                        <?php }else{ ?>
+                            <li><a data-toggle="modal"  data-dismiss="modal" href="#ModalPhoneNotVerifiedBecomeAPer">Стать исполнителем</a></li>
+                        <?php } ?>    
+                    <?php }else{?>
                       <li><a data-toggle="modal"  data-dismiss="modal" href="#ModalPhoneNotVerifiedBecomeAPer">Стать исполнителем</a></li>
                   <?php }?>
             <?php }?>
@@ -581,16 +586,16 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
           
       </div>
       <!--/.row--> 
+      
     </div>
     <!--/.container--> 
   </div>
   <!--/.footer-->
   
   <div class="footer-bottom">
-    <div class="container">
-      <p class="pull-left"> &copy; HELPYOU.BY. All right reserved. </p>
-      <div class="pull-right paymentMethodImg"> </div>
-    </div>
+    
+          <?php include_once APPLICATION_PATH."/includes/web_pay.php"; ?>
+     
   </div>
   <!--/.footer-bottom--> 
 </footer>

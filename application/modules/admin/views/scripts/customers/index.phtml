@@ -9,6 +9,7 @@
                 <th>Город</th>
                 <th>Возраст</th>
                 <th>Балланс</th>
+                <th>Зарегистрирован</th>
                 <th>Банн</th>
                 <th>Удаление</th>
             </tr>
@@ -21,6 +22,7 @@
                 <th>Город</th>
                 <th>Возраст</th>
                 <th>Балланс</th>
+                <th>Зарегистрирован</th>
                 <th>Банн</th>
                 <th>Удаление</th>
             </tr>
@@ -39,6 +41,7 @@
                     <?= $age ?>
                 </td>
                 <td><?= $customer['balance'] ?></td>
+                <td><?= $customer['registred'] ?></td>
                 <td>
                      <?php if($customer['banned'] == 0){?>
                            <button id="bann<?= $customer['id'] ?>" class="btn btn-primary btn-xs"  onclick="openModal(<?= $customer['id'] ?>)">Забанить</button>

@@ -20,6 +20,7 @@ class Admin_PerformersController extends Zend_Controller_Action{
     }
     
     public function viewAction(){
+        
         // getting id from url
         $request = $this->getRequest();
         $id = $request->getParam('id');
@@ -32,7 +33,9 @@ class Admin_PerformersController extends Zend_Controller_Action{
         // get user's categories
         $userCatObj = new Customer_Model_DbTable_UserCategory();
         $usersCategories = $userCatObj->getUsersCategories($id);
-        
+        // get payments list
+        $paymentsObj = new Admin_Model_DbTable_Payments();
+        $payments = $paymentsObj->getUsersPayments($user['id']);
 
         // age countin
         $currentTime = time();
@@ -65,7 +68,7 @@ class Admin_PerformersController extends Zend_Controller_Action{
 
         $this->view->feedbacks = $feedbacks;   
         $this->view->customersTasks = $customersTasks;          
-        // send $user to the view
+        $this->view->payments = $payments;
         $this->view->performersTasks = $performesTasks;
         $this->view->birthDate = $birthDate;
         $this->view->age = $realAge;

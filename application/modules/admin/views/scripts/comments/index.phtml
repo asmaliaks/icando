@@ -37,13 +37,21 @@
 function removeComment(id){
     $('#button'+id).hide();
     $('#prel'+id).show();
-    $.ajax({
-    type: 'POST',
-    url: '<?= $this->baseUrl.'/admin/comments/remove-comment/'; ?>',
-    data: {id: id},
-    success: function(){
-        $('#div'+id).remove();
+     
+    if(confirm('Удалить комментарий')){
+            $.ajax({
+            type: 'POST',
+            url: '<?= $this->baseUrl.'/admin/comments/remove-comment/'; ?>',
+            data: {id: id},
+            success: function(){
+                $('#div'+id).remove();
+            }
+          });
+    }else{
+        $('#prel'+id).hide();
+        $('#button'+id).show();
+        
     }
-  });
+
 }
 </script>

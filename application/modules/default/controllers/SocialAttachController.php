@@ -123,7 +123,7 @@ class SocialAttachController extends Zend_Controller_Action{
                     'ok' => $userInfo['uid'],
                 );
                 $userModel->attachAccount($data, $this->user->id);
-                
+                $_SESSION['Zend_Auth']['storage']->ok = $data['ok'];
                 $mailObj = new Default_Model_Smtp();
                 $message = "Уважаемый ".$this->user->username." Вы успешно привязали свой аккаунт OK.RU. ";
                 $message = wordwrap($message, 70);
@@ -202,7 +202,8 @@ class SocialAttachController extends Zend_Controller_Action{
                     'vk' => $userInfo['id'],
                 );
                 $userModel->attachAccount($data, $this->user->id);
-
+                $_SESSION['Zend_Auth']['storage']->vk = $data['vk'];
+                
                 $mailObj = new Default_Model_Smtp();
                 $message = "Уважаемый ".$this->user->username." Вы успешно привязали свой аккаунт Вконтакте. ";
                 $message = wordwrap($message, 70);
@@ -285,7 +286,8 @@ class SocialAttachController extends Zend_Controller_Action{
                         'fb' => $userInfo['id'],
                     );
                     $userModel->attachAccount($data, $user['id']);
-
+                    $_SESSION['Zend_Auth']['storage']->fb = $data['fb'];
+                    
                     $mailObj = new Default_Model_Smtp();
                     $message = "Уважаемый ".$this->user->username." Вы успешно привязали свой аккаунт Facebook. ";
                     $message = wordwrap($message, 70);

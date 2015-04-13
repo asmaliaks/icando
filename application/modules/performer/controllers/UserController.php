@@ -27,7 +27,10 @@ class Performer_UserController extends Zend_Controller_Action{
       // get performer's prepositions
       $prepositionsObj = new Performer_Model_DbTable_TaskPrepositionModel();
       $userPrepositions = $prepositionsObj->getPerformersPrepositions($this->user->id);
-      
+      // call payments model
+      $paymentsObj = new Admin_Model_DbTable_Payments();
+      // get user's payments
+      $payments = $paymentsObj->getUsersPayments($user['id']);
       // get category list
       $categoryObj = new Performer_Model_DbTable_Categories();
       $mainCategories = $categoryObj->getCategoryList();
@@ -135,6 +138,7 @@ class Performer_UserController extends Zend_Controller_Action{
       if(!empty($userPrepositions)){ 
         $this->view->userPrepositions  =$userPrepositions;
       }
+      $this->view->payments = $payments;
       $this->view->customersTasks = $customersTasks;   
       $this->view->performersTasks = $performesTasks;   
       $this->view->orders = $orders;
@@ -158,10 +162,16 @@ public function changeAvatarAction(){
             }
             if(is_uploaded_file($_FILES["image"]["tmp_name"]))
             {
+                                // get image type
+                $type = $_FILES["image"]["name"];
+                $typeArray = explode(".", $type);
+                $imageType = $typeArray[1];
+                
+              $imageName = $this->makeHash();
 
-              copy($_FILES["image"]["tmp_name"], DOCUMENT_ROOT."/images/users_images/".$_FILES["image"]["name"]);
+              copy($_FILES["image"]["tmp_name"], DOCUMENT_ROOT."/images/users_images/".$imageName.".".$imageType);
 //                  copy($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT']."/images/users_images/".$_FILES["image"]["name"]);
-              $data['image'] = $_FILES['image']['name'];
+              $data['image'] = $imageName.".".$imageType;
               // edit user's data
               $usersObj = new Model_DbTable_Users();
               $usersObj->editUser($data, $userId);
@@ -169,5 +179,14 @@ public function changeAvatarAction(){
             }
         }
     }
-}    
+}  
+
+private function makeHash(){
+    	$quan1 = substr(str_shuffle(str_repeat("234", 15)), 0, 1);
+    	$quan2 = substr(str_shuffle(str_repeat("123456780", 15)), 0, 1);
+    	$quan = $quan1."". $quan2;
+    	$s = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 15)), 0, $quan);
+    	return $s;
+}
+
 }

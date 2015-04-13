@@ -1,0 +1,153 @@
+
+  <div class="row">
+    <div class="breadcrumbDiv col-lg-12">
+      <ul class="breadcrumb">
+          <li> <a href="<?= $this->baseUrl().'/performer/' ?>">Главная</a> </li>
+        <li> <a href="<?= $this->baseUrl().'/performer/user/' ?>">Личный кабинет</a> </li>
+        <li class="active"> Оплата </li>
+      </ul>
+    </div>
+  </div>
+  <!--/.row-->
+  
+  <div class="row">
+    <div class="col-lg-9 col-md-9 col-sm-7">
+      <h1 class="section-title-inner">
+          <span>
+              <i class="glyphicon glyphicon-hand-right"></i>
+              Оплачено
+          </span>
+      </h1>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-5 rightSidebar">
+      <h4 class="caps">
+          <a href="<?= $this->baseUrl().'/performer/user/' ?>">
+              <i class="fa fa-chevron-left"></i> 
+              В личный кабинет 
+          </a>
+      </h4>
+    </div>
+  </div> <!--/.row-->
+  
+  <div class="row">
+    <div class="col-lg-9 col-md-9 col-sm-12">
+      <div class="row userInfo">
+        <div class="col-xs-12 col-sm-12">
+          <div class="w100 clearfix">
+            <ul class="orderStep orderStepLook2">
+              
+              <li > <a> <i class="fa  fa-tachometer  "></i> <span> Ввод суммы </span></a></li>
+              <li> <a><i class="fa  fa-check-square "> </i><span>Подтверждение</span> </a> </li>
+              <li class="active"> <a><i class="fa fa-money "> </i><span>Оплата</span></a> </li>
+            </ul>
+            <!--/.orderStep end--> 
+          </div>
+          
+          
+          <div class="w100 clearfix">
+            <div class="row userInfo">
+              <div class="col-lg-12">
+                <h2 class="block-title-2"> Платеж успешно завершен </h2>
+              </div>
+                   <div class="w100 cartMiniTable">
+        <table id="cart-summary" class="std table">
+          <tbody>
+            <tr>
+              <td> Статус платежа </td>
+              <td class="price" >
+                  <span class="success" >
+                  Успешно завершен!
+                  </span>
+              </td>
+            </tr>
+            <tr>
+              <td> ID транзакции </td>
+              <td class="price" >
+                  <?= $this->payment['transaction_id'] ?>
+              </td>
+            </tr>
+            <tr>
+              <td> ID заказа </td>
+              <td class="price" >
+                  <?= $this->payment['order_id'] ?>
+              </td>
+            </tr>
+            <tr>
+              <td> Дата </td>
+              <td class="price" >
+                  <?= date("H:i d.m.y",$this->payment['time']) ?>
+              </td>
+            </tr>
+            <tr>
+              <td> Номер заказа </td>
+              <td class="price" >
+                  <?= $this->payment['order_num'] ?>
+              </td>
+            </tr>
+            
+            <tr>
+              <td> Итоговая сумма </td>
+              <td class=" site-color" id="total-price"><?= $this->payment['amount'] ?> <?= $this->payment['currency_id'] ?></td>
+            </tr>
+          </tbody>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+
+            </div>
+            <!--/row end--> 
+            
+          </div>
+          <div class="cartFooter w100">
+            <div class="box-footer">
+              <div class="pull-left">
+                  <a class="btn btn-primary" href="<?= $this->baseUrl().'/performer/user/' ?>"> 
+                      <i class="fa fa-arrow-left"></i>
+                      &nbsp; В личный кабинет 
+                  </a> 
+              </div>
+              <div class="pull-right"> 
+                  
+              </div>
+            </div>
+          </div>
+          <!--/ cartFooter --> 
+          
+        </div>
+      </div>
+      <!--/row end--> 
+      
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-12 rightSidebar">
+      <div class="w100 cartMiniTable">
+        <table id="cart-summary" class="std table">
+          <tbody>
+
+            
+            <tr>
+              <td> Итоговая сумма </td>
+              <td class=" site-color" id="total-price"><?= $this->payment['amount'] ?></td>
+            </tr>
+          </tbody>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+      <!--  /cartMiniTable--> 
+      
+    </div>
+    <!--/rightSidebar--> 
+    
+  </div> <!--/row-->
+  
+  <div style="clear:both"></div>
+
+
+
+
+<script>
+$(document).ready(function(){
+
+});
+</script>

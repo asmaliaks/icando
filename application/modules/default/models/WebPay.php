@@ -38,10 +38,10 @@ class Default_Model_WebPay{
     }
     
     public function makeId(){
-        $quan1 = substr(str_shuffle(str_repeat("123", 15)), 0, 1);
-    	$quan2 = substr(str_shuffle(str_repeat("123456780", 15)), 0, 1);
-    	$quan = $quan1."". $quan2;
-    	$s = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 15)), 0, $quan);
+//        $quan1 = substr(str_shuffle(str_repeat("123", 15)), 0, 1);
+//    	$quan2 = substr(str_shuffle(str_repeat("123456780", 15)), 0, 1);
+    	$quan = 10;
+    	$s = substr(str_shuffle(str_repeat("0123456789", 15)), 0, $quan);
     	return $s;
     }
     

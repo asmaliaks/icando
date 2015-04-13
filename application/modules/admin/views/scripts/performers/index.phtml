@@ -9,6 +9,7 @@
                 <th>Город</th>
                 <th>Возраст</th>
                 <th>Балланс</th>
+                <th>Зарегистрирован</th>
                 <th>Банн</th>
                 <th>Удаление</th>
             </tr>
@@ -21,6 +22,7 @@
                 <th>Город</th>
                 <th>Возраст</th>
                 <th>Балланс</th>
+                <th>Зарегистрирован</th>
                 <th>Банн</th>
                 <th>Удаление</th>
             </tr>
@@ -39,6 +41,7 @@
                     <?= $age ?>
                 </td>
                 <td><?= $performer['balance'] ?></td>
+                <td><?= $performer['registred'] ?></td>
                 <td>
                      <?php if($performer['banned'] == 0){?>
                            <button id="bann<?= $performer['id'] ?>" class="btn btn-primary btn-xs"  onclick="openModal(<?= $performer['id'] ?>)">Забанить</button>

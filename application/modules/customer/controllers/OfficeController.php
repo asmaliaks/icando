@@ -40,7 +40,9 @@ class Customer_OfficeController extends Zend_Controller_Action{
                     'about' => $form->getValue('about'),
                     'birth_date' => $birthDate,
                 );
-                
+                if($data['about'] == ''){
+                    $data['about'] = NULL;
+                }
 //                $image = $form->getValue('image');
 //                if($image){
 //                    $data['image'] = $image;
@@ -52,6 +54,12 @@ class Customer_OfficeController extends Zend_Controller_Action{
                 }
                 $usersModel = new Model_DbTable_Users();
                 $usersModel->editUser($data, $this->user->id);
+                $_SESSION['Zend_Auth']['storage']->email = $form->getValue('email');
+                $_SESSION['Zend_Auth']['storage']->username = $form->getValue('username');
+                $_SESSION['Zend_Auth']['storage']->surname = $form->getValue('surname');
+                $_SESSION['Zend_Auth']['storage']->sex = $form->getValue('sex');
+                $_SESSION['Zend_Auth']['storage']->about = $data['about'];
+                $_SESSION['Zend_Auth']['storage']->birth_date = $birthDate;
                 $this->_redirect("/customer/office/index/success/1");
             }else{
                 $this->view->form = $form;
@@ -105,9 +113,16 @@ public function changeAvatarAction(){
             if(is_uploaded_file($_FILES["image"]["tmp_name"]))
             {
 
-              copy($_FILES["image"]["tmp_name"], DOCUMENT_ROOT."/images/users_images/".$_FILES["image"]["name"]);
-//                  copy($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT']."/images/users_images/".$_FILES["image"]["name"]);
-              $data['image'] = $_FILES['image']['name'];
+                // get image type
+                $type = $_FILES["image"]["name"];
+                $typeArray = explode(".", $type);
+                $imageType = $typeArray[1];
+                
+              $imageName = $this->makeHash();
+              copy($_FILES["image"]["tmp_name"], DOCUMENT_ROOT."/images/users_images/".$imageName.".".$imageType);
+//              copy($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT']."/images/users_images/".$imageName.".".$imageType);
+      
+              $data['image'] = $imageName.".".$imageType;
               // edit user's data
               $usersObj = new Model_DbTable_Users();
               $usersObj->editUser($data, $userId);
@@ -116,7 +131,15 @@ public function changeAvatarAction(){
         }
     }
 }    
-    
+ 
+private function makeHash(){
+    	$quan1 = substr(str_shuffle(str_repeat("234", 15)), 0, 1);
+    	$quan2 = substr(str_shuffle(str_repeat("123456780", 15)), 0, 1);
+    	$quan = $quan1."". $quan2;
+    	$s = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 15)), 0, $quan);
+    	return $s;
+}
+
 public function applicationAction(){
         $this->view->title = 'Настройка категорий';  
         $this->view->headTitle('Настройка категорий', 'APPEND');

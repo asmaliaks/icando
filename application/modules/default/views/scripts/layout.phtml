@@ -470,6 +470,7 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
       <ul class="nav navbar-nav">
           <li > <a href="#"  data-toggle="modal" data-target="#ModalSignup">Заказать услугу </a> </li>
           <li > <a href="<?= $this->baseUrl()?>/default/performers/index">Исполнители </a> </li>
+          <li > <a href="<?= $this->baseUrl()?>/default/tasks/index">Актуальные задания </a> </li>
 
         <!-- change width of megamenu = use class > megamenu-fullwidth, megamenu-60width, megamenu-40width -->
         <li > 
@@ -544,6 +545,7 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
         </div>
           
       </div>
+        
       <!--/.row--> 
     </div>
     <!--/.container--> 
@@ -551,10 +553,9 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
   <!--/.footer-->
   
   <div class="footer-bottom">
-    <div class="container">
-      <p class="pull-left"> &copy; HELPYOU.BY. All right reserved. </p>
-      <div class="pull-right paymentMethodImg"> </div>
-    </div>
+    
+          <?php include_once APPLICATION_PATH."/includes/web_pay.php"; ?>
+     
   </div>
   <!--/.footer-bottom--> 
 </footer>

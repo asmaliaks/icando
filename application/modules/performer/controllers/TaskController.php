@@ -324,6 +324,16 @@ class Performer_TaskController extends Zend_Controller_Action{
             }
         }
     }
+    public function removePrepositionAction(){
+        $request = $this->getRequest();
+        if($request->isPost()){
+            $id = $request->getParam('id');
+            $prepObj = new Performer_Model_DbTable_TaskPrepositionModel();
+            $prepObj->removePreposition($id);
+            
+            print_r('true');exit;
+        }
+    }
     
     public function acceptPropositionAction(){
         $request = $this->getRequest();

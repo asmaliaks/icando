@@ -1,0 +1,149 @@
+<div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="w100 clearfix category-top">
+        <h2> Задачи </h2>
+        
+      </div>
+      <div class="w100 productFilter clearfix">
+        <div class="pull-right ">
+          <div class="change-order pull-left">
+            <select class="form-control selectpicker" onchange="changeSortOption()"  name="category" id="categorySelect">
+              <option value="0" selected="selected">Все категории</option>
+                <?php foreach($this->categories as $category){?>
+                <optgroup label="<?= $category['title'] ?>">
+                
+                <?php if(!empty($category['children'])){?>
+                     <?php foreach($category['children'] as $kid){?>
+                        <option value="<?= $kid['id'] ?>" <?php if($this->currentCategory == $kid['id']):?> selected <?php endif;?> ><?= $kid['title'] ?></option>
+                     <?php } ?>
+                <?php } ?>
+                        </optgroup>
+              <?php } ?> 
+            </select>
+          </div>
+          <div class="change-order pull-right">
+            <select onchange="changeSortOption()" class="form-control" id="orderSel" name="orderby" >
+              <option selected="selected" value="default">По умолчанию</option>
+              <?php if($this->sortOption != 'created_at DESC'){?>
+                <option value="created_at_DESC" >По дате</option>
+              <?php }else if($this->sortOption != 'created_at ASC'){?> 
+                <option value="created_at_ASC" >По дате</option>
+              <?php } ?>
+              <?php if($this->sortOption != 'customers_price DESC'){?>
+                <option value="customers_price_DESC">По цене</option>
+              <?php }else if($this->sortOption != 'customers_at ASC'){ ?>  
+                <option value="customers_price_ASC">По цене</option>
+              <?php } ?>
+            </select>
+          </div>
+<!--          <div class="change-view pull-right">
+              <a href="#" title="Grid" class="grid-view">
+                  <i class="fa fa-th-large"></i> </a>
+              <a href="#" title="List" id="listView" class="list-view ">
+                  <i class="fa fa-th-list"></i>
+              </a> 
+          </div>-->
+        </div>
+      </div>
+      <!--/.subCategoryList-->
+ <?php if($this->tasks->count() != 0){?>
+
+      <!--/.productFilter-->
+      <div class="row  categoryProduct xsResponse clearfix">
+        <?php foreach($this->tasks as $task){?>  
+ <!--/.item-->
+        <div class="item col-lg-3 col-md-3 col-sm-4 col-xs-6 productBlock list-view">
+
+            <div class="col-sm-2">
+               <a data-toggle="modal"  data-dismiss="modal" href="#getAPerformerModal" >
+               <?php if($task['par_cat_image']){?>   
+                   <div style="background: center no-repeat url('<?= $this->baseUrl().'/images/category_images/'.$task['par_cat_image'] ?>'); height:122px; width: 160px; background-size: contain; margin-top: 21px" src="" alt="img" class="img-thumbnail img-responsive"></div>
+                  
+               <?php }else{ ?>
+                  <div style="background: center no-repeat url('<?= $this->baseUrl().'/images/task_images/'.$task['task_image'] ?>'); height:122px; width: 160px; background-size: contain; margin-top: 21px" src="" alt="img" class="img-thumbnail img-responsive"></div>
+
+               <?php } ?>   
+              </a>
+            </div>
+            <div class="col-sm-10">
+                <div class="col-sm-8">                
+                    <h4 style="margin-top: 15px !important">
+                        <a data-toggle="modal"  data-dismiss="modal" href="#getAPerformerModal" >
+                       <?= $task['title'] ?>
+                        </a>
+                    </h4>
+                </div>
+                <div class="col-sm-4">                
+                    <h4 style="margin-top: 15px !important"> <span><?= $task['price'] ?> бел. рублей</h4>
+                </div>
+                <div class="col-sm-12"> 
+                    <small>Дата исполнения: <?= date( "d.m.Y" ,$task['final_date']) ?> </small>
+                </div>
+                <div class="col-sm-12"> 
+                    <p><?= $task['description'] ?> </p>
+                </div>
+            
+                <div class="col-sm-9"> 
+                    </div>
+                <div class="col-sm-3"> 
+                    <div class="action-control"> 
+                        <a class="btn btn-primary" data-toggle="modal"  data-dismiss="modal" href="#getAPerformerModal"> 
+                            <span class="add2cart"> Подробнее </span> 
+                        </a> 
+                    </div>
+                </div>
+              </div>
+
+        </div>
+ 
+        <?php } ?>
+        <!--/.item-->
+      </div>
+      <!--/.categoryProduct || product content end-->
+      
+      <div class="w100 categoryFooter">
+        <div class="pagination pull-left no-margin-top">
+          <?=  $this->paginationControl($this->tasks, 'Sliding', 'pagination.phtml') ?>
+        </div>
+        <div class="pull-right pull-right col-sm-4 col-xs-12 no-padding text-right text-left-xs">
+          
+        </div>
+      </div>
+      <!--/.categoryFooter--> 
+ <?php }else{?>
+      <div class="col-sm-12">
+          <h3>Открытых задач в выбранной вами категории пока нет</h3>
+      </div>    
+ <?php } ?>     
+    </div>
+
+        <div class="modal fade" id="getAPerformerModal" tabindex="-1" role="dialog" aria-labelledby="notallowedLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Станьте исполнителем</h4>
+              </div>
+              <div class="modal-body">
+                  <p>
+                      Если Вы хотите выполнить это задание, Вам необходимо подать заявку на получение статуса исполнителя. Подробнее об этом здесь <a style="text-decoration: underline" href="<?= $this->baseUrl().'/customer/become-performer/' ?>">Как стать исполнителем</a>
+                  </p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Отмена</button>
+              </div>
+            </div>
+          </div>
+        </div>  
+<script>
+$(document).ready(function(){
+   $('#taskTable').DataTable();
+});
+
+function changeSortOption(){
+    var sortOption = $('#orderSel :selected').val();console.log(sortOption);
+    var category = $('#categorySelect :selected').val();
+    window.location.href = '<?= $this->baseUrl() ?>/customer/index/tasks/sort_option/'+sortOption+'/category/'+category+'/';
+    
+}
+
+</script>

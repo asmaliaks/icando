@@ -99,8 +99,8 @@ $(document).ready(function(){
 
             <div class="col-sm-2">
                <a href="<?= $this->baseUrl().'/tasks/view/id/'.$lastTask['id'] ?>" >
-               <?php if($lastTask['task_image']){?>   
-                  <div style="background: center no-repeat url('<?= $this->baseUrl().'/images/task_images/'.$lastTask['task_image'] ?>'); height:122px; width: 160px; background-size: contain; margin-top: 15px" src="" alt="img" class="img-thumbnail img-responsive"></div>
+               <?php if($lastTask['par_cat_image']){?>   
+                  <div style="background: center no-repeat url('<?= $this->baseUrl().'/images/category_images/'.$lastTask['par_cat_image'] ?>'); height:122px; width: 160px; background-size: contain; margin-top: 15px" src="" alt="img" class="img-thumbnail img-responsive"></div>
                <?php }else{ ?>
                   <div style="background: center no-repeat url('<?= $this->baseUrl().'/images/task_images/no-image.png' ?>'); height:122px; width: 160px; background-size: contain; margin-top: 15px" src="" alt="img" class="img-thumbnail img-responsive"></div>
                <?php } ?>   

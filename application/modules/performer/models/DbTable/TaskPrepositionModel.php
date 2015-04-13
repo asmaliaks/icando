@@ -86,4 +86,9 @@ class Performer_Model_DbTable_TaskPrepositionModel extends Zend_Db_Table_Abstrac
         $this->delete($where);
         return true;
     }    
+    public function removePreposition($id){
+        $where = $this->getAdapter()->quoteInto('id = ?', $id);
+        $this->delete($where);
+        return true;
+    }    
 }

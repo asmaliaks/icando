@@ -21,7 +21,23 @@ class Default_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
                 ->from(array('t'=>'tasks'))
                 ->order(array('created_at DESC'))
                 ->where('status=?', 'closed')
-               ->limit($amount);
+              ->limit($amount)
+              ->joinLeft(array('cat'=>'categories'),
+                       't.category_id = cat.id',
+                       array(
+                           'cat.title as cat_title',
+                           'cat.description as cat_description',
+                           'cat.image as cat_image',
+                           'cat.parent_id as cat_parent_id'
+                       ))
+               ->joinLeft(array('par_cat'=>'categories'),
+                       'cat.parent_id = par_cat.id',
+                       array(
+                           'par_cat.title as par_cat_title',
+                           'par_cat.description as par_cat_description',
+                           'par_cat.image as par_cat_image',
+                       ))
+              ->setIntegrityCheck(false);
         $result = $this->fetchAll($select);
         if($result){
             return $result->toArray();

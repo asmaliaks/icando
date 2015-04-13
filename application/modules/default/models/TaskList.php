@@ -23,7 +23,22 @@ class Default_Model_TaskList{
                             'u.fb as u_fb',
                             'u.image as u_image'
                             )
-                        );
+                        )
+               ->joinLeft(array('cat'=>'categories'),
+                       't.category_id = cat.id',
+                       array(
+                           'cat.title as cat_title',
+                           'cat.description as cat_description',
+                           'cat.image as cat_image',
+                           'cat.parent_id as cat_parent_id'
+                       ))
+               ->joinLeft(array('par_cat'=>'categories'),
+                       'cat.parent_id = par_cat.id',
+                       array(
+                           'par_cat.title as par_cat_title',
+                           'par_cat.description as par_cat_description',
+                           'par_cat.image as par_cat_image',
+                       ));
        if($category != 0){
            $tasks->where('category_id=?', $category);
        }

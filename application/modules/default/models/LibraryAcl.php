@@ -34,6 +34,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->add(new Zend_Acl_Resource('admin:comments'), 'admin');
        $this->add(new Zend_Acl_Resource('admin:settings'), 'admin');
        $this->add(new Zend_Acl_Resource('admin:main-banner'), 'admin');
+       $this->add(new Zend_Acl_Resource('admin:payment'), 'admin');
        
        $this->add(new Zend_Acl_Resource('customer'));
        $this->add(new Zend_Acl_Resource('customer:index'), 'customer');
@@ -78,7 +79,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->addRole(new Zend_Acl_Role('admin'));
        
        // admin
-       $this->allow('admin', 'default:error');
+       $this->allow('admin', 'default:error', 'index');
        $this->allow('admin', 'admin:index', 'index');
        $this->allow('admin', 'admin:category', 'index');
        $this->allow('admin', 'admin:category', 'add-category');
@@ -118,6 +119,8 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('admin', 'admin:main-banner', 'add');
        $this->allow('admin', 'admin:main-banner', 'remove-image');
        $this->allow('admin', 'admin:main-banner', 'remove-slide');
+       $this->allow('admin', 'admin:payment', 'index');
+       $this->allow('admin', 'admin:payment', 'view');
        $this->allow('admin', 'performer:balance', 'fill-ajax');
        
        // customer
@@ -126,6 +129,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('customer', 'default:user', 'check-email-for-unique');
        $this->allow('customer', 'customer:index', 'index');
        $this->allow('customer', 'customer:index', 'task-view');
+       $this->allow('customer', 'customer:index', 'tasks');
        $this->allow('customer', 'customer:performers', 'request-to-be-performer');
        $this->allow('customer', 'default:registration', 'activate-account-by-phone');
        $this->allow('customer', 'default:registration', 'check-phone-uniq');
@@ -187,6 +191,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('performer', 'performer:index', 'index');
        $this->allow('performer', 'performer:index', 'task-view');
        $this->allow('performer', 'default:registration', 'activate-account-by-phone');
+       $this->allow('performer', 'default:registration', 'edit-user');
        $this->allow('performer', 'performer:settings', 'add-user-category');
        $this->allow('performer', 'performer:settings', 'remove-users-category');
        $this->allow('performer', 'performer:customer', 'view');
@@ -194,6 +199,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('performer', 'performer:task', 'propose-task');
        $this->allow('performer', 'performer:task', 'create-task');
        $this->allow('performer', 'performer:task', 'remove-task');
+       $this->allow('performer', 'performer:task', 'remove-preposition');
        $this->allow('performer', 'performer:task', 'accept-proposition');
        $this->allow('performer', 'performer:task', 'get-subcats');
        $this->allow('performer', 'performer:task', 'performers-view');
@@ -224,11 +230,14 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('performer', 'performer:payment', 'index');
        $this->allow('performer', 'performer:payment', 'success');
        $this->allow('performer', 'performer:payment', 'unsuccess');
+       $this->allow('performer', 'performer:payment', 'prepay');
        $this->allow('performer', 'customer:comments', 'send-comment');
        $this->allow('performer', 'performer:payment', 'notify');
        $this->allow('performer', 'performer:become-performer', 'index');
        $this->allow('performer', 'performer:terms', 'index');
        $this->allow('performer', 'performer:safety', 'index');
+       $this->allow('performer', 'default:phone-activation', 'activate-account');
+       $this->allow('performer', 'default:phone-activation', 'activate');
        
        //guest
        $this->allow('guest', 'default:index', 'index');
@@ -266,5 +275,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('guest', 'default:become-performer', 'index');
        $this->allow('guest', 'default:terms', 'index');
        $this->allow('guest', 'default:safety', 'index');
+       $this->allow('guest', 'performer:payment', 'success');
+       $this->allow('guest', 'performer:payment', 'unsuccess');
     }
 }

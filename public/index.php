@@ -49,9 +49,11 @@ define('SMTP_FROM','no-reply@helpyou.by');
 //define('SMTP_CHARSET','UTF-8');
 //define('SMTP_FROM','asmaliaks@gmail.com');
 
+define('POINT_LABEL', "бел. рублей");
 
 define("SALT", "3Y7r0A6c");
 define("DOCUMENT_ROOT", "/home/helpyoub/public_html/public/");
+//define("DOCUMENT_ROOT", "/var/www/skilus/data/www/dev.skilus.biz/icando/public");
         // definding social networks constants
             // vk.com
         define("VK_CLIENT_ID", '4741291');
@@ -89,11 +91,18 @@ define("DOCUMENT_ROOT", "/home/helpyoub/public_html/public/");
         define('SMS_PASS', 'v4K818A8');
         
    // webPay settings
-        define("WSB_STORIED", "776455369");
-        define("WSB_STORE", "Тестовый магазин");
+        define("BILLING_URL", "https://sandbox.webpay.by");
+        define("PAYMENT_URL", "https://securesandbox.webpay.by");
+//        define("BILLING_URL", "https://billing.webpay.by");
+//        define("PAYMENT_URL", "https://payment.webpay.by");
+        define("WSB_STOREID", "776455369");
+        define("WSB_PASS", "AC(q:|$(.Sk");
+        define("WSB_LOGIN", "helpyou");
+        define("WSB_STORE", "helpyou.by");
         define("WSB_SECRET_KEY", "3Y7r0A6c");
         define("WSB_RETURN_URL", $_SERVER['SERVER_NAME']."/performer/payment/success/");
         define("WSB_CANCEL_RETURN_URL", $_SERVER['SERVER_NAME']."/performer/payment/unsuccess/");
+        define("WSB_NOTIFY_RETURN_URL", $_SERVER['SERVER_NAME']."/performer/payment/notify/");
         define("WSB_PHONE", "375297496120");
         define("WSB_EMAIL", "no-reply@helpyou.by");
 

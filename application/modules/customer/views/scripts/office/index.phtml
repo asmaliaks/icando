@@ -174,7 +174,7 @@
                <label >Ваш контактный номер телефона</label></br>
                <div class="input-group">
                  <div class="input-group-addon">+375</div>
-                 <input type="text" class="form-control" id="phonenumberInp" <?php if($this->user['phonenumber']){?>value="<?= mb_substr($this->user['phonenumber'], 3, 10,'utf-8')?>" <?php } ?>  placeholder="Введите ваш номер телефона...">
+                 <input autocomplete="off" type="text" class="form-control" id="phonenumberInp" <?php if($this->user['phonenumber']){?>value="<?= mb_substr($this->user['phonenumber'], 3, 10,'utf-8')?>" <?php } ?>  placeholder="Введите ваш номер телефона...">
                  <div id="sendSmsButton" style="display: none; background-color:#4ec67f" class="input-group-addon btn">Получить код</div>
                </div>
                <img id="smsPreloader" style="display: none" src="<?= $this->baseUrl().'/images/blue_preloader.gif' ?>" width="50">
@@ -185,7 +185,9 @@
              <div class="col-sm-3"></div>
                  
           </div>
-             <div class="col-sm-3"><button style="display: none" class="btn btn-primary btn-xs"  id="enterCodeBut">Ввести код</button></div>
+             <div class="col-sm-3">
+<!--                 <button style="display: none" class="btn btn-primary btn-xs"  id="enterCodeBut">Ввести код</button>-->
+             </div>
         <?php }else{?>
 
             <?php if($this->user['phone_verified'] == 0){?>
@@ -198,7 +200,7 @@
                              <label >Ваш контактный номер телефона</label></br>
                              <div class="input-group">
                                <div class="input-group-addon">+375</div>
-                               <input type="text" class="form-control" id="phonenumberInp" <?php if($this->user['phonenumber']){?>value="<?= mb_substr($this->user['phonenumber'], 3, 10,'utf-8')?>" <?php } ?> placeholder="Введите ваш номер телефона...">
+                               <input autocomplete="off" type="text" class="form-control" id="phonenumberInp" <?php if($this->user['phonenumber']){?>value="<?= mb_substr($this->user['phonenumber'], 3, 10,'utf-8')?>" <?php } ?> placeholder="Введите ваш номер телефона...">
                                <div id="sendSmsButton" style="display: none; background-color:#4ec67f" class="input-group-addon btn">Получить код</div>
                              </div>
                              <img id="smsPreloader" style="display: none" src="<?= $this->baseUrl().'/images/blue_preloader.gif' ?>" width="50">
@@ -209,7 +211,9 @@
                            <div class="col-sm-3"></div>
 
                     </div>
-                    <div class="col-sm-3"><button style="display: none" class="btn btn-primary btn-xs" id="enterCodeBut" >Ввести код</button></div>
+                    <div class="col-sm-3">
+<!--                        <button style="display: none" class="btn btn-primary btn-xs" id="enterCodeBut" >Ввести код</button>-->
+                    </div>
                 <?php }else{?>
                      <div class="row">
                         <div class="col-sm-6">
@@ -218,7 +222,7 @@
                              <label >Ваш контактный номер телефона</label></br>
                              <div class="input-group">
                                <div class="input-group-addon">+375</div>
-                               <input type="text" class="form-control" id="phonenumberInp" <?php if($this->user['phonenumber']){?>value="<?= mb_substr($this->user['phonenumber'], 3, 10,'utf-8')?>" <?php } ?> placeholder="Введите ваш номер телефона...">
+                               <input autocomplete="off" type="text" class="form-control" id="phonenumberInp" <?php if($this->user['phonenumber']){?>value="<?= mb_substr($this->user['phonenumber'], 3, 10,'utf-8')?>" <?php } ?> placeholder="Введите ваш номер телефона...">
                                <div id="sendSmsButton" style="display: none; background-color:#4ec67f" class="input-group-addon btn">Получить код</div>
                              </div>
                              <img id="smsPreloader" style="display: none" src="<?= $this->baseUrl().'/images/blue_preloader.gif' ?>" width="50">
@@ -229,7 +233,9 @@
                            <div class="col-sm-3"></div>
 
                     </div>
-                    <div class="col-sm-3"><button style="display: none"  class="btn btn-primary btn-xs" id="enterCodeBut" >Ввести код</button></div>
+                    <div class="col-sm-3">
+<!--                        <button style="display: none"  class="btn btn-primary btn-xs" id="enterCodeBut" >Ввести код</button>-->
+                    </div>
                 <?php }?>
             <?php }else{ ?>
                 <img id="verificatePhone" data-toggle="tooltip" data-placement="left" title="Телефон верифицирован"  width="40px" src="<?= $this->baseUrl().'/ico/phone.png' ?>" >
@@ -243,7 +249,7 @@
                              <label >Ваш контактный номер телефона</label></br>
                              <div class="input-group">
                                <div class="input-group-addon">+375</div>
-                               <input type="text" class="form-control" id="phonenumberInp" <?php if($this->user['phonenumber']){?>value="<?= mb_substr($this->user['phonenumber'], 3, 10,'utf-8')?>" <?php } ?> placeholder="Введите ваш номер телефона...">
+                               <input autocomplete="off" type="text" class="form-control" id="phonenumberInp" <?php if($this->user['phonenumber']){?>value="<?= mb_substr($this->user['phonenumber'], 3, 10,'utf-8')?>" <?php } ?> placeholder="Введите ваш номер телефона...">
                                <div id="sendSmsButton" style="display: none; background-color:#4ec67f" class="input-group-addon btn">Получить код</div>
                              </div>
                              <img id="smsPreloader" style="display: none" src="<?= $this->baseUrl().'/images/blue_preloader.gif' ?>" width="50">
@@ -255,7 +261,7 @@
 
                     </div>
                     <div class="col-sm-3">
-                        <button style="display: none" class="btn btn-primary btn-xs" id="enterCodeBut" >Ввести код</button>
+<!--                        <button style="display: none" class="btn btn-primary btn-xs" id="enterCodeBut" >Ввести код</button>-->
                     </div>
                 </div>
             <?php } ?>
@@ -275,7 +281,7 @@
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#orders" aria-controls="orders" role="tab" data-toggle="tab">Заказы</a></li>
     
-    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Настройки</a></li>
+    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Профиль</a></li>
    
   </ul>
 
@@ -314,8 +320,8 @@
                     
                     <?php } ?>
                 </td>
-                <td><?=  date('H:i d-m-Y', $task['created_at'])?></td>
-                <td><?= date('H:i d-m-Y', $task['final_date']) ?></td>
+                <td><?=  date('d-m-Y H:i', $task['created_at'])?></td>
+                <td><?= date('d-m-Y H:i', $task['final_date']) ?></td>
                 <td>
                   <?php switch($task['status']){
                          case "non_taken":
@@ -571,6 +577,9 @@ function sendSms(phoneNumber, userId){
             if(data == 'true'){
                 $('#ModalSmsCode').modal('show');
                 $('#smsPreloader').hide();
+//                setTimeout(function() {
+                    $('#sendSmsButton').show();
+//                }, 60000);
             }else if(data == -4){
                 $('#smsPreloader').hide();
                 $('#phoneErrorInvalid').show();

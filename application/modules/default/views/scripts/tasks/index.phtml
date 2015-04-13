@@ -29,29 +29,49 @@
       <div class="row  categoryProduct xsResponse clearfix">
 
         <!--/.item-->
-        <?php foreach($this->paginator as $task){?>
-        <div class="item col-sm-4 col-lg-4 col-md-4 col-xs-6 list-view">
-          <div class="product">
-            <div class="image">  
-                <a href="#" data-toggle="modal" data-target="#ModalLogin" style="max-height: 170px !important;" >
-                    <img src="<?= $this->baseUrl() ?>/images/task_images/<?= $task['task_image'] ?>" alt="img" class="img-responsive"></a>
-<!--                <div class="promotion"> <span class="new-product"> NEW</span> </div>-->
+       <?php foreach($this->paginator as $task){?>
+        <!--/.item-->
+        <div class="item col-lg-3 col-md-3 col-sm-4 col-xs-6 productBlock list-view">
+
+            <div class="col-sm-2">
+               <a href="#" data-toggle="modal" data-target="#ModalSignup" >
+               <?php if($task['par_cat_image']){?>   
+                  <div style="background: center no-repeat url('<?= $this->baseUrl().'/images/category_images/'.$task['par_cat_image'] ?>'); height:122px; width: 160px; background-size: contain; margin-top: 15px" src="" alt="img" class="img-thumbnail img-responsive"></div>
+                <?php } ?>   
+              </a>
             </div>
-            <div class="description">
-              <h4><a href="#" data-toggle="modal" data-target="#ModalLogin"><?= $task['title'] ?></a></h4>
-              <small>Дата исполнения: <?= date("h:00 d.m.y",$task['final_date']) ?></small></br>
-                  
-              <div class="grid-description">
-                <p><?= $task['description'] ?></p>
+            <div class="col-sm-10">
+                <div class="col-sm-8">                
+                    <h4 style="margin-top: 15px !important">
+                        <a href="#" data-toggle="modal" data-target="#ModalSignup" >
+                         <?= $task['title'] ?>
+                        </a>
+                    </h4>
+                </div>
+                <div class="col-sm-4">                
+                    <h4 style="margin-top: 15px !important"> <span><?= $task['price'] ?> <?= POINT_LABEL ?></h4>
+                </div>
+                <div class="col-sm-12"> 
+                    <small>Дата исполнения: <?= date( "d.m.Y" ,$task['final_date']) ?> </small>
+                </div>
+                <div class="col-sm-12"> 
+                    <p><?= $task['description']?> </p>
+                </div>
+            
+                <div class="col-sm-9"> 
+                    </div>
+                <div class="col-sm-3"> 
+                    <div class="action-control">
+                        <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#ModalSignup">
+                            <span class="add2cart"> Подробнее </span>
+                        </a>
+                    </div>
+                </div>
               </div>
-              
-              
-            </div>
-            <div class="price"> <span><?= $task['customers_price'] ?> .руб</span> </div>
-            <div class="action-control"> <a class="btn btn-primary" data-toggle="modal" data-target="#ModalLogin"> <span class="add2cart"> Посмотреть </span> </a> </div>
-          </div>
+
         </div>
-        <?php } ?>
+
+       <?php }?>
         <!--/.item--> 
       </div>
       <!--/.categoryProduct || product content end-->

@@ -28,6 +28,17 @@ class Performer_CommentsController extends Zend_Controller_Action{
             $commentsObj = new Default_Model_DbTable_Comments();
             $commentsObj->add($data);
             
+            $usersObj = new Performer_Model_DbTable_Users();
+            $customer = $usersObj->getUserById($params['customerId']);
+            // send email
+            $smtpObj = new Default_Model_Smtp();
+            $message = '<p>Пользователь '.$this->user->username.' '.mb_substr($this->user->username, 0, 1, 'utf-8').'. '
+                    . 'оставил комментарий к <a href="http://helpyou.by/admin/tasks/view/id/'.$params['taskId'].'">задаче  </a></p> ';
+            
+            $message = wordwrap($message, 70);
+            $headers = 'From: no_reply@helpyou.by';
+            $smtpObj->send($customer['email'], 'Оставлен комментарий', $message, $headers);
+            
             print_r('true');exit;
             
         }

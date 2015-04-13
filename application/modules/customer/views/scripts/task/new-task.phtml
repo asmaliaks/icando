@@ -118,7 +118,7 @@
                        <label >Ваш контактный номер телефона</label></br>
                        <div class="input-group">
                          <div class="input-group-addon">+375</div>
-                         <input type="text" class="form-control" id="phonenumberInp" <?php if($this->user['phonenumber']){?>value="<?= mb_substr($this->user['phonenumber'], 3, 10,'utf-8')?>" <?php } ?>  placeholder="Введите ваш номер телефона...">
+                         <input type="text" autocomplete="off" class="form-control" id="phonenumberInp" <?php if($this->user['phonenumber']){?>value="<?= mb_substr($this->user['phonenumber'], 3, 10,'utf-8')?>" <?php } ?>  placeholder="Введите ваш номер телефона...">
                          <div id="sendSmsButton" style="display: none; background-color:#4ec67f" class="input-group-addon btn">Подтвердить</div>
                        </div>
                        <p class="text-danger" id="phoneErrorTaken" style="display: none">Номер занят</p>
@@ -127,8 +127,8 @@
                        <label class="sr-only" for="phonenumber">Подтвердить</label>
                        <label >Подтвердить</label></br>
                        <div class="input-group">
-                         <input type="text" class="form-control" id="codeInp"  placeholder="sms-код">
-                         <div id="sendCodeButton" style="display: none; background-color:#4ec67f" class="input-group-addon btn">Верификация</div>
+                         <input type="text" autocomplete="off" class="form-control" id="codeInp"  placeholder="sms-код">
+                         <div id="sendCodeButton"  style="display: none; background-color:#4ec67f" class="input-group-addon btn">Верификация</div>
                        </div>
                        <p class="text-danger" id="codeError" style="display: none">Неверный код</p>
                      </div>

@@ -3,9 +3,6 @@
         <h2> Задачи </h2>
         
       </div>
-
-      <!--/.subCategoryList-->
- <?php if($this->tasks){?>
       <div class="w100 productFilter clearfix">
         <div class="pull-right ">
           <div class="change-order pull-left">
@@ -47,6 +44,9 @@
           </div>-->
         </div>
       </div>
+      <!--/.subCategoryList-->
+ <?php if($this->tasks->count() != 0){?>
+
       <!--/.productFilter-->
       <div class="row  categoryProduct xsResponse clearfix">
         <?php foreach($this->tasks as $task){?>  
@@ -55,8 +55,8 @@
 
             <div class="col-sm-2">
                <a href="<?= $this->baseUrl().'/performer/task/view/id/'.$task['id'] ?>" >
-               <?php if($task['task_image']){?>   
-                   <div style="background: center no-repeat url('<?= $this->baseUrl().'/images/task_images/'.$task['task_image'] ?>'); height:122px; width: 160px; background-size: contain; margin-top: 21px" src="" alt="img" class="img-thumbnail img-responsive"></div>
+               <?php if($task['par_cat_image']){?>   
+                   <div style="background: center no-repeat url('<?= $this->baseUrl().'/images/category_images/'.$task['par_cat_image'] ?>'); height:122px; width: 160px; background-size: contain; margin-top: 21px" src="" alt="img" class="img-thumbnail img-responsive"></div>
                   
                <?php }else{ ?>
                   <div style="background: center no-repeat url('<?= $this->baseUrl().'/images/task_images/'.$task['task_image'] ?>'); height:122px; width: 160px; background-size: contain; margin-top: 21px" src="" alt="img" class="img-thumbnail img-responsive"></div>
@@ -69,7 +69,7 @@
                     <h4 style="margin-top: 15px !important"><a href="<?= $this->baseUrl().'/performer/task/view/id/'.$task['id'] ?>" ><?= $task['title'] ?></a></h4>
                 </div>
                 <div class="col-sm-4">                
-                    <h4 style="margin-top: 15px !important"> <span><?= $task['price'] ?> бел. рублей</h4>
+                    <h4 style="margin-top: 15px !important"> <span><?= $task['price'] ?> <?= POINT_LABEL ?></h4>
                 </div>
                 <div class="col-sm-12"> 
                     <small>Дата исполнения: <?= date( "d.m.Y" ,$task['final_date']) ?> </small>
@@ -103,7 +103,7 @@
       <!--/.categoryFooter--> 
  <?php }else{?>
       <div class="col-sm-12">
-          <h3>Открытых задач пока нет</h3>
+          <h3>Открытых задач в выбранной вами категории пока нет</h3>
       </div>    
  <?php } ?>     
     </div>
