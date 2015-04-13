@@ -142,10 +142,15 @@ class Performer_TaskController extends Zend_Controller_Action{
                 }
                 if(is_uploaded_file($_FILES["image"]["tmp_name"]))
                 {
-              
-                  copy($_FILES["image"]["tmp_name"], DOCUMENT_ROOT."/images/task_images/".$_FILES["image"]["name"]);
+                // get image type
+                $type = $_FILES["image"]["name"];
+                $typeArray = explode(".", $type);
+                $imageType = $typeArray[1];
+                
+              $imageName = $this->makeHash();
+                  copy($_FILES["image"]["tmp_name"], DOCUMENT_ROOT."/images/task_images/".$imageName.".".$imageType);
 //                  copy($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT']."/images/task_images/".$_FILES["image"]["name"]);
-                  $data['task_image'] = $_FILES['image']['name'];
+                  $data['task_image'] = $imageName.".".$imageType;
                 }
             }
           
@@ -364,6 +369,13 @@ class Performer_TaskController extends Zend_Controller_Action{
             $smsObj->sendSmsAction($user['phonenumber'], $message);
             echo 'true';exit;
         }
-    }    
+    } 
+    private function makeHash(){
+    	$quan1 = substr(str_shuffle(str_repeat("234", 15)), 0, 1);
+    	$quan2 = substr(str_shuffle(str_repeat("123456780", 15)), 0, 1);
+    	$quan = $quan1."". $quan2;
+    	$s = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 15)), 0, $quan);
+    	return $s;
+} 
 }
 
