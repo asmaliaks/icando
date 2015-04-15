@@ -73,7 +73,13 @@
                     </h4>
                 </div>
                 <div class="col-sm-4">                
-                    <h4 style="margin-top: 15px !important"> <span><?= $task['price'] ?> бел. рублей</h4>
+                    <h4 style="margin-top: 15px !important"> 
+                       <?php if($task['propose_price'] == 0){?> 
+                        <?= $task['price'] ?> <?= POINT_LABEL ?>
+                       <?php }else{ ?>
+                         Цена договорная
+                       <?php } ?> 
+                    </h4>
                 </div>
                 <div class="col-sm-12"> 
                     <small>Дата исполнения: <?= date( "d.m.Y" ,$task['final_date']) ?> </small>

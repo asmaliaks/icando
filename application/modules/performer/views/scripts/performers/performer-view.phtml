@@ -145,7 +145,7 @@
     </div>
     <?php } ?>
     <!--/ right column end --> 
-    <?php if($this->feedbacks){?>
+    <?php if($this->feedbacks->count() > 0){?>
         <div class="col-lg-12" style="padding-bottom: 10px">
             <h3 class="block-title-3">
                 Отзывы  
@@ -214,8 +214,9 @@
             </div>
             <div class="col-lg-7"> 
                 <h2><?=  $feedback['u_username'].' '.mb_substr($feedback['u_username'], 0, 1, 'utf-8').'.' ?></h2>
-                    <p><?= $feedback['text'] ?></p>
-                    <h3 class="product-code"><?= date("d.m.Y",$feedback['created']); ?></h3>
+                <h3 class="product-code"><?= $feedback['t_title']; ?></h3>    
+                <p><?= $feedback['text'] ?></p>
+                <small><?= date("d.m.Y",$feedback['created']); ?></small>
             </div>
             </div>
             <?php } ?>

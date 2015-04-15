@@ -45,10 +45,12 @@
                 </div>
                 <div class="row">
                 <div class="col-sm-4">
-                    <label>Стоимость</label>
-                    <input type="text" name="price" id="price" class="form-control" style="width: 100%">
-                    <p id="price_error" class="text-danger" style="display: none">* Введите стоимость цифрами в бел. рублях без пробелов</p>
-                    <p id="price_char_error" class="text-danger" style="display: none">* Поле не должно содержать пробелов, точек и запятых</p>
+                    <div id="customers_price">
+                        <label>Стоимость</label>
+                        <input type="text" name="price" id="price" class="form-control" style="width: 100%">
+                        <p id="price_error" class="text-danger" style="display: none">* Введите стоимость цифрами в бел. рублях без пробелов</p>
+                        <p id="price_char_error" class="text-danger" style="display: none">* Поле не должно содержать пробелов, точек и запятых</p>
+                    </div>
                 </div>
                 <div class="col-sm-4">
                     <label>Дата выполнения</label>
@@ -122,6 +124,18 @@
                    <p id="agree_error" class="text-danger" style="display: none">* Согласитесь с условиями</p>
                 </div>
                 </div>
+                <div class="row">
+                    <div class="col-sm-4 col-lg-4"></div>
+                    <div class="col-sm-4 col-lg-4">
+                        <label >Стоимость</label></br>
+                        <span>
+                            <input type="hidden" value="0" name="propose_price" style="display: none">
+                            <input type="checkbox" name="propose_price" value="1" id="propose_price" class="form-control45" >
+                            Пусть исполнитель предложит свою цену
+                        </span>
+                    </div>
+                    <div class="col-sm-4 col-lg-4"></div>
+                </div>                
                 <div class="col-sm-12" id="agreementDiv" style="display: none">
                    <div class="panel panel-default ">
                        <div class="panel-heading">
@@ -160,7 +174,14 @@ $(document).ready(function(){
         $('#agreementDiv').toggle(400);
     });
   
-
+  $('#propose_price').change(function (){
+      if($('#propose_price').is(':checked')){
+          $('#customers_price').hide();
+          $('#price').val('');
+      }else{
+          $('#customers_price').show();
+      }
+  }); 
     
 });
     
@@ -213,40 +234,79 @@ function newTask(){
         var agree = '0';
     }
 
+    if($('#propose_price').is(':checked')){
+        var propose_price = 1;
+    }else{
+        var propose_price = 0;
+    }
+
  var priceNan = isNaN(price);
  var priceDot = price.indexOf(".");
- if(catId === '0' || title === '' || price === '' || date === '' || finishDate === '' || description === '' || agree === '0' || priceNan || priceDot != -1){
+    if(propose_price == 0){  
+        if(catId === '0' || title === '' || price === '' || date === '' || description === '' || agree === '0' || priceNan || priceDot != -1){
+        //    if( title === '' || price === '' || date === '' || finishDate === '' || agree === '0'){
+                if(catId === '0'){
+                    $('#sub_cat_error').show();
+                }
+                if(title === ''){
+                   $('#title_error').show(); 
+                }
+                if(priceNan){
+                   $('#price_error').show();
+                }
+                if(price === ''){
+                   $('#price_error').show(); 
+                }
+                if(date === ''){
+                   $('#final_date_error').show(); 
+                }
+                if(description === ''){
+                   $('#description_error').show(); 
+                }
+                if(priceDot != -1){
+                   $('#price_char_error').show(); 
+                }
 
-//    if( title === '' || price === '' || date === '' || finishDate === '' || agree === '0'){
-        if(catId === '0'){
-            $('#sub_cat_error').show();
-        }
-        if(title === ''){
-           $('#title_error').show(); 
-        }
-        if(priceDot != -1){
-           $('#price_char_error').show(); 
-        }
-        if(price === ''){
-           $('#price_error').show(); 
-        }
-        if(priceNan){
-           $('#price_error').show();
-        }
-        if(date === ''){
-           $('#final_date_error').show(); 
-        }
-        if(finishDate === ''){
-           $('#expiry_date_error').show(); 
-        }
-        if(agree === '0'){
-           $('#agree_error').show(); 
-        }
+                if(agree === '0'){
+                   $('#agree_error').show(); 
+                }
+            }else{
+                $('#submitTask').hide();
+                $('#taskSubmPrel').show();
+                $('#task_form').submit();
+            }
     }else{
-        $('#submitTask').hide()
-        $('#taskSubmPrel').show()
-        $('#task_form').submit();
-    }
+        if(catId === '0' || title === '' || date === '' || description === '' || agree === '0' || priceNan || priceDot != -1){
+        //    if( title === '' || price === '' || date === '' || finishDate === '' || agree === '0'){
+                if(catId === '0'){
+                    $('#sub_cat_error').show();
+                }
+                if(title === ''){
+                   $('#title_error').show(); 
+                }
+                if(priceNan){
+                   $('#price_error').show();
+                }
+                
+                if(date === ''){
+                   $('#final_date_error').show(); 
+                }
+                if(description === ''){
+                   $('#description_error').show(); 
+                }
+                if(priceDot != -1){
+                   $('#price_char_error').show(); 
+                }
+
+                if(agree === '0'){
+                   $('#agree_error').show(); 
+                }
+            }else{
+                $('#submitTask').hide();
+                $('#taskSubmPrel').show();
+                $('#task_form').submit();
+            }
+    }  
     
 }  
 

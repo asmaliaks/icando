@@ -74,6 +74,7 @@ class Performer_TaskController extends Zend_Controller_Action{
         if($userHasCat){
             $this->view->userHasCat = $userHasCat;
         }
+        $this->view->user = $user;
         $this->view->comments = $comments;
         $this->view->currentUser = $this->user;
         $this->view->task = $task;
@@ -130,8 +131,12 @@ class Performer_TaskController extends Zend_Controller_Action{
                 'status'=>'non_taken',
                 'created_at'=>time(),
                 'docs' => $params['docs'],
+                'propose_price' => $params['propose_price'],
             );
-           
+           if($params['propose_price'] == 1){
+               $data['price'] = null;
+               $data['customers_price'] = null;
+           }
             // upload image
             if($_FILES['image']){
                 $dir = (int)is_dir($_SERVER['DOCUMENT_ROOT']."/images/task_images/");
@@ -300,20 +305,20 @@ class Performer_TaskController extends Zend_Controller_Action{
                 
                 echo 'true';
             }else{
-//                $taskPrepObj->addPreposition($post['taskId'], $this->user->id, $post['perfPrice']);
-//                // send email to the customer
-//                $smtpObj = new Default_Model_Smtp();
-//                $message = "Пользователь ".$this->user->username." ".mb_substr($this->user->surname, 0, 1, 'utf-8').". "
-//                        . "предлагает ".$post['perfPrice']." рублей за выполнение задания ".$task['title'];
-//                $headers = 'From: no_reply@helpyou.by';
-//                $smtpObj->send($task['u_email'], 'Предложение кандидатуры', $message, $headers);
-//                // send sms
-//                $smsObj = new Default_Model_SmsModel();
-//                $smsMessage = "На Ваше задание откликнулся исполнитель, ознакомьтесь в лич кабинете";
-//                $smsMessage = urlencode($smsMessage);
-//                $smsObj->sendSmsAction($this->user->phonenumber, $smsMessage);
-//                
-//                echo 'true';
+                $taskPrepObj->addPreposition($post['taskId'], $this->user->id, $post['perfPrice']);
+                // send email to the customer
+                $smtpObj = new Default_Model_Smtp();
+                $message = "Пользователь ".$this->user->username." ".mb_substr($this->user->surname, 0, 1, 'utf-8').". "
+                        . "предлагает ".$post['perfPrice']." рублей за выполнение задания ".$task['title'];
+                $headers = 'From: no_reply@helpyou.by';
+                $smtpObj->send($task['u_email'], 'Предложение кандидатуры', $message, $headers);
+                // send sms
+                $smsObj = new Default_Model_SmsModel();
+                $smsMessage = "На Ваше задание откликнулся исполнитель, ознакомьтесь в лич кабинете";
+                $smsMessage = urlencode($smsMessage);
+                $smsObj->sendSmsAction($this->user->phonenumber, $smsMessage);
+                
+                echo 'true';
             }
             
         }
@@ -345,17 +350,46 @@ class Performer_TaskController extends Zend_Controller_Action{
         if($request->isPost()){
             $performerId = $request->getParam('performerId');
             $taskId = $request->getParam('taskId');
+            $prepositionId = $request->getParam('prepositionId');
+            
+            $taskObj = new Performer_Model_DbTable_TasksModel();
+            $task= $taskObj->getTaskById($taskId);
+            
             // delete all preposition with 'performer_id' == $performerId
             $prepObj = new Performer_Model_DbTable_TaskPrepositionModel();
-            $prepObj->takePreposition($taskId);
-            // change task status
-            $taskObj = new Performer_Model_DbTable_TasksModel();
-            $taskObj->acceptPreposition($performerId, $taskId);
             
-            // send mail notification to the performer
-            $task= $taskObj->getTaskById($taskId);
+            
+            // if performers didn't propose his price
+            if($task['customers_price']){
+                // change task status
+                $taskObj->acceptPreposition($performerId, $taskId);
+            // if performer proposed his price
+            }else{
+                $prepositionId = $request->getParam('prepositionId');
+                $preposition = $prepObj->getById($prepositionId);
+                // change task status
+                $taskObj->acceptPrepositionWithPerformersPrice($performerId, $taskId, $preposition['performers_price']);
+            }
+            $prepObj->takePreposition($taskId);
+            
+            // block  balnce 
             $usersObj = new Admin_Model_DbTable_Users();
             $user = $usersObj->getUserById($performerId);
+            // block peace of the performer's balance
+            $balanceReserveObj = new Default_Model_DbTable_BalanceReserve();
+            $blockedBalance = 10/$task['customers_price'];
+            $blockedBalance = $blockedBalance*100;
+            $blockBalance = array(
+                'task_id'=>$task['id'],
+                'user_id'=>$performerId,
+                'amount' =>$blockedBalance,
+                'created'=>time(),
+            );
+            $balanceReserveObj->blockBalance($blockBalance);
+            // send mail notification to the performer
+            
+
+
             $smtpObj = new Default_Model_Smtp();
             $message = '<p>Заказчик <a href="http://helpyou.by/performer/customer/view/id/'.$this->user->id.'">'.$this->user->username.' '.mb_substr($this->user->surname, 0, 1, 'utf-8').'</a> '
                     . 'принял вашу заявку на выполнение задачи <a href="http://helpyou.by/performer/task/view/id/'.$task['id'].'">'.$task['title'].'</a> '

@@ -102,7 +102,7 @@ if (hs.addSlideshow) hs.addSlideshow({
         <li role="presentation"><a href="#apps" aria-controls="apps" role="tab" data-toggle="tab">Заявки <span class="badge"><?= $count ?></span></a></li>
     <?php } ?>
    
-        <li role="presentation" id="commentsTab"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Комментарии </a></li>
+<!--        <li role="presentation" id="commentsTab"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Комментарии </a></li>-->
     
   </ul>
 
@@ -145,7 +145,15 @@ if (hs.addSlideshow) hs.addSlideshow({
 
         <div class="col-lg-12">
            <label>Стоимость : </label>
-           <?= $this->task['customers_price'] ?> бел. рублей
+            <?php if($this->task['propose_price'] == 0){?>
+                <?= $this->task['customers_price'] ?> <?= POINT_LABEL ?>
+            <?php }else{?>
+                <?php if(!$this->task['price']){?>
+                    Исполнитель предлагает цену
+                <?php }else{ ?>
+                    <?= $this->task['price'] ?> <?= POINT_LABEL ?>
+                <?php } ?>
+            <?php } ?>
         </div>
         <div class="col-lg-12">
             <label>Описание : </label>
@@ -233,7 +241,7 @@ if (hs.addSlideshow) hs.addSlideshow({
         <?php } ?>
         <?php if($this->tasksFeedback){?>
 
-        <div class="col-lg-12">
+        <div class="col-lg-12 ">
             <h3 class="block-title-3">
                 Отзыв от исполнителя
             </h3>
@@ -304,17 +312,9 @@ if (hs.addSlideshow) hs.addSlideshow({
             </div>
         </div>
         <?php } ?>
-    </div>
-    
-      <div role="tabpanel" class="tab-pane" id="comments" >
-          <?php if(!$this->comments){?>
-          <div class="col-sm-12">
-            <div class="list-group list-group-item">
-              <h3 class="list-group-item-heading">Сообщений пока нет</h3>
-            </div>
-          </div>
-          <?php }else{ ?>
-          <div class="col-sm-12"> 
+        <?php if($this->comments){?>
+
+          <div class="col-sm-12 color-details" > 
               <?php foreach($this->comments as $comment){?>
               <div class="col-sm-12" style="padding-bottom: 10px">
                  
@@ -350,11 +350,13 @@ if (hs.addSlideshow) hs.addSlideshow({
               <label>Сообщение</label>
               <textarea class="form-control" id="commnetTextArea" style="width: 100%"></textarea>    
           </div>
-          <div class="col-sm-12">
+          <div class="col-sm-12" style="padding-bottom: 10px">
               <button class="btn btn-primary" id="sendCommentButton">Отправить</button>
               <img id="sendCommentPrel" src="<?= $this->baseUrl(),'/images/blue_preloader.gif' ?>" style="display:none" width="50">
           </div>
-      </div>
+    </div>
+    
+
     
       <?php if($this->task['status'] == 'taken' && $this->currentUser->banned == 0){?>
             <div role="tabpanel" class="tab-pane" id="messages" >
@@ -466,13 +468,13 @@ if (hs.addSlideshow) hs.addSlideshow({
                 </td>
                 <td>
                     <?php if($preposition['performers_price']){?>
-                        <?= $preposition['performers_price'] ?>
+                        <?= $preposition['performers_price'] ?> <?= POINT_LABEL ?>
                     <?php }else{?>
                         Цена заказчика
                     <?php }?>
                 </td>
                 <td>
-                    <button id="acceptBut<?= $preposition['performer_id'] ?>" class="btn btn-primary btn-sm" onclick="acceptPreposition(<?= $preposition['performer_id'] ?>, <?= $preposition['task_id'] ?>)">Принять</button>
+                    <button id="acceptBut<?= $preposition['performer_id'] ?>" class="btn btn-primary btn-sm" onclick="acceptPreposition(<?= $preposition['performer_id'] ?>, <?= $preposition['task_id']  ?>, <?= $preposition['id']  ?>)">Принять</button>
                     <img style="display: none" id="prepPrel<?= $preposition['performer_id'] ?>" src="<?= $this->baseUrl()?>/images/blue_preloader.gif" width="50">
                 </td>
             </tr>
@@ -693,14 +695,16 @@ function sendMessage(taskId, senderId, addressee){
         }); 
     }
 }
-function acceptPreposition(performerId, taskId){
+function acceptPreposition(performerId, taskId, prepositionId){
 $('#acceptBut'+performerId).hide();
 $('#prepPrel'+performerId).show();
+
 $.ajax({
   type: 'POST',
   url: '<?= $this->baseUrl.'/customer/task/accept-proposition/'; ?>',
   data: {performerId: performerId,
-         taskId: taskId
+         taskId: taskId,
+         prepositionId: prepositionId
     },
   success: function(response){
       $('#prepTable').remove();

@@ -112,7 +112,7 @@ $(document).ready(function(){
                     <h4 style="margin-top: 15px !important"><a href="<?= $this->baseUrl().'/customer/task/view/id/'.$lastTask['id'] ?>" ><?= $lastTask['title'] ?></a></h4>
                 </div>
                 <div class="col-sm-3">                
-                    <h4 style="margin-top: 15px !important"> <span><?= $lastTask['price'] ?> бел. рублей</h4>
+                    <h4 style="margin-top: 15px !important"> <span><?= $lastTask['price'] ?> <?= POINT_LABEL ?></h4>
                 </div>
                 <div class="col-sm-12"> 
                     <small>Дата исполнения: <?= date( "d.m.Y" ,$lastTask['final_date']) ?> </small>

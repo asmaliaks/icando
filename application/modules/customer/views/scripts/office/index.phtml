@@ -320,8 +320,8 @@
                     
                     <?php } ?>
                 </td>
-                <td><?=  date('d-m-Y H:i', $task['created_at'])?></td>
-                <td><?= date('d-m-Y H:i', $task['final_date']) ?></td>
+                <td><?=  date('Y-m-d H:i', $task['created_at'])?></td>
+                <td><?= date('Y-m-d H:i', $task['final_date']) ?></td>
                 <td>
                   <?php switch($task['status']){
                          case "non_taken":

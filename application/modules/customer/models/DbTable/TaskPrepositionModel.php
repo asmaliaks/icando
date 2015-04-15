@@ -29,7 +29,17 @@ class Customer_Model_DbTable_TaskPrepositionModel extends Zend_Db_Table_Abstract
             return false;
         }
     }
-    
+    public function getById($id){
+        $select = $this->select()
+                ->from(array('tp'=>'task_preposition'))
+                ->where('tp.id=?', $id);
+        $result = $this->fetchRow($select);
+        if($result){
+            return $result->toArray();
+        }else{
+            return false;
+        }
+    }
     public function takePreposition($taskId){
         $where = $this->getAdapter()->quoteInto('task_id = ?', $taskId);
         $this->delete($where);

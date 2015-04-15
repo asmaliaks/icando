@@ -92,8 +92,12 @@ class Customer_TaskController extends Zend_Controller_Action{
                 'status'=>'non_taken',
                 'created_at'=>time(),
                 'docs' => $params['docs'],
+                'propose_price' => $params['propose_price'],
             );
-           
+           if($params['propose_price'] == 1){
+               $data['price'] = null;
+               $data['customers_price'] = null;
+           }
             // upload image
             if($_FILES['image']){
                 $dir = (int)is_dir($_SERVER['DOCUMENT_ROOT']."/images/task_images/");
@@ -253,20 +257,31 @@ class Customer_TaskController extends Zend_Controller_Action{
         if($request->isPost()){
             $performerId = $request->getParam('performerId');
             $taskId = $request->getParam('taskId');
+            $taskObj = new Customer_Model_DbTable_TasksModel();
+            // 
+            $task = $taskObj->getTaskById($taskId);
             // delete all preposition with 'performer_id' == $performerId
             $prepObj = new Customer_Model_DbTable_TaskPrepositionModel();
-            $prepObj->takePreposition($taskId);
-            // change task status
-            $taskObj = new Customer_Model_DbTable_TasksModel();
-            $taskObj->acceptPreposition($performerId, $taskId);
             
-            // send mail notification to the performer
-            $task= $taskObj->getTaskById($taskId);
+            // if performers didn't propose his price
+            if($task['customers_price']){
+                // change task status
+                $taskObj->acceptPreposition($performerId, $taskId);
+            // if performer proposed his price
+            }else{
+                $prepositionId = $request->getParam('prepositionId');
+                $preposition = $prepObj->getById($prepositionId);
+                // change task status
+                $taskObj->acceptPrepositionWithPerformersPrice($performerId, $taskId, $preposition['performers_price']);
+            }
+            // take the preposition
+            $prepObj->takePreposition($taskId);
+            
             $usersObj = new Admin_Model_DbTable_Users();
             $user = $usersObj->getUserById($performerId);
             // block peace of the performer's balance
             $balanceReserveObj = new Default_Model_DbTable_BalanceReserve();
-            $blockedBalance = 15/$task['customers_price'];
+            $blockedBalance = 10/$task['customers_price'];
             $blockedBalance = $blockedBalance*100;
             $blockBalance = array(
                 'task_id'=>$task['id'],

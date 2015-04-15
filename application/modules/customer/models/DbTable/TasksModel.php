@@ -128,6 +128,19 @@ class Customer_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
         $where = $this->getAdapter()->quoteInto('id = ?', $taskId);
         $this->update($data, $where);
     }
+  
+    public function acceptPrepositionWithPerformersPrice($performerId, $taskId, $price){
+        $data = array(
+            'performer_id' => $performerId,
+            'status' => 'taken',
+            'price' => $price,
+            'customers_price' => $price,
+            'performer_price' => $price,
+        );
+        $where = $this->getAdapter()->quoteInto('id = ?', $taskId);
+        $this->update($data, $where);  
+    }
+    
     public function changeStatus($taskId, $status){
         $data = array(
             'status'=> $status,

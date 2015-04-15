@@ -14,6 +14,11 @@ class Default_Model_Feedback{
                             'f.text',
                             'f.created'))
                 ->where('f.user_to=?', $performerId)
+                ->joinLeft(array('t'=>'tasks'),
+                        'f.task_id = t.id',
+                        array(
+                            't.title as t_title'
+                        ))
                 ->joinLeft(array('u' => 'users'),
                 'f.user_from = u.id',
                         array(
