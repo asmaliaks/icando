@@ -25,6 +25,9 @@ class Performer_FeedbackController extends Zend_Controller_Action{
                     'user_to' => $post['custId'],
                     'text' => $post['feedbackText'],
                     'rating' => 0,
+                    'punctuality'=>0,
+                    'quality'=> 0,
+                    'politeness'=>0,
                     'created' => time(),
                 );
                 $feedbackObj->addFeedback($data);
@@ -57,6 +60,9 @@ class Performer_FeedbackController extends Zend_Controller_Action{
                     'user_to' => $post['custId'],
                     'text' => $post['feedbackText'],
                     'rating' => $rating,
+                    'punctuality'=>$post['punctuality'],
+                    'quality'=> $post['quality'],
+                    'politeness'=>$post['politeness'],
                     'created' => time(),
                 );
                 $feedbackObj->addFeedback($data);
