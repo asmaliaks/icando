@@ -24,7 +24,7 @@
 <?php foreach($this->taskList as $task){?>
      <tr id="div<?= $task['id'] ?>">
          <td>
-             <?= date("d.m.y", $task['created_at']); ?>
+             <?= date("Y.m.d H:i", $task['created_at']); ?>
          </td>
        <td>
            <a href="<?= $this->baseUrl().'/admin/tasks/view/id/'.$task['id']?>">

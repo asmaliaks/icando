@@ -44,7 +44,7 @@
                 </div>
                 </div>
                 <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-2" >
                     <div id="customers_price">
                         <label>Стоимость</label>
                         <input type="text" name="price" id="price" class="form-control" style="width: 100%">
@@ -52,6 +52,14 @@
                         <p id="price_char_error" class="text-danger" style="display: none">* Поле не должно содержать пробелов, точек и запятых</p>
                     </div>
                 </div>
+                    <div class="col-sm-2 col-lg-2" style="padding-top: 20px;">
+                       
+                        <span>
+                            <input type="hidden" value="0" name="propose_price" style="display: none">
+                            <input type="checkbox" name="propose_price" value="1" id="propose_price" class="form-control45" >
+                            Пусть исполнитель предложит свою цену
+                        </span>
+                    </div>
                 <div class="col-sm-4">
                     <label>Дата выполнения</label>
                     <input type="text" name="final_date" id="final_date" class="form-control" style="width: 100%">

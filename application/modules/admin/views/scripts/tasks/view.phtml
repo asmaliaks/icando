@@ -30,7 +30,11 @@
                 
             </div>
             <div class="col-lg-12">
-                <strong>Стоимость:</strong> <?= $this->task['customers_price'] ?>
+                <strong>Когда исполнить:</strong> <?= date("H:i d.m.Y",$this->task['final_date']) ?>
+                
+            </div>
+            <div class="col-lg-12">
+                <strong>Стоимость:</strong> <?= $this->task['customers_price'] ?> <?= POINT_LABEL ?>
                 
             </div>
             <div class="col-lg-12">
