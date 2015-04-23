@@ -135,6 +135,13 @@ h3 code {
 	padding: 10px 0 10px;
 	position: relative;
 }
+.block-title-custom {
+	border-bottom: 1px solid #CECECE;
+	
+	margin: 0 0 15px;
+	padding: 10px 0 10px;
+	position: relative;
+}
 .block-title-4 {
 	display: inline;
 	font-size: 20px;
@@ -3234,14 +3241,14 @@ h5.parallaxSubtitle {
 	padding-left: 0;
 }
 .swatches li {
-	border: 2px solid #FFFFFF;
+	/*border: 2px solid #FFFFFF;*/
 	display: inline-block;
 	margin: 2px 1px;
 	vertical-align: top;
 	list-style: none;
 }
 .swatches .selected, .swatches li:hover {
-	border: 2px solid #B2B2B2;
+	border: 0px solid #B2B2B2;
 }
 .swatches a {
 	background-position: center center;

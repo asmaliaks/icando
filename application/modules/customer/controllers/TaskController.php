@@ -193,6 +193,9 @@ class Customer_TaskController extends Zend_Controller_Action{
         $request = $this->getRequest();
         $taskId = $request->getParam('id');
         
+        $usersObj = new Performer_Model_DbTable_Users();
+        $user = $usersObj->getUserById($this->user->id);
+        
         $taskObj = new Customer_Model_DbTable_TasksModel();
         $task = $taskObj->getTaskById($taskId);
         // get task's prepositions
@@ -243,9 +246,12 @@ class Customer_TaskController extends Zend_Controller_Action{
         // get additional images
         $additionalImgObj = new Default_Model_DbTable_TaskImages();
         $addImages = $additionalImgObj->getTaskImages($taskId);
+        
         if($addImages){
             $this->view->addImages = $addImages;
         }
+        
+        $this->view->user = $user;
         $this->view->comments = $comments;
         $this->view->currentUser = $this->user;
         $this->view->task = $task;

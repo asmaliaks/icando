@@ -11,13 +11,20 @@ class Default_Model_Feedback{
                             'f.rating',
                             'f.task_id',
                             'f.kind',
+                            'f.punctuality',
+                            'f.politeness',
+                            'f.quality',
                             'f.text',
                             'f.created'))
                 ->where('f.user_to=?', $performerId)
                 ->joinLeft(array('t'=>'tasks'),
                         'f.task_id = t.id',
                         array(
-                            't.title as t_title'
+                            't.id as t_id',
+                            't.title as t_title',
+                            't.customer_id as t_customer_id',
+                            't.performer_id as t_performer_id',
+                            
                         ))
                 ->joinLeft(array('u' => 'users'),
                 'f.user_from = u.id',

@@ -145,6 +145,9 @@ class Performer_Model_DbTable_FeedbackModel extends Zend_Db_Table_Abstract{
                         array('f.id',
                             'f.rating',
                             'f.task_id',
+                            'f.politeness',
+                            'f.punctuality',
+                            'f.quality',
                             'f.kind',
                             'f.text',
                             'f.created'))

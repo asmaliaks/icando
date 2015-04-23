@@ -56,14 +56,23 @@ class Performer_PerformersController extends Zend_Controller_Action{
                 ->setCurrentPageNumber($this->getParam('page', 1));
         if($closedTasks){
             // get user's rating
-            $feedbackObj = new Performer_Model_DbTable_FeedbackModel();
+            $feedbackObj = new Customer_Model_DbTable_FeedbackModel();
             $rating = $feedbackObj->countPerformersRating($performerId);
-            $this->view->rating = $rating;
+            $mainRating = $feedbackObj->countPerformersMarks($performerId);
+            // count positive feedbacks
+            $positiveAmount = $feedbackObj->positiveAmount($performerId);
+            $negativeAmount = $feedbackObj->negativeAmount($performerId);
+            
+            $this->view->negativeAmount = $negativeAmount;
+            $this->view->positiveAmount = $positiveAmount;
+            $this->view->mainRating = $mainRating;
+            $this->view->rating = floor($rating);
             $this->view->closedTasks = $closedTasks;
         }
         $this->view->feedbacks = $feedbacks;
         $this->view->usersCategories = $usersCategories;
         $this->view->performer = $performer;
+        $this->view->currentUserId = $performerId;
     }
     
 
