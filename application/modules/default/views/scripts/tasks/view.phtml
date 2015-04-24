@@ -174,12 +174,12 @@ if (hs.addSlideshow) hs.addSlideshow({
                 Отзыв от заказчика
             </h3>
             <div class="row block-title-custom">
-                <div class="col-sm-1">
+                <div class="col-sm-1 col-xs-3">
                     <img class="img-thumbnail" width="100%" src="<?= $this->baseUrl().'/images/users_images/'.$this->feedback['u_image'] ?>">
                 </div>    
-                <div class="col-sm-11">
+                <div class="col-sm-11 col-xs-9">
                     <b><?= $this->feedback['u_username'].' '.mb_substr($this->feedback['u_surname'],0,1,'utf-8').'.' ?></b>
-                    
+                    </br>
                     <small>
                         Отзыв о выполнении задания <a style="color: #1dd0fd" href="<?= $this->baseUrl().'/performer/task/view/id/'.$this->feedback['t_id'] ?>">"<?= $this->feedback['t_title'] ?>"</a>
                     </small>
@@ -358,10 +358,10 @@ if (hs.addSlideshow) hs.addSlideshow({
                 
             </h3>
            <div class="row block-title-custom">
-                <div class="col-sm-1">
+                <div class="col-sm-1 col-xs-3">
                     <img class="img-thumbnail" width="100%" src="<?= $this->baseUrl().'/images/users_images/'.$this->tasksFeedback['u_image'] ?>">
                 </div>    
-                <div class="col-sm-11">
+                <div class="col-sm-11 col-xs-9">
                     <b><?= $this->tasksFeedback['u_username'].' '.mb_substr($this->tasksFeedback['u_surname'],0,1,'utf-8').'.' ?></b>
                     
                     <small>

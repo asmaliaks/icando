@@ -81,7 +81,15 @@
                     <small>Дата исполнения: <?= date( "d.m.Y" ,$task['final_date']) ?> </small>
                 </div>
                 <div class="col-sm-12"> 
-                    <p><?= $task['description'] ?> </p>
+                    <p>
+                     
+                    <?php if(strlen($task['description']) > 360){?>
+                        <?= mb_substr($task['description'],0,360, 'utf-8').'...'?> 
+                    <?php }else{?>
+                        <?= $task['description']?>
+                    <?php } ?>
+                               
+                    </p>
                 </div>
             
                 <div class="col-sm-9"> 

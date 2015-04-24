@@ -174,10 +174,10 @@ if (hs.addSlideshow) hs.addSlideshow({
                 Отзыв от заказчика
             </h3>
             <div class="row block-title-custom">
-                <div class="col-sm-1">
+                <div class="col-sm-1 col-xs-3">
                     <img class="img-thumbnail" width="100%" src="<?= $this->baseUrl().'/images/users_images/'.$this->feedback['u_image'] ?>">
                 </div>    
-                <div class="col-sm-11">
+                <div class="col-sm-11 col-xs-9">
                     <b><?= $this->feedback['u_username'].' '.mb_substr($this->feedback['u_surname'],0,1,'utf-8').'.' ?></b>
                     
                     <small>
@@ -191,7 +191,7 @@ if (hs.addSlideshow) hs.addSlideshow({
                     <p>
                         <?= $this->feedback['text'] ?>
                     </p>
-                    <small class="col-sm-4">
+                    <small class="col-sm-4 ">
                         Качество: 
                         <ul class="swatches Color">
                         <?php switch ($this->feedback['quality']){
@@ -242,7 +242,7 @@ if (hs.addSlideshow) hs.addSlideshow({
                         <?php }?>
                       </ul>
                     </small>
-                    <small class="col-sm-4">
+                    <small class="col-sm-4 ">
                         Пунктуальность: 
                         <ul class="swatches Color">
                         <?php switch ($this->feedback['punctuality']){
@@ -293,7 +293,7 @@ if (hs.addSlideshow) hs.addSlideshow({
                         <?php }?>
                       </ul>
                     </small>
-                    <small class="col-sm-4">
+                    <small class="col-sm-4 ">
                         Вежливость: 
                         <ul class="swatches Color">
                         <?php switch ($this->feedback['politeness']){
@@ -358,10 +358,10 @@ if (hs.addSlideshow) hs.addSlideshow({
                 
             </h3>
            <div class="row block-title-custom">
-                <div class="col-sm-1">
+                <div class="col-sm-1 col-xs-3">
                     <img class="img-thumbnail" width="100%" src="<?= $this->baseUrl().'/images/users_images/'.$this->tasksFeedback['u_image'] ?>">
                 </div>    
-                <div class="col-sm-11">
+                <div class="col-sm-11 col-xs-9">
                     <b><?= $this->tasksFeedback['u_username'].' '.mb_substr($this->tasksFeedback['u_surname'],0,1,'utf-8').'.' ?></b>
                     
                     <small>

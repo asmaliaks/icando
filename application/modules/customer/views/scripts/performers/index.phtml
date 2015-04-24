@@ -111,7 +111,13 @@
                     <small>Выполненных задач : <?= $tasksAmount ?></small>
                 </div>
                 <div class="col-sm-12"> 
-                    <p><?= $performer['u_about']?> </p>
+                    <p>
+                       <?php if(strlen($performer['u_about']) > 360){?>
+                        <?= mb_substr($performer['u_about'],0,360, 'utf-8').'...'?> 
+                    <?php }else{?>
+                        <?= $performer['u_about']?>
+                    <?php } ?>          
+                                </p>
                 </div>
             
               </div>

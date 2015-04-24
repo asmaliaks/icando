@@ -117,7 +117,13 @@ $(document).ready(function(){
                     <small>Дата исполнения: <?= date( "d.m.Y" ,$lastTask['final_date']) ?> </small>
                 </div>
                 <div class="col-sm-12"> 
-                    <p><?= $lastTask['description']?> </p>
+                    <p>
+                    <?php if(strlen($lastTask['description']) > 360){?>
+                        <?= mb_substr($lastTask['description'],0,360, 'utf-8').'...'?> 
+                    <?php }else{?>
+                        <?= $lastTask['description']?>
+                    <?php } ?> 
+                        </p>
                 </div>
             
                 <div class="col-sm-9"> 

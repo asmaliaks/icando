@@ -391,10 +391,10 @@
                     
             <?php foreach($this->feedbacks as $feedback){?>
             <div class="row block-title-custom">
-                <div class="col-sm-1">
+                <div class="col-sm-1 col-sm-3">
                     <img class="img-thumbnail" width="100%" src="<?= $this->baseUrl().'/images/users_images/'.$feedback['u_image'] ?>">
                 </div>    
-                <div class="col-sm-11">
+                <div class="col-sm-11 col-sm-3">
                     <b><?= $feedback['u_username'].' '.mb_substr($feedback['u_surname'],0,1,'utf-8').'.' ?></b>
                     <small style="color: #c9c1c1">
                     <?php if($this->currentUserId == $feedback['t_customer_id']){?>
