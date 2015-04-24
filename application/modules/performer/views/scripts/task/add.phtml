@@ -107,7 +107,7 @@
                     <input type="file" name="image" class="form-control45" style="width: 100%">
                     </div>
                     
-<!--                    <a onclick="addInput()">+ Добавить изображение</a>-->
+                    <a onclick="addInput()">+ Добавить изображение</a>
                 </div>
                 <input type="hidden" value="0" name="docs" style="display: none">
                 <div class="col-sm-6">
@@ -206,7 +206,7 @@ function makeid()
 function addInput(){
     var id = makeid();
 
-    $('#mainImgDiv').append('<div style="padding-top: 5px" id="div'+id+'"><input  type="file" name="additionalImage[]" class="form-control" style="width: 100%"><a onclick="removeImgInput('+id+')" class="btn btn-primary btn-xs">Удалить</a></div>');
+    $('#mainImgDiv').append('<div style="padding-top: 5px" id="div'+id+'"><input  type="file" name="additionalImage[]"  style="width: 100%"><a onclick="removeImgInput('+id+')" class="btn btn-primary btn-xs">Удалить</a></div>');
 }  
   
 function newTask(){

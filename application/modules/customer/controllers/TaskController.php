@@ -134,10 +134,16 @@ class Customer_TaskController extends Zend_Controller_Action{
                     foreach($_FILES["additionalImage"]["tmp_name"] as $tmpName){
                         if(is_uploaded_file($tmpName))
                             {
-        //                    copy($_FILES["image"]["tmp_name"], DOCUMENT_ROOT."/images/task_images/additional_images/".$_FILES["image"]["name"]);
-                              copy($tmpName, $_SERVER['DOCUMENT_ROOT']."/images/task_images/additional_images/".$_FILES["additional_image"]["name"][$n]);
+                                            // get image type
+                            $type = $_FILES["additionalImage"]["name"][$n];
+                            $typeArray = explode(".", $type);
+                            $imageType = $typeArray[1];
+                
+                            $imageName = $this->makeHash();
+                            copy($_FILES["additionalImage"]["tmp_name"][$n], DOCUMENT_ROOT."/images/task_images/additional_images/".$imageName.".".$imageType);
+
                               $dataAddImages = array(
-                                  'image'=>$_FILES['additionalImage']['name'][$n],
+                                  'image'=>$imageName.".".$imageType,
                                   'task_id'=>$taskId,
                                   'user_id'=>$this->user->id,
                                   );

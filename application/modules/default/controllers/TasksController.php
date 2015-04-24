@@ -74,7 +74,13 @@ class TasksController extends Zend_Controller_Action{
             $this->view->taskMessages = $taskMessages;
         }
 
-
+// get additional images
+        $additionalImgObj = new Default_Model_DbTable_TaskImages();
+        $addImages = $additionalImgObj->getTaskImages($taskId);
+        
+        if($addImages){
+            $this->view->addImages = $addImages;
+        }
 
 
         $this->view->comments = $comments;

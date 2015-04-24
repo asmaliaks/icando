@@ -157,7 +157,7 @@
                 </div>
                 </div>
                 
-                   <div class="row"> 
+                   <div class="row" id="additionalBlock"> 
                 <div class="col-sm-8 bg-info additionalBlockTask"> 
                     <label class="col-sm-12" style="text-align: center; text-decoration: underline">Дополнительная информация</label>
                 <div class="col-sm-6">
@@ -166,7 +166,7 @@
                     <input type="file" name="image" class="form-control45" style="width: 100%">
                     </div>
                     
-<!--                    <a onclick="addInput()">+ Добавить изображение</a>-->
+                    <a onclick="addInput()">+ Добавить изображение</a>
                 </div>
                 <input type="hidden" value="0" name="docs" style="display: none">
                 <div class="col-sm-6">
@@ -190,11 +190,11 @@
                    <p id="agree_error" class="text-danger" style="display: none">* Согласитесь с условиями</p>
                 </div>
                 </div>
-                <div class="row">
+<!--                <div class="row">
                     <div class="col-sm-4 col-lg-4"></div>
                     
                     <div class="col-sm-4 col-lg-4"></div>
-                </div>
+                </div>-->
                 <div class="col-sm-12" id="agreementDiv" style="display: none">
                    <div class="panel panel-default ">
                        <div class="panel-heading">
@@ -423,7 +423,7 @@ function makeid()
 function addInput(){
     var id = makeid();
 
-    $('#mainImgDiv').append('<div style="padding-top: 5px" id="div'+id+'"><input  type="file" name="additionalImage[]" class="form-control" style="width: 100%"><a onclick="removeImgInput('+id+')" class="btn btn-primary btn-xs">Удалить</a></div>');
+    $('#mainImgDiv').append('<div style="padding-top: 5px" id="div'+id+'"><input  type="file" name="additionalImage[]"  style="width: 100%"><a onclick="removeImgInput('+id+')" class="btn btn-primary btn-xs">Удалить</a></div>');
 }  
 
   $(function() {

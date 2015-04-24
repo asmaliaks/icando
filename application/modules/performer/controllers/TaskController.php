@@ -68,6 +68,14 @@ class Performer_TaskController extends Zend_Controller_Action{
             $this->view->freePoints = $freePoints;
         }
         
+        // get additional images
+        $additionalImgObj = new Default_Model_DbTable_TaskImages();
+        $addImages = $additionalImgObj->getTaskImages($taskId);
+        
+        if($addImages){
+            $this->view->addImages = $addImages;
+        }
+        
         // check if performer can propose himself to making the task
         $userCatObj = new Performer_Model_DbTable_UserCategory();
         $userHasCat = $userCatObj->checkUserForCategory($this->user->id, $task['c_id']);
@@ -171,13 +179,19 @@ class Performer_TaskController extends Zend_Controller_Action{
                     }
                     $taskImagesObj = new Default_Model_DbTable_TaskImages();
                     $n=0;
-                    foreach($_FILES["additionalImage"]["tmp_name"] as $tmpName){
+                                        foreach($_FILES["additionalImage"]["tmp_name"] as $tmpName){
                         if(is_uploaded_file($tmpName))
                             {
-        //                    copy($_FILES["image"]["tmp_name"], DOCUMENT_ROOT."/images/task_images/additional_images/".$_FILES["image"]["name"]);
-                              copy($tmpName, $_SERVER['DOCUMENT_ROOT']."/images/task_images/additional_images/".$_FILES["additional_image"]["name"][$n]);
+                                            // get image type
+                            $type = $_FILES["additionalImage"]["name"][$n];
+                            $typeArray = explode(".", $type);
+                            $imageType = $typeArray[1];
+                
+                            $imageName = $this->makeHash();
+                            copy($_FILES["additionalImage"]["tmp_name"][$n], DOCUMENT_ROOT."/images/task_images/additional_images/".$imageName.".".$imageType);
+
                               $dataAddImages = array(
-                                  'image'=>$_FILES['additionalImage']['name'][$n],
+                                  'image'=>$imageName.".".$imageType,
                                   'task_id'=>$taskId,
                                   'user_id'=>$this->user->id,
                                   );
@@ -274,6 +288,14 @@ class Performer_TaskController extends Zend_Controller_Action{
         $unreadMessages = $messagesObj->countUnreadMessages($taskId, $this->user->id );
         if($unreadMessages){
             $this->view->unreadAmount = $unreadMessages;
+        }
+        
+        // get additional images
+        $additionalImgObj = new Default_Model_DbTable_TaskImages();
+        $addImages = $additionalImgObj->getTaskImages($taskId);
+        
+        if($addImages){
+            $this->view->addImages = $addImages;
         }
         
         $this->view->comments = $comments;
