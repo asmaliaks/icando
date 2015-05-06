@@ -266,6 +266,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('guest', 'default:cron-api', 'new-tasks-send-mail');
        $this->allow('guest', 'default:cron-api', 'remove-non-taken-tasks');
        $this->allow('guest', 'default:cron-api', 'unbann');
+       $this->allow('guest', 'default:cron-api', 'make-tasks-closed');
        $this->allow('guest', 'default:sms', 'phone-activate');
        $this->allow('guest', 'default:performers', 'index');
        $this->allow('guest', 'default:performers', 'view');

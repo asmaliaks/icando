@@ -16,6 +16,35 @@ class Default_Model_DbTable_TasksModel extends Zend_Db_Table_Abstract{
             return false;
         }
     }
+    
+
+    
+    public function getTasksForClosing(){
+        $currentTime = time();
+        $time = $currentTime-172800;
+        $select = $this->select()
+                ->from(array('t'=>'tasks'))
+                ->where('status=?', 'taken')
+                ->where('final_date<?', $time);
+//                ->joinLeft(array('fb_cust' => 'feedback'),
+//                        't.customer_id = fb_cust.user_from',
+//                        array(
+//                            'fb_cust.kind as fb_cust_kind',
+//                        ))
+//                ->joinLeft(array('fb_perf'=>'feedback'),
+//                        't.performer_id = fb_perf.user_from',
+//                        array(
+//                         'fb_perf.kind as fb_perf_kind'   
+//                        ))
+//                ->setIntegrityCheck(false);
+                $result = $this->fetchAll($select);
+                if($result){
+                    return $result->toArray();
+                }else{
+                    return false;
+                }
+    }
+    
     public function getLastTasks($amount = 20){
       $select = $this->select()
                 ->from(array('t'=>'tasks'))

@@ -1,4 +1,6 @@
-<?php if($this->performer['role'] == 'performer'){?>
+
+  <link href="<?= $this->baseUrl().'/cropper/css/' ?>cropper.css" rel="stylesheet">
+  <link href="<?= $this->baseUrl().'/cropper/css/' ?>cropper-main.css" rel="stylesheet"><?php if($this->performer['role'] == 'performer'){?>
   <div class="row">
     <div class="breadcrumbDiv col-lg-12">
       <ul class="breadcrumb">
@@ -12,13 +14,13 @@
   <div class="row transitionfx"> 
     
     <!-- left column -->
-    <div class="col-lg-4 col-md-4 col-sm-4"> 
+    <div class="col-lg-3 col-md-3 col-sm-3"> 
       <!-- product Image and Zoom -->
       
       <div class="main-image sp-wrap col-lg-12 no-padding style3" style="display: inline-block;">
-          <div class="sp-large">
+          <div class="sp-large avatar-view"  style="left: 0px; top: 0px;">
               
-                  <img src="<?= $this->baseUrl().'/images/users_images/'.$this->performer['image'] ?>" class="img-responsive" alt="img">
+                  <img width="100%" src="<?= $this->baseUrl().'/images/users_images/'.$this->performer['image'] ?>" class="img-responsive" alt="img">
               
           </div>
       </div>
@@ -26,7 +28,7 @@
     <!--/ left column end --> 
     
     <!-- right column -->
-    <div class="col-lg-8 col-md-8 col-sm-8">
+    <div class="col-lg-9 col-md-9 col-sm-9">
         <div class="col-sm-8">
       <h1 class="product-title"><?= $this->performer['username'].' '.mb_substr($this->performer['surname'], 0, 1, 'utf-8').'.' ?></h1>
       <?php $sec = time()-$this->performer['birth_date'];
@@ -173,9 +175,9 @@
             </h3>
             <div class="row block-title-3">
             <div class="col-sm-3">
-                <h4 class="">
+                <h3 class="product-code">
                     Средняя оценка  : 
-                </h4> 
+                </h3> 
             
                 <ul class="swatches Color">
                         <?php switch ($this->rating){
@@ -228,8 +230,8 @@
 
                     <?php } ?>
                 </div>
-                <div class="col-sm-3">
-                    <h3 class="product-code">
+                <div class="col-sm-2">
+                    <h4 class="">
                         Качество: 
                         <ul class="swatches Color">
                         <?php switch ($this->mainRating['quality']){
@@ -279,10 +281,10 @@
                         <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="20"> </li>
                         <?php }?>
                       </ul>
-                    </h3>
+                    </h4>
                 </div>
-                <div class="col-sm-3">
-                    <h3 class="product-code">
+                <div class="col-sm-2">
+                    <h4 class="">
                         Пунктуальность: 
                         <ul class="swatches Color">
                         <?php switch ($this->mainRating['punctuality']){
@@ -332,10 +334,10 @@
                         <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="20"> </li>
                         <?php }?>
                       </ul>
-                    </h3>
+                    </h4>
                 </div>
-                <div class="col-sm-3">
-                    <h3 class="product-code">
+                <div class="col-sm-2">
+                    <h4 class="">
                         Вежливость: 
                         <ul class="swatches Color">
                         <?php switch ($this->mainRating['politeness']){
@@ -385,7 +387,7 @@
                         <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="20"> </li>
                         <?php }?>
                       </ul>
-                    </h3>
+                    </h4>
                 </div>
                 </div>
                     
@@ -394,12 +396,12 @@
                 <div class="col-sm-1 col-xs-3">
                     <img class="img-thumbnail" width="100%" src="<?= $this->baseUrl().'/images/users_images/'.$feedback['u_image'] ?>">
                 </div>    
-                <div class="col-sm-11col-xs-9">
+                <div class="col-sm-11 col-xs-9">
                     <b><?= $feedback['u_username'].' '.mb_substr($feedback['u_surname'],0,1,'utf-8').'.' ?></b>
                     <small style="color: #c9c1c1">
-                    <?php if((int)$this->currentUserId == $feedback['t_customer_id']){?>
+                    <?php if($feedback['user_from'] == $feedback['t_customer_id']){?>
                         (заказчик)
-                    <?php }else if((int)$this->currentUserId == $feedback['t_performer_id']){?>
+                    <?php }else if($feedback['user_from'] == $feedback['t_performer_id']){?>
                         (исполнитель)
                     <?php } ?>    
                     </small></br>
@@ -414,10 +416,10 @@
                     <p>
                         <?= $feedback['text'] ?>
                     </p>
-                    <small class="col-sm-4 ">
+                    <small class="col-sm-2">
                         Качество: 
                         <ul class="swatches Color">
-                        <?php switch ($this->mainRating['quality']){
+                        <?php switch ($feedback['quality']){
                             case 1:?>
                           <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="15"> </li>
                           <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="15"> </li>
@@ -465,10 +467,10 @@
                         <?php }?>
                       </ul>
                     </small>
-                    <small class="col-sm-4 ">
+                    <small class="col-sm-2">
                         Пунктуальность: 
                         <ul class="swatches Color">
-                        <?php switch ($this->mainRating['punctuality']){
+                        <?php switch ($feedback['punctuality']){
                             case 1:?>
                           <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="15"> </li>
                           <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="15"> </li>
@@ -516,10 +518,10 @@
                         <?php }?>
                       </ul>
                     </small>
-                    <small class="col-sm-4 ">
+                    <small class="col-sm-2">
                         Вежливость: 
                         <ul class="swatches Color">
-                        <?php switch ($this->mainRating['politeness']){
+                        <?php switch ($feedback['politeness']){
                             case 1:?>
                           <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="15"> </li>
                           <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="15"> </li>

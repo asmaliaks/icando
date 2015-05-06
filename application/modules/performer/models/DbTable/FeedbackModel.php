@@ -37,7 +37,79 @@ class Performer_Model_DbTable_FeedbackModel extends Zend_Db_Table_Abstract{
             return 0;
         }
         
-    }    
+    } 
+        public function countPerformersMarks($performerId){
+        $feedback = $this->fetchAll($this->select()->where('user_to=?',$performerId));
+        $feedback = $feedback->toArray();
+        
+            $n = 0;
+            foreach($feedback as $feed){
+                if($n == 0){
+                    $quality = $feed['quality'];
+                }else{
+                   $quality = $quality+$feed['quality'];
+                }
+            $n++;
+            }
+            $quality = $quality/$n;
+            $quality = floor($quality);
+            
+            $n = 0;
+            foreach($feedback as $feed){
+                if($n == 0){
+                    $punctuality = $feed['punctuality'];
+                }else{
+                   $punctuality = $punctuality+$feed['punctuality'];
+                }
+            $n++;
+            }
+            $punctuality = $punctuality/$n;
+            $punctuality = floor($punctuality);
+            $n = 0;
+            foreach($feedback as $feed){
+                if($n == 0){
+                    $politenes = $feed['politeness'];
+                }else{
+                   $politenes = $politenes+$feed['politeness'];
+                }
+            $n++;
+            }
+            $politenes = $politenes/$n;
+            $politenes = floor($politenes);
+        
+            $mainRating = array(
+                'quality'     => $quality,
+                'punctuality' => $punctuality,
+                'politeness'   => $politenes,
+                
+            );
+            
+            return $mainRating;
+       
+        
+    }
+        public function positiveAmount($performerId){
+        $feedback = $this->fetchAll($this->select()->where('user_to=?',$performerId)->where('kind=?','positive'));
+        $feedback = $feedback->toArray();
+        if(!empty($feedback)){
+            $amount = count($feedback);
+            return $amount;
+        }else{
+            return 0;
+        }
+        
+    }
+    public function negativeAmount($performerId){
+        $feedback = $this->fetchAll($this->select()->where('user_to=?',$performerId)->where('kind=?','negative'));
+        $feedback = $feedback->toArray();
+        if(!empty($feedback)){
+            $amount = count($feedback);
+            return $amount;
+        }else{
+            return 0;
+        }
+        
+    }
     public function countCustomersRating($customerId){
         $feedback = $this->fetchAll($this->select()->where('user_to=?',$customerId));
         $feedback = $feedback->toArray();

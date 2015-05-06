@@ -150,34 +150,25 @@ class Performer_UserController extends Zend_Controller_Action{
     }
     
 public function changeAvatarAction(){
-    $request = $this->getRequest();
+     $request = $this->getRequest();
     if($request->isPost()){
-        $userId = $request->getParam('userId');
-        if($_FILES['image']){
-            $dir = (int)is_dir(DOCUMENT_ROOT."/images/users_images/");
-            if( !$dir ){					
-                    //die($_SERVER['DOCUMENT_ROOT'].$file_path.'/');				
-                    mkdir( DOCUMENT_ROOT."/images/users_images/" );
-                    chmod( DOCUMENT_ROOT."/images/users_images/", 0777 );				
-            }
-            if(is_uploaded_file($_FILES["image"]["tmp_name"]))
-            {
-                                // get image type
-                $type = $_FILES["image"]["name"];
-                $typeArray = explode(".", $type);
-                $imageType = $typeArray[1];
-                
-              $imageName = $this->makeHash();
+        $avatar_src = $request->getParam('avatar_src');
+        $avatar_data = $request->getParam('avatar_data');
+        $cropObj = new Default_Model_CropAvatar($avatar_src, $avatar_data, $_FILES['avatar_file']);
+          $response = array(
+            'state'  => 200,
+            'message' => $cropObj->getMsg(),
+//            'result' => $cropObj->getResult(),
 
-              copy($_FILES["image"]["tmp_name"], DOCUMENT_ROOT."/images/users_images/".$imageName.".".$imageType);
-//                  copy($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT']."/images/users_images/".$_FILES["image"]["name"]);
-              $data['image'] = $imageName.".".$imageType;
+          );
               // edit user's data
-              $usersObj = new Model_DbTable_Users();
-              $usersObj->editUser($data, $userId);
-              $this->_redirect('/performer/user/');
-            }
-        }
+        $usersObj = new Model_DbTable_Users();
+        $data = array(
+            'image'=>$cropObj->getName() 
+        );
+        $response['result'] = '/images/users_images/'.$data['image'];
+        $usersObj->editUser($data, $this->user->id);
+        echo json_encode($response);exit;
     }
 }  
 

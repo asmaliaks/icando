@@ -10,6 +10,8 @@ class Default_Model_Feedback{
                         array('f.id',
                             'f.rating',
                             'f.task_id',
+                            'f.user_from',
+                            'f.user_to',
                             'f.kind',
                             'f.punctuality',
                             'f.politeness',

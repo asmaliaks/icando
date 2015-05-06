@@ -44,6 +44,7 @@ class Performer_PerformersController extends Zend_Controller_Action{
         // count closed users tasks
         $tasksObj = new Performer_Model_DbTable_TasksModel();
         $closedTasks = $tasksObj->getPerformersTasksClosed($performerId);
+        $customersTasks = $tasksObj->getCustomersTasks($performerId);
         // get user's categories
         $userCatObj = new Performer_Model_DbTable_UserCategory();
         $usersCategories = $userCatObj->getUsersCategories($performerId);
@@ -67,6 +68,8 @@ class Performer_PerformersController extends Zend_Controller_Action{
             $this->view->positiveAmount = $positiveAmount;
             $this->view->mainRating = $mainRating;
             $this->view->rating = floor($rating);
+            $this->view->customersTasks = $customersTasks;
+            
             $this->view->closedTasks = $closedTasks;
         }
         $this->view->feedbacks = $feedbacks;

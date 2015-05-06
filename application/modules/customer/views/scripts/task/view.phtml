@@ -177,7 +177,7 @@ if (hs.addSlideshow) hs.addSlideshow({
                     <b><?= $this->feedback['u_username'].' '.mb_substr($this->feedback['u_surname'],0,1,'utf-8').'.' ?></b>
                     
                     <small>
-                        Отзыв о выполнении задания <a style="color: #1dd0fd" href="<?= $this->baseUrl().'/performer/task/view/id/'.$this->feedback['t_id'] ?>">"<?= $this->feedback['t_title'] ?>"</a>
+                        Отзыв о выполнении задания <a style="color: #1dd0fd" href="<?= $this->baseUrl().'/customer/task/view/id/'.$this->feedback['t_id'] ?>">"<?= $this->feedback['t_title'] ?>"</a>
                     </small>
                     <?php if($this->feedback['kind'] == 'positive'){?>
                         <img style="padding-left: 5px" src="<?= $this->baseUrl().'/images/like.png' ?>" width="20">
@@ -187,7 +187,7 @@ if (hs.addSlideshow) hs.addSlideshow({
                     <p>
                         <?= $this->feedback['text'] ?>
                     </p>
-                    <small class="col-sm-4 ">
+                    <small class="col-sm-2">
                         Качество: 
                         <ul class="swatches Color">
                         <?php switch ($this->feedback['quality']){
@@ -238,7 +238,7 @@ if (hs.addSlideshow) hs.addSlideshow({
                         <?php }?>
                       </ul>
                     </small>
-                    <small class="col-sm-4 ">
+                    <small class="col-sm-2">
                         Пунктуальность: 
                         <ul class="swatches Color">
                         <?php switch ($this->feedback['punctuality']){
@@ -256,6 +256,7 @@ if (hs.addSlideshow) hs.addSlideshow({
                           <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="15"> </li>
                           <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="15"> </li>
                           <li > <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="15"> </li>
+                          
                       <?php
                       break;
                       case 3: ?>  
@@ -289,7 +290,7 @@ if (hs.addSlideshow) hs.addSlideshow({
                         <?php }?>
                       </ul>
                     </small>
-                    <small class="col-sm-4 ">
+                    <small class="col-sm-2">
                         Вежливость: 
                         <ul class="swatches Color">
                         <?php switch ($this->feedback['politeness']){
@@ -361,7 +362,7 @@ if (hs.addSlideshow) hs.addSlideshow({
                     <b><?= $this->tasksFeedback['u_username'].' '.mb_substr($this->tasksFeedback['u_surname'],0,1,'utf-8').'.' ?></b>
                     
                     <small>
-                        Отзыв о выполнении задания <a style="color: #1dd0fd" href="<?= $this->baseUrl().'/performer/task/view/id/'.$this->tasksFeedback['t_id'] ?>">"<?= $this->tasksFeedback['t_title'] ?>"</a>
+                        Отзыв о выполнении задания <a style="color: #1dd0fd" href="<?= $this->baseUrl().'/customer/task/view/id/'.$this->tasksFeedback['t_id'] ?>">"<?= $this->tasksFeedback['t_title'] ?>"</a>
                     </small>
                     <?php if($this->tasksFeedback['kind'] == 'positive'){?>
                         <img style="padding-left: 5px" src="<?= $this->baseUrl().'/images/like.png' ?>" width="20">
@@ -371,7 +372,7 @@ if (hs.addSlideshow) hs.addSlideshow({
                     <p>
                         <?= $this->tasksFeedback['text'] ?>
                     </p>
-                    <small class="col-sm-4">
+                    <small class="col-sm-2">
                         Качество: 
                         <ul class="swatches Color">
                         <?php switch ($this->tasksFeedback['quality']){
@@ -422,7 +423,7 @@ if (hs.addSlideshow) hs.addSlideshow({
                         <?php }?>
                       </ul>
                     </small>
-                    <small class="col-sm-4">
+                    <small class="col-sm-2">
                         Пунктуальность: 
                         <ul class="swatches Color">
                         <?php switch ($this->tasksFeedback['punctuality']){
@@ -473,7 +474,7 @@ if (hs.addSlideshow) hs.addSlideshow({
                         <?php }?>
                       </ul>
                     </small>
-                    <small class="col-sm-4">
+                    <small class="col-sm-2">
                         Вежливость: 
                         <ul class="swatches Color">
                         <?php switch ($this->tasksFeedback['politeness']){
@@ -504,7 +505,7 @@ if (hs.addSlideshow) hs.addSlideshow({
                   ?>      <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="15"> </li>
                           <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="15"> </li>
                           <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="15"> </li>
-                          <li> <img src="<?= $this->baseUrl().'/images/pos_star.png' ?>" height="15"> </li>
+                          <li> <img src="<?= $this->baseUrl().'/imagehttp://helpyou.by/performer/customer/view/id/169s/pos_star.png' ?>" height="15"> </li>
                           <li> <img src="<?= $this->baseUrl().'/images/neg_star.png' ?>" height="15"> </li>
                         <?php break;
                             case 5:
@@ -540,33 +541,31 @@ if (hs.addSlideshow) hs.addSlideshow({
               <?php foreach($this->comments as $comment){?>
               <div class="col-sm-12" style="padding-bottom: 10px">
                  
-                    <?php if($comment['user_from'] == $this->currentUser->id){?>
+
                         <div class="col-sm-12 ">
                             <div class="col-sm-1">
                               <img src="<?= $this->baseUrl().'/images/users_images/'.$comment['u_image'] ?>" height="50">
                             </div>
                             <div class="col-sm-6">
-                              <h5 style="padding-bottom:5px"><a href=""><strong><?= $comment['u_username'].' '.mb_substr($comment['u_surname'],0,1,'utf-8').'.' ?></strong><?= date("h:i d.m.y", $comment['created']); ?></a></h5>
-                              <p><?= $comment['text'] ?></p>
-                            </div>
-                        </div>
-                    <?php }else{?>
-                        <div class="col-sm-12 ">
-                            <div class="col-sm-1">
-                              <img src="<?= $this->baseUrl().'/images/users_images/'.$comment['u_image'] ?>" height="50">
-                            </div>
-                            <div class="col-sm-6">
-                              <h5 style="padding-bottom:5px"><a href="<?= $this->baseUrl().'/performer/customer/view/id/'.$comment['u_id'] ?>">
+                              <h5 style="padding-bottom:5px">
+                            <?php if($this->task['performer_id'] == $comment['user_from']){?>
+                                  <a href="<?= $this->baseUrl().'/customer/performers/performer-view/id/'.$comment['user_from'] ?>">
                                       <strong>
                             <?= $comment['u_username'].' '.mb_substr($comment['u_surname'],0,1,'utf-8').'.' ?>
-                                      </strong>
-                                      <?= date("h:i d.m.y", $comment['created']); ?>
+                                      </strong> 
                                   </a>
+                                  <?php }else{ ?>
+                                  <strong>
+                            <?= $comment['u_username'].' '.mb_substr($comment['u_surname'],0,1,'utf-8').'.' ?>
+                                      </strong> 
+                                  <?php } ?>
+                                      <?= date("h:i d.m.y", $comment['created']); ?>
+                                  
                               </h5>
                               <p><?= $comment['text'] ?></p>
                             </div>
                         </div>
-                    <?php }?>
+                    
                        
                         </div>
               <?php } ?> 

@@ -53,11 +53,14 @@ define('POINT_LABEL', "бел. рублей");
 
 define("SALT", "3Y7r0A6c");
 //define("DOCUMENT_ROOT", "/home/helpyoub/public_html/public/");
-//define("DOCUMENT_ROOT", "/var/www/ican/public/");
+define("DOCUMENT_ROOT", "/var/www/ican/public/");
+//define("DOCUMENT_ROOT", "/var/www/skilus/data/www/dev.skilus.biz/icando/public/");
+define("AVATAR_SRC", DOCUMENT_ROOT."images/users_images/src/");
+define("AVATAR_DSTN", DOCUMENT_ROOT."images/users_images/");
 
 define('LIKE', '/images/like.png');
 define('DISLIKE','/images/dislike.png');
-define("DOCUMENT_ROOT", "/var/www/skilus/data/www/dev.skilus.biz/icando/public/");
+
         // definding social networks constants
             // vk.com
         define("VK_CLIENT_ID", '4741291');

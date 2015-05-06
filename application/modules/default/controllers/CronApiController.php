@@ -35,4 +35,30 @@ class CronApiController extends Zend_Controller_Action {
         $tasksObj = new Performer_Model_DbTable_TasksModel();   
         $tasksObj->removeNonTakenTasks();
     }
+    
+    public function makeTasksClosedAction(){
+        $balanceReserveObj  = new Default_Model_DbTable_BalanceReserve();
+        // get taken tasks
+        $tasksObj = new Default_Model_DbTable_TasksModel();
+        $feedbackObj = new Customer_Model_DbTable_FeedbackModel();
+        $usersObj = new Admin_Model_DbTable_Users();
+        
+        $tasks = $tasksObj->getTasksForClosing();
+        foreach($tasks as $task){
+            // check if feedback from customer exists
+            $customersFeedback = $feedbackObj->getTasksFeedbackByCustomer($task['id'], $task['customer_id']);
+            if(!$customersFeedback || $customersFeedback['kind']=='positive'){
+                $performersFeedback = $feedbackObj->getPerformersFeedbacks($task['id'], $task['performer_id']);
+                if(!$performersFeedback || $performersFeedback['kind'] == 'positive' || $performersFeedback['kind'] == 'negative'){
+                    //  get ballance from performer
+                    $usersObj->getBalanceSmaller($task['performer_id'], $task['customers_price']);
+                    // remove balance reserve
+                    $balanceReserveObj->removeReserve($task['id'],$task['performer_id']);
+                    // change task's status to closed 
+                    $tasksObj->changeStatus($task['id'], 'closed');
+                }
+            }
+            
+        }
+    }
 }

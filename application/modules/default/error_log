@@ -1,0 +1,4 @@
+[01-Apr-2015 09:22:01 Europe/Minsk] PHP Fatal error:  Class 'Default_Model_CronModel' not found in /home/helpyoub/public_html/application/modules/default/sendEmailNewTasks.php on line 2
+[01-Apr-2015 09:23:01 Europe/Minsk] PHP Fatal error:  Class 'Default_Model_CronModel' not found in /home/helpyoub/public_html/application/modules/default/sendEmailNewTasks.php on line 2
+[01-Apr-2015 09:24:01 Europe/Minsk] PHP Fatal error:  Class 'Default_Model_CronModel' not found in /home/helpyoub/public_html/application/modules/default/sendEmailNewTasks.php on line 2
+[01-Apr-2015 09:25:01 Europe/Minsk] PHP Fatal error:  Class 'Default_Model_CronModel' not found in /home/helpyoub/public_html/application/modules/default/sendEmailNewTasks.php on line 2

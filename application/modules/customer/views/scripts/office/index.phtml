@@ -1,4 +1,7 @@
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>  
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script> 
+  <link href="<?= $this->baseUrl().'/cropper/css/' ?>cropper.css" rel="stylesheet">
+  <link href="<?= $this->baseUrl().'/cropper/css/' ?>cropper-main.css" rel="stylesheet">
+  
   <!-- if phone is not verified -->
 <div class="modal signUpContent fade" id="ModalSmsCode" tabindex="-1" role="dialog" >
   <div class="modal-dialog ">
@@ -32,23 +35,23 @@
               </ul>
         </div>
     </div>
-    <div class="row transitionfx">
+    <div class="row transitionfx" id="crop-avatar">
   
    <!-- left column -->
-    <div class="col-lg-4 col-md-4 col-sm-4">
+    <div class="col-lg-3 col-md-3 col-sm-3">
     	<!-- product Image and Zoom -->
 
     <div class="main-image sp-wrap col-lg-12 no-padding style3" style="display: inline-block;"> 
          
         
          
-    <div class="sp-large" style="left: 0px; top: 0px;">
+    <div class="sp-large avatar-view" title="Сменить аватар" style="left: 0px; top: 0px;">
             <img width="100%" src="<?= $this->baseUrl() ?>/images/users_images/<?= $this->user['image'] ?>" class="img-responsive" alt="img" />
 
     </div>
     </div>
-        <div class="col-sm-8" style="text-align: center">
-            <a style="text-decoration: underline" onclick="$('#imageInput').click();return false;">Сменить фото</a>
+        <div class="col-sm-8 " style="text-align: center">
+<!--            <a style="text-decoration: underline" onclick="$('#imageInput').click();return false;">Сменить фото</a>-->
         </div>
     </div><!--/ left column end -->
     <form   enctype="multipart/form-data" id="avatarForm" method="post" action="/customer/office/change-avatar">
@@ -57,7 +60,7 @@
     </form>
     
     <!-- right column -->
-    <div class="col-lg-8 col-md-8 col-sm-8">
+    <div class="col-lg-9 col-md-9 col-sm-9">
     <div class="col-sm-8">
       <h1 class="product-title"><?= $this->user['username']." ".$this->user['surname']?></h1>
     </div>
@@ -269,7 +272,68 @@
         <?php } ?>
               </div>  
       </div>
-      
+    <!-- Cropping modal -->
+    <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form class="avatar-form" action="<?= $this->baseUrl().'/customer/office/change-avatar/' ?>" enctype="multipart/form-data" method="post">
+            <div class="modal-header">
+              <button class="close" data-dismiss="modal" type="button">&times;</button>
+              <h4 class="modal-title" id="avatar-modal-label">Смена аватара</h4>
+            </div>
+            <div class="modal-body">
+              <div class="avatar-body">
+
+                <!-- Upload image and data -->
+                <div class="avatar-upload">
+                  <input class="avatar-src" name="avatar_src" type="hidden">
+                  <input class="avatar-data" name="avatar_data" type="hidden">
+                  <label for="avatarInput">Выбрать файл</label>
+                  <input class="avatar-input" id="avatarInput" name="avatar_file" type="file">
+                </div>
+
+                <!-- Crop and preview -->
+                <div class="row">
+                  <div class="col-md-9">
+                    <div class="avatar-wrapper"></div>
+                  </div>
+                  <div class="col-md-3">
+<!--                    <div class="avatar-preview preview-lg"></div>-->
+                    <div class="avatar-preview preview-md"></div>
+                    <div class="avatar-preview preview-sm"></div>
+                  </div>
+                </div>
+
+                <div class="row avatar-btns">
+                  <div class="col-md-9">
+                    <div class="btn-group">
+<!--                      <button class="btn btn-primary" data-method="rotate" data-option="-90" type="button" title="Rotate -90 degrees">Rotate Left</button>-->
+                      <button class="btn btn-primary" data-method="rotate" data-option="-15" type="button">-15&deg;</button>
+<!--                      <button class="btn btn-primary" data-method="rotate" data-option="-30" type="button">-30deg</button>
+                      <button class="btn btn-primary" data-method="rotate" data-option="-45" type="button">-45deg</button>-->
+                    </div>
+                    <div class="btn-group">
+<!--                      <button class="btn btn-primary" data-method="rotate" data-option="90" type="button" title="Rotate 90 degrees">Rotate Right</button>-->
+                      <button class="btn btn-primary" data-method="rotate" data-option="15" type="button">+ 15&deg;</button>
+<!--                      <button class="btn btn-primary" data-method="rotate" data-option="30" type="button">30deg</button>
+                      <button class="btn btn-primary" data-method="rotate" data-option="45" type="button">45deg</button>-->
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <button class="btn btn-primary btn-block avatar-save" type="submit">Готово</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="modal-footer">
+              <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+            </div> -->
+          </form>
+        </div>
+      </div>
+    </div><!-- /.modal -->
+    <!-- Loading state -->
+    <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
     </div><!--/ right column end -->
 
 <!--  </div>-->
@@ -369,6 +433,8 @@
     $this->user['phonenumber'] = 0;
 }
 ?>
+  <script src="<?= $this->baseUrl().'/cropper/js/' ?>cropper.js"></script>
+  <script src="<?= $this->baseUrl().'/cropper/js/' ?>cropper-main.js"></script>
 <script>
 $(document).ready(function(){ 
     
