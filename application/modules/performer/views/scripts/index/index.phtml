@@ -74,10 +74,10 @@ $(document).ready(function(){
     <?php foreach($this->mainCats as $cat){?>
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6  text-center">
       <div class="thumbnail equalheight" style="height: 190px;">
-          <a class="subCategoryThumb" href="<?= $this->baseUrl().'/performer/task/add' ?>" style="height:150px; padding-top: 10px">
+          <a class="subCategoryThumb" href="<?= $this->baseUrl().'/performer/task/add/' ?>" style="height:150px; padding-top: 10px">
               <img src="<?= $this->baseUrl().'/images/category_images/'.$cat['image'] ?>" class="img-rounded " alt="img">
           </a>
-          <a class="subCategoryTitle" href="<?= $this->baseUrl().'/performer/task/add' ?>" >
+          <a class="subCategoryTitle" href="<?= $this->baseUrl().'/performer/task/add/' ?>" >
               <span><?= $cat['title'] ?></span>
           </a>
       </div>
@@ -98,7 +98,7 @@ $(document).ready(function(){
         <div class="item col-lg-3 col-md-3 col-sm-4 col-xs-6 productBlock list-view">
 
             <div class="col-sm-2">
-               <a href="<?= $this->baseUrl().'/performer/task/view/id/'.$lastTask['id'] ?>" >
+               <a href="<?= $this->baseUrl().'/performer/task/view/id/'.$lastTask['id']."/" ?>" >
                <?php if($lastTask['par_cat_image']){?>   
                    <div style="background: center no-repeat url('<?= $this->baseUrl().'/images/category_images/'.$lastTask['par_cat_image'] ?>'); height:122px; width: 160px; background-size: contain; margin-top: 15px" src="" alt="img" class="img-thumbnail img-responsive"></div>
                   
@@ -110,7 +110,7 @@ $(document).ready(function(){
             </div>
             <div class="col-sm-10">
                 <div class="col-sm-8">                
-                    <h4 style="margin-top: 15px !important"><a href="<?= $this->baseUrl().'/performer/task/view/id/'.$lastTask['id'] ?>" ><?= $lastTask['title'] ?></a></h4>
+                    <h4 style="margin-top: 15px !important"><a href="<?= $this->baseUrl().'/performer/task/view/id/'.$lastTask['id']."/" ?>" ><?= $lastTask['title'] ?></a></h4>
                 </div>
                 <div class="col-sm-4">                
                     <h4> <span><?= $lastTask['price'] ?> <?= POINT_LABEL ?></h4>
@@ -131,7 +131,7 @@ $(document).ready(function(){
                 <div class="col-sm-9"> 
                     </div>
                 <div class="col-sm-3"> 
-                    <div class="action-control"> <a class="btn btn-primary" href="<?= $this->baseUrl().'/performer/task/view/id/'.$lastTask['id'] ?>"> <span class="add2cart"> Подробнее </span> </a> </div>
+                    <div class="action-control"> <a class="btn btn-primary" href="<?= $this->baseUrl().'/performer/task/view/id/'.$lastTask['id']."/" ?>"> <span class="add2cart"> Подробнее </span> </a> </div>
                 </div>
               </div>
 

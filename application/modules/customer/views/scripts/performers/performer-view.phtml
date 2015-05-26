@@ -4,8 +4,8 @@
   <div class="row">
     <div class="breadcrumbDiv col-lg-12">
       <ul class="breadcrumb">
-          <li> <a href="<?= $this->baseUrl().'/customer/' ?>">Главная</a> </li>
-          <li> <a href="<?= $this->baseUrl().'/customer/performers/' ?>">Список исполнителей</a> </li>
+          <li> <a href="<?= $this->baseUrl().'/customer' ?>">Главная</a> </li>
+          <li> <a href="<?= $this->baseUrl().'/customer/performers' ?>">Список исполнителей</a> </li>
         <li class="active"><?= $this->performer['username'].' '.mb_substr($this->performer['surname'], 0, 1, 'utf-8').'.' ?> </li>
       </ul>
     </div>
@@ -406,7 +406,7 @@
                     <?php } ?>    
                     </small></br>
                     <small>
-                        Отзыв о выполнении задания <a style="color: #1dd0fd" href="<?= $this->baseUrl().'/customer/task/view/id/'.$feedback['t_id'] ?>">"<?= $feedback['t_title'] ?>"</a>
+                        Отзыв о выполнении задания <a style="color: #1dd0fd" href="<?= $this->baseUrl().'/customer/task/view/id/'.$feedback['t_id']."/" ?>">"<?= $feedback['t_title'] ?>"</a>
                     </small>
                     <?php if($feedback['kind'] == 'positive'){?>
                         <img style="padding-left: 5px" src="<?= $this->baseUrl().'/images/like.png' ?>" width="20">

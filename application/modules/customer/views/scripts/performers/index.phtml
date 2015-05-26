@@ -36,7 +36,7 @@
 
             <div class="col-sm-2">
               
-               <a href="<?= $this->baseUrl().'/customer/performers/performer-view/id/'.$performer['u_id']  ?>">
+               <a href="<?= $this->baseUrl().'/customer/performers/performer-view/id/'.$performer['u_id']."/"  ?>">
                   <?php 
                   $str = stripos($performer['u_image'], ".png");
                   if($str !== false){?>
@@ -51,7 +51,7 @@
             <div class="col-sm-10">
                 <div class="col-sm-9">                
                     <h4 style="margin-top: 15px !important">
-                        <a href="<?= $this->baseUrl().'/customer/performers/performer-view/id/'.$performer['u_id']  ?>">
+                        <a href="<?= $this->baseUrl().'/customer/performers/performer-view/id/'.$performer['u_id']."/"  ?>">
                              <?= $performer['u_username'].' '.mb_substr($performer['u_surname'], 0, 1, 'utf-8').'.' ?>
                         </a>
                     </h4>

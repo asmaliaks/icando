@@ -119,12 +119,12 @@ if (hs.addSlideshow) hs.addSlideshow({
 <?php //} ?>
         <div class="col-lg-12">
            <label>Заказчик : </label>
-           <a href="<?= $this->baseUrl().'/performer/customer/view/id/'.$this->task['customer_id'] ?>"><?= $this->task['u_username'].' '.mb_substr($this->task['u_surname'],0,1,'utf-8').'.' ?></a>
+           <a href="<?= $this->baseUrl().'/performer/customer/view/id/'.$this->task['customer_id']."/" ?>"><?= $this->task['u_username'].' '.mb_substr($this->task['u_surname'],0,1,'utf-8').'.' ?></a>
         </div>
         <?php if($this->task['performer_id']){?>
         <div class="col-lg-12">
            <label>Исполнитель : </label>
-           <a href="<?= $this->baseUrl().'/performer/performers/performer-view/id/'.$this->task['performer_id'] ?>"><?= $this->task['up_username'].' '.mb_substr($this->task['up_surname'],0,1,'utf-8').'.' ?></a>
+           <a href="<?= $this->baseUrl().'/performer/performers/performer-view/id/'.$this->task['performer_id']."/" ?>"><?= $this->task['up_username'].' '.mb_substr($this->task['up_surname'],0,1,'utf-8').'.' ?></a>
         </div>
         <?php } ?>
         <div class="col-lg-12">
@@ -192,7 +192,7 @@ if (hs.addSlideshow) hs.addSlideshow({
                     <b><?= $this->feedback['u_username'].' '.mb_substr($this->feedback['u_surname'],0,1,'utf-8').'.' ?></b>
                     
                     <small>
-                        Отзыв о выполнении задания <a style="color: #1dd0fd" href="<?= $this->baseUrl().'/performer/task/view/id/'.$this->feedback['t_id'] ?>">"<?= $this->feedback['t_title'] ?>"</a>
+                        Отзыв о выполнении задания <a style="color: #1dd0fd" href="<?= $this->baseUrl().'/performer/task/view/id/'.$this->feedback['t_id']."/" ?>">"<?= $this->feedback['t_title'] ?>"</a>
                     </small>
                     <?php if($this->feedback['kind'] == 'positive'){?>
                         <img style="padding-left: 5px" src="<?= $this->baseUrl().'/images/like.png' ?>" width="20">
@@ -376,7 +376,7 @@ if (hs.addSlideshow) hs.addSlideshow({
                     <b><?= $this->tasksFeedback['u_username'].' '.mb_substr($this->tasksFeedback['u_surname'],0,1,'utf-8').'.' ?></b>
                     
                     <small>
-                        Отзыв о выполнении задания <a style="color: #1dd0fd" href="<?= $this->baseUrl().'/performer/task/view/id/'.$this->tasksFeedback['t_id'] ?>">"<?= $this->tasksFeedback['t_title'] ?>"</a>
+                        Отзыв о выполнении задания <a style="color: #1dd0fd" href="<?= $this->baseUrl().'/performer/task/view/id/'.$this->tasksFeedback['t_id']."/" ?>">"<?= $this->tasksFeedback['t_title'] ?>"</a>
                     </small>
                     <?php if($this->tasksFeedback['kind'] == 'positive'){?>
                         <img style="padding-left: 5px" src="<?= $this->baseUrl().'/images/like.png' ?>" width="20">
@@ -563,13 +563,13 @@ if (hs.addSlideshow) hs.addSlideshow({
                             <div class="col-sm-6">
                               <h5 style="padding-bottom:5px">
                                   <?php if($comment['u_role'] == 'customer'){?>
-                                  <a href="<?= $this->baseUrl().'/performer/customer/view/id/'.$comment['u_id'] ?>">
+                                  <a href="<?= $this->baseUrl().'/performer/customer/view/id/'.$comment['u_id']."/" ?>">
                                       <strong>
                             <?= $comment['u_username'].' '.mb_substr($comment['u_surname'],0,1,'utf-8').'.' ?>
                                       </strong>
                                   </a>
                                   <?php }else if($comment['u_role'] == 'performer'){?>
-                                  <a href="<?= $this->baseUrl().'/performer/performers/performer-view/id/'.$comment['u_id'] ?>">
+                                  <a href="<?= $this->baseUrl().'/performer/performers/performer-view/id/'.$comment['u_id']."/" ?>">
                                       <strong>
                             <?= $comment['u_username'].' '.mb_substr($comment['u_surname'],0,1,'utf-8').'.' ?>
                                       </strong>
@@ -588,13 +588,13 @@ if (hs.addSlideshow) hs.addSlideshow({
                             <div class="col-sm-6">
                               <h5 style="padding-bottom:5px">
                                 <?php if($comment['u_role'] == 'customer'){?>
-                                  <a href="<?= $this->baseUrl().'/performer/customer/view/id/'.$comment['u_id'] ?>">
+                                  <a href="<?= $this->baseUrl().'/performer/customer/view/id/'.$comment['u_id']."/" ?>">
                                       <strong>
                             <?= $comment['u_username'].' '.mb_substr($comment['u_surname'],0,1,'utf-8').'.' ?>
                                       </strong>
                                   </a>
                                   <?php }else if($comment['u_role'] == 'performer'){?>
-                                  <a href="<?= $this->baseUrl().'/performer/performers/performer-view/id/'.$comment['u_id'] ?>">
+                                  <a href="<?= $this->baseUrl().'/performer/performers/performer-view/id/'.$comment['u_id']."/" ?>">
                                       <strong>
                             <?= $comment['u_username'].' '.mb_substr($comment['u_surname'],0,1,'utf-8').'.' ?>
                                       </strong>

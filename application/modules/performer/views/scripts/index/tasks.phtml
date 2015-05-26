@@ -54,7 +54,7 @@
         <div class="item col-lg-3 col-md-3 col-sm-4 col-xs-6 productBlock list-view">
 
             <div class="col-sm-2">
-               <a href="<?= $this->baseUrl().'/performer/task/view/id/'.$task['id'] ?>" >
+               <a href="<?= $this->baseUrl().'/performer/task/view/id/'.$task['id']."/" ?>" >
                <?php if($task['par_cat_image']){?>   
                    <div style="background: center no-repeat url('<?= $this->baseUrl().'/images/category_images/'.$task['par_cat_image'] ?>'); height:122px; width: 160px; background-size: contain; margin-top: 21px" src="" alt="img" class="img-thumbnail img-responsive"></div>
                   
@@ -66,7 +66,7 @@
             </div>
             <div class="col-sm-10">
                 <div class="col-sm-8">                
-                    <h4 style="margin-top: 15px !important"><a href="<?= $this->baseUrl().'/performer/task/view/id/'.$task['id'] ?>" ><?= $task['title'] ?></a></h4>
+                    <h4 style="margin-top: 15px !important"><a href="<?= $this->baseUrl().'/performer/task/view/id/'.$task['id']."/" ?>" ><?= $task['title'] ?></a></h4>
                 </div>
                 <div class="col-sm-4">                
                     <h4 style="margin-top: 15px !important"> 
@@ -95,7 +95,7 @@
                 <div class="col-sm-9"> 
                     </div>
                 <div class="col-sm-3"> 
-                    <div class="action-control"> <a class="btn btn-primary" href="<?= $this->baseUrl().'/performer/task/view/id/'.$task['id'] ?>"> <span class="add2cart"> Подробнее </span> </a> </div>
+                    <div class="action-control"> <a class="btn btn-primary" href="<?= $this->baseUrl().'/performer/task/view/id/'.$task['id']."/" ?>"> <span class="add2cart"> Подробнее </span> </a> </div>
                 </div>
               </div>
 

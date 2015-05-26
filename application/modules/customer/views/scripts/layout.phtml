@@ -195,7 +195,7 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
       </div>
       <div class="modal-body">
         
-          <p>Для подачи заявки необходимо заполнить все поля в Вашем профиле в личном кабинете, загрузить фотографию с Вашим изображением, а также подтвердить телефон и привязать хотя бы одну личную страницу из социальных сетей. Подробнее на странице <a target="_blank" style="text-decoration: underline" href="<?= $this->baseUrl().'/customer/become-performer/' ?>">как стать исполнителем</a></p> 
+          <p>Для подачи заявки необходимо заполнить все поля в Вашем профиле в личном кабинете, загрузить фотографию с Вашим изображением, а также подтвердить телефон и привязать хотя бы одну личную страницу из социальных сетей. Подробнее на странице <a target="_blank" style="text-decoration: underline" href="<?= $this->baseUrl().'/customer/become-performer' ?>">как стать исполнителем</a></p> 
         
       </div>
       <div class="modal-footer">
@@ -455,7 +455,7 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
             <ul class="userMenu">
                 
               <?php if(Zend_Auth::getInstance()->hasIdentity()){?>
-                <li> <a href="<?= $this->baseUrl().'/customer/office/' ?>"><span class="hidden-xs">Личный кабинет</span> <i class="glyphicon glyphicon-user hide visible-xs "></i></a> </li>
+                <li> <a href="<?= $this->baseUrl().'/customer/office' ?>"><span class="hidden-xs">Личный кабинет</span> <i class="glyphicon glyphicon-user hide visible-xs "></i></a> </li>
                 <li> <a href="<?= $this->baseUrl().'/authentication/log-out/' ?>"  > <span class="hidden-xs">Выйти</span> <i class="glyphicon glyphicon-log-in hide visible-xs "></i> </a> </li>
               <?php }else{ ?>
                 <li> <a href="#"  data-toggle="modal" data-target="#ModalLogin"> <span class="hidden-xs">Войти</span> <i class="glyphicon glyphicon-log-in hide visible-xs "></i> </a> </li>
@@ -501,18 +501,18 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
             <?php } ?> 
            <?php if(Zend_Auth::getInstance()->hasIdentity()){?>       
                 <li> <a href="<?= $this->baseUrl().'/customer/index/tasks/'?>">Актуальные задачи</a> </li>
-                <li> <a href="<?= $this->baseUrl().'/customer/performers/'?>">Исполнители</a> </li>
-                <li> <a href="<?= $this->baseUrl().'/customer/about/'?>">Как это работает</a> </li>
+                <li> <a href="<?= $this->baseUrl().'/customer/performers'?>">Исполнители</a> </li>
+                <li> <a href="<?= $this->baseUrl().'/customer/about'?>">Как это работает</a> </li>
            <?php }else{?>
-                <li> <a href="<?= $this->baseUrl().'/performers/'?>">Исполнители</a> </li>
-                <li> <a href="<?= $this->baseUrl().'/about/'?>">Как это работает</a> </li>
+                <li> <a href="<?= $this->baseUrl().'/performers'?>">Исполнители</a> </li>
+                <li> <a href="<?= $this->baseUrl().'/about'?>">Как это работает</a> </li>
            <?php }?>
                 <?php $user = Zend_Auth::getInstance()->getIdentity();  ?>
           <?php if(Zend_Auth::getInstance()->hasIdentity()){?>
             <?php if( empty($this->application) || $this->application == 0){?>
                   <?php if($user->phone_verified == 1 && $user->username && $user->surname && $user->city && $user->about && $user->birth_date){ ?>
                         <?php if($user->vk || $user->fb || $user->ok){?>
-                            <li><a class="blog-nav-item"  href="<?= $this->baseUrl().'/customer/office/application' ?>"  >Стать исполнителем</a></li>
+                            <li><a class="blog-nav-item"  href="<?= $this->baseUrl().'/customer/office/application/' ?>"  >Стать исполнителем</a></li>
                         <?php }else{ ?>
                             <li><a data-toggle="modal"  data-dismiss="modal" href="#ModalPhoneNotVerifiedBecomeAPer">Стать исполнителем</a></li>
                         <?php } ?>    
@@ -563,11 +563,11 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
         <div class="col-lg-4  col-md-12 col-sm-12 col-xs-12">
           <h3> Меню </h3>
           <ul>
-            <li> <a href="<?= $this->baseUrl().'/customer/safety/' ?>">Надежность и безопасность сервиса</a> </li>
-            <li> <a href="<?= $this->baseUrl().'/customer/become-performer/' ?>">Как стать исполнителем</a> </li>
-            <li> <a href="<?= $this->baseUrl().'/customer/about/' ?>">Как это работает</a> </li>
-            <li> <a href="<?= $this->baseUrl().'/customer/terms/' ?>">Правила сервиса</a> </li>
-            <li> <a href="<?= $this->baseUrl().'/customer/contacts/' ?>"> Контакты </a> </li>
+            <li> <a href="<?= $this->baseUrl().'/customer/safety' ?>">Надежность и безопасность сервиса</a> </li>
+            <li> <a href="<?= $this->baseUrl().'/customer/become-performer' ?>">Как стать исполнителем</a> </li>
+            <li> <a href="<?= $this->baseUrl().'/customer/about' ?>">Как это работает</a> </li>
+            <li> <a href="<?= $this->baseUrl().'/customer/terms' ?>">Правила сервиса</a> </li>
+            <li> <a href="<?= $this->baseUrl().'/customer/contacts' ?>"> Контакты </a> </li>
           </ul>
         </div>
 

@@ -371,7 +371,7 @@
                        $prepositions = count($tpObj->getTasksPrepositionis($task['id']));
                 ?>
                 <td>
-                    <a href="<?= $this->baseUrl().'/customer/task/view/id/'.$task['id']?>">
+                    <a href="<?= $this->baseUrl().'/customer/task/view/id/'.$task['id']."/"?>">
                         <?= $task['title'] ?>
                     </a>
                     <?php if($task['status']== 'non_taken'){?>

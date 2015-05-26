@@ -432,7 +432,7 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
             <ul class="userMenu">
                 
               <?php if(Zend_Auth::getInstance()->hasIdentity()){?>
-                <li> <a href="<?= $this->baseUrl().'/performer/user/' ?>"><span class="hidden-xs">Личный кабинет</span> <i class="glyphicon glyphicon-user hide visible-xs "></i></a> </li>
+                <li> <a href="<?= $this->baseUrl().'/performer/user' ?>"><span class="hidden-xs">Личный кабинет</span> <i class="glyphicon glyphicon-user hide visible-xs "></i></a> </li>
                 <li> <a href="<?= $this->baseUrl().'/authentication/log-out/' ?>"  > <span class="hidden-xs">Выйти</span> <i class="glyphicon glyphicon-log-in hide visible-xs "></i> </a> </li>
               <?php }else{ ?>
                 <li> <a href="#"  data-toggle="modal" data-target="#ModalLogin"> <span class="hidden-xs">Войти</span> <i class="glyphicon glyphicon-log-in hide visible-xs "></i> </a> </li>
@@ -474,8 +474,8 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
           <?php if(Zend_Auth::getInstance()->hasIdentity()){?>
             <li> <a href="<?= $this->baseUrl()?>/performer/task/add/">Заказать услугу</a> </li>
             <li> <a href="<?= $this->baseUrl()?>/performer/index/tasks">Актуальные задания</a> </li>
-            <li> <a href="<?= $this->baseUrl()?>/performer/performers/">Исполнители </a> </li>
-            <li> <a href="<?= $this->baseUrl()?>/performer/about/">Как это работает</a> </li>
+            <li> <a href="<?= $this->baseUrl()?>/performer/performers">Исполнители </a> </li>
+            <li> <a href="<?= $this->baseUrl()?>/performer/about">Как это работает</a> </li>
           <?php }else{ ?>
             <li> <a href="#"  data-toggle="modal" data-target="#ModalLogin">Заказать услугу</a> </li>
             <li> <a href="<?= $this->baseUrl()?>/performers/">Исполнители </a> </li>
@@ -524,11 +524,11 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
           <h3> Меню </h3>
           <ul>
               
-            <li> <a href="<?= $this->baseUrl().'/performer/safety/'?>" >Надежность и безопасность сервиса</a> </li>
-            <li> <a href="<?= $this->baseUrl().'/performer/become-performer/'?>" >Как стать исполнителем</a> </li>
-            <li> <a href="<?= $this->baseUrl().'/performer/terms/'?>" > Правила сервиса</a> </li>
-            <li> <a href="<?= $this->baseUrl().'/performer/about/' ?>"> Как это работает</a> </li>
-            <li> <a href="<?= $this->baseUrl().'/performer/contacts/' ?>"> Контакты </a> </li>
+            <li> <a href="<?= $this->baseUrl().'/performer/safety'?>" >Надежность и безопасность сервиса</a> </li>
+            <li> <a href="<?= $this->baseUrl().'/performer/become-performer'?>" >Как стать исполнителем</a> </li>
+            <li> <a href="<?= $this->baseUrl().'/performer/terms'?>" > Правила сервиса</a> </li>
+            <li> <a href="<?= $this->baseUrl().'/performer/about' ?>"> Как это работает</a> </li>
+            <li> <a href="<?= $this->baseUrl().'/performer/contacts' ?>"> Контакты </a> </li>
           </ul>
         </div>
 

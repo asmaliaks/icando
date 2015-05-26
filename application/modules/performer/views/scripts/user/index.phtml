@@ -29,7 +29,7 @@
     <div class="row">
         <div class="breadcrumbDiv col-lg-12">
               <ul class="breadcrumb">
-                  <li> <a href="<?= $this->baseUrl().'/performer/index/tasks' ?>">Главная</a> </li>
+                  <li> <a href="<?= $this->baseUrl().'/performer/index/tasks/' ?>">Главная</a> </li>
                  <li class="active" >Личный кабинет</li>
               </ul>
         </div>
@@ -447,8 +447,8 @@
                 <tbody>
             <?php foreach($this->acceptedTasks as $task){?>
                     <tr>
-                        <td><a style="font-weight: bold" href="<?= $this->baseUrl().'/performer/task/view/id/'.$task['id'] ?>"><?= $task['title'] ?></a></td>
-                        <td><a href="<?= $this->baseUrl().'/performer/customer/view/id/'.$task['customer_id'] ?>"><?= $task['u_username'].' '.mb_substr($task['u_username'], 0, 1, 'utf-8') ?></a></td>
+                        <td><a style="font-weight: bold" href="<?= $this->baseUrl().'/performer/task/view/id/'.$task['id']."/" ?>"><?= $task['title'] ?></a></td>
+                        <td><a href="<?= $this->baseUrl().'/performer/customer/view/id/'.$task['customer_id']."/" ?>"><?= $task['u_username'].' '.mb_substr($task['u_username'], 0, 1, 'utf-8') ?></a></td>
                         <td><?= $task['customers_price'] ?> <?= POINT_LABEL ?></td>
                         <td><?= date('d.m.Y', $task['final_date']) ?></td>
                         <td>
@@ -536,7 +536,7 @@
                 <?php  $tpObj = new Customer_Model_DbTable_TaskPrepositionModel();
                        $prepositions = count($tpObj->getTasksPrepositionis($task['id']));
                 ?>
-                <td><a style="font-weight: bold" href="<?= $this->baseUrl().'/performer/task/performers-view/id/'.$task['id']?>">
+                <td><a style="font-weight: bold" href="<?= $this->baseUrl().'/performer/task/performers-view/id/'.$task['id']."/"?>">
                         <?= $task['title'] ?>
                     </a>
                     <?php if($task['status']== 'non_taken'){?>
@@ -597,8 +597,8 @@
         <tbody>
             <?php foreach($this->userPrepositions as $prep){?>
             <tr id="prep<?= $prep['id'] ?>" >
-                <td><a href="<?= $this->baseUrl().'/performer/task/view/id/'.$prep['t_id']?>"><?= $prep['t_title'] ?></a></td>
-                <td><a href="<?= $this->baseUrl().'/performer/customer/view/id/'.$prep['t_customer_id'] ?>"><?= $prep['cust_username'].' '.mb_substr($prep['cust_surname'], 0, 1, 'utf-8') ?></a></td>
+                <td><a href="<?= $this->baseUrl().'/performer/task/view/id/'.$prep['t_id']."/"?>"><?= $prep['t_title'] ?></a></td>
+                <td><a href="<?= $this->baseUrl().'/performer/customer/view/id/'.$prep['t_customer_id']."/" ?>"><?= $prep['cust_username'].' '.mb_substr($prep['cust_surname'], 0, 1, 'utf-8') ?></a></td>
                 <td>
                     <a id="but<?= $prep['id'] ?>" class="btn btn-primary btn-xs" onclick="removePreposition(<?= $prep['id'] ?>)">Отменить заявку</a>
                     <img id="prel<?= $prep['id'] ?>" src="<?= $this->baseUrl().'/images/blue_preloader.gif' ?>" width="40" style="display: none">
