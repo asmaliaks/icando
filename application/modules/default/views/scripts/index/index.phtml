@@ -50,7 +50,7 @@ $(document).ready(function(){
                       Мы быстро найдем исполнителя для Вашего задания
                   </h3>
                   
-                  <a data-toggle="modal"  data-dismiss="modal" href="#ModalSignup"class="btn btn-primary btn-lg">
+                  <a href="<?= $this->baseUrl().'/default/tasks/fast-task/' ?>"class="btn btn-primary btn-lg">
                       Заказать услугу
                       <span class="arrowUnicode">►</span>
                   </a> 
@@ -74,10 +74,10 @@ $(document).ready(function(){
     <?php foreach($this->mainCats as $cat){?>
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6  text-center">
       <div class="thumbnail equalheight" style="height: 190px;">
-          <a class="subCategoryThumb" href="#"  data-toggle="modal" data-target="#ModalSignup" style="height:150px; padding-top: 10px">
+          <a class="subCategoryThumb" href="<?= $this->baseUrl().'default/tasks/fast-task' ?>"  style="height:150px; padding-top: 10px">
               <img src="<?= $this->baseUrl().'/images/category_images/'.$cat['image'] ?>" class="img-rounded " alt="img">
           </a>
-          <a class="subCategoryTitle" href="#"  data-toggle="modal" data-target="#ModalSignup" >
+          <a class="subCategoryTitle" href="<?= $this->baseUrl().'default/tasks/fast-task' ?>" >
               <span><?= $cat['title'] ?></span>
           </a>
       </div>

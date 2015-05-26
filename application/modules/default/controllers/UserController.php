@@ -13,9 +13,9 @@ class UserController extends Zend_Controller_Action{
     public function checkEmailForUniqueAction(){
         $request = $this->getRequest();
         if($request->isPost()){
-            $email = $request->getParam('emailVal');
+            $email = $request->getParam('email');
             $usersObj = new Model_DbTable_Users();
-            $mailTaken = $usersObj->checkMailForUniq($this->user->id, $email);
+            $mailTaken = $usersObj->checkMail( $email);
             if($mailTaken){
                 print_r('taken');exit;
             }else{

@@ -495,7 +495,7 @@ document.getElementById('pagestyle').setAttribute('href', sheet);
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
           <?php if(Zend_Auth::getInstance()->hasIdentity()){?>
-                  <li > <a href="<?= $this->baseUrl().'/customer/task/new-task'?>">Заказать услугу</a> </li>
+                  <li > <a href="<?= $this->baseUrl().'/customer/task/new-task/'?>">Заказать услугу</a> </li>
             <?php }else{ ?>
                   <li > <a data-toggle="modal"  data-dismiss="modal" href="#ModalLogin">Заказать услугу</a> </li>
             <?php } ?> 

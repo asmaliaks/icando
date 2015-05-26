@@ -22,6 +22,7 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->add(new Zend_Acl_Resource('default:become-performer'), 'default'); 
        $this->add(new Zend_Acl_Resource('default:terms'), 'default'); 
        $this->add(new Zend_Acl_Resource('default:safety'), 'default'); 
+       $this->add(new Zend_Acl_Resource('default:temp-phone-verif'), 'default'); 
        
        $this->add(new Zend_Acl_Resource('admin'));
        $this->add(new Zend_Acl_Resource('admin:index'), 'admin');
@@ -262,6 +263,9 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('guest', 'default:phone-activation', 'activate-account');
        $this->allow('guest', 'default:tasks', 'index');
        $this->allow('guest', 'default:tasks', 'view');
+       $this->allow('guest', 'default:tasks', 'fast-task');
+       $this->allow('guest', 'default:tasks', 'fast-task-create');
+       $this->allow('guest', 'customer:task', 'get-subcats');
        $this->allow('guest', 'default:error');
        $this->allow('guest', 'default:cron-api', 'new-tasks-send-mail');
        $this->allow('guest', 'default:cron-api', 'remove-non-taken-tasks');
@@ -271,11 +275,15 @@ class Model_LibraryAcl extends Zend_Acl{
        $this->allow('guest', 'default:performers', 'index');
        $this->allow('guest', 'default:performers', 'view');
        $this->allow('guest', 'default:about', 'index');
+       $this->allow('guest', 'default:temp-phone-verif', 'check-phone-verified');
+       $this->allow('guest', 'default:temp-phone-verif', 'make-tmp-phone');
+       $this->allow('guest', 'default:temp-phone-verif', 'check-phone-code');
        $this->allow('guest', 'default:contacts', 'index');
        $this->allow('guest', 'performer:payment', 'notyfy');
        $this->allow('guest', 'default:become-performer', 'index');
        $this->allow('guest', 'default:terms', 'index');
        $this->allow('guest', 'default:safety', 'index');
+       $this->allow('guest', 'default:user', 'check-email-for-unique');
        $this->allow('guest', 'performer:payment', 'success');
        $this->allow('guest', 'performer:payment', 'unsuccess');
     }

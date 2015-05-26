@@ -328,6 +328,8 @@ class Performer_TaskController extends Zend_Controller_Action{
                 echo 'true';
             }else{
                 $taskPrepObj->addPreposition($post['taskId'], $this->user->id, $post['perfPrice']);
+                $taskObj = new Performer_Model_DbTable_TasksModel();
+                $task = $taskObj->getTaskById($post['taskId']);
                 // send email to the customer
                 $smtpObj = new Default_Model_Smtp();
                 $message = "Пользователь ".$this->user->username." ".mb_substr($this->user->surname, 0, 1, 'utf-8').". "
@@ -338,7 +340,7 @@ class Performer_TaskController extends Zend_Controller_Action{
                 $smsObj = new Default_Model_SmsModel();
                 $smsMessage = "На Ваше задание откликнулся исполнитель, ознакомьтесь в лич кабинете";
                 $smsMessage = urlencode($smsMessage);
-                $smsObj->sendSmsAction($this->user->phonenumber, $smsMessage);
+                $smsObj->sendSmsAction($task['u_phonenumber'], $smsMessage);
                 
                 echo 'true';
             }

@@ -1,0 +1,692 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<!-- if phone is not verified -->
+<div class="modal signUpContent fade" id="ModalSmsCode" tabindex="-1" role="dialog" >
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
+        <h3 class="modal-title-site text-center" > SMS код </h3>
+      </div>
+      <div class="modal-body">
+          <p>
+              В течение минуты вам должна прийти SMS с кодом верификации. Введите присланный код и нажмите "подтвердить". 
+          </p>
+          <input type="text" id="smsCode"><p class="text-danger" id="modalCodeError" style="display: none">Неверный код</p></br>
+          <img id="smsModalPreloader" style="display: none" src="<?= $this->baseUrl().'/images/blue_preloader.gif' ?>" width="50"></br>
+          
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Закрыть</button>
+        <button id="takeCode" class="btn btn-primary" disabled >Подтвердить</button>
+      </div>
+    </div>
+    <!-- /.modal-content --> 
+    
+  </div>
+  </div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <img class="img-responsive" src="<?= $this->baseUrl().'/images/task_banner.jpg' ?>">
+        </div>
+        <div class="col-lg-12">
+            <h3>Создание задачи</h3>
+        </div>
+        <div class="col-lg-12">
+            <form method="POST" id="task_form" class="form-inline" enctype="multipart/form-data" action="<?= $this->baseUrl() ?>/tasks/fast-task-create/">
+                <div class="row">
+                <div class="col-sm-4">
+                    <label  for="cat">Категория</label>
+                    <select class="form-control" onchange="getSubCats()" id="cat" style="width: 100%">
+                        <option></option>
+                        <?php foreach($this->categories as $cat){?>
+                        
+                            <?php if($cat['parent_id'] == 0){?>
+                               <option value="<?= $cat['id'] ?>"><?= $cat['title'] ?></option>
+                            <?php } ?>
+                        <?php }?>
+                    </select>
+                </div>
+                <div class="col-sm-4">
+                    <label  for="cat">Подкатегория</label>
+                    <select class="form-control" id="sub_cat" name="cat" style="width: 100%">
+                        <option value="0"></option>
+                    </select>
+                    <p id="sub_cat_error" class="text-danger" style="display: none">* Выберите категорию</p>
+                </div>
+                <div class="col-sm-4">
+                    <label>Название</label>
+                    <input name="title" type="text" id="title" class="form-control" style="width: 100%">
+                    <p id="title_error" class="text-danger" style="display: none">* Поле не может быть пустым</p>
+                </div>
+                </div>
+                <div class="row">
+                <div class="col-sm-12">
+                    <label>Описание</label>
+                    <textarea name="description" id="description" style="width: 100%" rows="10" class="form-control"></textarea>
+                    <p id="description_error" class="text-danger" style="display: none">* Поле не может быть пустым</p>
+                </div>
+                </div>
+                <div class="row">
+                <div class="col-sm-2" >
+                    <div id="customers_price">
+                        <label>Стоимость</label>
+                        <input type="text" name="price" id="price" class="form-control" style="width: 100%">
+                        <p id="price_error" class="text-danger" style="display: none">* Введите стоимость цифрами в бел. рублях без пробелов</p>
+                        <p id="price_char_error" class="text-danger" style="display: none">* Поле не должно содержать пробелов, точек и запятых</p>
+                    </div>
+                </div>
+                    <div class="col-sm-2 col-lg-2" style="padding-top: 20px;">
+                       
+                        <span>
+                            <input type="hidden" value="0" name="propose_price" style="display: none">
+                            <input type="checkbox" name="propose_price" value="1" id="propose_price" class="form-control45" >
+                            Пусть исполнитель предложит свою цену
+                        </span>
+                    </div>
+                <div class="col-sm-2">
+                    <label>Дата выполнения</label>
+                    <input type="text" name="final_date" id="final_date" class="form-control" style="width: 100%">
+                    <p id="final_date_error" class="text-danger" style="display: none">* Поле не может быть пустым</p>
+                    
+                </div>
+                <div class="col-sm-2">
+                    <label>Время выполнения</label>
+                        
+                        <select  id="timepicker" name="time" class="form-control" style="width: 100%">
+                            <option value="0">00:00</option>
+                            <option value="1">01:00</option>
+                            <option value="2">02:00</option>
+                            <option value="3">03:00</option>
+                            <option value="4">04:00</option>
+                            <option value="5">05:00</option>
+                            <option value="6">06:00</option>
+                            <option value="7">07:00</option>
+                            <option value="8">08:00</option>
+                            <option value="9">09:00</option>
+                            <option value="10">10:00</option>
+                            <option value="11">11:00</option>
+                            <option value="12">12:00</option>
+                            <option value="13">13:00</option>
+                            <option value="14">14:00</option>
+                            <option value="15">15:00</option>
+                            <option value="16">16:00</option>
+                            <option value="17">17:00</option>
+                            <option value="18">18:00</option>
+                            <option value="19">19:00</option>
+                            <option value="20">20:00</option>
+                            <option value="21">21:00</option>
+                            <option value="22">22:00</option>
+                            <option value="23">23:00</option>
+                        
+                        </select>
+                </div>    
+                <div class="col-sm-4 ">
+                    
+                    <div class="form-group " id="sendSmsForm">
+                       <label class="sr-only" for="phonenumber">Ваш контактный номер телефона</label>
+                       <label >Ваш контактный номер телефона</label></br>
+                       <div class="input-group">
+                         <div class="input-group-addon">+375</div>
+                         <input type="text" autocomplete="off" class="form-control" id="phonenumberInp" name="phone"  placeholder="Введите ваш номер телефона...">
+                         <div id="sendSmsButton" style="display: none; background-color:#4ec67f" class="input-group-addon btn">Подтвердить</div>
+                       </div>
+                       <p class="text-danger" id="phone_empty_error" style="display: none">* Поле не может быть пустым</p>
+                       <p class="text-danger" id="phone_incorrect" style="display: none">* Некорректный номер</p>
+                       <p class="text-danger" id="phone_not_verified" style="display: none">* Номер не верифицирован</p>
+                       
+                     </div>
+                     <p class="text-success"  id="phone_verified" style="display: none; padding-top: 30px;">Номер верифицирован</p>
+                    
+                    <img id="smsPreloader" src="<?= $this->baseUrl().'/images/blue_preloader.gif' ?>" width="50" style="display:none">
+                    
+                </div>
+                    
+                </div>
+                
+                   <div class="row" id="additionalBlock"> 
+                <div class="col-sm-8 bg-info additionalBlockTask"> 
+                    <label class="col-sm-12" style="text-align: center; text-decoration: underline">Дополнительная информация</label>
+                <div class="col-sm-6">
+                    <div id="mainImgDiv">
+                    <label>Изображение</label>
+                    <input type="file" name="image" class="form-control45" style="width: 100%">
+                    </div>
+                    
+                    <a onclick="addInput()">+ Добавить изображение</a>
+                </div>
+                <input type="hidden" value="0" name="docs" style="display: none">
+                <div class="col-sm-6">
+                    <label >Наличие документов</label></br>
+                    
+                        <span>
+                        <input type="checkbox" name="docs" value="1" id="docs" class="form-control45" >
+                        Исполнитель должен иметь при себе документы для оформления расписки</span>
+                    
+                </div>
+                </div>
+                    <div class="col-sm-4">
+                        <label>Ваш Email</label>
+                        <input name="email" type="text" id="mail" class="form-control" style="width: 100%">
+                        <p id="email_error" class="text-danger" style="display: none">* Поле не может быть пустым</p>
+                        <p id="email_incorrect_error" class="text-danger" style="display: none">* Некорректный Email</p>
+                        <p id="email_taken_error" class="text-danger" style="display: none">* Вы уже зарегистрированны, <a href="#"  data-toggle="modal" data-target="#ModalLogin">войти</a> для заказа услуги</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+
+                    </div>
+                        <input type="hidden" name="agree"  value="0">
+                        <div class="col-sm-4">
+                           <label>Пользовательское соглашение</label></br>
+                              <span>  
+                           <input type="checkbox" name="agree" value="1" id="agree" class="form-control" >
+                                 Я согласен/на с <a id="serviceAgreement" style="color: #4EC67F">условиями использования</a> данного сервиса
+                            </span>
+                           <p id="agree_error" class="text-danger" style="display: none">* Согласитесь с условиями</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <label>Как Вас зовут?</label>
+                            <input name="name" type="text" id="name" class="form-control" style="width: 100%">
+                            <p id="name_error" class="text-danger" style="display: none">* Поле не может быть пустым</p>
+                        </div>    
+                </div>
+<!--                <div class="row">
+                    <div class="col-sm-4 col-lg-4"></div>
+                    
+                    <div class="col-sm-4 col-lg-4"></div>
+                </div>-->
+                <div class="col-sm-12" id="agreementDiv" style="display: none">
+                   <div class="panel panel-default ">
+                       <div class="panel-heading">
+                            <h4 class="panel-title">
+                                    <a id="terms">Правила использования услуг</a>
+                            </h4>
+                        </div>
+                       <div class="panel-collapse collapse in" style="padding:20px">
+                        <?= $this->terms['content'] ?>
+                       </div>
+                   </div>
+                </div>
+                
+            </form>
+            <div class="col-sm-12">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4" style="padding-top: 10px; padding-bottom:10px; text-align: center">
+                    <img id="taskSubmPrel" src="<?= $this->baseUrl().'/images/blue_preloader.gif' ?>" width="60" style="display: none">
+                    <button style=" width:100%;" class="btn btn-primary" id="submitTask" class="btn btn-primary"   >Создать</button>
+                </div>
+                <div class="col-sm-4"></div>
+                </div>
+        </div>
+    </div>
+</div> 
+<?php if( !$this->user['phonenumber'] ){ $phone = 0;}else{$phone=$this->user['phonenumber']; } ?>
+<script>
+
+$(document).ready(function(){
+    
+    $('#phonenumberInp').bind('keyup', function(){
+        
+    });
+  $('#propose_price').change(function (){
+      if($('#propose_price').is(':checked')){
+          $('#customers_price').hide();
+          $('#price').val('');
+      }else{
+          $('#customers_price').show();
+      }
+  });  
+    
+  $(function() {
+    $( "#final_date" ).datepicker();
+  }); 
+    
+    $('#submitTask').bind("click", function(){
+
+        newTask();
+    });
+
+
+
+
+   
+    $('#serviceAgreement').bind("click", function(){
+        $('#agreementDiv').toggle(400);
+    });
+    $('#terms').bind("click", function(){
+        $('#agreementDiv').toggle(400);
+    });
+    
+    var phonenumber = $('#phonenumberInp').val();
+    if(phonenumber){
+        var numberLng = phonenumber.length;
+        if(numberLng == 9){
+            $('#sendSmsButton').show();
+        }else{
+           $('#sendSmsButton').hide(); 
+        }
+    }
+    $('#smsCode').bind('keyup', function(){
+        var codeLng = $('#smsCode').val().length;
+        if(codeLng == 6){
+            $('#takeCode').removeAttr("disabled");
+        }
+    });
+    $('#phonenumberInp').bind("keyup", function(){
+        
+        var phonenumber = $('#phonenumberInp').val();
+        var numberLng = phonenumber.length;
+        if(numberLng == 9){
+          // checkPhoneForUniq(phonenumber);
+           $('#sendSmsButton').show();
+    
+        }else{
+            $('#phone_verified').hide();
+            $('#sendSmsButton').hide();
+        }
+    });
+    
+    $('#sendSmsButton').bind('click', function(e){
+       $('#ModalSmsCode').modal('show');
+//        $('#sendSmsForm').hide();
+//        $('#smsPreloader').show();
+//        e.preventDefault();
+//        $('#smsCode').val('');
+//        $('#modalCodeError').hide();
+        var phone  = $('#phonenumberInp').val();
+       
+        makeTmpPhone(phone);
+    });
+    $('#getSmsButton').bind('click', function(e){
+        e.preventDefault();
+        $('#getSms').hide();
+        $('#smsPreloader').show();
+        var phoneNumber  = <?= $phone ?>;
+        //var userId = <? $this->user['id'] ?>;
+        sendSms(phoneNumber, userId);
+    });
+    $('#codeInp').bind("keyup", function(){
+        $('#modalCodeError').hide();
+        var code = $('#codeInp').val();
+        var codeLng = code.length;
+        if(codeLng == 6){
+            $('#sendCodeButton').show();
+        }else{
+            $('#sendCodeButton').hide();
+        }
+    });
+    
+    $('#takeCode').bind('click', function(){
+        var code = $('#smsCode').val();
+        var phone = $('#phonenumberInp').val();
+        $('#smsModalPreloader').show();
+        verifyPhone(phone, code);
+    });
+});
+
+function checkIfPhoneVerified(phone){
+   var resp =  $.ajax({
+        type: 'POST',
+        url: '<?= $this->baseUrl.'/temp-phone-verif/check-phone-verified'; ?>',
+        data: {phone: phone},
+        async:false
+
+     }).done(function(res){});
+     
+     return resp;
+
+}
+function makeTmpPhone(phone){
+$.ajax({
+    type: "POST",
+    url: '<?= $this->baseUrl().'/temp-phone-verif/make-tmp-phone' ?>',
+    data:{phone:phone},
+    success: function(){
+        
+    }
+});
+}
+
+
+function verifyPhone(phone, code){
+    $.ajax({
+        type: 'POST',
+        url: '<?= $this->baseUrl.'/temp-phone-verif/check-phone-code'; ?>',
+        data: {code: code, phone: phone},
+        success: function(data){
+           if(data == 'false'){
+               $('#smsModalPreloader').hide();
+               $('#modalCodeError').show();
+           }else if(data == 'true'){
+//
+                $('#phone_verified').show();
+                $('#smsModalPreloader').hide();
+                $('#ModalSmsCode').modal("hide");
+                $('#phoneVerified').show();
+                $('#sendSmsForm').hide();
+//                $('#submitTask').removeAttr("disabled");
+
+           }
+         }
+     });
+}
+
+function checkPhoneForUniq(phonenumber){
+    $.ajax({
+        type: 'POST',
+        url: '<?= $this->baseUrl.'/registration/check-phone-uniq'; ?>',
+        data: {phonenumber: phonenumber},
+        success: function(data){console.log('check phone for un'+data);
+//            if(data === 'true'){
+                $('#phoneErrorTaken').hide();
+                $('#sendSmsButton').show();
+                
+//            }else if(data == 'false'){
+//                $('#sendSmsButton').hide();
+//                $('#phoneErrorTaken').show();
+//            }
+            
+         }
+     });
+}
+
+function editUser(phoneNumber, userId){
+
+
+//send sms
+    $.ajax({
+        type: 'POST',
+        url: '<?= $this->baseUrl.'/registration/edit-user'; ?>',
+        data: {phoneNumber: phoneNumber, userId: userId},
+        success: function(data){
+            if(data === 'true'){
+                
+//                $('#smsPreloader').hide();
+//                $('#sendCode').show();
+                $('#ModalSmsCode').modal('show');
+                sendSms('375'+phoneNumber, userId);
+            }
+            
+         }
+     });
+     }
+function sendSms(phoneNumber, userId){
+//console.log(phoneNumber, userId);
+//$('#sendSmsForm').hide();
+//$('#smsPreloader').show();
+//send sms
+    $.ajax({
+        type: 'POST',
+        url: '<?= $this->baseUrl.'/sms/phone-verify'; ?>',
+        data: {phoneNumber: phoneNumber, userId: userId},
+        success: function(data){
+            if(data === 'true'){
+                // if good show code input
+//                $('#sendSmsForm').hide();
+//                $('#sendCode').show();
+            }
+            
+         }
+     });
+     }
+function removeImgInput(id){console.log(id);
+    $('#div'+id).remove();
+
+} 
+function makesmscode()
+{
+    var text = "";
+    var possible = "123456789";
+
+    for( var i=0; i < 6; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}  
+function makeid()
+{
+    var text = "";
+    var possible = "123456789";
+
+    for( var i=0; i < 9; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}  
+function addInput(){
+    var id = makeid();
+
+    $('#mainImgDiv').append('<div style="padding-top: 5px" id="div'+id+'"><input  type="file" name="additionalImage[]"  style="width: 100%"><a onclick="removeImgInput('+id+')" class="btn btn-primary btn-xs">Удалить</a></div>');
+}  
+
+  $(function() {
+    $( "#final_date" ).datepicker();
+  }); 
+  $(function() {
+    $( "#expiry_date" ).datepicker();
+  }); 
+ 
+function checkEmailForUnique(email){
+    var resp = $.ajax({
+        type: 'POST',
+        url: '<?= $this->baseUrl.'/user/check-email-for-unique'; ?>',
+        data: {email: email},
+        async:false
+     }).done(function(res){});
+     
+     return resp;
+}
+ 
+
+ 
+function newTask(){
+    $('#sub_cat_error').hide();
+    $('#title_error').hide(); 
+    $('#phone_verified').hide(); 
+    $('#price_error').hide(); 
+    $('#description_error').hide(); 
+    $('#date_error').hide();
+    $('#final_date_error').hide();
+    $('#email_error').hide(); 
+    $('#email_incorrect_error').hide(); 
+    $('#email_taken_error').hide(); 
+    $('#name_error').hide(); 
+    $('#agree_error').hide(); 
+    $('#price_char_error').hide(); 
+    $('#phone_empty_error').hide(); 
+    $('#phone_incorrect').hide(); 
+    $('#phone_not_verified').hide(); 
+    
+    var catId = $('#sub_cat :selected').val();
+    var title = $('#title').val();
+    var description = $('#description').val();
+    var price = $('#price').val();
+    var date = $('#final_date').val();
+    var email = $('#mail').val();
+    var name = $('#name').val();
+    if($('#agree').is(':checked')){
+        var agree = '1';
+    }else{
+        var agree = '0';
+    }
+    if($('#propose_price').is(':checked')){
+        var propose_price = 1;
+    }else{
+        var propose_price = 0;
+    }
+    var priceNan = isNaN(price);
+    var priceDot = price.indexOf(".");
+    
+    var phone = $('#phonenumberInp').val();
+    var phoneLng = phone.length;
+    if(phoneLng == 9){
+
+
+        var phoneVerifiedFn = checkIfPhoneVerified(phone);
+        var phoneVerified = phoneVerifiedFn.responseText;
+            
+
+    }else{
+        var phoneVerified = 'false';
+    }
+    
+    // check if email is unique
+    if (/^\w+@\w+\.\w{2,4}$/i.test(email)) {
+        var mailUniqFn = checkEmailForUnique(email);
+        var mailUniq = mailUniqFn.responseText;
+    }
+    //var emailTaken = checkEmailForUnique(email); console.log("emailTaken :"+emailTaken);
+    
+    if(propose_price == 0){  
+        if(catId === '0' || title === '' || price === '' || date === '' || description === '' || agree === '0' || priceNan || priceDot != -1 || name == '' || email == '' || phone == '' || phoneLng > 9 || phoneLng < 9 || phoneVerified === 'false' || phoneVerified === 'not_verified' || mailUniq === 'taken'){
+        //    if( title === '' || price === '' || date === '' || finishDate === '' || agree === '0'){
+                if(phone == ''){
+                    $('#phone_empty_error').show();
+                }else{
+                    if(phoneLng > 9 || phoneLng < 9 ){
+                        $('#phone_incorrect').show();
+                    }
+                }
+                if(phoneLng == 9){
+                   if(isNaN(phone)){
+                       $('#phone_incorrect').show();
+                   }else{  
+                        if(phoneVerified === 'false' || phoneVerified === 'not_verified'){
+                            $('#phone_not_verified').show();
+                        }
+                    }
+                }
+                
+                if(catId === '0'){
+                    $('#sub_cat_error').show();
+                }
+                if(title === ''){
+                   $('#title_error').show(); 
+                }
+                if(priceNan){
+                   $('#price_error').show();
+                }
+                if(price === ''){
+                   $('#price_error').show(); 
+                }
+                if(date === ''){
+                   $('#final_date_error').show(); 
+                }
+                if(description === ''){
+                   $('#description_error').show(); 
+                }
+                if(priceDot != -1){
+                   $('#price_char_error').show(); 
+                }
+                if(email === ''){
+                   $('#email_error').show(); 
+                }else{
+                    //var pattern = ;
+                    if (!/^\w+@\w+\.\w{2,4}$/i.test(email)) {
+                        $('#email_incorrect_error').show(); 
+                    }
+                }
+                if(name === ''){
+                   $('#name_error').show(); 
+                }
+                if(mailUniq === 'taken'){
+                    $('#email_taken_error').show();
+                }
+                if(agree === '0'){
+                   $('#agree_error').show(); 
+                }
+                
+            }else{  
+                
+                $('#submitTask').hide();
+                $('#taskSubmPrel').show();
+                $('#task_form').submit();
+               
+            }
+    }else{
+        if(catId === '0' || title === '' || date === '' || description === '' || agree === '0' || priceNan || priceDot != -1 || name == '' || email == '' || phone == '' || phoneLng > 9 || phoneLng < 9 || phoneVerified === 'false' || phoneVerified === 'not_verified' || mailUniq === 'taken' ){
+        //    if( title === '' || price === '' || date === '' || finishDate === '' || agree === '0'){
+                if(phone == ''){
+                    $('#phone_empty_error').show();
+                }else{
+                    if(phoneLng > 9 || phoneLng < 9){
+                        $('#phone_incorrect').show();
+                    }else{
+                        if(isNaN(phone)){
+                            $('#phone_incorrect').show();
+                        }   
+                    }
+                }
+                
+                if(phoneLng = 9){
+                    if(phoneVerified === 'false' || phoneVerified === 'not_verified'){
+                        $('#phone_not_verified').show();
+                    }
+                }
+                
+                if(catId === '0'){
+                    $('#sub_cat_error').show();
+                }
+                if(title === ''){
+                   $('#title_error').show(); 
+                }
+                if(priceNan){
+                   $('#price_error').show();
+                }
+                
+                if(date === ''){
+                   $('#final_date_error').show(); 
+                }
+                if(description === ''){
+                   $('#description_error').show(); 
+                }
+                if(priceDot != -1){
+                   $('#price_char_error').show(); 
+                }
+                if(email === ''){
+                   $('#email_error').show(); 
+                }else{
+                    if (!/^\w+@\w+\.\w{2,4}$/i.test(email)) {
+                        $('#email_incorrect_error').show(); 
+                    }
+                }
+                if(mailUniq === 'taken'){
+                    $('#email_taken_error').show();
+                }
+                if(name === ''){
+                   $('#name_error').show(); 
+                }
+                if(agree === '0'){
+                   $('#agree_error').show(); 
+                }
+
+            }else{
+                    $('#submitTask').hide();
+                    $('#taskSubmPrel').show();
+                    $('#task_form').submit();
+            }
+    }    
+}
+
+  
+function getSubCats(){
+    $('#sub_cat option').remove();
+    $('#sub_cat').append('<option>Ждемс...</option>');
+    var catId = $('#cat option:selected').val();
+    $.ajax({
+        type: 'POST',
+        url: '<?= $this->baseUrl.'/customer/task/get-subcats/'; ?>',
+        data: {catId: catId},
+        success: function(response){
+            if(response){
+                $('#sub_cat option').remove();
+                $('#sub_cat').append(response);
+            }else{
+                $('#sub_cat option').remove();
+            }
+        }
+    }); 
+}
+</script>
