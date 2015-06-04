@@ -44,6 +44,10 @@ class Customer_SettingsController extends Zend_Controller_Action{
                 );
                 $usersModel = new Model_DbTable_Users();
                 $usersModel->editUser($data, $this->user->id);
+                $_SESSION['Zend_Auth']['storage']->city = $data['city']; 
+                $_SESSION['Zend_Auth']['storage']->username = $data['username']; 
+                $_SESSION['Zend_Auth']['storage']->surname = $data['surname']; 
+                $_SESSION['Zend_Auth']['storage']->about = $data['about']; 
                 $this->_redirect("/customer/office/index");
             }else{
                 $this->view->form = $form;
